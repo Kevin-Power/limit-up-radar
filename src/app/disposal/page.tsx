@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import TopNav from "@/components/TopNav";
 
 // ─── Mock data ────────────────────────────────────────────────────────────────
@@ -156,8 +157,16 @@ export default function DisposalPage() {
                   s.status === "已處置" ? "bg-red/[0.03]" : ""
                 }`}
               >
-                <div className="text-[13px] font-semibold text-txt-0">{s.name}</div>
-                <div className="text-xs font-semibold text-txt-3 tabular-nums">{s.code}</div>
+                <div className="text-[13px] font-semibold text-txt-0">
+                  <Link href={`/stock/${s.code}`} className="hover:text-white hover:underline underline-offset-2 transition-colors">
+                    {s.name}
+                  </Link>
+                </div>
+                <div className="text-xs font-semibold text-txt-3 tabular-nums">
+                  <Link href={`/stock/${s.code}`} className="hover:text-txt-1 hover:underline underline-offset-2 transition-colors">
+                    {s.code}
+                  </Link>
+                </div>
                 <div><StreakDots count={s.streak} /></div>
                 <div className={`text-xs tabular-nums font-semibold ${s.daysToDisposal === "已達標準" ? "text-red" : s.daysToDisposal === "1天" ? "text-amber" : "text-txt-2"}`}>
                   {s.daysToDisposal}
@@ -191,8 +200,16 @@ export default function DisposalPage() {
                 className="grid grid-cols-[1fr_1fr_1fr_1fr] gap-0 px-4 py-3 items-center border-b border-white/[0.03] last:border-b-0 hover:bg-white/[0.02] transition-colors"
               >
                 <div>
-                  <div className="text-[13px] font-semibold text-txt-0">{c.name}</div>
-                  <div className="text-[10px] text-txt-4">{c.code}</div>
+                  <div className="text-[13px] font-semibold text-txt-0">
+                    <Link href={`/stock/${c.code}`} className="hover:text-white hover:underline underline-offset-2 transition-colors">
+                      {c.name}
+                    </Link>
+                  </div>
+                  <div className="text-[10px] text-txt-4">
+                    <Link href={`/stock/${c.code}`} className="hover:text-txt-2 hover:underline underline-offset-2 transition-colors">
+                      {c.code}
+                    </Link>
+                  </div>
                 </div>
                 <div className="text-xs tabular-nums text-txt-2">{c.disposalDate}</div>
                 <div className="text-xs text-txt-2">{c.duration}</div>

@@ -76,3 +76,49 @@ body {
   background: rgba(99, 102, 241, 0.3);
   color: var(--text-0);
 }
+
+/* ─── Page fade-in ─────────────────────────────────────────── */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Main content fade-in on load */
+main {
+  animation: fadeIn 0.35s ease-out;
+}
+
+/* ─── Smooth hover transitions for interactive elements ─────── */
+a,
+button {
+  transition-property: color, background-color, border-color, opacity, box-shadow, transform;
+  transition-duration: 150ms;
+  transition-timing-function: ease;
+}
+
+/* ─── Subtle scale on group blocks when hovered ─────────────── */
+.group-block-hover {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.group-block-hover:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+/* ─── Focus-visible ring for accessibility ─────────────────── */
+:focus-visible {
+  outline: 2px solid rgba(99, 102, 241, 0.6);
+  outline-offset: 2px;
+  border-radius: 4px;
+}

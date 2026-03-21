@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import TopNav from "@/components/TopNav";
 import { formatPct, formatPrice } from "@/lib/utils";
 
@@ -230,10 +231,20 @@ export default function NextDayPage() {
                     className={`border-b border-border last:border-0 transition-colors ${rowBg}`}
                   >
                     <td className="px-4 py-2.5 font-mono text-txt-3 text-[11px]">
-                      {row.code}
+                      <Link
+                        href={`/stock/${row.code}`}
+                        className="hover:text-txt-0 hover:underline underline-offset-2 transition-colors"
+                      >
+                        {row.code}
+                      </Link>
                     </td>
                     <td className="px-3 py-2.5 font-medium text-txt-1">
-                      {row.name}
+                      <Link
+                        href={`/stock/${row.code}`}
+                        className="hover:text-txt-0 hover:underline underline-offset-2 transition-colors"
+                      >
+                        {row.name}
+                      </Link>
                     </td>
                     <td className="px-3 py-2.5 text-txt-3">{row.group}</td>
                     <td className="px-3 py-2.5 text-right text-txt-2 tabular-nums">

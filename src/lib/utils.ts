@@ -39,3 +39,35 @@ export function shiftDate(date: string, days: number): string {
   d.setDate(d.getDate() + days);
   return d.toISOString().split("T")[0];
 }
+
+/**
+ * Compact volume display in 萬 units.
+ * 18432 → "1.8萬", 142876 → "14.3萬", 1500000 → "150萬"
+ */
+export function formatVolumeShort(n: number): string {
+  if (n >= 1e8) {
+    const val = n / 1e8;
+    return `${val % 1 === 0 ? val.toFixed(0) : val.toFixed(1)}億`;
+  }
+  if (n >= 1e4) {
+    const val = n / 1e4;
+    return `${val % 1 === 0 ? val.toFixed(0) : val.toFixed(1)}萬`;
+  }
+  return String(n);
+}
+
+/**
+ * Compact money display in 億 units.
+ * 12830000000 → "128.3億", 3410000000 → "34.1億"
+ */
+export function formatMoneyShort(n: number): string {
+  if (Math.abs(n) >= 1e8) {
+    const val = n / 1e8;
+    return `${val % 1 === 0 ? val.toFixed(0) : val.toFixed(1)}億`;
+  }
+  if (Math.abs(n) >= 1e4) {
+    const val = n / 1e4;
+    return `${val % 1 === 0 ? val.toFixed(0) : val.toFixed(1)}萬`;
+  }
+  return String(n);
+}

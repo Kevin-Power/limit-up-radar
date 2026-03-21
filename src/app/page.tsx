@@ -11,6 +11,8 @@ import GroupBlock from "@/components/GroupBlock";
 import SidePanel from "@/components/SidePanel";
 import Skeleton from "@/components/Skeleton";
 import Highlights from "@/components/Highlights";
+import KeyboardHelp from "@/components/KeyboardHelp";
+import BackToTop from "@/components/BackToTop";
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
@@ -94,6 +96,8 @@ export default function Home() {
           </div>
         )}
       </div>
+      <BackToTop />
+      <KeyboardHelp />
     </div>
   );
 }

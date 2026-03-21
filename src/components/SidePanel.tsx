@@ -1,5 +1,5 @@
 import { DailyData, Stock, StockGroup } from "@/lib/types";
-import { formatNumber, formatVolume } from "@/lib/utils";
+import { formatNumber, formatVolume, formatMoneyShort } from "@/lib/utils";
 
 interface SidePanelProps {
   data: DailyData;
@@ -131,7 +131,7 @@ function InstitutionalRow({ label, value }: { label: string; value: number }) {
         className={`text-[11px] font-bold tabular-nums w-16 text-right ${isBuy ? "text-red" : "text-green"}`}
       >
         {isBuy ? "+" : ""}
-        {formatVolume(Math.abs(value))}
+        {formatMoneyShort(Math.abs(value))}
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import TopNav from "@/components/TopNav";
 
 /* ─── Mock data ─────────────────────────────────────── */
@@ -20,8 +21,8 @@ const GROUP_HEAT = [
 const NEXT_DAY_STATS = {
   open_up_ratio: 68,
   avg_change: 1.2,
-  best: { pct: 10.0, name: "奇鋐 (3017)" },
-  worst: { pct: -7.5, name: "聯亞 (3081)" },
+  best: { pct: 10.0, name: "奇鋐", code: "3017" },
+  worst: { pct: -7.5, name: "聯亞", code: "3081" },
 };
 
 // Trading days in March 2026 with mock daily limit-up counts
@@ -148,13 +149,17 @@ function NextDayStats() {
           <div>
             <div className="text-[10px] text-txt-4 uppercase tracking-wider mb-0.5">最佳隔日表現</div>
             <div className="text-sm font-semibold text-red">+{r.best.pct}%
-              <span className="text-xs text-txt-3 font-normal ml-1">{r.best.name}</span>
+              <Link href={`/stock/${r.best.code}`} className="text-xs text-txt-3 font-normal ml-1 hover:text-txt-1 hover:underline underline-offset-2 transition-colors">
+                {r.best.name} ({r.best.code})
+              </Link>
             </div>
           </div>
           <div>
             <div className="text-[10px] text-txt-4 uppercase tracking-wider mb-0.5">最差隔日表現</div>
             <div className="text-sm font-semibold text-green">{r.worst.pct}%
-              <span className="text-xs text-txt-3 font-normal ml-1">{r.worst.name}</span>
+              <Link href={`/stock/${r.worst.code}`} className="text-xs text-txt-3 font-normal ml-1 hover:text-txt-1 hover:underline underline-offset-2 transition-colors">
+                {r.worst.name} ({r.worst.code})
+              </Link>
             </div>
           </div>
         </div>
