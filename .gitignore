@@ -50,5 +50,6 @@ __pycache__/
 *.pyc
 .pytest_cache/
 
-# Claude
-.claude/
+# Claude (keep commands, ignore config)
+.claude/settings.local.json
+.claude/launch.json
