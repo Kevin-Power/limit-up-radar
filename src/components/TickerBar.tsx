@@ -27,7 +27,10 @@ export default function TickerBar({ summary }: TickerBarProps) {
   const dealerType = s.dealer_net >= 0 ? "up" : "dn";
 
   return (
-    <div className="flex items-center h-9 px-5 bg-bg-1 border-b border-border gap-6 overflow-hidden">
+    <div
+      className="flex items-center h-9 px-5 bg-bg-1 border-b border-border gap-6 overflow-x-auto"
+      style={{ WebkitOverflowScrolling: "touch" } as React.CSSProperties}
+    >
       <TickerItem label="加權" value={formatNumber(s.taiex_close)} type={taiexType} />
       <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded ${taiexType === "up" ? "bg-red-bg text-red" : "bg-green-bg text-green"}`}>
         {formatPct(s.taiex_change_pct)}

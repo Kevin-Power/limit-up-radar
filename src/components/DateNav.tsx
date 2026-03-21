@@ -25,7 +25,7 @@ function SummaryChip({ label, color }: { label: string; color: "red" | "blue" | 
 
 export default function DateNav({ date, limitUpCount, groupCount, onPrev, onNext }: DateNavProps) {
   return (
-    <div className="flex items-center justify-between mb-4">
+    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
       <div className="flex items-center gap-2">
         <button onClick={onPrev} className="w-7 h-7 bg-bg-3 border border-border rounded flex items-center justify-center text-txt-3 text-xs hover:border-border-hover hover:text-txt-1 transition-colors">‹</button>
         <div className="text-lg font-bold text-txt-0 tracking-tight tabular-nums">

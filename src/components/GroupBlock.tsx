@@ -85,10 +85,10 @@ export default function GroupBlock({ group }: GroupBlockProps) {
             <div className="w-24 text-[10px] font-semibold uppercase tracking-wider text-txt-4 flex-shrink-0">名稱</div>
             <div className="w-20 text-[10px] font-semibold uppercase tracking-wider text-txt-4 text-right flex-shrink-0">收盤價</div>
             <div className="w-16 text-[10px] font-semibold uppercase tracking-wider text-txt-4 text-right flex-shrink-0">漲幅</div>
-            <div className="w-20 text-[10px] font-semibold uppercase tracking-wider text-txt-4 text-right flex-shrink-0">成交量</div>
-            <div className="w-20 text-[10px] font-semibold uppercase tracking-wider text-txt-4 text-right flex-shrink-0">主力</div>
-            <div className="w-14 text-[10px] font-semibold uppercase tracking-wider text-txt-4 text-right flex-shrink-0">5日</div>
-            <div className="w-4 flex-shrink-0" />
+            <div className="hidden md:block w-20 text-[10px] font-semibold uppercase tracking-wider text-txt-4 text-right flex-shrink-0">成交量</div>
+            <div className="hidden md:block w-20 text-[10px] font-semibold uppercase tracking-wider text-txt-4 text-right flex-shrink-0">主力</div>
+            <div className="hidden md:block w-14 text-[10px] font-semibold uppercase tracking-wider text-txt-4 text-right flex-shrink-0">5日</div>
+            <div className="hidden md:block w-4 flex-shrink-0" />
           </div>
 
           {/* Stock rows */}

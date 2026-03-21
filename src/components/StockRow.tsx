@@ -52,23 +52,23 @@ export default function StockRow({ stock, groupColor }: StockRowProps) {
           </span>
         </div>
 
-        {/* Volume */}
-        <div className="w-20 text-right text-xs text-txt-2 tabular-nums flex-shrink-0">
+        {/* Volume: hidden on mobile */}
+        <div className="hidden md:block w-20 text-right text-xs text-txt-2 tabular-nums flex-shrink-0">
           {formatNumber(s.volume)}
         </div>
 
-        {/* Major net */}
-        <div className={`w-20 text-right text-xs font-semibold tabular-nums flex-shrink-0 ${s.major_net >= 0 ? "text-red" : "text-green"}`}>
+        {/* Major net: hidden on mobile */}
+        <div className={`hidden md:block w-20 text-right text-xs font-semibold tabular-nums flex-shrink-0 ${s.major_net >= 0 ? "text-red" : "text-green"}`}>
           {formatNet(s.major_net)}
         </div>
 
-        {/* Sparkline */}
-        <div className="w-14 flex justify-end flex-shrink-0">
+        {/* Sparkline: hidden on mobile */}
+        <div className="hidden md:flex w-14 justify-end flex-shrink-0">
           <Sparkline color={groupColor} />
         </div>
 
-        {/* Expand indicator */}
-        <div className="w-4 text-txt-4 text-[10px] opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
+        {/* Expand indicator: hidden on mobile */}
+        <div className="hidden md:block w-4 text-txt-4 text-[10px] opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
           {expanded ? "▾" : "▸"}
         </div>
       </div>

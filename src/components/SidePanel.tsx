@@ -173,7 +173,7 @@ export default function SidePanel({ data }: SidePanelProps) {
     .sort((a, b) => b.streak - a.streak);
 
   return (
-    <div className="w-[320px] flex-shrink-0 bg-bg-1 border-l border-border overflow-y-auto">
+    <div className="w-full md:w-[320px] md:flex-shrink-0 bg-bg-1 border-t md:border-t-0 md:border-l border-border overflow-y-auto">
       {/* Market breadth */}
       <PanelSection title="市場廣度">
         <MarketBreadth
@@ -261,6 +261,15 @@ export default function SidePanel({ data }: SidePanelProps) {
           ))}
         </PanelSection>
       )}
+
+      {/* Footer */}
+      <div className="p-3.5 mt-auto">
+        <div className="flex flex-col gap-1 text-center">
+          <span className="text-[11px] font-semibold text-txt-3 tracking-wide">漲停雷達 v1.0</span>
+          <span className="text-[10px] text-txt-4">資料來源: TWSE</span>
+          <span className="text-[10px] text-txt-4">AI 分類 by Claude</span>
+        </div>
+      </div>
     </div>
   );
 }

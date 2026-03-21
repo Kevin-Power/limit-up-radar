@@ -9,6 +9,7 @@ import TickerBar from "@/components/TickerBar";
 import DateNav from "@/components/DateNav";
 import GroupBlock from "@/components/GroupBlock";
 import SidePanel from "@/components/SidePanel";
+import Skeleton from "@/components/Skeleton";
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
@@ -34,13 +35,32 @@ export default function Home() {
   const displayData = currentDate ? data : latestData;
   const displayDate = currentDate || latestData?.date || "";
 
+  // Keyboard navigation: left arrow = previous day, right arrow = next day
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!displayDate) return;
+      // Avoid triggering when typing in inputs
+      if (
+        e.target instanceof HTMLInputElement ||
+        e.target instanceof HTMLTextAreaElement
+      ) return;
+      if (e.key === "ArrowLeft") {
+        setCurrentDate(shiftDate(displayDate, -1));
+      } else if (e.key === "ArrowRight") {
+        setCurrentDate(shiftDate(displayDate, 1));
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [displayDate]);
+
   return (
     <div className="flex flex-col h-screen overflow-hidden">
       <TopNav currentDate={displayDate} />
       {displayData?.market_summary && (
         <TickerBar summary={displayData.market_summary} />
       )}
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
         <main className="flex-1 overflow-y-auto p-5">
           {displayDate && (
             <DateNav
@@ -51,9 +71,7 @@ export default function Home() {
               onNext={() => setCurrentDate(shiftDate(displayDate, 1))}
             />
           )}
-          {isLoading && (
-            <div className="text-txt-3 text-sm text-center py-20">載入中...</div>
-          )}
+          {isLoading && <Skeleton />}
           {error && !isLoading && (
             <div className="text-txt-3 text-sm text-center py-20">此日期無資料</div>
           )}
@@ -61,7 +79,11 @@ export default function Home() {
             <GroupBlock key={group.name} group={group} />
           ))}
         </main>
-        {displayData && <SidePanel data={displayData} />}
+        {displayData && (
+          <div className="w-full md:w-auto">
+            <SidePanel data={displayData} />
+          </div>
+        )}
       </div>
     </div>
   );
