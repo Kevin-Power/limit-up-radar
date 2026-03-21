@@ -5,6 +5,7 @@ import Link from "next/link";
 import TopNav from "@/components/TopNav";
 import { DailyData, Stock, StockGroup } from "@/lib/types";
 import { formatPrice, formatPct, formatNumber, formatNet } from "@/lib/utils";
+import { analyzeEma, getSignalFullLabel, getSignalColor } from "@/lib/ema";
 
 // --- Seeded RNG helpers ---
 
@@ -352,6 +353,33 @@ function PriceChart({
           strokeLinejoin="round"
         />
 
+        {/* EMA overlay lines */}
+        {(() => {
+          const { ema11Series, ema24Series } = analyzeEma(code, basePrice);
+          const last30_11 = ema11Series.slice(-30);
+          const last30_24 = ema24Series.slice(-30);
+          const ema11Points = last30_11
+            .map((v, i) => {
+              const x = PAD_L + (i / (prices.length - 1)) * DRAW_W;
+              const y = priceToY(v);
+              return `${x.toFixed(1)},${y.toFixed(1)}`;
+            })
+            .join(" ");
+          const ema24Points = last30_24
+            .map((v, i) => {
+              const x = PAD_L + (i / (prices.length - 1)) * DRAW_W;
+              const y = priceToY(v);
+              return `${x.toFixed(1)},${y.toFixed(1)}`;
+            })
+            .join(" ");
+          return (
+            <>
+              <polyline points={ema24Points} fill="none" stroke="#f59e0b" strokeWidth="1.5" opacity="0.6" strokeDasharray="4,2" />
+              <polyline points={ema11Points} fill="none" stroke="#3b82f6" strokeWidth="1.5" opacity="0.7" />
+            </>
+          );
+        })()}
+
         {/* Volume bars */}
         {volumes.map((v, i) => {
           const x = PAD_L + (i / (prices.length - 1)) * DRAW_W;
@@ -682,6 +710,66 @@ export default function StockDetailPage({ params }: PageProps) {
                     ============================================================ */}
                 <div className="bg-bg-1 border border-border rounded-xl p-5">
                   <SectionLabel>Technical Analysis / 技術面分析</SectionLabel>
+
+                  {/* 快樂小馬 EMA11/24 */}
+                  {(() => {
+                    const emaResult = analyzeEma(code, displayStock.close);
+                    const sc = getSignalColor(emaResult.signal);
+                    return (
+                      <div className="mb-5">
+                        <div className="text-[10px] text-txt-4 uppercase tracking-wider mb-2 flex items-center gap-2">
+                          HAPPY PONY / 快樂小馬 EMA11 x EMA24
+                          <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${sc.bg} ${sc.text} ${sc.border}`}>
+                            {getSignalFullLabel(emaResult.signal)}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-4 mb-3">
+                          <div className="flex items-center gap-2">
+                            <div className="w-3 h-[2px] bg-blue rounded" />
+                            <span className="text-[11px] text-txt-3">EMA11</span>
+                            <span className="text-sm font-bold text-blue tabular-nums">{emaResult.ema11.toFixed(1)}</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <div className="w-3 h-[2px] bg-amber rounded" />
+                            <span className="text-[11px] text-txt-3">EMA24</span>
+                            <span className="text-sm font-bold text-amber tabular-nums">{emaResult.ema24.toFixed(1)}</span>
+                          </div>
+                          <div className="text-[11px] text-txt-4">
+                            差值: <span className={`font-bold ${emaResult.ema11 > emaResult.ema24 ? "text-red" : "text-green"}`}>
+                              {(emaResult.ema11 - emaResult.ema24) > 0 ? "+" : ""}{(emaResult.ema11 - emaResult.ema24).toFixed(2)}
+                            </span>
+                          </div>
+                        </div>
+                        {/* Mini EMA chart */}
+                        <div className="bg-bg-3 rounded-lg p-3 border border-border">
+                          <svg viewBox="0 0 400 100" className="w-full" style={{ height: 80 }}>
+                            {(() => {
+                              const last30_11 = emaResult.ema11Series.slice(-30);
+                              const last30_24 = emaResult.ema24Series.slice(-30);
+                              const all = [...last30_11, ...last30_24];
+                              const min = Math.min(...all);
+                              const max = Math.max(...all);
+                              const range = max - min || 1;
+                              const toX = (i: number) => (i / 29) * 380 + 10;
+                              const toY = (v: number) => 90 - ((v - min) / range) * 80;
+                              const pts11 = last30_11.map((v, i) => `${toX(i)},${toY(v)}`).join(" ");
+                              const pts24 = last30_24.map((v, i) => `${toX(i)},${toY(v)}`).join(" ");
+                              return (
+                                <>
+                                  <polyline points={pts24} fill="none" stroke="#f59e0b" strokeWidth="1.5" opacity="0.7" />
+                                  <polyline points={pts11} fill="none" stroke="#3b82f6" strokeWidth="2" />
+                                </>
+                              );
+                            })()}
+                          </svg>
+                          <div className="flex items-center justify-center gap-4 mt-1 text-[9px] text-txt-4">
+                            <span className="flex items-center gap-1"><span className="w-3 h-[2px] bg-blue inline-block rounded" /> EMA11</span>
+                            <span className="flex items-center gap-1"><span className="w-3 h-[2px] bg-amber inline-block rounded" /> EMA24</span>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })()}
 
                   {/* Moving Averages */}
                   <div className="mb-5">

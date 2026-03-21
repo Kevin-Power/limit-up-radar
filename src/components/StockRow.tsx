@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Stock } from "@/lib/types";
 import { formatPrice, formatPct, formatNumber, formatNet } from "@/lib/utils";
 import Sparkline from "./Sparkline";
+import { analyzeEma, getSignalLabel, getSignalColor } from "@/lib/ema";
 
 interface StockRowProps {
   stock: Stock;
@@ -79,6 +80,19 @@ export default function StockRow({ stock, groupColor }: StockRowProps) {
         <div className="hidden md:flex w-14 justify-end flex-shrink-0">
           <Sparkline color={groupColor} seed={s.code} />
         </div>
+
+        {/* EMA Signal Badge: hidden on mobile */}
+        {(() => {
+          const ema = analyzeEma(s.code, s.close);
+          const sc = getSignalColor(ema.signal);
+          return (
+            <div className="hidden lg:flex w-10 justify-end flex-shrink-0">
+              <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded border ${sc.bg} ${sc.text} ${sc.border}`}>
+                {getSignalLabel(ema.signal)}
+              </span>
+            </div>
+          );
+        })()}
 
         {/* Expand indicator: hidden on mobile */}
         <div className="hidden md:block w-4 text-txt-4 text-[10px] opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
