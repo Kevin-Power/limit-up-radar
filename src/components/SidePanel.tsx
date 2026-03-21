@@ -68,9 +68,22 @@ function DistRow({
   color: string;
 }) {
   const pct = maxCount > 0 ? (count / maxCount) * 100 : 0;
+
+  function handleClick() {
+    document
+      .getElementById(`group-${label}`)
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   return (
     <div className="flex items-center gap-2 py-1">
-      <div className="text-[11px] text-txt-2 w-24 truncate">{label}</div>
+      <button
+        onClick={handleClick}
+        className="text-[11px] text-txt-2 w-24 truncate text-left hover:text-txt-0 hover:underline underline-offset-2 transition-colors cursor-pointer"
+        title={`跳至 ${label}`}
+      >
+        {label}
+      </button>
       <div className="flex-1 h-1.5 bg-bg-3 rounded-sm overflow-hidden">
         <div
           className="h-full rounded-sm transition-all duration-500"

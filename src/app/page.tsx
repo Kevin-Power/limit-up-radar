@@ -10,6 +10,7 @@ import DateNav from "@/components/DateNav";
 import GroupBlock from "@/components/GroupBlock";
 import SidePanel from "@/components/SidePanel";
 import Skeleton from "@/components/Skeleton";
+import Highlights from "@/components/Highlights";
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
@@ -75,12 +76,14 @@ export default function Home() {
               groupCount={displayData?.groups?.length ?? 0}
               onPrev={() => setCurrentDate(shiftDate(displayDate, -1))}
               onNext={() => setCurrentDate(shiftDate(displayDate, 1))}
+              data={displayData}
             />
           )}
           {isLoading && <Skeleton />}
           {error && !isLoading && (
             <div className="text-txt-3 text-sm text-center py-20">此日期無資料</div>
           )}
+          {displayData && <Highlights data={displayData} />}
           {displayData?.groups?.map((group) => (
             <GroupBlock key={group.name} group={group} />
           ))}

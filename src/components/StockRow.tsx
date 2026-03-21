@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Stock } from "@/lib/types";
 import { formatPrice, formatPct, formatNumber, formatNet } from "@/lib/utils";
 import Sparkline from "./Sparkline";
@@ -21,14 +22,26 @@ export default function StockRow({ stock, groupColor }: StockRowProps) {
         className="flex items-center gap-3 px-4 py-2.5 border-b border-white/[0.02] last:border-b-0 cursor-pointer hover:bg-white/[0.02] transition-colors group"
       >
         {/* Code */}
-        <div className="w-11 text-xs font-semibold text-txt-2 tabular-nums flex-shrink-0">
-          {s.code}
+        <div className="w-11 flex-shrink-0">
+          <Link
+            href={`/stock/${s.code}`}
+            onClick={(e) => e.stopPropagation()}
+            className="text-xs font-semibold text-txt-2 tabular-nums hover:text-txt-0 hover:underline underline-offset-2 transition-colors"
+          >
+            {s.code}
+          </Link>
         </div>
 
         {/* Name + Industry */}
         <div className="w-24 flex-shrink-0">
           <div className="text-[13px] font-semibold text-txt-0 flex items-center gap-1 whitespace-nowrap">
-            {s.name}
+            <Link
+              href={`/stock/${s.code}`}
+              onClick={(e) => e.stopPropagation()}
+              className="hover:underline underline-offset-2 hover:text-red/90 transition-colors"
+            >
+              {s.name}
+            </Link>
             {s.streak > 0 && (
               <span className="flex gap-0.5 ml-0.5">
                 {Array.from({ length: Math.min(s.streak, 5) }).map((_, i) => (

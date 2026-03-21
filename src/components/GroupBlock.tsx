@@ -84,7 +84,10 @@ export default function GroupBlock({ group }: GroupBlockProps) {
   }, [group.stocks, sort]);
 
   return (
-    <div className="bg-bg-1 border border-border rounded-lg mb-3 overflow-hidden hover:border-border-hover transition-colors">
+    <div
+      id={`group-${group.name}`}
+      className="bg-bg-1 border border-border rounded-lg mb-3 overflow-hidden hover:border-border-hover transition-colors"
+    >
       {/* Header */}
       <div
         className="flex items-start justify-between px-4 pt-3.5 pb-2 cursor-pointer"
