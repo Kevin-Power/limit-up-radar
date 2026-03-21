@@ -19,9 +19,13 @@ const NAV_ITEMS = [
   { label: "每日總覽", href: "/", disabled: false },
   { label: "隔日表現", href: "/next-day", disabled: false },
   { label: "快樂小馬", href: "/pony", disabled: false },
-  { label: "歷史數據", href: "/history", disabled: false },
-  { label: "處置預測", href: "/disposal", disabled: false },
+  { label: "策略回測", href: "/backtest", disabled: false },
+  { label: "進階選股", href: "/screener", disabled: false },
+  { label: "國際市場", href: "/global", disabled: false },
+  { label: "市場情資", href: "/news", disabled: false },
+  { label: "盤後報告", href: "/report", disabled: false },
   { label: "統計分析", href: "/stats", disabled: false },
+  { label: "處置預測", href: "/disposal", disabled: false },
 ];
 
 export default function TopNav({ currentDate, stocks = [] }: TopNavProps) {
