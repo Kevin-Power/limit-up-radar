@@ -136,7 +136,7 @@ export default function ArchivePage() {
 
   return (
     <div className="min-h-screen bg-bg-0 text-txt-1">
-      <TopNav />
+      <TopNav currentDate="2026-03-20" />
 
       <main className="max-w-6xl mx-auto px-4 pt-20 pb-16 space-y-6">
         {/* Header */}

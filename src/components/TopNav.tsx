@@ -180,7 +180,7 @@ export default function TopNav({ currentDate, stocks = [] }: TopNavProps) {
           </div>
 
           <div className="text-[11px] text-txt-4 tabular-nums tracking-wider whitespace-nowrap">
-            {currentDate.replace(/-/g, "/")}
+            {(currentDate || "").replace(/-/g, "/")}
           </div>
 
           <button
