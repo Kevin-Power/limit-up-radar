@@ -19,7 +19,7 @@ const NAV_ITEMS = [
   { label: "每日總覽", href: "/", disabled: false },
   { label: "隔日表現", href: "/next-day", disabled: false },
   { label: "歷史數據", href: "/history", disabled: false },
-  { label: "處置預測", href: "/disposal", disabled: true },
+  { label: "處置預測", href: "/disposal", disabled: false },
   { label: "統計分析", href: "/stats", disabled: false },
 ];
 

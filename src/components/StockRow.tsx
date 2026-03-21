@@ -64,7 +64,7 @@ export default function StockRow({ stock, groupColor }: StockRowProps) {
 
         {/* Sparkline: hidden on mobile */}
         <div className="hidden md:flex w-14 justify-end flex-shrink-0">
-          <Sparkline color={groupColor} />
+          <Sparkline color={groupColor} seed={s.code} />
         </div>
 
         {/* Expand indicator: hidden on mobile */}
