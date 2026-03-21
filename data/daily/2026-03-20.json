@@ -1,0 +1,61 @@
+{
+  "date": "2026-03-20",
+  "market_summary": {
+    "taiex_close": 23412.56,
+    "taiex_change_pct": 1.82,
+    "total_volume": 384700000000,
+    "limit_up_count": 54,
+    "limit_down_count": 3,
+    "advance": 892,
+    "decline": 421,
+    "unchanged": 187,
+    "foreign_net": 12830000000,
+    "trust_net": 3410000000,
+    "dealer_net": -1270000000
+  },
+  "groups": [
+    {
+      "name": "AI 伺服器 / 散熱",
+      "color": "#ef4444",
+      "badges": ["HOT", "連3日"],
+      "reason": "GB200 量產進度優於預期，散熱與機殼供應鏈訂單能見度拉長至 Q4，帶動族群全面攻頂",
+      "stocks": [
+        {"code": "3324", "name": "雙鴻", "industry": "散熱模組", "close": 385.0, "change_pct": 10.0, "volume": 18432, "major_net": 2847, "streak": 3},
+        {"code": "3017", "name": "奇鋐", "industry": "散熱模組", "close": 412.5, "change_pct": 10.0, "volume": 24108, "major_net": 1923, "streak": 2},
+        {"code": "8210", "name": "勤誠", "industry": "伺服器機殼", "close": 289.0, "change_pct": 10.0, "volume": 12567, "major_net": 956, "streak": 0},
+        {"code": "2376", "name": "技嘉", "industry": "伺服器/主機板", "close": 456.0, "change_pct": 10.0, "volume": 31204, "major_net": 4512, "streak": 0}
+      ]
+    },
+    {
+      "name": "半導體設備 / 先進封裝",
+      "color": "#22c55e",
+      "badges": ["FOCUS"],
+      "reason": "CoWoS 產能擴充加速，先進封裝設備商接單滿載，測試廠稼動率飆升至歷史新高",
+      "stocks": [
+        {"code": "3131", "name": "弘塑", "industry": "半導體設備", "close": 1285.0, "change_pct": 10.0, "volume": 5432, "major_net": 1204, "streak": 0},
+        {"code": "3413", "name": "京鼎", "industry": "半導體設備", "close": 567.0, "change_pct": 10.0, "volume": 8921, "major_net": 876, "streak": 0},
+        {"code": "6510", "name": "精測", "industry": "半導體測試", "close": 892.0, "change_pct": 10.0, "volume": 3845, "major_net": 634, "streak": 0}
+      ]
+    },
+    {
+      "name": "鋼鐵 / 原物料",
+      "color": "#f59e0b",
+      "badges": [],
+      "reason": "中國限產政策推升亞洲鋼價創近期新高，加上基建需求回溫，鋼鐵股集體反映漲價題材",
+      "stocks": [
+        {"code": "2002", "name": "中鋼", "industry": "鋼鐵", "close": 32.45, "change_pct": 10.0, "volume": 142876, "major_net": 15302, "streak": 0},
+        {"code": "2014", "name": "中鴻", "industry": "鋼鐵", "close": 24.80, "change_pct": 10.0, "volume": 87432, "major_net": 8456, "streak": 0}
+      ]
+    },
+    {
+      "name": "光通訊 / 矽光子",
+      "color": "#ec4899",
+      "badges": ["NEW"],
+      "reason": "800G 光模組需求提前，矽光子技術突破帶動相關供應鏈強勢表態",
+      "stocks": [
+        {"code": "3081", "name": "聯亞", "industry": "光通訊元件", "close": 198.5, "change_pct": 10.0, "volume": 9845, "major_net": 2156, "streak": 0},
+        {"code": "4904", "name": "遠傳", "industry": "光纖通訊", "close": 85.6, "change_pct": 10.0, "volume": 34521, "major_net": 1834, "streak": 0}
+      ]
+    }
+  ]
+}
