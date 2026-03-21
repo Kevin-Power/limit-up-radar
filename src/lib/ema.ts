@@ -67,8 +67,8 @@ export function detectSignal(ema11Series: number[], ema24Series: number[]): { si
     return { signal: "death_cross", crossoverDay: 0 };
   }
 
-  // Look back for recent crossover (within 5 days)
-  for (let d = 2; d <= Math.min(5, len - 1); d++) {
+  // Look back for recent crossover (within 10 days)
+  for (let d = 2; d <= Math.min(10, len - 1); d++) {
     const i = len - 1 - d;
     const p11 = ema11Series[i];
     const p24 = ema24Series[i];
@@ -94,11 +94,46 @@ export function detectSignal(ema11Series: number[], ema24Series: number[]): { si
 
 export function generateMockPrices(code: string, basePrice: number, count: number = 60): number[] {
   const rng = makeRng(code + "_ema_prices");
-  const prices: number[] = [basePrice * (0.75 + rng() * 0.15)];
+  const seedVal = rng();
+
+  // Use code char sum for more varied distribution
+  const codeSum = code.split("").reduce((s, c) => s + c.charCodeAt(0), 0);
+  const patternIdx = (codeSum + Math.floor(seedVal * 97)) % 8;
+  // ~25% golden cross, ~12.5% death cross, ~37.5% bullish, ~25% bearish
+  const pattern = patternIdx < 2 ? "golden" : patternIdx < 3 ? "death" : patternIdx < 6 ? "up" : "down";
+
+  const prices: number[] = [basePrice * (0.80 + rng() * 0.15)];
   for (let i = 1; i < count; i++) {
-    const drift = basePrice * 0.003;
-    const noise = (rng() - 0.45) * basePrice * 0.018;
-    prices.push(Math.max(prices[i - 1] + drift + noise, basePrice * 0.4));
+    let drift: number;
+    const phase = i / count;
+
+    switch (pattern) {
+      case "golden":
+        // Down/flat first, then sharp up near end to force EMA11 cross above EMA24
+        if (phase < 0.5) drift = basePrice * -0.003;
+        else if (phase < 0.75) drift = basePrice * -0.001;
+        else drift = basePrice * 0.015; // sharp reversal up
+        break;
+      case "death":
+        // Up first, then sharp down near end to force EMA11 cross below EMA24
+        if (phase < 0.5) drift = basePrice * 0.004;
+        else if (phase < 0.75) drift = basePrice * 0.001;
+        else drift = basePrice * -0.012; // sharp reversal down
+        break;
+      case "up":
+        // Steady uptrend (bullish alignment)
+        drift = basePrice * 0.003;
+        break;
+      case "down":
+        // Steady downtrend (bearish alignment)
+        drift = basePrice * -0.002;
+        break;
+      default:
+        drift = 0;
+    }
+
+    const noise = (rng() - 0.5) * basePrice * 0.015;
+    prices.push(Math.max(prices[i - 1] + drift + noise, basePrice * 0.3));
   }
   return prices;
 }
