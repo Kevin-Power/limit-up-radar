@@ -1,33 +1,64 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
 interface TopNavProps {
   currentDate: string;
 }
 
+const NAV_ITEMS = [
+  { label: "每日總覽", href: "/", disabled: false },
+  { label: "隔日表現", href: "/next-day", disabled: false },
+  { label: "歷史數據", href: "/history", disabled: false },
+  { label: "處置預測", href: "/disposal", disabled: true },
+  { label: "統計分析", href: "/stats", disabled: true },
+];
+
 export default function TopNav({ currentDate }: TopNavProps) {
+  const pathname = usePathname();
+
   return (
     <nav className="flex items-center justify-between h-11 px-5 bg-bg-1 border-b border-border">
       <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2 font-bold text-sm text-txt-0 tracking-tight whitespace-nowrap">
+        <Link
+          href="/"
+          className="flex items-center gap-2 font-bold text-sm text-txt-0 tracking-tight whitespace-nowrap hover:opacity-80 transition-opacity"
+        >
           <div className="w-[7px] h-[7px] bg-red rounded-sm" />
           漲停雷達
-        </div>
+        </Link>
         <div className="w-px h-5 bg-border" />
         <div className="flex h-11">
-          {["每日總覽", "隔日表現", "歷史數據", "處置預測", "統計分析"].map(
-            (label, i) => (
-              <button
+          {NAV_ITEMS.map(({ label, href, disabled }) => {
+            const isActive = pathname === href;
+
+            if (disabled) {
+              return (
+                <span
+                  key={label}
+                  className="px-3.5 text-xs font-medium tracking-wide border-b-2 border-transparent text-txt-4 cursor-not-allowed flex items-center"
+                  title="即將推出"
+                >
+                  {label}
+                </span>
+              );
+            }
+
+            return (
+              <Link
                 key={label}
-                className={`px-3.5 text-xs font-medium tracking-wide border-b-2 transition-colors ${
-                  i === 0
+                href={href}
+                className={`px-3.5 text-xs font-medium tracking-wide border-b-2 transition-colors flex items-center ${
+                  isActive
                     ? "text-txt-0 border-red"
                     : "text-txt-3 border-transparent hover:text-txt-1"
                 }`}
               >
                 {label}
-              </button>
-            )
-          )}
+              </Link>
+            );
+          })}
         </div>
       </div>
       <div className="flex items-center gap-3">
