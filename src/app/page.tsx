@@ -13,6 +13,7 @@ import Skeleton from "@/components/Skeleton";
 import Highlights from "@/components/Highlights";
 import KeyboardHelp from "@/components/KeyboardHelp";
 import BackToTop from "@/components/BackToTop";
+import NavBar from "@/components/NavBar";
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
@@ -69,6 +70,7 @@ export default function Home() {
       {displayData?.market_summary && (
         <TickerBar summary={displayData.market_summary} />
       )}
+      <NavBar />
       <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
         <main className="flex-1 overflow-y-auto p-5">
           {displayDate && (
