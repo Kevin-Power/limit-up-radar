@@ -4,7 +4,7 @@
     "taiex_close": 23412.56,
     "taiex_change_pct": 1.82,
     "total_volume": 384700000000,
-    "limit_up_count": 54,
+    "limit_up_count": 32,
     "limit_down_count": 3,
     "advance": 892,
     "decline": 421,
@@ -55,6 +55,68 @@
       "stocks": [
         {"code": "3081", "name": "聯亞", "industry": "光通訊元件", "close": 198.5, "change_pct": 10.0, "volume": 9845, "major_net": 2156, "streak": 0},
         {"code": "4904", "name": "遠傳", "industry": "光纖通訊", "close": 85.6, "change_pct": 10.0, "volume": 34521, "major_net": 1834, "streak": 0}
+      ]
+    },
+    {
+      "name": "PCB / CCL 基板",
+      "color": "#8b5cf6",
+      "badges": ["HOT"],
+      "reason": "AI 高速傳輸帶動高頻高速 PCB 需求爆發，ABF 載板廠訂單能見度拉長至明年 H1",
+      "stocks": [
+        {"code": "2388", "name": "威盛", "industry": "PCB/CCL", "close": 47.35, "change_pct": 10.0, "volume": 56789, "major_net": 3241, "streak": 1},
+        {"code": "3037", "name": "欣興", "industry": "PCB/載板", "close": 178.0, "change_pct": 10.0, "volume": 22134, "major_net": 5678, "streak": 2},
+        {"code": "8046", "name": "南電", "industry": "PCB/ABF載板", "close": 312.5, "change_pct": 10.0, "volume": 11045, "major_net": 2890, "streak": 0}
+      ]
+    },
+    {
+      "name": "IC 設計 / AI 邊緣運算",
+      "color": "#06b6d4",
+      "badges": ["FOCUS", "NEW"],
+      "reason": "端側 AI 晶片需求激增，國內 IC 設計廠搶攻智慧終端 NPU 市場，訂單能見度持續上修",
+      "stocks": [
+        {"code": "2454", "name": "聯發科", "industry": "IC設計/手機AP", "close": 1235.0, "change_pct": 10.0, "volume": 18923, "major_net": 9834, "streak": 0},
+        {"code": "6770", "name": "力積電", "industry": "IC設計/記憶體", "close": 28.65, "change_pct": 10.0, "volume": 198456, "major_net": 12340, "streak": 0},
+        {"code": "3034", "name": "聯詠", "industry": "IC設計/顯示", "close": 387.5, "change_pct": 10.0, "volume": 14532, "major_net": 3120, "streak": 1}
+      ]
+    },
+    {
+      "name": "太陽能 / 綠能",
+      "color": "#f97316",
+      "badges": ["NEW"],
+      "reason": "政府加速離岸風電與太陽能裝置目標，搭配碳費正式上路，綠能族群資金輪動加速",
+      "stocks": [
+        {"code": "3576", "name": "聯合再生", "industry": "太陽能電池", "close": 18.45, "change_pct": 10.0, "volume": 234567, "major_net": 8923, "streak": 0},
+        {"code": "6244", "name": "茂迪", "industry": "太陽能模組", "close": 56.8, "change_pct": 10.0, "volume": 67890, "major_net": 4512, "streak": 0}
+      ]
+    },
+    {
+      "name": "生技 / 醫療器材",
+      "color": "#10b981",
+      "badges": [],
+      "reason": "國際醫材展訂單亮眼，AI 輔助診斷通過 FDA 認證，帶動生技醫材股族群人氣回升",
+      "stocks": [
+        {"code": "4726", "name": "永昕", "industry": "生技/抗體藥", "close": 142.0, "change_pct": 10.0, "volume": 8765, "major_net": 1890, "streak": 0},
+        {"code": "4174", "name": "浩鼎", "industry": "生技/癌症新藥", "close": 89.3, "change_pct": 10.0, "volume": 15432, "major_net": 2341, "streak": 0}
+      ]
+    },
+    {
+      "name": "營建 / 資產",
+      "color": "#84cc16",
+      "badges": [],
+      "reason": "央行停止升息預期升溫，加上台北市精華地段土地標售創新高，帶動資產股族群補漲",
+      "stocks": [
+        {"code": "2515", "name": "中工", "industry": "營建/土地開發", "close": 43.9, "change_pct": 10.0, "volume": 45678, "major_net": 3456, "streak": 0},
+        {"code": "5534", "name": "長虹", "industry": "營建/住宅", "close": 68.2, "change_pct": 10.0, "volume": 32109, "major_net": 2789, "streak": 1}
+      ]
+    },
+    {
+      "name": "個股亮點",
+      "color": "#64748b",
+      "badges": [],
+      "reason": "個別利多驅動，非單一族群題材，各自有業績或消息面催化",
+      "stocks": [
+        {"code": "9914", "name": "美利達", "industry": "自行車", "close": 198.0, "change_pct": 10.0, "volume": 12345, "major_net": 1567, "streak": 0},
+        {"code": "1590", "name": "亞德客", "industry": "氣動元件", "close": 892.0, "change_pct": 10.0, "volume": 5678, "major_net": 987, "streak": 0}
       ]
     }
   ]

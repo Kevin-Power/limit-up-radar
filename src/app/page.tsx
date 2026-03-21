@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import useSWR from "swr";
-import { DailyData } from "@/lib/types";
+import { DailyData, Stock } from "@/lib/types";
 import { shiftDate } from "@/lib/utils";
 import TopNav from "@/components/TopNav";
 import TickerBar from "@/components/TickerBar";
@@ -35,6 +35,12 @@ export default function Home() {
   const displayData = currentDate ? data : latestData;
   const displayDate = currentDate || latestData?.date || "";
 
+  // Flatten all stocks with their group name for the search box
+  const allStocks: (Stock & { group: string })[] =
+    displayData?.groups?.flatMap((g) =>
+      g.stocks.map((s) => ({ ...s, group: g.name }))
+    ) ?? [];
+
   // Keyboard navigation: left arrow = previous day, right arrow = next day
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -56,7 +62,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
-      <TopNav currentDate={displayDate} />
+      <TopNav currentDate={displayDate} stocks={allStocks} />
       {displayData?.market_summary && (
         <TickerBar summary={displayData.market_summary} />
       )}
