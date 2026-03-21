@@ -44,3 +44,11 @@ data/stocks.db
 
 # Superpowers
 .superpowers/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Claude
+.claude/
