@@ -53,3 +53,4 @@ __pycache__/
 # Claude (keep commands, ignore config)
 .claude/settings.local.json
 .claude/launch.json
+股票情資蒐集

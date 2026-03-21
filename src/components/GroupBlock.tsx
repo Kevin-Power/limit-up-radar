@@ -3,10 +3,11 @@
 import { useState, useMemo } from "react";
 import { Stock, StockGroup } from "@/lib/types";
 import StockRow from "./StockRow";
-import { formatNumber } from "@/lib/utils";
+import { formatNumber, formatPct } from "@/lib/utils";
 
 interface GroupBlockProps {
   group: StockGroup;
+  totalStocks?: number;
 }
 
 const BADGE_STYLES: Record<string, string> = {
@@ -56,7 +57,7 @@ function SortableHeader({ label, sortKey, sort, onSort, className = "" }: Sortab
   );
 }
 
-export default function GroupBlock({ group }: GroupBlockProps) {
+export default function GroupBlock({ group, totalStocks }: GroupBlockProps) {
   const [collapsed, setCollapsed] = useState(false);
   const [sort, setSort] = useState<SortState | null>(null);
 
@@ -131,8 +132,53 @@ export default function GroupBlock({ group }: GroupBlockProps) {
       </div>
 
       {/* Reason */}
-      <div className="px-4 pb-2.5 pl-[36px] text-xs text-txt-3 leading-relaxed">
+      <div className="px-4 pb-2 pl-[36px] text-xs text-txt-3 leading-relaxed">
         {group.reason}
+      </div>
+
+      {/* Stats row + proportion bar */}
+      <div className="px-4 pb-3 pl-[36px]">
+        {/* Proportion bar */}
+        {totalStocks && totalStocks > 0 && (
+          <div className="flex items-center gap-2 mb-2">
+            <div className="flex-1 h-1.5 bg-white/[0.04] rounded-full overflow-hidden max-w-[200px]">
+              <div
+                className="h-full rounded-full transition-all"
+                style={{
+                  width: `${(group.stocks.length / totalStocks) * 100}%`,
+                  backgroundColor: group.color,
+                  minWidth: "4px",
+                }}
+              />
+            </div>
+            <span className="text-[10px] text-txt-4 tabular-nums flex-shrink-0">
+              {group.stocks.length}/{totalStocks}
+            </span>
+          </div>
+        )}
+        {/* Avg change, total volume, major net */}
+        <div className="flex items-center gap-4 text-[10px] text-txt-4">
+          <span>
+            平均漲幅{" "}
+            <span className="font-semibold text-red tabular-nums">
+              {formatPct(
+                group.stocks.reduce((sum, s) => sum + s.change_pct, 0) / (group.stocks.length || 1)
+              )}
+            </span>
+          </span>
+          <span>
+            總成交量{" "}
+            <span className="font-semibold text-txt-2 tabular-nums">
+              {formatNumber(Math.round(totalVolume / 10000))} 萬
+            </span>
+          </span>
+          <span>
+            主力淨買{" "}
+            <span className={`font-semibold tabular-nums ${totalMajorNet >= 0 ? "text-red" : "text-green"}`}>
+              {totalMajorNet >= 0 ? "+" : ""}{formatNumber(totalMajorNet)}
+            </span>
+          </span>
+        </div>
       </div>
 
       {!collapsed && (

@@ -87,7 +87,7 @@ export default function Home() {
           )}
           {displayData && <Highlights data={displayData} />}
           {displayData?.groups?.map((group) => (
-            <GroupBlock key={group.name} group={group} />
+            <GroupBlock key={group.name} group={group} totalStocks={displayData.groups.reduce((s, g) => s + g.stocks.length, 0)} />
           ))}
         </main>
         {displayData && (

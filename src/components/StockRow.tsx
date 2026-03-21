@@ -86,7 +86,7 @@ export default function StockRow({ stock, groupColor }: StockRowProps) {
           const ema = analyzeEma(s.code, s.close);
           const sc = getSignalColor(ema.signal);
           return (
-            <div className="hidden lg:flex w-10 justify-end flex-shrink-0">
+            <div className="hidden md:flex w-10 justify-end flex-shrink-0">
               <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded border ${sc.bg} ${sc.text} ${sc.border}`}>
                 {getSignalLabel(ema.signal)}
               </span>
