@@ -54,3 +54,5 @@ __pycache__/
 .claude/settings.local.json
 .claude/launch.json
 股票情資蒐集
+
+.vercel
