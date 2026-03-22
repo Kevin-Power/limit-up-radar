@@ -2,7 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* ═══════════════════════════════════════════════════════════════
+   Theme: Dark (Default)
+   ═══════════════════════════════════════════════════════════════ */
+:root,
+[data-theme="dark"] {
   --bg-0: #07080c;
   --bg-1: #0c0e14;
   --bg-2: #111318;
@@ -24,12 +28,48 @@
   --amber: #f59e0b;
   --amber-bg: rgba(245, 158, 11, 0.08);
   --accent: #6366f1;
+  --scrollbar-thumb: #1c1f27;
+  --scrollbar-hover: #475569;
+  --selection-bg: rgba(99, 102, 241, 0.3);
+  --shadow-color: rgba(0, 0, 0, 0.35);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Theme: Silver Purple (Light / Tech)
+   ═══════════════════════════════════════════════════════════════ */
+[data-theme="light"] {
+  --bg-0: #f0eef5;
+  --bg-1: #e8e5f0;
+  --bg-2: #dfdce8;
+  --bg-3: #d5d1e0;
+  --bg-4: #cbc6d8;
+  --border: rgba(100, 80, 160, 0.12);
+  --border-hover: rgba(100, 80, 160, 0.22);
+  --text-0: #1a1528;
+  --text-1: #2d2542;
+  --text-2: #4a3f6b;
+  --text-3: #6b5f8a;
+  --text-4: #8a7faa;
+  --red: #dc2626;
+  --red-bg: rgba(220, 38, 38, 0.08);
+  --green: #16a34a;
+  --green-bg: rgba(22, 163, 74, 0.08);
+  --blue: #2563eb;
+  --blue-bg: rgba(37, 99, 235, 0.08);
+  --amber: #d97706;
+  --amber-bg: rgba(217, 119, 6, 0.08);
+  --accent: #7c3aed;
+  --scrollbar-thumb: #cbc6d8;
+  --scrollbar-hover: #8a7faa;
+  --selection-bg: rgba(124, 58, 237, 0.2);
+  --shadow-color: rgba(100, 80, 160, 0.12);
 }
 
 body {
   background: var(--bg-0);
   color: var(--text-1);
   font-variant-numeric: tabular-nums;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 * {
@@ -63,17 +103,17 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--bg-4);
+  background: var(--scrollbar-thumb);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-4);
+  background: var(--scrollbar-hover);
 }
 
 /* Selection color */
 ::selection {
-  background: rgba(99, 102, 241, 0.3);
+  background: var(--selection-bg);
   color: var(--text-0);
 }
 
@@ -113,7 +153,7 @@ button {
 
 .group-block-hover:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 4px 16px var(--shadow-color);
 }
 
 /* ─── Focus-visible ring for accessibility ─────────────────── */
@@ -121,4 +161,12 @@ button {
   outline: 2px solid rgba(99, 102, 241, 0.6);
   outline-offset: 2px;
   border-radius: 4px;
+}
+
+/* ─── Theme transition on all themed elements ─────────────── */
+[data-theme] nav,
+[data-theme] main,
+[data-theme] aside,
+[data-theme] div {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }

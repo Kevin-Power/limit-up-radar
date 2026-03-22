@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState, useRef, useEffect, useCallback } from "react";
 import { Stock } from "@/lib/types";
 import { formatPrice, formatPct } from "@/lib/utils";
+import ThemeToggle from "./ThemeToggle";
 
 interface TopNavProps {
   currentDate: string;
@@ -178,6 +179,8 @@ export default function TopNav({ currentDate, stocks = [] }: TopNavProps) {
               </div>
             )}
           </div>
+
+          <ThemeToggle />
 
           <div className="text-[11px] text-txt-4 tabular-nums tracking-wider whitespace-nowrap">
             {(currentDate || "").replace(/-/g, "/")}

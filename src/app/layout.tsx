@@ -20,10 +20,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="zh-TW">
+    <html lang="zh-TW" data-theme="dark" suppressHydrationWarning>
       <head>
         <meta name="theme-color" content="#07080c" />
-        <meta name="color-scheme" content="dark" />
+        <meta name="color-scheme" content="dark light" />
       </head>
       <body className="font-sans antialiased">{children}</body>
     </html>
