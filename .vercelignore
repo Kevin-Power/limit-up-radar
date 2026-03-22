@@ -1,0 +1,6 @@
+股票情資蒐集
+scraper
+data
+.claude
+*.py
+__pycache__

@@ -241,13 +241,11 @@ export default function BacktestPage() {
   const [sortField, setSortField] = useState<SortField>("entryDate");
   const [sortAsc, setSortAsc] = useState(true);
 
-  const params: Record<string, number> = useMemo(() => {
-    switch (strategy) {
-      case "ema": return { fast: emaFast, slow: emaSlow };
-      case "kd": return { buy: kdBuy, sell: kdSell };
-      case "macd": return { fast: macdFast, slow: macdSlow, signal: macdSignal };
-      case "rsi": return { period: rsiPeriod, overbought: rsiOverbought, oversold: rsiOversold };
-    }
+  const params = useMemo((): Record<string, number> => {
+    if (strategy === "kd") return { buy: kdBuy, sell: kdSell };
+    if (strategy === "macd") return { fast: macdFast, slow: macdSlow, signal: macdSignal };
+    if (strategy === "rsi") return { period: rsiPeriod, overbought: rsiOverbought, oversold: rsiOversold };
+    return { fast: emaFast, slow: emaSlow };
   }, [strategy, emaFast, emaSlow, kdBuy, kdSell, macdFast, macdSlow, macdSignal, rsiPeriod, rsiOverbought, rsiOversold]);
 
   const result = useMemo(() => generateBacktest(strategy, params), [strategy, params]);
