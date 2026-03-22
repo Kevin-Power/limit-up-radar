@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, useMemo } from "react";
 import TopNav from "@/components/TopNav";
+import NavBar from "@/components/NavBar";
 import { formatPct, formatPrice } from "@/lib/utils";
 
 /* ═══════════════════════════════════════════════════════════════
@@ -596,6 +597,7 @@ export default function NextDayPage() {
   return (
     <div className="flex flex-col h-screen overflow-hidden">
       <TopNav currentDate={day.nextDate} />
+      <NavBar />
 
       <main className="flex-1 overflow-y-auto">
         {/* ─── Hero Header ─── */}

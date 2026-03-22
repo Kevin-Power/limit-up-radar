@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import TopNav from "@/components/TopNav";
+import NavBar from "@/components/NavBar";
 
 /* ================================================================
    MOCK DATA
@@ -750,6 +751,7 @@ export default function StatsPage() {
   return (
     <div className="flex flex-col h-screen overflow-hidden">
       <TopNav currentDate="2026-03-20" />
+      <NavBar />
 
       <main className="flex-1 overflow-y-auto p-5">
         {/* Demo banner */}

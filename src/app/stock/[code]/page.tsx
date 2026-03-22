@@ -3,6 +3,7 @@
 import { use, useEffect, useState } from "react";
 import Link from "next/link";
 import TopNav from "@/components/TopNav";
+import NavBar from "@/components/NavBar";
 import { DailyData, Stock, StockGroup } from "@/lib/types";
 import { formatPrice, formatPct, formatNumber, formatNet } from "@/lib/utils";
 import { analyzeEma, getSignalFullLabel, getSignalColor } from "@/lib/ema";
@@ -562,6 +563,7 @@ export default function StockDetailPage({ params }: PageProps) {
   return (
     <div className="flex flex-col h-screen overflow-hidden">
       <TopNav currentDate="2026-03-20" stocks={stock ? [stock] : []} />
+      <NavBar />
       <main className="flex-1 overflow-y-auto">
         <div className="max-w-5xl mx-auto px-5 py-5">
           {/* Back link */}

@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import TopNav from "@/components/TopNav";
+import NavBar from "@/components/NavBar";
 import { formatDateDisplay } from "@/lib/utils";
 
 interface DayRecord {
@@ -148,6 +149,7 @@ export default function HistoryPage() {
   return (
     <div className="flex flex-col h-screen overflow-hidden">
       <TopNav currentDate="2026-03-21" />
+      <NavBar />
 
       <main className="flex-1 overflow-y-auto p-5">
         {/* Page title */}

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import TopNav from "@/components/TopNav";
+import NavBar from "@/components/NavBar";
 import { formatPct, formatPrice } from "@/lib/utils";
 
 /* ================================================================
@@ -259,6 +260,7 @@ export default function ReportPage() {
   return (
     <div className="min-h-screen bg-bg-0 text-txt-1">
       <TopNav currentDate="2026-03-20" />
+      <NavBar />
 
       <main className="max-w-5xl mx-auto px-4 py-6 space-y-6">
         {/* ── Header ── */}

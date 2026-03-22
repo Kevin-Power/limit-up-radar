@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import TopNav from "@/components/TopNav";
+import NavBar from "@/components/NavBar";
 import { formatPct, formatPrice } from "@/lib/utils";
 
 /* ================================================================
@@ -306,6 +307,7 @@ export default function BacktestPage() {
   return (
     <div className="min-h-screen bg-bg-0 text-txt-1">
       <TopNav currentDate="2026-03-20" />
+      <NavBar />
 
       <main className="max-w-[1100px] mx-auto px-4 sm:px-6 py-6">
         {/* Header */}

@@ -8,7 +8,7 @@ import { formatPrice, formatPct } from "@/lib/utils";
 import ThemeToggle from "./ThemeToggle";
 
 interface TopNavProps {
-  currentDate: string;
+  currentDate?: string;
   stocks?: Stock[];
 }
 

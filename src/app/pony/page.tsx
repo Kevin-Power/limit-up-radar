@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import TopNav from "@/components/TopNav";
+import NavBar from "@/components/NavBar";
 import { formatPct, formatPrice } from "@/lib/utils";
 import {
   analyzeEma,
@@ -254,6 +255,7 @@ export default function PonyPage() {
   return (
     <div className="min-h-screen bg-bg-0 text-txt-0">
       <TopNav currentDate="2025-03-20" />
+      <NavBar />
 
       <main className="max-w-7xl mx-auto px-4 py-8">
         {/* ── Header ─────────────────────────────────── */}
