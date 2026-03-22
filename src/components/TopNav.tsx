@@ -34,6 +34,7 @@ export default function TopNav({ currentDate, stocks = [] }: TopNavProps) {
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -189,6 +190,7 @@ export default function TopNav({ currentDate, stocks = [] }: TopNavProps) {
           <button
             className="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-[5px] text-txt-3 hover:text-txt-1 transition-colors"
             aria-label="選單"
+            onClick={() => setMobileMenuOpen((v) => !v)}
           >
             <span className="w-5 h-[1.5px] bg-current rounded-full" />
             <span className="w-5 h-[1.5px] bg-current rounded-full" />
@@ -197,6 +199,28 @@ export default function TopNav({ currentDate, stocks = [] }: TopNavProps) {
         </div>
       </div>
 
+      {/* Mobile menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden bg-bg-1 border-t border-border">
+          {NAV_ITEMS.map(({ label, href }) => {
+            const isActive = pathname === href;
+            return (
+              <Link
+                key={label}
+                href={href}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`block px-5 py-2.5 text-[13px] font-medium border-b border-border transition-colors ${
+                  isActive
+                    ? "text-txt-0 bg-bg-2"
+                    : "text-txt-3 hover:text-txt-1 hover:bg-bg-2"
+                }`}
+              >
+                {label}
+              </Link>
+            );
+          })}
+        </div>
+      )}
     </nav>
   );
 }

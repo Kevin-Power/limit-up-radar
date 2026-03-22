@@ -9,8 +9,8 @@ function TickerItem({ label, value, type = "neutral" }: { label: string; value: 
   const colorClass = type === "up" ? "text-red" : type === "dn" ? "text-green" : "text-txt-2";
   return (
     <div className="flex items-center gap-1.5 whitespace-nowrap">
-      <span className="text-[11px] text-txt-4 font-medium">{label}</span>
-      <span className={`text-xs font-semibold ${colorClass}`}>{value}</span>
+      <span className="text-[10px] md:text-[11px] text-txt-4 font-medium">{label}</span>
+      <span className={`text-[11px] md:text-xs font-semibold ${colorClass}`}>{value}</span>
     </div>
   );
 }
@@ -28,7 +28,7 @@ export default function TickerBar({ summary }: TickerBarProps) {
 
   return (
     <div
-      className="flex items-center h-9 px-5 bg-bg-1 border-b border-border gap-6 overflow-x-auto"
+      className="flex items-center h-9 px-3 md:px-5 bg-bg-1 border-b border-border gap-4 md:gap-6 overflow-x-auto scrollbar-none text-[10px] md:text-xs"
       style={{ WebkitOverflowScrolling: "touch" } as React.CSSProperties}
     >
       <TickerItem label="加權" value={formatNumber(s.taiex_close)} type={taiexType} />
