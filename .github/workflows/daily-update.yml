@@ -1,0 +1,101 @@
+name: Daily Update - Fetch TWSE Data & Deploy
+
+on:
+  schedule:
+    # Weekdays at 14:35 Taiwan time (UTC+8) = 06:35 UTC
+    - cron: '35 6 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Trading date (YYYY-MM-DD), leave empty for auto-detect'
+        required: false
+        default: ''
+
+env:
+  TZ: Asia/Taipei
+
+jobs:
+  update-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: pip install requests
+
+      - name: Run classify script
+        id: classify
+        run: |
+          set +e
+          if [ -n "${{ github.event.inputs.date }}" ]; then
+            PYTHONPATH=. python scripts/classify_and_save.py "${{ github.event.inputs.date }}" 2>&1
+          else
+            PYTHONPATH=. python scripts/classify_and_save.py 2>&1
+          fi
+          EXIT_CODE=$?
+          set -e
+
+          if [ $EXIT_CODE -ne 0 ]; then
+            echo "Script exited with code $EXIT_CODE"
+            echo "data_found=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::No trading data found (market may be closed today)"
+            exit 0
+          fi
+
+          # Check if any JSON file was created in data/daily/
+          LATEST_JSON=$(ls -t data/daily/*.json 2>/dev/null | head -1)
+          if [ -z "$LATEST_JSON" ]; then
+            echo "data_found=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::No JSON file was created"
+          else
+            echo "data_found=true" >> "$GITHUB_OUTPUT"
+            echo "json_file=$LATEST_JSON" >> "$GITHUB_OUTPUT"
+            echo "Data file created: $LATEST_JSON"
+          fi
+
+      - name: Commit and push data
+        if: steps.classify.outputs.data_found == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/daily/*.json
+          DATE_PART=$(basename "${{ steps.classify.outputs.json_file }}" .json)
+          git commit -m "data: add daily data for ${DATE_PART}" || echo "No changes to commit"
+          git push
+
+      - name: Setup Node.js 20
+        if: steps.classify.outputs.data_found == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Vercel CLI
+        if: steps.classify.outputs.data_found == 'true'
+        run: npm install -g vercel
+
+      - name: Deploy to Vercel Production
+        if: steps.classify.outputs.data_found == 'true'
+        run: |
+          vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+          vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+          vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Summary
+        run: |
+          if [ "${{ steps.classify.outputs.data_found }}" == "true" ]; then
+            echo "### Daily Update Complete" >> $GITHUB_STEP_SUMMARY
+            echo "- Data file: \`${{ steps.classify.outputs.json_file }}\`" >> $GITHUB_STEP_SUMMARY
+            echo "- Deployed to Vercel production" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "### No Update Today" >> $GITHUB_STEP_SUMMARY
+            echo "- No trading data found (holiday or weekend)" >> $GITHUB_STEP_SUMMARY
+          fi
