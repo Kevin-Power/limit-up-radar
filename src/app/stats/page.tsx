@@ -310,7 +310,7 @@ function NextDayPerformance() {
   return (
     <Card>
       <SectionTitle>漲停後隔日表現統計</SectionTitle>
-      <div className="flex items-start gap-6">
+      <div className="flex flex-col md:flex-row items-start gap-4 md:gap-6">
         {/* Three donuts */}
         <div className="flex gap-4">
           {metrics.map((m) => {
@@ -565,6 +565,7 @@ function StreakSuccessTable() {
   return (
     <Card>
       <SectionTitle>連板成功率統計</SectionTitle>
+      <div className="overflow-x-auto">
       <table className="w-full text-xs">
         <thead>
           <tr className="border-b border-border">
@@ -607,6 +608,7 @@ function StreakSuccessTable() {
           ))}
         </tbody>
       </table>
+      </div>
       <div className="mt-3 text-[10px] text-txt-4">
         * 成功定義: 次日未跌停且漲幅 &gt; 0%
       </div>
@@ -676,6 +678,7 @@ function TimePeriodWinRate() {
     <Card>
       <SectionTitle>時段勝率分析</SectionTitle>
       <div className="text-[10px] text-txt-4 mb-4">漲停買進後不同持有期間之勝率與報酬</div>
+      <div className="overflow-x-auto">
       <table className="w-full text-xs">
         <thead>
           <tr className="border-b border-border">
@@ -729,6 +732,7 @@ function TimePeriodWinRate() {
           ))}
         </tbody>
       </table>
+      </div>
       <div className="mt-3 flex items-center gap-4 text-[10px] text-txt-4">
         <span className="flex items-center gap-1">
           <span className="inline-block w-2.5 h-2.5 rounded-sm" style={{ background: "rgba(239,68,68,0.5)" }} />
@@ -753,7 +757,7 @@ export default function StatsPage() {
       <TopNav currentDate="2026-03-20" />
       <NavBar />
 
-      <main className="flex-1 overflow-y-auto p-5">
+      <main className="flex-1 overflow-y-auto p-4 md:p-5">
         {/* Demo banner */}
         <div className="mb-5 px-3 py-2 bg-amber-bg border border-amber/30 rounded-lg flex items-center gap-2 text-xs text-amber font-medium">
           <span className="text-amber font-bold">DEMO</span>

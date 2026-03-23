@@ -570,7 +570,7 @@ export default function NextDayPage() {
         {/* ─── Hero Header ─── */}
         <div className="relative border-b border-border">
           <div className="absolute inset-0 bg-gradient-to-b from-accent/[0.03] to-transparent pointer-events-none" />
-          <div className="max-w-[1400px] mx-auto px-6 py-5 text-center">
+          <div className="max-w-[1400px] mx-auto px-4 md:px-6 py-5 text-center">
             <h1 className="text-lg font-bold text-txt-0 tracking-tight flex items-center justify-center gap-2">
               <span className="text-xl">📊</span> 漲停隔日表現
             </h1>
@@ -595,7 +595,7 @@ export default function NextDayPage() {
           </div>
         </div>
 
-        <div className="max-w-[1400px] mx-auto px-6 py-5 space-y-5">
+        <div className="max-w-[1400px] mx-auto px-4 md:px-6 py-5 space-y-5">
           {/* ─── KPI Cards ─── */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
             <KpiCard label="開盤均報酬" value={formatPct(stats.openAvg)}

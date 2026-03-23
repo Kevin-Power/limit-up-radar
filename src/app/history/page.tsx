@@ -151,7 +151,7 @@ export default function HistoryPage() {
       <TopNav currentDate="2026-03-21" />
       <NavBar />
 
-      <main className="flex-1 overflow-y-auto p-5">
+      <main className="flex-1 overflow-y-auto p-4 md:p-5">
         {/* Page title */}
         <div className="mb-5">
           <h1 className="text-base font-semibold text-txt-0 tracking-tight">
@@ -163,7 +163,7 @@ export default function HistoryPage() {
         </div>
 
         {/* Summary stats */}
-        <div className="grid grid-cols-3 gap-3 mb-5">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
           <div className="bg-bg-2 border border-border rounded-md px-4 py-3">
             <div className="text-[10px] text-txt-4 font-medium tracking-wide uppercase mb-1">
               交易日數
@@ -292,7 +292,7 @@ export default function HistoryPage() {
                 關閉
               </button>
             </div>
-            <div className="flex gap-6">
+            <div className="flex flex-wrap gap-4 md:gap-6">
               <div>
                 <div className="text-[10px] text-txt-4 mb-1">漲停家數</div>
                 <div

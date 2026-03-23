@@ -366,7 +366,7 @@ export default function DisposalPage() {
     <div className="flex flex-col h-screen overflow-hidden">
       <TopNav currentDate="2026-03-21" />
       <NavBar />
-      <main className="flex-1 overflow-y-auto p-5 max-w-6xl mx-auto w-full space-y-6">
+      <main className="flex-1 overflow-y-auto p-4 md:p-5 max-w-6xl mx-auto w-full space-y-6">
 
         {/* Demo banner */}
         <div className="flex items-center gap-2 px-3 py-2 bg-amber/10 border border-amber/30 rounded-lg text-xs text-amber font-medium">
@@ -381,7 +381,7 @@ export default function DisposalPage() {
         </div>
 
         {/* ─── 1. KPI Cards ─────────────────────────────────────────────── */}
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <KPICard label="處置警告股" value={countWarning} color="red" />
           <KPICard label="預警中" value={countAlert} color="amber" />
           <KPICard label="已處置" value={countDisposed} color="blue" />
@@ -390,7 +390,8 @@ export default function DisposalPage() {
         {/* ─── 2. Risk Monitoring Table ─────────────────────────────────── */}
         <div>
           <div className="text-xs font-semibold text-txt-3 uppercase tracking-wider mb-3">處置風險監控表</div>
-          <div className="border border-border rounded-lg overflow-hidden">
+          <div className="overflow-x-auto">
+          <div className="border border-border rounded-lg overflow-hidden min-w-[720px]">
             {/* Header */}
             <div className="grid grid-cols-[60px_80px_80px_90px_80px_110px_80px_70px_70px] gap-0 px-4 py-2 bg-bg-2 border-b border-border text-[10px] font-semibold text-txt-4 uppercase tracking-wider">
               <div>代號</div>
@@ -449,6 +450,7 @@ export default function DisposalPage() {
               );
             })}
           </div>
+          </div>
           <div className="mt-2 text-[10px] text-txt-4 text-right">
             {DISPOSAL_STOCKS.length} stocks monitored / updated after market close
           </div>
@@ -485,7 +487,8 @@ export default function DisposalPage() {
         {/* ─── 5. Historical Cases ──────────────────────────────────────── */}
         <div>
           <div className="text-xs font-semibold text-txt-3 uppercase tracking-wider mb-3">歷史處置案例</div>
-          <div className="border border-border rounded-lg overflow-hidden">
+          <div className="overflow-x-auto">
+          <div className="border border-border rounded-lg overflow-hidden min-w-[630px]">
             <div className="grid grid-cols-[60px_70px_90px_120px_90px_90px_110px] gap-0 px-4 py-2 bg-bg-2 border-b border-border text-[10px] font-semibold text-txt-4 uppercase tracking-wider">
               <div>代號</div>
               <div>名稱</div>
@@ -521,6 +524,7 @@ export default function DisposalPage() {
                 </div>
               </div>
             ))}
+          </div>
           </div>
           <div className="mt-2 text-[10px] text-txt-4">
             * Historical data for reference only. Past performance does not predict future results.

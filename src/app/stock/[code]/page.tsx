@@ -565,7 +565,7 @@ export default function StockDetailPage({ params }: PageProps) {
       <TopNav currentDate="2026-03-20" stocks={stock ? [stock] : []} />
       <NavBar />
       <main className="flex-1 overflow-y-auto">
-        <div className="max-w-5xl mx-auto px-5 py-5">
+        <div className="max-w-5xl mx-auto px-4 md:px-5 py-5">
           {/* Back link */}
           <Link
             href="/"
@@ -602,7 +602,7 @@ export default function StockDetailPage({ params }: PageProps) {
                         {marketType}
                       </span>
                     </div>
-                    <h1 className="text-3xl font-bold text-txt-0 tracking-tight mb-2">{displayStock.name}</h1>
+                    <h1 className="text-xl md:text-3xl font-bold text-txt-0 tracking-tight mb-2">{displayStock.name}</h1>
                     <div className="flex flex-wrap items-center gap-2">
                       <a
                         href={`https://www.google.com/search?q=${displayStock.code}+外資買超`}
@@ -633,7 +633,7 @@ export default function StockDetailPage({ params }: PageProps) {
 
                   <div className="text-right flex-shrink-0">
                     <div className="flex items-baseline gap-2 justify-end">
-                      <span className={`text-3xl font-bold tabular-nums ${isPositive ? "text-red" : "text-green"}`}>
+                      <span className={`text-xl md:text-3xl font-bold tabular-nums ${isPositive ? "text-red" : "text-green"}`}>
                         {formatPrice(displayStock.close)}
                       </span>
                       <span className={`text-lg ${isPositive ? "text-red" : "text-green"}`}>
@@ -725,7 +725,7 @@ export default function StockDetailPage({ params }: PageProps) {
                             {getSignalFullLabel(emaResult.signal)}
                           </span>
                         </div>
-                        <div className="flex items-center gap-4 mb-3">
+                        <div className="flex flex-wrap items-center gap-3 md:gap-4 mb-3">
                           <div className="flex items-center gap-2">
                             <div className="w-3 h-[2px] bg-blue rounded" />
                             <span className="text-[11px] text-txt-3">EMA11</span>
@@ -934,7 +934,8 @@ export default function StockDetailPage({ params }: PageProps) {
                   ============================================================ */}
               <div className="mb-6">
                 <SectionLabel>Limit-Up History / 歷史漲停紀錄</SectionLabel>
-                <div className="border border-border rounded-xl overflow-hidden">
+                <div className="overflow-x-auto">
+                <div className="border border-border rounded-xl overflow-hidden min-w-[500px]">
                   <div className="grid grid-cols-[1fr_1.2fr_0.8fr_0.8fr_0.8fr] gap-0 px-4 py-2.5 bg-bg-2 border-b border-border">
                     {["Date / 日期", "Group / 族群", "Next Open%", "Next Close%", "Volume"].map((h) => (
                       <div key={h} className="text-[9px] font-semibold text-txt-4 uppercase tracking-wider">{h}</div>
@@ -965,6 +966,7 @@ export default function StockDetailPage({ params }: PageProps) {
                     </div>
                   ))}
                 </div>
+                </div>
               </div>
 
               {/* ============================================================
@@ -972,7 +974,8 @@ export default function StockDetailPage({ params }: PageProps) {
                   ============================================================ */}
               <div className="mb-6">
                 <SectionLabel>Peer Comparison / 同族群比較</SectionLabel>
-                <div className="border border-border rounded-xl overflow-hidden">
+                <div className="overflow-x-auto">
+                <div className="border border-border rounded-xl overflow-hidden min-w-[500px]">
                   <div className="grid grid-cols-[0.6fr_1fr_0.8fr_0.8fr_0.8fr_0.6fr] gap-0 px-4 py-2.5 bg-bg-2 border-b border-border">
                     {["Code", "Name", "Price", "Change%", "Volume", "P/E"].map((h) => (
                       <div key={h} className="text-[9px] font-semibold text-txt-4 uppercase tracking-wider">{h}</div>
@@ -998,6 +1001,7 @@ export default function StockDetailPage({ params }: PageProps) {
                       <div className="text-xs tabular-nums text-txt-2">{p.pe}</div>
                     </Link>
                   ))}
+                </div>
                 </div>
               </div>
 

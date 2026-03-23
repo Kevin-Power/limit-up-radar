@@ -148,7 +148,7 @@ export default function ArchivePage() {
         </div>
 
         {/* Quick Stats */}
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <Card>
             <div className="text-[10px] text-txt-4 uppercase tracking-wider mb-1">連續偏多天數</div>
             <div className="text-xl font-bold text-red tracking-tight">{bullishStreak} 天</div>
@@ -291,7 +291,7 @@ export default function ArchivePage() {
           {showComparison && reportA && reportB && (
             <div className="space-y-4">
               {/* Side by side cards */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Report A */}
                 <div className="bg-bg-2 rounded-lg p-4 border border-border">
                   <div className="text-[10px] text-txt-4 mb-2">報告 A - {reportA.date}</div>
@@ -350,7 +350,7 @@ export default function ArchivePage() {
               {/* Group changes */}
               <div className="bg-bg-2 rounded-lg p-4 border border-border">
                 <div className="text-[10px] text-txt-4 mb-3">族群變化</div>
-                <div className="grid grid-cols-2 gap-4 text-xs">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                   <div>
                     <div className="text-[10px] text-txt-4 mb-1.5">A 有 / B 無 (新出現)</div>
                     <div className="flex flex-wrap gap-1">
