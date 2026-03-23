@@ -7,6 +7,7 @@ import NavBar from "@/components/NavBar";
 import { DailyData, Stock, StockGroup } from "@/lib/types";
 import { formatPrice, formatPct, formatNumber, formatNet } from "@/lib/utils";
 import { analyzeEma, getSignalFullLabel, getSignalColor } from "@/lib/ema";
+import KLineChart, { type CandleData } from "@/components/KLineChart";
 
 // --- Seeded RNG helpers ---
 
@@ -93,6 +94,61 @@ function generateDateLabels(count = 30): string[] {
     labels.push(`${d.getMonth() + 1}/${d.getDate()}`);
   }
   return labels;
+}
+
+function generateCandleData(seed: string, basePrice: number, count = 60): CandleData[] {
+  const rng = makeRng(seed + "_candle");
+  const data: CandleData[] = [];
+  let price = basePrice * (0.90 + rng() * 0.08); // start ~90-98% of base
+  const baseVol = basePrice > 500 ? 3000 : basePrice > 100 ? 8000 : 15000;
+  const now = new Date(2026, 2, 20);
+
+  // Walk backwards to find enough trading days
+  let tradingDays = 0;
+  let dayOffset = 0;
+  const dates: Date[] = [];
+  while (tradingDays < count) {
+    const d = new Date(now);
+    d.setDate(d.getDate() - dayOffset);
+    const dow = d.getDay();
+    if (dow !== 0 && dow !== 6) {
+      dates.unshift(d);
+      tradingDays++;
+    }
+    dayOffset++;
+  }
+
+  for (let i = 0; i < dates.length; i++) {
+    const d = dates[i];
+    const dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+
+    // Daily change: +/- 1-3% with slight upward drift toward basePrice
+    const drift = (basePrice - price) * 0.015;
+    const volatility = (rng() - 0.5) * basePrice * 0.03;
+    const open = price;
+    const close = Math.max(open * 0.9, Math.min(open * 1.1, open + drift + volatility));
+
+    // High and low: extend beyond open/close range
+    const highExtra = rng() * Math.abs(close - open) * 0.8 + basePrice * 0.002;
+    const lowExtra = rng() * Math.abs(close - open) * 0.8 + basePrice * 0.002;
+    const high = Math.max(open, close) + highExtra;
+    const low = Math.min(open, close) - lowExtra;
+
+    // Volume with daily variation
+    const volume = Math.round(baseVol * (0.4 + rng() * 1.6));
+
+    data.push({
+      date: dateStr,
+      open: +open.toFixed(2),
+      high: +high.toFixed(2),
+      low: +low.toFixed(2),
+      close: +close.toFixed(2),
+      volume,
+    });
+
+    price = close;
+  }
+  return data;
 }
 
 interface LimitUpEntry {
@@ -699,6 +755,20 @@ export default function StockDetailPage({ params }: PageProps) {
                 baseVol={displayStock.volume}
                 color={displayGroup.color}
               />
+
+              {/* ============================================================
+                  SECTION 2.5: K-Line / Candlestick Technical Chart
+                  ============================================================ */}
+              <div className="mb-6">
+                <SectionLabel>技術分析圖表</SectionLabel>
+                <KLineChart
+                  data={generateCandleData(code, displayStock.close, 60)}
+                  showMA={true}
+                  showVolume={true}
+                  showMACD={true}
+                  showKD={true}
+                />
+              </div>
 
               {/* ============================================================
                   SECTION 3: Key Metrics Grid (2 x 4)
