@@ -393,7 +393,7 @@ export default function DisposalPage() {
           <div className="overflow-x-auto">
           <div className="border border-border rounded-lg overflow-hidden min-w-[720px]">
             {/* Header */}
-            <div className="grid grid-cols-[60px_80px_80px_90px_80px_110px_80px_70px_70px] gap-0 px-4 py-2 bg-bg-2 border-b border-border text-[10px] font-semibold text-txt-4 uppercase tracking-wider">
+            <div className="grid grid-cols-[60px_70px_70px_80px_75px_120px_80px_70px_60px] gap-1 px-4 py-2 bg-bg-2 border-b border-border text-[10px] font-semibold text-txt-4 uppercase tracking-wider">
               <div>代號</div>
               <div>名稱</div>
               <div>產業</div>
@@ -419,7 +419,7 @@ export default function DisposalPage() {
               return (
                 <div
                   key={s.code}
-                  className={`grid grid-cols-[60px_80px_80px_90px_80px_110px_80px_70px_70px] gap-0 px-4 py-2.5 items-center border-b border-white/[0.03] last:border-b-0 transition-colors hover:bg-white/[0.03] ${rowBg}`}
+                  className={`grid grid-cols-[60px_70px_70px_80px_75px_120px_80px_70px_60px] gap-1 px-4 py-2.5 items-center border-b border-white/[0.03] last:border-b-0 transition-colors hover:bg-white/[0.03] ${rowBg}`}
                 >
                   <div className="text-xs font-semibold text-txt-3 tabular-nums">
                     <Link href={`/stock/${s.code}`} className="hover:text-txt-1 hover:underline underline-offset-2 transition-colors">

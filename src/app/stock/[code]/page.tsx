@@ -27,15 +27,46 @@ function makeRng(seed: string) {
   };
 }
 
+// --- Stock name & price lookup maps ---
+
+const STOCK_NAMES: Record<string, string> = {
+  "3324": "雙鴻", "3017": "奇鋐", "6515": "穎崴", "6223": "旺矽",
+  "2330": "台積電", "2454": "聯發科", "6669": "緯穎", "2376": "技嘉",
+  "3037": "欣興", "2317": "鴻海", "4977": "眾達-KY", "4743": "合一",
+  "3576": "聯合再生", "2014": "中鴻", "1301": "台塑", "1303": "南亞",
+  "2007": "燁興", "2025": "千興", "1325": "恒大", "2542": "興富發",
+  "2388": "威健", "6670": "復盛應用", "1471": "首利", "3363": "上詮",
+  "7795": "長廣", "6274": "台燿", "2401": "凌陽", "2458": "義隆",
+  "2548": "華固", "2012": "春雨", "2459": "敦吉", "5522": "遠翔",
+  "2379": "瑞昱", "5274": "信驊", "6446": "藥華藥", "1402": "遠東新",
+  "2368": "金像電", "2421": "建準", "4904": "遠傳", "5534": "長虹",
+};
+
+const STOCK_PRICES: Record<string, number> = {
+  "3324": 1065, "3017": 329, "6515": 7930, "6223": 3860,
+  "2330": 1840, "2454": 1700, "6669": 3775, "2376": 378,
+  "3037": 215, "2317": 178, "4977": 285, "4743": 328,
+  "3576": 23.4, "2014": 19.6, "1301": 42.8, "1303": 38.5,
+  "2007": 8.63, "2025": 11.6, "1325": 24.8, "2542": 67.5,
+  "2388": 32.5, "6670": 142, "1471": 54.2, "3363": 95.8,
+  "7795": 188, "6274": 142, "2401": 38.5, "2458": 128,
+  "2548": 95.2, "2012": 32.5, "2379": 520, "5274": 3200,
+  "6446": 480, "1402": 28.5, "2368": 165, "2421": 112,
+  "4904": 85, "5534": 45.2,
+};
+
 // --- Mock data generators ---
 
 function generatePriceSeries(seed: string, basePrice: number, count = 30): number[] {
   const rng = makeRng(seed + "_chart");
-  const prices: number[] = [basePrice * 0.85];
+  // Start at ~92% of base price and drift toward it, staying within +/- 15%
+  const startOffset = 0.88 + rng() * 0.09; // 0.88 ~ 0.97
+  const prices: number[] = [basePrice * startOffset];
   for (let i = 1; i < count; i++) {
-    const drift = basePrice * 0.005;
-    const noise = (rng() - 0.42) * basePrice * 0.012;
-    prices.push(Math.max(prices[i - 1] + drift + noise, basePrice * 0.5));
+    const drift = (basePrice - prices[i - 1]) * 0.03; // mean-revert toward base
+    const noise = (rng() - 0.5) * basePrice * 0.015;
+    const next = prices[i - 1] + drift + noise;
+    prices.push(Math.max(Math.min(next, basePrice * 1.15), basePrice * 0.85));
   }
   return prices;
 }
@@ -510,11 +541,12 @@ export default function StockDetailPage({ params }: PageProps) {
       .catch(() => setLoading(false));
   }, [code]);
 
+  const fallbackPrice = STOCK_PRICES[code] ?? 100;
   const displayStock: Stock = stock ?? {
     code,
-    name: `Stock ${code}`,
+    name: STOCK_NAMES[code] ?? `Stock ${code}`,
     industry: "--",
-    close: 100,
+    close: fallbackPrice,
     change_pct: 10,
     volume: 10000,
     major_net: 1000,
