@@ -9,18 +9,18 @@ import NavBar from "@/components/NavBar";
    ================================================================ */
 
 const GROUPS = [
-  "AI 伺服器 / 散熱",
-  "半導體設備 / 先進封裝",
-  "IC 設計 / AI 邊緣運算",
-  "光通訊 / 矽光子",
-  "PCB / CCL 基板",
-  "鋼鐵 / 原物料",
-  "太陽能 / 綠能",
-  "生技 / 醫療器材",
+  "AI伺服器 / 散熱",
+  "半導體測試 / 先進封裝",
+  "IC設計 / AI邊緣運算",
+  "矽光子 / 高速傳輸",
+  "PCB / CCL基板",
+  "鋼鐵 / 鋼價調漲",
+  "塑化 / 油價",
+  "生技 / 醫藥",
   "營建 / 資產",
+  "光通訊",
+  "IC設計 / 邊緣運算",
   "個股亮點",
-  "電動車 / 充電樁",
-  "軍工 / 航太",
 ];
 
 const RECENT_DATES = [
@@ -30,31 +30,31 @@ const RECENT_DATES = [
 
 // Heatmap data: group x date -> limit-up count
 const HEATMAP_DATA: Record<string, number[]> = {
-  "AI 伺服器 / 散熱":       [5,4,2,3,4,6,3,5,4,7],
-  "半導體設備 / 先進封裝":   [4,3,1,2,3,5,4,3,5,6],
-  "IC 設計 / AI 邊緣運算":   [3,2,2,1,3,4,3,2,4,5],
-  "光通訊 / 矽光子":        [2,3,1,2,2,3,2,3,3,4],
-  "PCB / CCL 基板":         [2,2,1,1,2,3,1,2,2,3],
-  "鋼鐵 / 原物料":          [1,1,2,3,2,1,1,2,1,1],
-  "太陽能 / 綠能":          [0,1,2,1,1,2,3,2,1,1],
-  "生技 / 醫療器材":        [1,0,1,1,0,2,1,1,2,1],
+  "AI伺服器 / 散熱":        [5,4,2,3,4,6,3,5,4,7],
+  "半導體測試 / 先進封裝":   [4,3,1,2,3,5,4,3,5,6],
+  "IC設計 / AI邊緣運算":     [3,2,2,1,3,4,3,2,4,5],
+  "矽光子 / 高速傳輸":      [2,3,1,2,2,3,2,3,3,4],
+  "PCB / CCL基板":          [2,2,1,1,2,3,1,2,2,3],
+  "鋼鐵 / 鋼價調漲":        [1,1,2,3,2,1,1,2,1,1],
+  "塑化 / 油價":            [0,1,2,1,1,2,3,2,1,1],
+  "生技 / 醫藥":            [1,0,1,1,0,2,1,1,2,1],
   "營建 / 資產":            [0,1,0,1,1,0,1,0,1,1],
-  "個股亮點":               [3,2,1,1,2,2,1,2,1,3],
-  "電動車 / 充電樁":        [1,2,1,0,1,2,2,1,2,3],
-  "軍工 / 航太":            [0,0,1,1,0,1,2,1,0,2],
+  "光通訊":                 [3,2,1,1,2,2,1,2,1,3],
+  "IC設計 / 邊緣運算":      [1,2,1,0,1,2,2,1,2,3],
+  "個股亮點":               [0,0,1,1,0,1,2,1,0,2],
 };
 
 const GROUP_HEAT = [
-  { name: "AI 伺服器 / 散熱",      count: 28, prev: 22, trend: "up" as const },
-  { name: "半導體設備 / 先進封裝",  count: 24, prev: 20, trend: "up" as const },
-  { name: "IC 設計 / AI 邊緣運算",  count: 21, prev: 23, trend: "down" as const },
-  { name: "光通訊 / 矽光子",       count: 18, prev: 15, trend: "up" as const },
-  { name: "PCB / CCL 基板",        count: 16, prev: 16, trend: "flat" as const },
-  { name: "電動車 / 充電樁",       count: 14, prev: 10, trend: "up" as const },
-  { name: "鋼鐵 / 原物料",         count: 12, prev: 14, trend: "down" as const },
-  { name: "太陽能 / 綠能",         count: 10, prev: 8,  trend: "up" as const },
-  { name: "軍工 / 航太",           count: 9,  prev: 5,  trend: "up" as const },
-  { name: "生技 / 醫療器材",       count: 8,  prev: 9,  trend: "down" as const },
+  { name: "AI伺服器 / 散熱",       count: 28, prev: 22, trend: "up" as const },
+  { name: "半導體測試 / 先進封裝",  count: 24, prev: 20, trend: "up" as const },
+  { name: "IC設計 / AI邊緣運算",    count: 21, prev: 23, trend: "down" as const },
+  { name: "矽光子 / 高速傳輸",     count: 18, prev: 15, trend: "up" as const },
+  { name: "PCB / CCL基板",         count: 16, prev: 16, trend: "flat" as const },
+  { name: "光通訊",                count: 14, prev: 10, trend: "up" as const },
+  { name: "鋼鐵 / 鋼價調漲",       count: 12, prev: 14, trend: "down" as const },
+  { name: "塑化 / 油價",           count: 10, prev: 8,  trend: "up" as const },
+  { name: "IC設計 / 邊緣運算",     count: 9,  prev: 5,  trend: "up" as const },
+  { name: "生技 / 醫藥",           count: 8,  prev: 9,  trend: "down" as const },
   { name: "營建 / 資產",           count: 6,  prev: 7,  trend: "down" as const },
   { name: "個股亮點",              count: 4,  prev: 6,  trend: "down" as const },
 ];
@@ -134,7 +134,7 @@ function KpiRow() {
   const totalLimitUp = MONTHLY_TREND.reduce((s, d) => s + d.count, 0);
   const avgDaily = (totalLimitUp / MONTHLY_TREND.length).toFixed(1);
   const positiveRate = "55.2";
-  const strongestGroup = "AI 伺服器";
+  const strongestGroup = "AI伺服器";
 
   const kpis = [
     { label: "本月漲停總數",  value: String(totalLimitUp), sub: `${MONTHLY_TREND.length} 交易日`, color: "#ef4444" },

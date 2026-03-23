@@ -18,26 +18,26 @@ import {
    ================================================================ */
 
 const MOCK_STOCKS = [
-  { code: "3324", name: "雙鴻", close: 385, changePct: 10.0, group: "AI 伺服器" },
-  { code: "3017", name: "奇鋐", close: 412.5, changePct: 10.0, group: "AI 伺服器" },
-  { code: "8210", name: "勤誠", close: 289, changePct: 10.0, group: "AI 伺服器" },
-  { code: "2376", name: "技嘉", close: 456, changePct: 10.0, group: "AI 伺服器" },
-  { code: "3131", name: "弘塑", close: 1285, changePct: 10.0, group: "半導體設備" },
-  { code: "3413", name: "京鼎", close: 567, changePct: 10.0, group: "半導體設備" },
-  { code: "2330", name: "台積電", close: 890, changePct: 10.0, group: "半導體" },
-  { code: "2454", name: "聯發科", close: 1250, changePct: 10.0, group: "IC 設計" },
-  { code: "3661", name: "世芯-KY", close: 2850, changePct: 10.0, group: "IC 設計" },
-  { code: "6770", name: "力積電", close: 52, changePct: 10.0, group: "半導體" },
-  { code: "2002", name: "中鋼", close: 32.45, changePct: 10.0, group: "鋼鐵" },
-  { code: "1301", name: "台塑", close: 68.5, changePct: 10.0, group: "塑化" },
-  { code: "2303", name: "聯電", close: 55.8, changePct: 10.0, group: "半導體" },
-  { code: "3443", name: "創意", close: 1680, changePct: 10.0, group: "IC 設計" },
-  { code: "6547", name: "高端疫苗", close: 45, changePct: 10.0, group: "生技" },
-  { code: "2014", name: "中鴻", close: 24.8, changePct: 10.0, group: "鋼鐵" },
-  { code: "3037", name: "欣興", close: 198, changePct: 10.0, group: "PCB" },
-  { code: "6588", name: "東典光電", close: 99.8, changePct: 10.0, group: "光通訊" },
-  { code: "4919", name: "新唐", close: 99.4, changePct: 10.0, group: "IC 設計" },
-  { code: "2388", name: "威盛", close: 88, changePct: 10.0, group: "IC 設計" },
+  { code: "3324", name: "雙鴻", close: 1065, changePct: 10.0, group: "AI 伺服器" },
+  { code: "3017", name: "奇鋐", close: 329, changePct: 10.0, group: "AI 伺服器" },
+  { code: "6669", name: "緯穎", close: 3775, changePct: 10.0, group: "AI 伺服器" },
+  { code: "2376", name: "技嘉", close: 378, changePct: 10.0, group: "AI 伺服器" },
+  { code: "6515", name: "穎崴", close: 7930, changePct: 10.0, group: "半導體設備" },
+  { code: "6223", name: "旺矽", close: 3860, changePct: 10.0, group: "半導體設備" },
+  { code: "2330", name: "台積電", close: 1840, changePct: 10.0, group: "半導體" },
+  { code: "2454", name: "聯發科", close: 1700, changePct: 10.0, group: "IC 設計" },
+  { code: "5274", name: "信驊", close: 2890, changePct: 10.0, group: "IC 設計" },
+  { code: "2379", name: "瑞昱", close: 485, changePct: 10.0, group: "IC 設計" },
+  { code: "2007", name: "燁興", close: 8.63, changePct: 10.0, group: "鋼鐵" },
+  { code: "1301", name: "台塑", close: 42.8, changePct: 10.0, group: "塑化" },
+  { code: "1303", name: "南亞", close: 38.5, changePct: 10.0, group: "塑化" },
+  { code: "2317", name: "鴻海", close: 178, changePct: 10.0, group: "電子代工" },
+  { code: "4743", name: "合一", close: 328, changePct: 10.0, group: "生技" },
+  { code: "2014", name: "中鴻", close: 19.6, changePct: 10.0, group: "鋼鐵" },
+  { code: "6274", name: "台燿", close: 142, changePct: 10.0, group: "PCB" },
+  { code: "4977", name: "眾達-KY", close: 285, changePct: 10.0, group: "光通訊" },
+  { code: "2458", name: "義隆", close: 142, changePct: 10.0, group: "IC 設計" },
+  { code: "2401", name: "凌陽", close: 38.5, changePct: 10.0, group: "IC 設計" },
 ];
 
 /* ================================================================
@@ -254,7 +254,7 @@ export default function PonyPage() {
 
   return (
     <div className="min-h-screen bg-bg-0 text-txt-0">
-      <TopNav currentDate="2025-03-20" />
+      <TopNav currentDate="2026-03-20" />
       <NavBar />
 
       <main className="max-w-7xl mx-auto px-4 py-8">

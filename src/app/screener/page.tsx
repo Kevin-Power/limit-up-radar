@@ -44,21 +44,21 @@ const PRESETS = [
 ];
 
 const MOCK_STOCKS: Stock[] = [
-  { code: "2330", name: "台積電",   close: 985,  change: 3.25,  volume: 38420, pe: 28.5, roe: 29.1, revenueYoY: 35.2, foreignNet: 12500, score: 92 },
-  { code: "2454", name: "聯發科",   close: 1380, change: 2.18,  volume: 8730,  pe: 18.2, roe: 22.8, revenueYoY: 28.7, foreignNet: 4300,  score: 88 },
-  { code: "2317", name: "鴻海",     close: 178,  change: 4.71,  volume: 52300, pe: 12.1, roe: 14.5, revenueYoY: 18.3, foreignNet: 8200,  score: 85 },
-  { code: "3661", name: "世芯-KY", close: 2850, change: 5.56,  volume: 3210,  pe: 42.3, roe: 35.2, revenueYoY: 62.1, foreignNet: 1850,  score: 95 },
-  { code: "2382", name: "廣達",     close: 325,  change: 3.83,  volume: 18900, pe: 15.8, roe: 18.7, revenueYoY: 22.5, foreignNet: 5600,  score: 82 },
-  { code: "6669", name: "緯穎",     close: 1920, change: 2.95,  volume: 2150,  pe: 22.7, roe: 26.3, revenueYoY: 41.8, foreignNet: 980,   score: 90 },
-  { code: "3037", name: "欣興",     close: 245,  change: -1.21, volume: 14500, pe: 10.5, roe: 20.1, revenueYoY: 8.5,  foreignNet: -3200, score: 58 },
-  { code: "2603", name: "長榮",     close: 198,  change: 1.54,  volume: 28700, pe: 6.8,  roe: 32.5, revenueYoY: -5.2, foreignNet: -1500, score: 65 },
-  { code: "2308", name: "台達電",   close: 410,  change: 2.50,  volume: 9800,  pe: 25.3, roe: 19.8, revenueYoY: 15.7, foreignNet: 3800,  score: 80 },
-  { code: "3443", name: "創意",     close: 1650, change: 4.43,  volume: 4500,  pe: 38.1, roe: 28.9, revenueYoY: 55.3, foreignNet: 2100,  score: 91 },
-  { code: "2345", name: "智邦",     close: 580,  change: 1.75,  volume: 6200,  pe: 20.4, roe: 17.3, revenueYoY: 12.8, foreignNet: 1200,  score: 72 },
-  { code: "6446", name: "藥華藥",   close: 320,  change: -2.44, volume: 11200, pe: 55.2, roe: 8.5,  revenueYoY: 85.3, foreignNet: -800,  score: 55 },
-  { code: "2881", name: "富邦金",   close: 88.5, change: 0.57,  volume: 25300, pe: 9.2,  roe: 12.1, revenueYoY: 6.3,  foreignNet: 4100,  score: 68 },
-  { code: "3008", name: "大立光",   close: 2380, change: 1.92,  volume: 1850,  pe: 24.8, roe: 15.6, revenueYoY: -3.1, foreignNet: 520,   score: 62 },
-  { code: "6274", name: "台燿",     close: 142,  change: 6.77,  volume: 7800,  pe: 11.3, roe: 16.2, revenueYoY: 25.4, foreignNet: 950,   score: 78 },
+  { code: "2330", name: "台積電",   close: 1840, change: 2.15,  volume: 32500, pe: 26.8, roe: 30.2, revenueYoY: 38.5, foreignNet: 15200, score: 94 },
+  { code: "2454", name: "聯發科",   close: 1700, change: 1.85,  volume: 7800,  pe: 19.5, roe: 24.1, revenueYoY: 32.4, foreignNet: 5100,  score: 90 },
+  { code: "2317", name: "鴻海",     close: 178,  change: 3.48,  volume: 48200, pe: 11.8, roe: 13.9, revenueYoY: 15.6, foreignNet: 7500,  score: 83 },
+  { code: "6669", name: "緯穎",     close: 3775, change: 4.12,  volume: 1850,  pe: 24.3, roe: 28.7, revenueYoY: 45.2, foreignNet: 1200,  score: 93 },
+  { code: "3017", name: "奇鋐",     close: 329,  change: 5.45,  volume: 12300, pe: 16.2, roe: 19.5, revenueYoY: 28.9, foreignNet: 3800,  score: 86 },
+  { code: "3324", name: "雙鴻",     close: 1065, change: 3.90,  volume: 4200,  pe: 21.5, roe: 25.8, revenueYoY: 35.7, foreignNet: 1650,  score: 89 },
+  { code: "6515", name: "穎崴",     close: 7930, change: 2.72,  volume: 680,   pe: 35.2, roe: 32.1, revenueYoY: 42.3, foreignNet: 420,   score: 88 },
+  { code: "6223", name: "旺矽",     close: 3860, change: 1.84,  volume: 950,   pe: 28.6, roe: 27.4, revenueYoY: 22.8, foreignNet: 380,   score: 82 },
+  { code: "5274", name: "信驊",     close: 2890, change: 2.31,  volume: 1100,  pe: 42.5, roe: 35.8, revenueYoY: 18.5, foreignNet: 650,   score: 80 },
+  { code: "4743", name: "合一",     close: 328,  change: 6.15,  volume: 15800, pe: 48.3, roe: 12.5, revenueYoY: 72.6, foreignNet: -1200, score: 72 },
+  { code: "6446", name: "藥華藥",   close: 485,  change: -1.82, volume: 9500,  pe: 52.8, roe: 9.8,  revenueYoY: 68.4, foreignNet: -950,  score: 58 },
+  { code: "1301", name: "台塑",     close: 42.8, change: 0.94,  volume: 22100, pe: 15.2, roe: 6.8,  revenueYoY: -8.5, foreignNet: -4200, score: 45 },
+  { code: "1303", name: "南亞",     close: 38.5, change: 0.52,  volume: 18600, pe: 18.7, roe: 5.2,  revenueYoY: -12.3,foreignNet: -3500, score: 42 },
+  { code: "6274", name: "台燿",     close: 142,  change: 4.41,  volume: 8200,  pe: 12.8, roe: 17.5, revenueYoY: 22.1, foreignNet: 1100,  score: 79 },
+  { code: "2376", name: "技嘉",     close: 378,  change: 3.28,  volume: 9800,  pe: 14.5, roe: 20.3, revenueYoY: 25.8, foreignNet: 2800,  score: 84 },
 ];
 
 /* ================================================================

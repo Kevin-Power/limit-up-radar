@@ -51,7 +51,7 @@ const MARKET_CONCLUSION = {
   regime: "偏多" as const,
   streak: 3,
   summary:
-    "加權指數收漲186點站上22,856點,量能溫和放大至3,218億元。AI族群全面點火帶動電子股走強,散熱、光通訊類股漲停家數創近期新高。外資連三日買超,短線多頭格局延續。",
+    "加權指數收漲236點站上33,689點,量能溫和放大至4,128億元。AI伺服器散熱族群全面點火帶動電子股走強,半導體測試、矽光子類股漲停家數創近期新高。外資連三日買超,短線多頭格局延續。",
 };
 
 const BREADTH = {
@@ -59,22 +59,22 @@ const BREADTH = {
   declines: 421,
   unchanged: 87,
   aboveMa20Pct: 63.5,
-  todayVolume: 3218,
-  avg5Volume: 2845,
+  todayVolume: 4128,
+  avg5Volume: 3645,
 };
 
 const SECTOR_PERFORMANCE = {
   top: [
-    { name: "AI 伺服器 / 散熱",    pct: 4.82 },
-    { name: "光通訊 / 矽光子",     pct: 3.65 },
-    { name: "半導體設備",           pct: 2.91 },
-    { name: "IC 設計 / AI 邊緣運算", pct: 2.34 },
-    { name: "PCB / CCL 基板",      pct: 1.87 },
+    { name: "AI伺服器 / 散熱",      pct: 4.82 },
+    { name: "矽光子 / 高速傳輸",     pct: 3.65 },
+    { name: "半導體測試 / 先進封裝",  pct: 2.91 },
+    { name: "IC設計 / AI邊緣運算",   pct: 2.34 },
+    { name: "PCB / CCL基板",        pct: 1.87 },
   ],
   bottom: [
-    { name: "營建 / 資產",   pct: -1.23 },
-    { name: "生技 / 醫療",   pct: -0.85 },
-    { name: "鋼鐵 / 原物料", pct: -0.62 },
+    { name: "營建 / 資產",     pct: -1.23 },
+    { name: "塑化 / 油價",     pct: -0.85 },
+    { name: "鋼鐵 / 鋼價調漲", pct: -0.62 },
   ],
 };
 
@@ -88,14 +88,14 @@ interface StrongStock {
 }
 
 const STRONG_SETUPS: StrongStock[] = [
-  { code: "3324", name: "雙鴻",  price: 385.0,  changePct: 10.0,  score: 95, reasons: [{ label: "法人連買", variant: "green" }, { label: "營收加速", variant: "blue" }, { label: "KD金叉", variant: "amber" }] },
-  { code: "3017", name: "奇鋐",  price: 412.5,  changePct: 10.0,  score: 92, reasons: [{ label: "法人連買", variant: "green" }, { label: "突破前高", variant: "blue" }] },
-  { code: "6550", name: "北極星藥業", price: 268.0, changePct: 6.85, score: 88, reasons: [{ label: "營收加速", variant: "blue" }, { label: "KD金叉", variant: "amber" }] },
-  { code: "3131", name: "弘塑",  price: 1285.0, changePct: 5.32,  score: 85, reasons: [{ label: "法人連買", variant: "green" }, { label: "量能擴增", variant: "amber" }] },
-  { code: "3661", name: "世芯",  price: 2680.0, changePct: 4.68,  score: 82, reasons: [{ label: "突破前高", variant: "blue" }, { label: "外資買超", variant: "green" }] },
-  { code: "2388", name: "威盛",  price: 128.5,  changePct: 10.0,  score: 80, reasons: [{ label: "KD金叉", variant: "amber" }, { label: "量能擴增", variant: "amber" }] },
-  { code: "3037", name: "欣興",  price: 218.0,  changePct: 3.81,  score: 78, reasons: [{ label: "法人連買", variant: "green" }, { label: "營收加速", variant: "blue" }] },
-  { code: "6510", name: "精測",  price: 985.0,  changePct: 3.15,  score: 75, reasons: [{ label: "外資買超", variant: "green" }, { label: "KD金叉", variant: "amber" }] },
+  { code: "3324", name: "雙鴻",   price: 1065.0, changePct: 10.0,  score: 95, reasons: [{ label: "法人連買", variant: "green" }, { label: "營收加速", variant: "blue" }, { label: "KD金叉", variant: "amber" }] },
+  { code: "3017", name: "奇鋐",   price: 329.0,  changePct: 10.0,  score: 92, reasons: [{ label: "法人連買", variant: "green" }, { label: "突破前高", variant: "blue" }] },
+  { code: "6669", name: "緯穎",   price: 3775.0, changePct: 6.85,  score: 88, reasons: [{ label: "營收加速", variant: "blue" }, { label: "KD金叉", variant: "amber" }] },
+  { code: "6515", name: "穎崴",   price: 7930.0, changePct: 5.32,  score: 85, reasons: [{ label: "法人連買", variant: "green" }, { label: "量能擴增", variant: "amber" }] },
+  { code: "2454", name: "聯發科", price: 1700.0, changePct: 4.68,  score: 82, reasons: [{ label: "突破前高", variant: "blue" }, { label: "外資買超", variant: "green" }] },
+  { code: "2376", name: "技嘉",   price: 378.0,  changePct: 10.0,  score: 80, reasons: [{ label: "KD金叉", variant: "amber" }, { label: "量能擴增", variant: "amber" }] },
+  { code: "3037", name: "欣興",   price: 215.0,  changePct: 3.81,  score: 78, reasons: [{ label: "法人連買", variant: "green" }, { label: "營收加速", variant: "blue" }] },
+  { code: "6223", name: "旺矽",   price: 3860.0, changePct: 3.15,  score: 75, reasons: [{ label: "外資買超", variant: "green" }, { label: "KD金叉", variant: "amber" }] },
 ];
 
 interface RiskStock {
@@ -108,11 +108,11 @@ interface RiskStock {
 }
 
 const RISK_LIST: RiskStock[] = [
-  { code: "4174", name: "浩鼎",  price: 148.5,  changePct: -3.25, riskScore: 92, reasons: [{ label: "法人連賣", variant: "red" }, { label: "RSI過熱", variant: "amber" }, { label: "量縮破線", variant: "red" }] },
-  { code: "6289", name: "華上",  price: 42.8,   changePct: -2.50, riskScore: 85, reasons: [{ label: "RSI過熱", variant: "amber" }, { label: "主力出貨", variant: "red" }] },
-  { code: "5534", name: "長虹",  price: 105.0,  changePct: -1.87, riskScore: 78, reasons: [{ label: "法人連賣", variant: "red" }, { label: "跌破月線", variant: "amber" }] },
-  { code: "3714", name: "富采",  price: 72.3,   changePct: -1.36, riskScore: 72, reasons: [{ label: "量縮破線", variant: "red" }, { label: "KD死叉", variant: "amber" }] },
-  { code: "8069", name: "元太",  price: 198.5,  changePct: -0.75, riskScore: 65, reasons: [{ label: "外資賣超", variant: "red" }, { label: "RSI過熱", variant: "amber" }] },
+  { code: "6683", name: "雍智",   price: 312.0,  changePct: -3.25, riskScore: 92, reasons: [{ label: "法人連賣", variant: "red" }, { label: "RSI過熱", variant: "amber" }, { label: "量縮破線", variant: "red" }] },
+  { code: "4765", name: "精金",   price: 28.5,   changePct: -2.50, riskScore: 85, reasons: [{ label: "RSI過熱", variant: "amber" }, { label: "主力出貨", variant: "red" }] },
+  { code: "1301", name: "台塑",   price: 42.8,   changePct: -1.87, riskScore: 78, reasons: [{ label: "法人連賣", variant: "red" }, { label: "跌破月線", variant: "amber" }] },
+  { code: "2007", name: "燁興",   price: 8.63,   changePct: -1.36, riskScore: 72, reasons: [{ label: "量縮破線", variant: "red" }, { label: "KD死叉", variant: "amber" }] },
+  { code: "1303", name: "南亞",   price: 38.5,   changePct: -0.75, riskScore: 65, reasons: [{ label: "外資賣超", variant: "red" }, { label: "RSI過熱", variant: "amber" }] },
 ];
 
 /* ================================================================
