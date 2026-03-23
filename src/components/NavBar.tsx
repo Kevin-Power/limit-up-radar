@@ -20,7 +20,7 @@ export default function NavBar() {
   const pathname = usePathname();
 
   return (
-    <div className="glass sticky top-[36px] z-40 items-center h-9 px-5 gap-0 overflow-x-auto scrollbar-none bg-bg-1 border-b border-border" style={{ display: "flex" }}>
+    <div className="glass sticky top-[36px] z-40 items-center h-9 px-3 md:px-5 gap-0 overflow-x-auto scrollbar-none bg-bg-1 border-b border-border" style={{ display: "flex" }}>
       {NAV_ITEMS.map(({ label, href }) => {
         const isActive = pathname === href;
         return (

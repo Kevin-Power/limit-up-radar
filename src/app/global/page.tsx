@@ -271,7 +271,7 @@ export default function GlobalPage() {
       <main className="max-w-7xl mx-auto px-4 py-6 space-y-6">
         {/* ── Header ── */}
         <div>
-          <h1 className="text-2xl font-bold text-txt-0 tracking-tight">國際市場</h1>
+          <h1 className="text-xl md:text-2xl font-bold text-txt-0 tracking-tight">國際市場</h1>
           <p className="text-sm text-txt-3 mt-1">全球主要指數即時概覽</p>
         </div>
 

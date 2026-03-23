@@ -208,7 +208,7 @@ function SectorBars() {
       <div className="space-y-2">
         {SECTOR_PERFORMANCE.top.map((s) => (
           <div key={s.name} className="flex items-center gap-3">
-            <div className="w-40 text-xs text-txt-2 truncate text-right shrink-0">{s.name}</div>
+            <div className="w-24 md:w-40 text-xs text-txt-2 truncate text-right shrink-0">{s.name}</div>
             <div className="flex-1 h-5 bg-bg-2 rounded overflow-hidden">
               <div
                 className="h-full bg-green/70 rounded"
@@ -228,7 +228,7 @@ function SectorBars() {
       <div className="space-y-2">
         {SECTOR_PERFORMANCE.bottom.map((s) => (
           <div key={s.name} className="flex items-center gap-3">
-            <div className="w-40 text-xs text-txt-2 truncate text-right shrink-0">{s.name}</div>
+            <div className="w-24 md:w-40 text-xs text-txt-2 truncate text-right shrink-0">{s.name}</div>
             <div className="flex-1 h-5 bg-bg-2 rounded overflow-hidden">
               <div
                 className="h-full bg-red/70 rounded"
@@ -266,7 +266,7 @@ export default function ReportPage() {
         {/* ── Header ── */}
         <div className="flex items-center justify-between flex-wrap gap-3">
           <div>
-            <h1 className="text-2xl font-bold text-txt-0 tracking-tight">每日盤後報告</h1>
+            <h1 className="text-xl md:text-2xl font-bold text-txt-0 tracking-tight">每日盤後報告</h1>
             <p className="text-sm text-txt-3 mt-1">{REPORT_DATE}</p>
           </div>
           <span className={`text-sm px-3 py-1.5 rounded-md font-bold ${regimeColor}`}>
