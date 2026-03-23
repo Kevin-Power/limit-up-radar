@@ -115,7 +115,7 @@ const TIMELINE_STEPS = [
 
 function RiskBadge({ level }: { level: RiskLevel }) {
   const cls: Record<RiskLevel, string> = {
-    "高危": "bg-red/10 text-red border border-red/30",
+    "高危": "bg-red/10 text-red border border-red/30 glow-red",
     "注意": "bg-amber/10 text-amber border border-amber/30",
     "觀察": "bg-blue/10 text-blue border border-blue/30",
   };
@@ -366,7 +366,7 @@ export default function DisposalPage() {
     <div className="flex flex-col h-screen overflow-hidden">
       <TopNav currentDate="2026-03-21" />
       <NavBar />
-      <main className="flex-1 overflow-y-auto p-4 md:p-5 max-w-6xl mx-auto w-full space-y-6">
+      <main className="flex-1 overflow-y-auto p-4 md:p-5 max-w-6xl mx-auto w-full space-y-6 animate-fade-in">
 
         {/* Demo banner */}
         <div className="flex items-center gap-2 px-3 py-2 bg-amber/10 border border-amber/30 rounded-lg text-xs text-amber font-medium">
@@ -419,7 +419,7 @@ export default function DisposalPage() {
               return (
                 <div
                   key={s.code}
-                  className={`grid grid-cols-[60px_70px_70px_80px_75px_120px_80px_70px_60px] gap-1 px-4 py-2.5 items-center border-b border-white/[0.03] last:border-b-0 transition-colors hover:bg-white/[0.03] ${rowBg}`}
+                  className={`grid grid-cols-[60px_70px_70px_80px_75px_120px_80px_70px_60px] gap-1 px-4 py-2.5 items-center border-b border-white/[0.03] last:border-b-0 transition-colors hover:bg-white/[0.03] row-hover ${rowBg}`}
                 >
                   <div className="text-xs font-semibold text-txt-3 tabular-nums">
                     <Link href={`/stock/${s.code}`} className="hover:text-txt-1 hover:underline underline-offset-2 transition-colors">

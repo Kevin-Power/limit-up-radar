@@ -566,7 +566,7 @@ export default function NextDayPage() {
       <TopNav currentDate={day.nextDate} />
       <NavBar />
 
-      <main className="flex-1 overflow-y-auto">
+      <main className="flex-1 overflow-y-auto animate-fade-in">
         {/* ─── Hero Header ─── */}
         <div className="relative border-b border-border">
           <div className="absolute inset-0 bg-gradient-to-b from-accent/[0.03] to-transparent pointer-events-none" />
@@ -762,7 +762,7 @@ export default function NextDayPage() {
                 </thead>
                 <tbody>
                   {displayStocks.map((s) => (
-                    <tr key={s.code} className="border-b border-border/50 last:border-0 hover:bg-bg-3/30 transition-colors">
+                    <tr key={s.code} className="border-b border-border/50 last:border-0 hover:bg-bg-3/30 transition-colors row-hover">
                       <td className="px-2 py-2.5 text-center"><MarketBadge market={s.market} /></td>
                       <td className="px-3 py-2.5 font-mono text-txt-3 text-[11px]">
                         <Link href={`/stock/${s.code}`} className="hover:text-txt-0 hover:underline underline-offset-2 transition-colors">

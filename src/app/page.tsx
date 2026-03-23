@@ -210,7 +210,7 @@ export default function Home() {
         <TickerBar summary={displayData.market_summary} />
       )}
       <NavBar />
-      <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
+      <div className="flex flex-col md:flex-row flex-1 overflow-hidden animate-fade-in">
         <main className="flex-1 overflow-y-auto p-5">
           {displayDate && (
             <DateNav

@@ -184,11 +184,11 @@ export default function ScreenerPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-bg-0 text-txt-1">
+    <div className="min-h-screen bg-bg-0 text-txt-1 animate-fade-in">
       <TopNav currentDate="2026-03-20" />
       <NavBar />
 
-      <main className="max-w-7xl mx-auto px-4 pt-20 pb-16 space-y-6">
+      <main className="max-w-7xl mx-auto px-4 pt-20 pb-16 space-y-6 animate-fade-in">
         {/* Header */}
         <div>
           <h1 className="text-xl font-bold text-txt-0 tracking-tight">進階選股</h1>
@@ -401,26 +401,26 @@ export default function ScreenerPage() {
             </thead>
             <tbody>
               {sorted.map((s) => (
-                <tr key={s.code} className="border-b border-border/50 hover:bg-bg-2/50 transition-colors">
+                <tr key={s.code} className="border-b border-border/50 hover:bg-bg-2/50 transition-colors row-hover">
                   <td className="px-3 py-2.5">
                     <Link href={`/stock/${s.code}`} className="text-accent hover:underline font-mono">
                       {s.code}
                     </Link>
                   </td>
                   <td className="px-3 py-2.5 text-txt-1 font-medium">{s.name}</td>
-                  <td className="px-3 py-2.5 text-right font-mono text-txt-1">{formatPrice(s.close)}</td>
-                  <td className={`px-3 py-2.5 text-right font-mono ${s.change >= 0 ? "text-red" : "text-green"}`}>
+                  <td className="px-3 py-2.5 text-right font-mono text-txt-1 tabular-nums">{formatPrice(s.close)}</td>
+                  <td className={`px-3 py-2.5 text-right font-mono tabular-nums ${s.change >= 0 ? "text-red" : "text-green"}`}>
                     {formatPct(s.change)}
                   </td>
-                  <td className="px-3 py-2.5 text-right font-mono text-txt-2">
+                  <td className="px-3 py-2.5 text-right font-mono text-txt-2 tabular-nums">
                     {s.volume.toLocaleString()}
                   </td>
-                  <td className="px-3 py-2.5 text-right font-mono text-txt-2">{s.pe.toFixed(1)}</td>
-                  <td className="px-3 py-2.5 text-right font-mono text-txt-2">{s.roe.toFixed(1)}</td>
-                  <td className={`px-3 py-2.5 text-right font-mono ${s.revenueYoY >= 0 ? "text-red" : "text-green"}`}>
+                  <td className="px-3 py-2.5 text-right font-mono text-txt-2 tabular-nums">{s.pe.toFixed(1)}</td>
+                  <td className="px-3 py-2.5 text-right font-mono text-txt-2 tabular-nums">{s.roe.toFixed(1)}</td>
+                  <td className={`px-3 py-2.5 text-right font-mono tabular-nums ${s.revenueYoY >= 0 ? "text-red" : "text-green"}`}>
                     {s.revenueYoY >= 0 ? "+" : ""}{s.revenueYoY.toFixed(1)}%
                   </td>
-                  <td className={`px-3 py-2.5 text-right font-mono ${s.foreignNet >= 0 ? "text-red" : "text-green"}`}>
+                  <td className={`px-3 py-2.5 text-right font-mono tabular-nums ${s.foreignNet >= 0 ? "text-red" : "text-green"}`}>
                     {s.foreignNet >= 0 ? "+" : ""}{s.foreignNet.toLocaleString()}
                   </td>
                   <td className="px-3 py-2.5">

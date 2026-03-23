@@ -253,11 +253,11 @@ export default function PonyPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-bg-0 text-txt-0">
+    <div className="min-h-screen bg-bg-0 text-txt-0 animate-fade-in">
       <TopNav currentDate="2026-03-20" />
       <NavBar />
 
-      <main className="max-w-7xl mx-auto px-4 py-8">
+      <main className="max-w-7xl mx-auto px-4 py-8 animate-fade-in">
         {/* ── Header ─────────────────────────────────── */}
         <div className="mb-8">
           <h1 className="text-xl md:text-3xl font-bold text-txt-0 flex items-center gap-2">
@@ -372,7 +372,7 @@ export default function PonyPage() {
                 return (
                   <tr
                     key={row.code}
-                    className="border-b border-border/50 hover:bg-bg-2/50 transition-colors"
+                    className="border-b border-border/50 hover:bg-bg-2/50 transition-colors row-hover"
                   >
                     {/* 代號 */}
                     <td className="px-3 py-2">
@@ -388,24 +388,24 @@ export default function PonyPage() {
                       {row.name}
                     </td>
                     {/* 收盤價 */}
-                    <td className="px-3 py-2 text-right font-mono text-txt-1">
+                    <td className="px-3 py-2 text-right font-mono text-txt-1 tabular-nums">
                       {formatPrice(row.close)}
                     </td>
                     {/* 漲跌幅 */}
-                    <td className="px-3 py-2 text-right font-mono text-red">
+                    <td className="px-3 py-2 text-right font-mono text-red tabular-nums">
                       {formatPct(row.changePct)}
                     </td>
                     {/* EMA11 */}
-                    <td className="px-3 py-2 text-right font-mono text-blue">
+                    <td className="px-3 py-2 text-right font-mono text-blue tabular-nums">
                       {row.ema11.toFixed(1)}
                     </td>
                     {/* EMA24 */}
-                    <td className="px-3 py-2 text-right font-mono text-amber">
+                    <td className="px-3 py-2 text-right font-mono text-amber tabular-nums">
                       {row.ema24.toFixed(1)}
                     </td>
                     {/* 差值 */}
                     <td
-                      className={`px-3 py-2 text-right font-mono ${
+                      className={`px-3 py-2 text-right font-mono tabular-nums ${
                         diffPositive ? "text-red" : "text-green"
                       }`}
                     >

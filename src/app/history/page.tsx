@@ -151,7 +151,7 @@ export default function HistoryPage() {
       <TopNav currentDate="2026-03-21" />
       <NavBar />
 
-      <main className="flex-1 overflow-y-auto p-4 md:p-5">
+      <main className="flex-1 overflow-y-auto p-4 md:p-5 animate-fade-in">
         {/* Page title */}
         <div className="mb-5">
           <h1 className="text-base font-semibold text-txt-0 tracking-tight">

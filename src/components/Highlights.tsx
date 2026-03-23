@@ -72,7 +72,7 @@ interface CardProps {
 
 function HighlightCard({ accentColor, icon, title, primary, secondary, barValue }: CardProps) {
   return (
-    <div className="flex-1 min-w-[160px] bg-bg-1 border border-border rounded-lg overflow-hidden hover:border-border-hover transition-colors">
+    <div className="flex-1 min-w-[160px] bg-bg-1 border border-border rounded-lg overflow-hidden hover:border-border-hover transition-colors card-hover">
       <div className="px-4 py-4">
         <div className="flex items-center gap-1.5 mb-2">
           <span className="text-sm" style={{ color: accentColor }}>
@@ -184,7 +184,7 @@ export default function Highlights({ data }: HighlightsProps) {
 
           {/* Key stats row */}
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <StatPill label="漲停" value={`${ms.limit_up_count} 檔`} color="text-red" />
+            <span className="glow-red rounded-md px-1.5 py-0.5"><StatPill label="漲停" value={`${ms.limit_up_count} 檔`} color="text-red" /></span>
             <StatPill label="跌停" value={`${ms.limit_down_count} 檔`} color="text-green" />
             <div className="hidden sm:block w-px h-4 bg-border" />
             <StatPill label="漲" value={ms.advance} color="text-red" />

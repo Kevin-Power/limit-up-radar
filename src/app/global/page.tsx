@@ -155,7 +155,7 @@ function IndexCard({ idx }: { idx: IndexData }) {
   const sign = isUp ? "+" : "";
 
   return (
-    <div className={`bg-bg-1 border ${borderColor} rounded-lg p-4 hover:border-border-hover transition-colors`}>
+    <div className={`bg-bg-1 border ${borderColor} rounded-lg p-4 hover:border-border-hover transition-colors card-hover`}>
       <div className="flex items-start justify-between mb-2">
         <div>
           <div className="text-xs text-txt-3 font-medium">{idx.name}</div>
@@ -172,11 +172,11 @@ function IndexCard({ idx }: { idx: IndexData }) {
         </span>
       </div>
 
-      <div className="text-lg font-bold text-txt-0 tracking-tight mb-1">
+      <div className="text-lg font-bold text-txt-0 tracking-tight mb-1 tabular-nums">
         {idx.value.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
       </div>
 
-      <div className={`text-xs font-mono ${changeColor} mb-2`}>
+      <div className={`text-xs font-mono tabular-nums ${changeColor} mb-2`}>
         {sign}{idx.change.toFixed(2)} ({sign}{idx.changePct.toFixed(2)}%)
       </div>
 
@@ -264,11 +264,11 @@ export default function GlobalPage() {
       : INDICES.filter((i) => i.region === activeRegion);
 
   return (
-    <div className="min-h-screen bg-bg-0 text-txt-1">
+    <div className="min-h-screen bg-bg-0 text-txt-1 animate-fade-in">
       <TopNav currentDate="2026-03-20" />
       <NavBar />
 
-      <main className="max-w-7xl mx-auto px-4 py-6 space-y-6">
+      <main className="max-w-7xl mx-auto px-4 py-6 space-y-6 animate-fade-in">
         {/* ── Header ── */}
         <div>
           <h1 className="text-xl md:text-2xl font-bold text-txt-0 tracking-tight">國際市場</h1>
@@ -343,14 +343,14 @@ export default function GlobalPage() {
             {/* US 10Y */}
             <Card>
               <div className="text-[10px] text-txt-4 uppercase tracking-wider mb-3">美國10年期公債殖利率</div>
-              <div className="text-xl font-bold text-txt-0 tracking-tight">{RISK_DATA.us10y.toFixed(2)}%</div>
+              <div className="text-xl font-bold text-txt-0 tracking-tight tabular-nums">{RISK_DATA.us10y.toFixed(2)}%</div>
               <div className="text-xs text-red mt-1">+0.03 (較前日)</div>
             </Card>
 
             {/* DXY */}
             <Card>
               <div className="text-[10px] text-txt-4 uppercase tracking-wider mb-3">美元指數 DXY</div>
-              <div className="text-xl font-bold text-txt-0 tracking-tight">{RISK_DATA.dxy.toFixed(2)}</div>
+              <div className="text-xl font-bold text-txt-0 tracking-tight tabular-nums">{RISK_DATA.dxy.toFixed(2)}</div>
               <div className="text-xs text-green mt-1">-0.18 (較前日)</div>
             </Card>
 

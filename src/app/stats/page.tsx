@@ -148,7 +148,7 @@ function KpiRow() {
       {kpis.map((k) => (
         <div
           key={k.label}
-          className="bg-bg-1 border border-border rounded-lg p-4 relative overflow-hidden"
+          className="bg-bg-1 border border-border rounded-lg p-4 relative overflow-hidden card-hover"
         >
           <div
             className="absolute top-0 left-0 w-full h-[2px]"
@@ -757,7 +757,7 @@ export default function StatsPage() {
       <TopNav currentDate="2026-03-20" />
       <NavBar />
 
-      <main className="flex-1 overflow-y-auto p-4 md:p-5">
+      <main className="flex-1 overflow-y-auto p-4 md:p-5 animate-fade-in">
         {/* Demo banner */}
         <div className="mb-5 px-3 py-2 bg-amber-bg border border-amber/30 rounded-lg flex items-center gap-2 text-xs text-amber font-medium">
           <span className="text-amber font-bold">DEMO</span>

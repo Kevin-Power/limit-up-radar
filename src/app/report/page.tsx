@@ -215,7 +215,7 @@ function SectorBars() {
                 style={{ width: `${(s.pct / maxPct) * 100}%` }}
               />
             </div>
-            <div className="w-14 text-xs text-green font-mono text-right shrink-0">
+            <div className="w-14 text-xs text-green font-mono text-right shrink-0 tabular-nums">
               +{s.pct.toFixed(2)}%
             </div>
           </div>
@@ -235,7 +235,7 @@ function SectorBars() {
                 style={{ width: `${(Math.abs(s.pct) / maxPct) * 100}%` }}
               />
             </div>
-            <div className="w-14 text-xs text-red font-mono text-right shrink-0">
+            <div className="w-14 text-xs text-red font-mono text-right shrink-0 tabular-nums">
               {s.pct.toFixed(2)}%
             </div>
           </div>
@@ -258,11 +258,11 @@ export default function ReportPage() {
       : "text-amber bg-amber-bg";
 
   return (
-    <div className="min-h-screen bg-bg-0 text-txt-1">
+    <div className="min-h-screen bg-bg-0 text-txt-1 animate-fade-in">
       <TopNav currentDate="2026-03-20" />
       <NavBar />
 
-      <main className="max-w-5xl mx-auto px-4 py-6 space-y-6">
+      <main className="max-w-5xl mx-auto px-4 py-6 space-y-6 animate-fade-in">
         {/* ── Header ── */}
         <div className="flex items-center justify-between flex-wrap gap-3">
           <div>
@@ -336,15 +336,15 @@ export default function ReportPage() {
               </thead>
               <tbody>
                 {STRONG_SETUPS.map((s) => (
-                  <tr key={s.code} className="border-b border-border/50 hover:bg-bg-2/50 transition-colors">
+                  <tr key={s.code} className="border-b border-border/50 hover:bg-bg-2/50 transition-colors card-hover">
                     <td className="py-2.5 text-txt-3 font-mono">{s.code}</td>
                     <td className="py-2.5 text-txt-0 font-medium">{s.name}</td>
-                    <td className="py-2.5 text-right text-txt-1 font-mono">{formatPrice(s.price)}</td>
-                    <td className="py-2.5 text-right text-green font-mono">
+                    <td className="py-2.5 text-right text-txt-1 font-mono tabular-nums">{formatPrice(s.price)}</td>
+                    <td className="py-2.5 text-right text-green font-mono tabular-nums">
                       +{s.changePct.toFixed(2)}%
                     </td>
                     <td className="py-2.5 text-right">
-                      <span className={`font-bold ${
+                      <span className={`font-bold tabular-nums ${
                         s.score >= 90 ? "text-green" : s.score >= 80 ? "text-blue" : "text-amber"
                       }`}>
                         {s.score}
@@ -384,12 +384,12 @@ export default function ReportPage() {
                   <tr key={s.code} className="border-b border-border/50 hover:bg-bg-2/50 transition-colors">
                     <td className="py-2.5 text-txt-3 font-mono">{s.code}</td>
                     <td className="py-2.5 text-txt-0 font-medium">{s.name}</td>
-                    <td className="py-2.5 text-right text-txt-1 font-mono">{formatPrice(s.price)}</td>
-                    <td className="py-2.5 text-right text-red font-mono">
+                    <td className="py-2.5 text-right text-txt-1 font-mono tabular-nums">{formatPrice(s.price)}</td>
+                    <td className="py-2.5 text-right text-red font-mono tabular-nums">
                       {s.changePct.toFixed(2)}%
                     </td>
                     <td className="py-2.5 text-right">
-                      <span className={`font-bold ${
+                      <span className={`font-bold tabular-nums ${
                         s.riskScore >= 85 ? "text-red" : s.riskScore >= 70 ? "text-amber" : "text-txt-2"
                       }`}>
                         {s.riskScore}

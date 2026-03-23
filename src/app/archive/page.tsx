@@ -136,11 +136,11 @@ export default function ArchivePage() {
   );
 
   return (
-    <div className="min-h-screen bg-bg-0 text-txt-1">
+    <div className="min-h-screen bg-bg-0 text-txt-1 animate-fade-in">
       <TopNav currentDate="2026-03-20" />
       <NavBar />
 
-      <main className="max-w-6xl mx-auto px-4 pt-20 pb-16 space-y-6">
+      <main className="max-w-6xl mx-auto px-4 pt-20 pb-16 space-y-6 animate-fade-in">
         {/* Header */}
         <div>
           <h1 className="text-xl font-bold text-txt-0 tracking-tight">報告存檔</h1>
@@ -151,11 +151,11 @@ export default function ArchivePage() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <Card>
             <div className="text-[10px] text-txt-4 uppercase tracking-wider mb-1">連續偏多天數</div>
-            <div className="text-xl font-bold text-red tracking-tight">{bullishStreak} 天</div>
+            <div className="text-xl font-bold text-red tracking-tight tabular-nums">{bullishStreak} 天</div>
           </Card>
           <Card>
             <div className="text-[10px] text-txt-4 uppercase tracking-wider mb-1">本月平均漲停數</div>
-            <div className="text-xl font-bold text-txt-0 tracking-tight">{avgLimitUp} 檔</div>
+            <div className="text-xl font-bold text-txt-0 tracking-tight tabular-nums">{avgLimitUp} 檔</div>
           </Card>
           <Card>
             <div className="text-[10px] text-txt-4 uppercase tracking-wider mb-1">最多漲停日</div>
@@ -227,11 +227,11 @@ export default function ArchivePage() {
             <tbody>
               {filteredReports.map((r) => (
                 <tr key={r.date} className="border-b border-border/50 hover:bg-bg-2/50 transition-colors">
-                  <td className="px-5 py-2.5 font-mono text-txt-1">{r.date}</td>
-                  <td className={`px-3 py-2.5 text-right font-mono ${r.marketChange >= 0 ? "text-red" : "text-green"}`}>
+                  <td className="px-5 py-2.5 font-mono text-txt-1 tabular-nums">{r.date}</td>
+                  <td className={`px-3 py-2.5 text-right font-mono tabular-nums ${r.marketChange >= 0 ? "text-red" : "text-green"}`}>
                     {r.marketChange >= 0 ? "+" : ""}{r.marketChange.toFixed(2)}%
                   </td>
-                  <td className="px-3 py-2.5 text-right font-mono text-txt-1">{r.limitUpCount}</td>
+                  <td className="px-3 py-2.5 text-right font-mono text-txt-1 tabular-nums">{r.limitUpCount}</td>
                   <td className="px-3 py-2.5 text-center">
                     <span className={`px-2 py-0.5 text-[10px] font-medium rounded ${VERDICT_COLORS[r.verdict]}`}>
                       {VERDICT_LABELS[r.verdict]}

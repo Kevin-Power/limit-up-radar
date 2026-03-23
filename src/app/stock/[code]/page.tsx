@@ -597,7 +597,7 @@ export default function StockDetailPage({ params }: PageProps) {
       <TopNav currentDate="2026-03-20" stocks={stock ? [stock] : []} />
       <NavBar />
       <main className="flex-1 overflow-y-auto">
-        <div className="max-w-5xl mx-auto px-4 md:px-5 py-5">
+        <div className="max-w-5xl mx-auto px-4 md:px-5 py-5 animate-fade-in">
           {/* Back link */}
           <Link
             href="/"

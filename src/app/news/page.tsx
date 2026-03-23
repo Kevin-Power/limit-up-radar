@@ -222,11 +222,11 @@ export default function NewsPage() {
   const visible = filtered.slice(0, visibleCount);
 
   return (
-    <div className="min-h-screen bg-bg-0 text-txt-1">
+    <div className="min-h-screen bg-bg-0 text-txt-1 animate-fade-in">
       <TopNav currentDate="2026-03-20" />
       <NavBar />
 
-      <main className="max-w-4xl mx-auto px-4 pt-20 pb-16 space-y-6">
+      <main className="max-w-4xl mx-auto px-4 pt-20 pb-16 space-y-6 animate-fade-in">
         {/* Header */}
         <div>
           <h1 className="text-xl font-bold text-txt-0 tracking-tight">市場情資</h1>

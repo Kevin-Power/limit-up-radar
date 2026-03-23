@@ -305,11 +305,11 @@ export default function BacktestPage() {
   const xLabelIndices = [0, 40, 80, 120, 160, 199];
 
   return (
-    <div className="min-h-screen bg-bg-0 text-txt-1">
+    <div className="min-h-screen bg-bg-0 text-txt-1 animate-fade-in">
       <TopNav currentDate="2026-03-20" />
       <NavBar />
 
-      <main className="max-w-[1100px] mx-auto px-4 sm:px-6 py-6">
+      <main className="max-w-[1100px] mx-auto px-4 sm:px-6 py-6 animate-fade-in">
         {/* Header */}
         <div className="mb-6">
           <h1 className="text-xl font-bold text-txt-0 tracking-tight">策略回測</h1>
@@ -322,7 +322,7 @@ export default function BacktestPage() {
             <button
               key={s.key}
               onClick={() => { setStrategy(s.key); setSortField("entryDate"); setSortAsc(true); }}
-              className={`px-4 py-2 rounded-lg text-xs font-medium transition-all ${
+              className={`px-4 py-2 rounded-lg text-xs font-medium transition-all card-hover ${
                 strategy === s.key
                   ? "bg-red text-white shadow-md"
                   : "bg-bg-2 text-txt-3 hover:bg-bg-3 hover:text-txt-1"
@@ -573,7 +573,7 @@ function ParamInput({
 
 function KpiCard({ label, value, color }: { label: string; value: string; color: string }) {
   return (
-    <div className="bg-bg-1 border border-border rounded-xl p-4 text-center">
+    <div className="bg-bg-1 border border-border rounded-xl p-4 text-center card-hover">
       <p className="text-[10px] text-txt-4 font-medium mb-1">{label}</p>
       <p className={`text-lg font-bold tabular-nums ${color}`}>{value}</p>
     </div>
