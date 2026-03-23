@@ -1,0 +1,446 @@
+{
+  "date": "2026-03-20",
+  "market_summary": {
+    "taiex_close": 23412.56,
+    "taiex_change": 418,
+    "taiex_change_pct": 1.82,
+    "total_volume": 8103540220,
+    "limit_up": 32,
+    "limit_down": 5,
+    "advancing": 462,
+    "declining": 543,
+    "unchanged": 74,
+    "foreign_net": 12800000000,
+    "trust_net": 3400000000,
+    "dealer_net": 1300000000
+  },
+  "groups": [
+    {
+      "name": "鋼鐵 / 鋼價調漲",
+      "color": "#ef4444",
+      "badges": [
+        "HOT"
+      ],
+      "reason": "全球PMI回升至51.9，鋼價每噸調漲1200元，鋼鐵族群全面攻頂",
+      "stocks": [
+        {
+          "code": "2007",
+          "name": "燁興",
+          "close": 8.63,
+          "change_pct": 9.94,
+          "volume": 2918395,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "2014",
+          "name": "中鴻",
+          "close": 19.6,
+          "change_pct": 9.8,
+          "volume": 24831023,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "2025",
+          "name": "千興",
+          "close": 11.6,
+          "change_pct": 9.95,
+          "volume": 545520,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "2032",
+          "name": "新鋼",
+          "close": 16.9,
+          "change_pct": 9.74,
+          "volume": 2819859,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "2038",
+          "name": "海光",
+          "close": 16.25,
+          "change_pct": 9.8,
+          "volume": 4020701,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        }
+      ]
+    },
+    {
+      "name": "精密機械 / 金屬加工",
+      "color": "#f59e0b",
+      "badges": [],
+      "reason": "航太與半導體設備零組件需求帶動精密加工族群",
+      "stocks": [
+        {
+          "code": "1235",
+          "name": "興泰",
+          "close": 39.75,
+          "change_pct": 9.96,
+          "volume": 51638,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "2369",
+          "name": "菱生",
+          "close": 35.75,
+          "change_pct": 10.0,
+          "volume": 104183985,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "3049",
+          "name": "精金",
+          "close": 18.0,
+          "change_pct": 9.76,
+          "volume": 46850599,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "3229",
+          "name": "晟鈦",
+          "close": 19.5,
+          "change_pct": 9.86,
+          "volume": 318508,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        }
+      ]
+    },
+    {
+      "name": "個股亮點",
+      "color": "#6b7280",
+      "badges": [],
+      "reason": "個別利多驅動的漲停股",
+      "stocks": [
+        {
+          "code": "1805",
+          "name": "寶徠",
+          "close": 11.7,
+          "change_pct": 9.86,
+          "volume": 1045209,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "2405",
+          "name": "輔信",
+          "close": 16.55,
+          "change_pct": 9.6,
+          "volume": 10412005,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "8438",
+          "name": "昶昕",
+          "close": 65.0,
+          "change_pct": 9.98,
+          "volume": 2427588,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "9929",
+          "name": "秋雨",
+          "close": 15.0,
+          "change_pct": 9.89,
+          "volume": 419604,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        }
+      ]
+    },
+    {
+      "name": "光儲存 / 記憶媒體",
+      "color": "#8b5cf6",
+      "badges": [],
+      "reason": "資料中心備份需求帶動光碟片出貨量回升",
+      "stocks": [
+        {
+          "code": "2323",
+          "name": "中環",
+          "close": 13.1,
+          "change_pct": 9.62,
+          "volume": 35236236,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "2349",
+          "name": "錸德",
+          "close": 15.8,
+          "change_pct": 9.72,
+          "volume": 20069681,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "3050",
+          "name": "鈺德",
+          "close": 14.5,
+          "change_pct": 9.85,
+          "volume": 2393025,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        }
+      ]
+    },
+    {
+      "name": "IC設計 / AI邊緣運算",
+      "color": "#3b82f6",
+      "badges": [
+        "FOCUS"
+      ],
+      "reason": "Edge AI晶片需求爆發，新唐MCU與晶心科RISC-V架構受惠",
+      "stocks": [
+        {
+          "code": "2388",
+          "name": "威盛",
+          "close": 55.3,
+          "change_pct": 9.94,
+          "volume": 9330172,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "4919",
+          "name": "新唐",
+          "close": 109.0,
+          "change_pct": 9.66,
+          "volume": 36291487,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "6533",
+          "name": "晶心科",
+          "close": 191.0,
+          "change_pct": 9.77,
+          "volume": 1458688,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        }
+      ]
+    },
+    {
+      "name": "連接器 / 被動元件",
+      "color": "#06b6d4",
+      "badges": [],
+      "reason": "5G/AI伺服器帶動高速連接器需求，信邦營收創新高",
+      "stocks": [
+        {
+          "code": "3023",
+          "name": "信邦",
+          "close": 270.0,
+          "change_pct": 9.98,
+          "volume": 3709988,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "3321",
+          "name": "同泰",
+          "close": 16.95,
+          "change_pct": 9.71,
+          "volume": 226547,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "6672",
+          "name": "騰輝電子-KY",
+          "close": 123.0,
+          "change_pct": 9.82,
+          "volume": 10291076,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        }
+      ]
+    },
+    {
+      "name": "塑化 / 材料",
+      "color": "#f97316",
+      "badges": [],
+      "reason": "原物料價格回升帶動塑化類股表現",
+      "stocks": [
+        {
+          "code": "1456",
+          "name": "怡華",
+          "close": 14.45,
+          "change_pct": 9.89,
+          "volume": 215348,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "8215",
+          "name": "明基材",
+          "close": 26.85,
+          "change_pct": 9.82,
+          "volume": 8911962,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        }
+      ]
+    },
+    {
+      "name": "AI伺服器 / 散熱",
+      "color": "#ef4444",
+      "badges": [
+        "HOT",
+        "FOCUS"
+      ],
+      "reason": "GB200量產進度優於預期，散熱與機殼供應鏈訂單能見度拉長至Q4",
+      "stocks": [
+        {
+          "code": "2399",
+          "name": "映泰",
+          "close": 37.2,
+          "change_pct": 9.9,
+          "volume": 52430514,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "6781",
+          "name": "AES-KY",
+          "close": 1100.0,
+          "change_pct": 10.0,
+          "volume": 1617158,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        }
+      ]
+    },
+    {
+      "name": "航太 / 國防",
+      "color": "#14b8a6",
+      "badges": [
+        "NEW"
+      ],
+      "reason": "國防預算增加與無人機產業鏈受惠",
+      "stocks": [
+        {
+          "code": "3135",
+          "name": "凌航",
+          "close": 157.0,
+          "change_pct": 9.79,
+          "volume": 3465967,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "6831",
+          "name": "邁科",
+          "close": 365.0,
+          "change_pct": 9.61,
+          "volume": 2050148,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        }
+      ]
+    },
+    {
+      "name": "半導體測試 / 先進封裝",
+      "color": "#a855f7",
+      "badges": [
+        "FOCUS"
+      ],
+      "reason": "台積電2奈米量產帶動測試需求，穎崴探針卡訂單能見度拉長至Q4",
+      "stocks": [
+        {
+          "code": "6438",
+          "name": "迅得",
+          "close": 173.0,
+          "change_pct": 9.84,
+          "volume": 10547288,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "6515",
+          "name": "穎崴",
+          "close": 7930.0,
+          "change_pct": 9.99,
+          "volume": 443941,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        }
+      ]
+    },
+    {
+      "name": "散熱零件",
+      "color": "#ec4899",
+      "badges": [],
+      "reason": "AI伺服器散熱需求持續爆發，首利受惠",
+      "stocks": [
+        {
+          "code": "1471",
+          "name": "首利",
+          "close": 13.95,
+          "change_pct": 9.84,
+          "volume": 4005021,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        }
+      ]
+    },
+    {
+      "name": "醫療器材",
+      "color": "#22c55e",
+      "badges": [],
+      "reason": "長廣醫材新產品取得FDA認證，營收動能加速",
+      "stocks": [
+        {
+          "code": "7795",
+          "name": "長廣",
+          "close": 435.0,
+          "change_pct": 9.99,
+          "volume": 2488144,
+          "industry": "",
+          "major_net": 0,
+          "streak": 1
+        }
+      ]
+    }
+  ]
+}
