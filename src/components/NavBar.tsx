@@ -20,17 +20,17 @@ export default function NavBar() {
   const pathname = usePathname();
 
   return (
-    <div className="items-center h-9 px-5 gap-0 overflow-x-auto scrollbar-none bg-bg-1 border-b border-border" style={{ display: "flex" }}>
+    <div className="glass sticky top-[36px] z-40 items-center h-9 px-5 gap-0 overflow-x-auto scrollbar-none bg-bg-1 border-b border-border" style={{ display: "flex" }}>
       {NAV_ITEMS.map(({ label, href }) => {
         const isActive = pathname === href;
         return (
           <Link
             key={label}
             href={href}
-            className={`px-3 text-[11px] font-medium tracking-wide border-b-2 transition-colors flex items-center whitespace-nowrap h-9 flex-shrink-0 ${
+            className={`px-3 text-[11px] font-medium tracking-wide border-b-2 transition-all duration-200 flex items-center whitespace-nowrap h-9 flex-shrink-0 ${
               isActive
                 ? "text-txt-0 border-red"
-                : "text-txt-3 border-transparent hover:text-txt-1"
+                : "text-txt-3 border-transparent hover:text-txt-1 hover:border-txt-3"
             }`}
           >
             {label}

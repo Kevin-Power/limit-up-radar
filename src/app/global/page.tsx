@@ -67,7 +67,7 @@ const INDICES: IndexData[] = [
   { id: "dji",   name: "Dow Jones",          nameCn: "道瓊工業",  region: "americas", value: 43218.60, change: -85.30, changePct: -0.20, sparkSeed: 103, volatility: 120, emaSignal: "multi" },
   { id: "vix",   name: "VIX",                nameCn: "恐慌指數",  region: "americas", value: 18.42,    change: -0.85,  changePct: -4.41, sparkSeed: 104, volatility: 0.5, emaSignal: "short" },
   // Asia-Pacific
-  { id: "twii",  name: "TAIEX",              nameCn: "加權指數",  region: "asia", value: 22856.31, change: 186.42,  changePct: 0.82,  sparkSeed: 201, volatility: 80, emaSignal: "multi" },
+  { id: "twii",  name: "TAIEX",              nameCn: "加權指數",  region: "asia", value: 33689.12, change: 151.37,  changePct: 0.45,  sparkSeed: 201, volatility: 120, emaSignal: "multi" },
   { id: "n225",  name: "Nikkei 225",         nameCn: "日經225",   region: "asia", value: 39821.50, change: -124.30, changePct: -0.31, sparkSeed: 202, volatility: 150, emaSignal: "short" },
   { id: "hsi",   name: "Hang Seng",          nameCn: "恒生指數",  region: "asia", value: 17285.60, change: 98.73,   changePct: 0.57,  sparkSeed: 203, volatility: 60, emaSignal: "short" },
   { id: "kospi", name: "KOSPI",              nameCn: "韓國綜合",  region: "asia", value: 2634.18,  change: -12.45,  changePct: -0.47, sparkSeed: 204, volatility: 10, emaSignal: "short" },

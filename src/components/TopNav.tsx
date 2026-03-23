@@ -99,7 +99,7 @@ export default function TopNav({ currentDate, stocks = [] }: TopNavProps) {
   }
 
   return (
-    <nav className="bg-bg-1 border-b border-border">
+    <nav className="glass sticky top-0 z-50 bg-bg-1 border-b border-border">
       {/* Row 1: Brand + Search + Date */}
       <div className="flex items-center justify-between h-11 px-5">
         <Link
@@ -112,7 +112,7 @@ export default function TopNav({ currentDate, stocks = [] }: TopNavProps) {
 
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5 text-[10px] text-txt-4 font-medium">
-            <div className="w-[5px] h-[5px] rounded-full bg-green animate-pulse" />
+            <div className="pulse-dot w-[5px] h-[5px] rounded-full bg-green animate-pulse" />
             <span className="hidden sm:inline">已更新</span>
           </div>
 
