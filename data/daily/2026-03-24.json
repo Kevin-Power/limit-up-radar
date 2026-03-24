@@ -1,0 +1,124 @@
+{
+  "date": "2026-03-24",
+  "market_summary": {
+    "taiex_close": 32612.24,
+    "taiex_change_pct": -0.34,
+    "total_volume": 5439232866,
+    "limit_up_count": 8,
+    "limit_down_count": 8,
+    "advance": 451,
+    "decline": 538,
+    "unchanged": 90,
+    "foreign_net": -12186789413.0,
+    "trust_net": 2594505286.0,
+    "dealer_net": -10484542216.0
+  },
+  "groups": [
+    {
+      "name": "電子 / 半導體",
+      "color": "#06b6d4",
+      "badges": [],
+      "reason": "電子族群受惠終端需求回升",
+      "stocks": [
+        {
+          "code": "2405",
+          "name": "輔信",
+          "industry": "電子",
+          "close": 16.85,
+          "change_pct": 9.77,
+          "volume": 16818810,
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "2482",
+          "name": "連宇",
+          "industry": "電子",
+          "close": 17.2,
+          "change_pct": 9.9,
+          "volume": 756253,
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "2484",
+          "name": "希華",
+          "industry": "電子",
+          "close": 29.4,
+          "change_pct": 9.91,
+          "volume": 5087914,
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "3150",
+          "name": "鈺寶-創",
+          "industry": "電子",
+          "close": 17.6,
+          "change_pct": 10.0,
+          "volume": 262321,
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "6168",
+          "name": "宏齊",
+          "industry": "電子",
+          "close": 26.0,
+          "change_pct": 9.94,
+          "volume": 23300135,
+          "major_net": 0,
+          "streak": 1
+        }
+      ]
+    },
+    {
+      "name": "個股亮點",
+      "color": "#64748b",
+      "badges": [],
+      "reason": "個別利多驅動的漲停股",
+      "stocks": [
+        {
+          "code": "2231",
+          "name": "為升",
+          "industry": "",
+          "close": 99.4,
+          "change_pct": 9.96,
+          "volume": 632733,
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "6672",
+          "name": "騰輝電子-KY",
+          "industry": "",
+          "close": 129.5,
+          "change_pct": 9.75,
+          "volume": 11119504,
+          "major_net": 0,
+          "streak": 1
+        }
+      ]
+    },
+    {
+      "name": "鋼鐵 / 金屬",
+      "color": "#ef4444",
+      "badges": [
+        "HOT"
+      ],
+      "reason": "鋼價調漲帶動鋼鐵族群全面攻頂",
+      "stocks": [
+        {
+          "code": "7610",
+          "name": "聯友金屬-創",
+          "industry": "鋼鐵",
+          "close": 356.5,
+          "change_pct": 9.86,
+          "volume": 2035721,
+          "major_net": 0,
+          "streak": 1
+        }
+      ]
+    }
+  ]
+}
