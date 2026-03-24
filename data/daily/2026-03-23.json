@@ -1,0 +1,154 @@
+{
+  "date": "2026-03-23",
+  "market_summary": {
+    "taiex_close": 0,
+    "taiex_change_pct": 0,
+    "total_volume": 6029731300,
+    "limit_up_count": 11,
+    "limit_down_count": 24,
+    "advance": 143,
+    "decline": 896,
+    "unchanged": 40,
+    "foreign_net": 0,
+    "trust_net": 0,
+    "dealer_net": 0
+  },
+  "groups": [
+    {
+      "name": "個股亮點",
+      "color": "#64748b",
+      "badges": [],
+      "reason": "個別利多驅動的漲停股",
+      "stocks": [
+        {
+          "code": "1304",
+          "name": "台聚",
+          "industry": "",
+          "close": 16.55,
+          "change_pct": 9.97,
+          "volume": 59483647,
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "1305",
+          "name": "華夏",
+          "industry": "",
+          "close": 18.45,
+          "change_pct": 9.82,
+          "volume": 21417417,
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "1308",
+          "name": "亞聚",
+          "industry": "",
+          "close": 18.15,
+          "change_pct": 10.0,
+          "volume": 34177238,
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "1309",
+          "name": "台達化",
+          "industry": "",
+          "close": 19.9,
+          "change_pct": 9.94,
+          "volume": 10004285,
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "2231",
+          "name": "為升",
+          "industry": "",
+          "close": 90.4,
+          "change_pct": 9.98,
+          "volume": 992270,
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "6585",
+          "name": "鼎基",
+          "industry": "",
+          "close": 90.5,
+          "change_pct": 9.96,
+          "volume": 339363,
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "7711",
+          "name": "永擎",
+          "industry": "",
+          "close": 288.5,
+          "change_pct": 9.9,
+          "volume": 2380849,
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "9918",
+          "name": "欣天然",
+          "industry": "",
+          "close": 51.3,
+          "change_pct": 9.85,
+          "volume": 1716925,
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "9931",
+          "name": "欣高",
+          "industry": "",
+          "close": 43.1,
+          "change_pct": 9.95,
+          "volume": 1796407,
+          "major_net": 0,
+          "streak": 1
+        }
+      ]
+    },
+    {
+      "name": "鋼鐵 / 鋼價調漲",
+      "color": "#ef4444",
+      "badges": [
+        "HOT"
+      ],
+      "reason": "鋼價調漲帶動鋼鐵族群全面攻頂",
+      "stocks": [
+        {
+          "code": "2025",
+          "name": "千興",
+          "industry": "",
+          "close": 12.75,
+          "change_pct": 9.91,
+          "volume": 1473841,
+          "major_net": 0,
+          "streak": 1
+        }
+      ]
+    },
+    {
+      "name": "精密機械 / 金屬加工",
+      "color": "#f59e0b",
+      "badges": [],
+      "reason": "航太與半導體設備零組件需求帶動精密加工族群",
+      "stocks": [
+        {
+          "code": "3229",
+          "name": "晟鈦",
+          "industry": "",
+          "close": 21.45,
+          "change_pct": 10.0,
+          "volume": 573328,
+          "major_net": 0,
+          "streak": 1
+        }
+      ]
+    }
+  ]
+}
