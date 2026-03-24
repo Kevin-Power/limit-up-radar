@@ -38,7 +38,7 @@ function SkeletonGroupBlock() {
       {Array.from({ length: 4 }).map((_, i) => (
         <div
           key={i}
-          className="flex items-center gap-3 px-4 py-2.5 border-b border-white/[0.02] last:border-b-0"
+          className="flex items-center gap-3 px-4 py-2.5 border-b border-border/50 last:border-b-0"
         >
           <SkeletonBox className="w-11 h-3 flex-shrink-0" />
           <SkeletonBox className="w-20 h-3 flex-shrink-0" />

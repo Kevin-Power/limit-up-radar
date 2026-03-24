@@ -200,7 +200,7 @@ export default function ArchivePage() {
           </div>
           <table className="w-full text-xs">
             <thead>
-              <tr className="border-b border-border">
+              <tr className="border-b border-border bg-bg-2">
                 <th
                   onClick={() => handleSort("date")}
                   className="px-5 py-3 text-left font-medium text-txt-3 cursor-pointer hover:text-txt-1 select-none"
@@ -226,7 +226,7 @@ export default function ArchivePage() {
             </thead>
             <tbody>
               {filteredReports.map((r) => (
-                <tr key={r.date} className="border-b border-border/50 hover:bg-bg-2/50 transition-colors">
+                <tr key={r.date} className="border-b border-border/50 transition-colors row-hover">
                   <td className="px-5 py-2.5 font-mono text-txt-1 tabular-nums">{r.date}</td>
                   <td className={`px-3 py-2.5 text-right font-mono tabular-nums ${r.marketChange >= 0 ? "text-red" : "text-green"}`}>
                     {r.marketChange >= 0 ? "+" : ""}{r.marketChange.toFixed(2)}%

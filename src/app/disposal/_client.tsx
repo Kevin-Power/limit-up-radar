@@ -419,7 +419,7 @@ export default function DisposalPage() {
               return (
                 <div
                   key={s.code}
-                  className={`grid grid-cols-[60px_70px_70px_80px_75px_120px_80px_70px_60px] gap-1 px-4 py-2.5 items-center border-b border-white/[0.03] last:border-b-0 transition-colors hover:bg-white/[0.03] row-hover ${rowBg}`}
+                  className={`grid grid-cols-[60px_70px_70px_80px_75px_120px_80px_70px_60px] gap-1 px-4 py-2.5 items-center border-b border-border/50 last:border-b-0 transition-colors row-hover ${rowBg}`}
                 >
                   <div className="text-xs font-semibold text-txt-3 tabular-nums">
                     <Link href={`/stock/${s.code}`} className="hover:text-txt-1 hover:underline underline-offset-2 transition-colors">
@@ -427,7 +427,7 @@ export default function DisposalPage() {
                     </Link>
                   </div>
                   <div className="text-[13px] font-semibold text-txt-0">
-                    <Link href={`/stock/${s.code}`} className="hover:text-white hover:underline underline-offset-2 transition-colors">
+                    <Link href={`/stock/${s.code}`} className="hover:text-txt-0 hover:underline underline-offset-2 transition-colors">
                       {s.name}
                     </Link>
                   </div>
@@ -501,7 +501,7 @@ export default function DisposalPage() {
             {HISTORICAL_CASES.map((c) => (
               <div
                 key={`${c.code}-${c.disposalDate}`}
-                className="grid grid-cols-[60px_70px_90px_120px_90px_90px_110px] gap-0 px-4 py-2.5 items-center border-b border-white/[0.03] last:border-b-0 hover:bg-white/[0.02] transition-colors"
+                className="grid grid-cols-[60px_70px_90px_120px_90px_90px_110px] gap-0 px-4 py-2.5 items-center border-b border-border/50 last:border-b-0 transition-colors row-hover"
               >
                 <div className="text-xs font-semibold text-txt-3 tabular-nums">
                   <Link href={`/stock/${c.code}`} className="hover:text-txt-1 hover:underline underline-offset-2 transition-colors">
@@ -509,7 +509,7 @@ export default function DisposalPage() {
                   </Link>
                 </div>
                 <div className="text-[13px] font-semibold text-txt-0">
-                  <Link href={`/stock/${c.code}`} className="hover:text-white hover:underline underline-offset-2 transition-colors">
+                  <Link href={`/stock/${c.code}`} className="hover:text-txt-0 hover:underline underline-offset-2 transition-colors">
                     {c.name}
                   </Link>
                 </div>

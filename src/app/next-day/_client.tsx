@@ -348,18 +348,18 @@ function LineChart({ lines, labels, title, height = 200 }: {
         {yTicks.map((v, i) => (
           <g key={i}>
             <line x1={PAD.left} x2={W - PAD.right} y1={toY(v)} y2={toY(v)}
-              stroke="rgba(255,255,255,0.05)" strokeDasharray={v === 0 ? "none" : "4,3"} strokeWidth={v === 0 ? 1.5 : 0.8} />
-            <text x={PAD.left - 8} y={toY(v) + 4} textAnchor="end" fill="#475569" fontSize="11" fontFamily="Inter, system-ui">
+              stroke="var(--border)" strokeDasharray={v === 0 ? "none" : "4,3"} strokeWidth={v === 0 ? 1.5 : 0.8} />
+            <text x={PAD.left - 8} y={toY(v) + 4} textAnchor="end" fill="var(--text-4)" fontSize="11" fontFamily="Inter, system-ui">
               {v.toFixed(v === 0 ? 0 : 1)}%
             </text>
           </g>
         ))}
         {yMin <= 0 && yMax >= 0 && (
           <line x1={PAD.left} x2={W - PAD.right} y1={toY(0)} y2={toY(0)}
-            stroke="rgba(255,255,255,0.15)" strokeWidth={1} strokeDasharray="6,4" />
+            stroke="var(--border-hover)" strokeWidth={1} strokeDasharray="6,4" />
         )}
         {labels.map((label, i) => (
-          <text key={i} x={toX(i)} y={H - 8} textAnchor="middle" fill="#475569" fontSize="11" fontFamily="Inter, system-ui">
+          <text key={i} x={toX(i)} y={H - 8} textAnchor="middle" fill="var(--text-4)" fontSize="11" fontFamily="Inter, system-ui">
             {label}
           </text>
         ))}

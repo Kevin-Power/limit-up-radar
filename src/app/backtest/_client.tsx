@@ -465,7 +465,7 @@ export default function BacktestPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-xs">
               <thead>
-                <tr className="border-b border-border text-txt-3">
+                <tr className="border-b border-border bg-bg-2 text-txt-3">
                   <th className="py-2 px-2 text-left font-medium cursor-pointer hover:text-txt-1 select-none" onClick={() => handleSort("entryDate")}>
                     進場日期{sortIcon("entryDate")}
                   </th>
@@ -491,7 +491,7 @@ export default function BacktestPage() {
                 {sortedTrades.map((t, i) => (
                   <tr
                     key={i}
-                    className={`border-b border-white/[0.03] transition-colors ${
+                    className={`border-b border-border/50 transition-colors ${
                       t.win ? "bg-green/[0.04] hover:bg-green/[0.08]" : "bg-red/[0.04] hover:bg-red/[0.08]"
                     }`}
                   >

@@ -158,7 +158,7 @@ const DEMO_DATA: DailyData = {
 export default function Home() {
   const [currentDate, setCurrentDate] = useState<string | null>(null);
 
-  const { data: latestData } = useSWR<DailyData>(
+  const { data: latestData, isLoading: isLatestLoading } = useSWR<DailyData>(
     currentDate ? null : "/api/daily/latest",
     fetcher
   );
@@ -167,6 +167,8 @@ export default function Home() {
     currentDate ? `/api/daily/${currentDate}` : null,
     fetcher
   );
+
+  const showSkeleton = isLoading || (isLatestLoading && !latestData);
 
   useEffect(() => {
     if (latestData?.date && !currentDate) {
@@ -206,9 +208,11 @@ export default function Home() {
   return (
     <div className="flex flex-col h-screen overflow-hidden">
       <TopNav currentDate={displayDate} stocks={allStocks} />
-      {displayData?.market_summary && (
+      {showSkeleton ? (
+        <div className="h-8 skeleton" />
+      ) : displayData?.market_summary ? (
         <TickerBar summary={displayData.market_summary} />
-      )}
+      ) : null}
       <NavBar />
       <div className="flex flex-col md:flex-row flex-1 overflow-hidden animate-fade-in">
         <main className="flex-1 overflow-y-auto p-5">
@@ -222,12 +226,12 @@ export default function Home() {
               data={displayData}
             />
           )}
-          {isLoading && <Skeleton />}
-          {error && !isLoading && (
+          {showSkeleton && <Skeleton />}
+          {error && !showSkeleton && (
             <div className="text-txt-3 text-sm text-center py-20">此日期無資料</div>
           )}
-          {displayData && <Highlights data={displayData} />}
-          {displayData?.groups?.map((group) => (
+          {!showSkeleton && displayData && <Highlights data={displayData} />}
+          {!showSkeleton && displayData?.groups?.map((group) => (
             <GroupBlock key={group.name} group={group} totalStocks={displayData.groups.reduce((s, g) => s + g.stocks.length, 0)} />
           ))}
         </main>

@@ -384,7 +384,7 @@ export default function ScreenerPage() {
         <Card className="overflow-x-auto !p-0">
           <table className="w-full text-xs">
             <thead>
-              <tr className="border-b border-border">
+              <tr className="border-b border-border bg-bg-2">
                 {columns.map((col) => (
                   <th
                     key={col.key}

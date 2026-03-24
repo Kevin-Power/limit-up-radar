@@ -347,7 +347,7 @@ export default function PonyPage() {
         <div className="bg-bg-1 border border-border rounded-lg overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-border">
+              <tr className="border-b border-border bg-bg-2">
                 {columns.map((col) => (
                   <th
                     key={col.key}
