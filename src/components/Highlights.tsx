@@ -135,10 +135,11 @@ export default function Highlights({ data }: HighlightsProps) {
     ? streakStocks.reduce((best, s) => (s.streak > best.streak ? s : best))
     : null;
 
+  const hasTaiex = ms.taiex_close !== 0;
   const taiexUp = ms.taiex_change_pct >= 0;
-  const taiexColor = taiexUp ? "text-red" : "text-green";
-  const taiexArrow = taiexUp ? "▲" : "▼";
-  const taiexChange = ms.taiex_close * (ms.taiex_change_pct / 100 / (1 + ms.taiex_change_pct / 100));
+  const taiexColor = hasTaiex ? (taiexUp ? "text-red" : "text-green") : "text-txt-4";
+  const taiexArrow = hasTaiex ? (taiexUp ? "▲" : "▼") : "";
+  const taiexChange = hasTaiex ? ms.taiex_close * (ms.taiex_change_pct / 100 / (1 + ms.taiex_change_pct / 100)) : 0;
 
   // Bar values for visual weight (normalized 0-100)
   const maxVol = Math.max(...allStocks.map((s) => s.volume));
@@ -165,14 +166,18 @@ export default function Highlights({ data }: HighlightsProps) {
               </div>
               <div className="flex items-baseline gap-2">
                 <span className={`text-2xl font-extrabold tabular-nums ${taiexColor}`}>
-                  {formatNumber(Math.round(ms.taiex_close))}
+                  {hasTaiex ? formatNumber(Math.round(ms.taiex_close)) : "-"}
                 </span>
-                <span className={`text-sm font-bold tabular-nums ${taiexColor}`}>
-                  {taiexArrow} {formatNumber(Math.abs(Math.round(taiexChange)))}
-                </span>
-                <span className={`text-xs font-semibold tabular-nums px-1.5 py-0.5 rounded ${taiexUp ? "bg-red-bg text-red" : "bg-green-bg text-green"}`}>
-                  {formatPct(ms.taiex_change_pct)}
-                </span>
+                {hasTaiex && (
+                  <>
+                    <span className={`text-sm font-bold tabular-nums ${taiexColor}`}>
+                      {taiexArrow} {formatNumber(Math.abs(Math.round(taiexChange)))}
+                    </span>
+                    <span className={`text-xs font-semibold tabular-nums px-1.5 py-0.5 rounded ${taiexUp ? "bg-red-bg text-red" : "bg-green-bg text-green"}`}>
+                      {formatPct(ms.taiex_change_pct)}
+                    </span>
+                  </>
+                )}
               </div>
             </div>
             {/* Sparkline */}
@@ -218,9 +223,9 @@ export default function Highlights({ data }: HighlightsProps) {
             accentColor="#f59e0b"
             icon="◆"
             title="主力最愛"
-            primary={`${topMajor.name} ${topMajor.code}`}
-            secondary={`${formatNet(topMajor.major_net)} 張`}
-            barValue={maxNet > 0 ? (topMajor.major_net / maxNet) * 100 : 50}
+            primary={topMajor.major_net === 0 ? "-" : `${topMajor.name} ${topMajor.code}`}
+            secondary={topMajor.major_net === 0 ? "暫無主力資料" : `${formatNet(topMajor.major_net)} 張`}
+            barValue={maxNet > 0 ? (topMajor.major_net / maxNet) * 100 : 0}
           />
           {topStreak ? (
             <HighlightCard

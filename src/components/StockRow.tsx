@@ -72,8 +72,8 @@ export default function StockRow({ stock, groupColor }: StockRowProps) {
         </div>
 
         {/* Major net: hidden on mobile */}
-        <div className={`hidden md:block w-20 text-right text-xs font-semibold tabular-nums flex-shrink-0 ${s.major_net >= 0 ? "text-red" : "text-green"}`}>
-          {formatNet(s.major_net)}
+        <div className={`hidden md:block w-20 text-right text-xs font-semibold tabular-nums flex-shrink-0 ${s.major_net === 0 ? "text-txt-4" : s.major_net > 0 ? "text-red" : "text-green"}`}>
+          {s.major_net === 0 ? "-" : formatNet(s.major_net)}
         </div>
 
         {/* Sparkline: hidden on mobile */}
@@ -128,8 +128,8 @@ export default function StockRow({ stock, groupColor }: StockRowProps) {
             </div>
             <div>
               <div className="text-[9px] text-txt-4 uppercase tracking-wider mb-1">主力淨買</div>
-              <div className={`text-xs font-semibold ${s.major_net >= 0 ? "text-red" : "text-green"}`}>
-                {formatNet(s.major_net)} 張
+              <div className={`text-xs font-semibold ${s.major_net === 0 ? "text-txt-4" : s.major_net > 0 ? "text-red" : "text-green"}`}>
+                {s.major_net === 0 ? "-" : `${formatNet(s.major_net)} 張`}
               </div>
             </div>
             <div>

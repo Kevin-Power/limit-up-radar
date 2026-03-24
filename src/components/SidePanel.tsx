@@ -99,8 +99,9 @@ function DistRow({
 
 /* ===== Institutional Bar ===== */
 function InstitutionalRow({ label, value }: { label: string; value: number }) {
+  const isZero = value === 0;
   const isBuy = value >= 0;
-  const barWidth = Math.min(Math.abs(value) / 200e8 * 50, 50);
+  const barWidth = isZero ? 0 : Math.min(Math.abs(value) / 200e8 * 50, 50);
 
   return (
     <div className="flex items-center py-1.5">
@@ -108,7 +109,7 @@ function InstitutionalRow({ label, value }: { label: string; value: number }) {
       <div className="flex-1 mx-2 relative h-4">
         <div className="absolute inset-0 bg-bg-3 rounded-sm" />
         <div className="absolute left-1/2 top-0 bottom-0 w-px bg-border" />
-        {isBuy ? (
+        {!isZero && isBuy && (
           <div
             className="absolute top-0 h-full rounded-sm left-1/2 transition-all duration-500"
             style={{
@@ -116,7 +117,8 @@ function InstitutionalRow({ label, value }: { label: string; value: number }) {
               background: "linear-gradient(90deg, rgba(239,68,68,0.15), rgba(239,68,68,0.5))",
             }}
           />
-        ) : (
+        )}
+        {!isZero && !isBuy && (
           <div
             className="absolute top-0 h-full rounded-sm transition-all duration-500"
             style={{
@@ -128,10 +130,9 @@ function InstitutionalRow({ label, value }: { label: string; value: number }) {
         )}
       </div>
       <div
-        className={`text-[11px] font-bold tabular-nums w-16 text-right ${isBuy ? "text-red" : "text-green"}`}
+        className={`text-[11px] font-bold tabular-nums w-16 text-right ${isZero ? "text-txt-4" : isBuy ? "text-red" : "text-green"}`}
       >
-        {isBuy ? "+" : ""}
-        {formatMoneyShort(Math.abs(value))}
+        {isZero ? "-" : `${isBuy ? "+" : ""}${formatMoneyShort(Math.abs(value))}`}
       </div>
     </div>
   );
@@ -221,33 +222,37 @@ export default function SidePanel({ data }: SidePanelProps) {
         <InstitutionalRow label="自營商" value={s.dealer_net} />
       </PanelSection>
 
-      {/* Top buyers */}
+      {/* Top buyers - only show when we have actual major_net data */}
       <PanelSection title="主力買超排行">
-        {topBuyers.map((st, i) => (
-          <div
-            key={st.code}
-            className="flex items-center gap-2 py-1.5 border-b border-white/[0.02] last:border-b-0"
-          >
+        {topBuyers.every((st) => st.major_net === 0) ? (
+          <div className="text-xs text-txt-4 text-center py-3">暫無主力進出資料</div>
+        ) : (
+          topBuyers.map((st, i) => (
             <div
-              className={`w-4 h-4 rounded-sm flex items-center justify-center text-[9px] font-bold flex-shrink-0 ${
-                i < 3 ? "bg-red-bg text-red" : "bg-bg-3 text-txt-4"
-              }`}
+              key={st.code}
+              className="flex items-center gap-2 py-1.5 border-b border-white/[0.02] last:border-b-0"
             >
-              {i + 1}
+              <div
+                className={`w-4 h-4 rounded-sm flex items-center justify-center text-[9px] font-bold flex-shrink-0 ${
+                  i < 3 ? "bg-red-bg text-red" : "bg-bg-3 text-txt-4"
+                }`}
+              >
+                {i + 1}
+              </div>
+              <div
+                className="w-1 h-4 rounded-full flex-shrink-0"
+                style={{ backgroundColor: st.groupColor }}
+              />
+              <div className="flex-1 text-xs text-txt-1 font-medium">
+                {st.name}{" "}
+                <span className="text-txt-4">{st.code}</span>
+              </div>
+              <div className={`text-[11px] font-bold tabular-nums ${st.major_net === 0 ? "text-txt-4" : "text-red"}`}>
+                {st.major_net === 0 ? "-" : `+${formatNumber(st.major_net)}`}
+              </div>
             </div>
-            <div
-              className="w-1 h-4 rounded-full flex-shrink-0"
-              style={{ backgroundColor: st.groupColor }}
-            />
-            <div className="flex-1 text-xs text-txt-1 font-medium">
-              {st.name}{" "}
-              <span className="text-txt-4">{st.code}</span>
-            </div>
-            <div className="text-[11px] font-bold text-red tabular-nums">
-              +{formatNumber(st.major_net)}
-            </div>
-          </div>
-        ))}
+          ))
+        )}
       </PanelSection>
 
       {/* Streak stocks (連板股) */}

@@ -117,8 +117,8 @@ export default function GroupBlock({ group, totalStocks }: GroupBlockProps) {
             <div className="flex items-center gap-3 mt-1 text-[10px] text-txt-4">
               <span>{group.stocks.length} 檔</span>
               <span>量 {formatNumber(totalVolume)}</span>
-              <span className={totalMajorNet >= 0 ? "text-red" : "text-green"}>
-                主力 {totalMajorNet >= 0 ? "+" : ""}{formatNumber(totalMajorNet)}
+              <span className={totalMajorNet === 0 ? "text-txt-4" : totalMajorNet > 0 ? "text-red" : "text-green"}>
+                主力 {totalMajorNet === 0 ? "-" : `${totalMajorNet > 0 ? "+" : ""}${formatNumber(totalMajorNet)}`}
               </span>
               {streakStocks > 0 && (
                 <span className="text-amber">{streakStocks} 檔連板</span>
@@ -174,8 +174,8 @@ export default function GroupBlock({ group, totalStocks }: GroupBlockProps) {
           </span>
           <span>
             主力淨買{" "}
-            <span className={`font-semibold tabular-nums ${totalMajorNet >= 0 ? "text-red" : "text-green"}`}>
-              {totalMajorNet >= 0 ? "+" : ""}{formatNumber(totalMajorNet)}
+            <span className={`font-semibold tabular-nums ${totalMajorNet === 0 ? "text-txt-4" : totalMajorNet > 0 ? "text-red" : "text-green"}`}>
+              {totalMajorNet === 0 ? "-" : `${totalMajorNet > 0 ? "+" : ""}${formatNumber(totalMajorNet)}`}
             </span>
           </span>
         </div>
