@@ -36,22 +36,22 @@ interface HistoricalCase {
 // ── Mock Data ────────────────────────────────────────────────────────────────
 
 const DISPOSAL_STOCKS: DisposalStock[] = [
-  { code: "6683", name: "雍智",   industry: "IC載板",    streak: 5, gain10d: 62.3, daysHit: 5, daysRequired: 5, risk: "高危", status: "預警中",   volumeAnomaly: true },
-  { code: "4765", name: "精金",   industry: "精密加工",  streak: 4, gain10d: 55.1, daysHit: 4, daysRequired: 5, risk: "高危", status: "預警中",   volumeAnomaly: true },
-  { code: "3363", name: "上詮",   industry: "光通訊",    streak: 6, gain10d: 78.5, daysHit: 5, daysRequired: 5, risk: "高危", status: "已處置",   volumeAnomaly: true },
-  { code: "7795", name: "長廣",   industry: "醫療器材",  streak: 5, gain10d: 58.7, daysHit: 5, daysRequired: 5, risk: "高危", status: "已處置",   volumeAnomaly: true },
-  { code: "4977", name: "眾達-KY", industry: "高速傳輸", streak: 3, gain10d: 42.8, daysHit: 3, daysRequired: 5, risk: "注意", status: "正常交易", volumeAnomaly: true },
-  { code: "3037", name: "欣興",   industry: "PCB",       streak: 3, gain10d: 38.2, daysHit: 3, daysRequired: 5, risk: "注意", status: "正常交易", volumeAnomaly: false },
-  { code: "1471", name: "首利",   industry: "散熱零件",  streak: 3, gain10d: 35.6, daysHit: 3, daysRequired: 5, risk: "注意", status: "正常交易", volumeAnomaly: true },
-  { code: "2007", name: "燁興",   industry: "鋼鐵",      streak: 3, gain10d: 33.4, daysHit: 3, daysRequired: 5, risk: "注意", status: "預警中",   volumeAnomaly: false },
-  { code: "6274", name: "台燿",   industry: "CCL基板",   streak: 2, gain10d: 28.9, daysHit: 2, daysRequired: 5, risk: "觀察", status: "正常交易", volumeAnomaly: false },
-  { code: "2401", name: "凌陽",   industry: "IC設計",    streak: 2, gain10d: 24.1, daysHit: 2, daysRequired: 5, risk: "觀察", status: "正常交易", volumeAnomaly: false },
-  { code: "2548", name: "華固",   industry: "營建",      streak: 2, gain10d: 22.7, daysHit: 2, daysRequired: 5, risk: "觀察", status: "正常交易", volumeAnomaly: true },
-  { code: "2458", name: "義隆",   industry: "IC設計",    streak: 2, gain10d: 21.3, daysHit: 2, daysRequired: 5, risk: "觀察", status: "正常交易", volumeAnomaly: false },
-  { code: "3189", name: "景碩",   industry: "IC載板",    streak: 1, gain10d: 18.5, daysHit: 1, daysRequired: 5, risk: "觀察", status: "正常交易", volumeAnomaly: false },
+  { code: "6683", name: "雍智",   industry: "IC載板",    streak: 5, gain10d: 38.5, daysHit: 5, daysRequired: 5, risk: "高危", status: "預警中",   volumeAnomaly: true },
+  { code: "4765", name: "精金",   industry: "精密加工",  streak: 4, gain10d: 35.2, daysHit: 4, daysRequired: 5, risk: "高危", status: "預警中",   volumeAnomaly: true },
+  { code: "3363", name: "上詮",   industry: "光通訊",    streak: 6, gain10d: 40.1, daysHit: 5, daysRequired: 5, risk: "高危", status: "已處置",   volumeAnomaly: true },
+  { code: "7795", name: "長廣",   industry: "醫療器材",  streak: 5, gain10d: 36.8, daysHit: 5, daysRequired: 5, risk: "高危", status: "已處置",   volumeAnomaly: false },
+  { code: "4977", name: "眾達-KY", industry: "高速傳輸", streak: 3, gain10d: 28.4, daysHit: 3, daysRequired: 5, risk: "注意", status: "正常交易", volumeAnomaly: true },
+  { code: "3037", name: "欣興",   industry: "PCB",       streak: 3, gain10d: 25.6, daysHit: 3, daysRequired: 5, risk: "注意", status: "正常交易", volumeAnomaly: false },
+  { code: "1471", name: "首利",   industry: "散熱零件",  streak: 3, gain10d: 24.3, daysHit: 3, daysRequired: 5, risk: "注意", status: "正常交易", volumeAnomaly: true },
+  { code: "2007", name: "燁興",   industry: "鋼鐵",      streak: 3, gain10d: 22.1, daysHit: 3, daysRequired: 5, risk: "注意", status: "預警中",   volumeAnomaly: false },
+  { code: "6274", name: "台燿",   industry: "CCL基板",   streak: 2, gain10d: 19.8, daysHit: 2, daysRequired: 5, risk: "觀察", status: "正常交易", volumeAnomaly: false },
+  { code: "2401", name: "凌陽",   industry: "IC設計",    streak: 2, gain10d: 18.3, daysHit: 2, daysRequired: 5, risk: "觀察", status: "正常交易", volumeAnomaly: false },
+  { code: "2548", name: "華固",   industry: "營建",      streak: 2, gain10d: 17.5, daysHit: 2, daysRequired: 5, risk: "觀察", status: "正常交易", volumeAnomaly: true },
+  { code: "2458", name: "義隆",   industry: "IC設計",    streak: 2, gain10d: 16.8, daysHit: 2, daysRequired: 5, risk: "觀察", status: "正常交易", volumeAnomaly: false },
+  { code: "3189", name: "景碩",   industry: "IC載板",    streak: 1, gain10d: 15.9, daysHit: 1, daysRequired: 5, risk: "觀察", status: "正常交易", volumeAnomaly: false },
   { code: "2014", name: "中鴻",   industry: "鋼鐵",      streak: 1, gain10d: 15.2, daysHit: 1, daysRequired: 5, risk: "觀察", status: "正常交易", volumeAnomaly: false },
-  { code: "4743", name: "合一",   industry: "生技製藥",  streak: 1, gain10d: 12.8, daysHit: 1, daysRequired: 5, risk: "觀察", status: "正常交易", volumeAnomaly: false },
-  { code: "6446", name: "藥華藥", industry: "生技製藥",  streak: 1, gain10d: 11.4, daysHit: 1, daysRequired: 5, risk: "觀察", status: "正常交易", volumeAnomaly: false },
+  { code: "4743", name: "合一",   industry: "生技製藥",  streak: 1, gain10d: 16.1, daysHit: 1, daysRequired: 5, risk: "觀察", status: "正常交易", volumeAnomaly: false },
+  { code: "6446", name: "藥華藥", industry: "生技製藥",  streak: 1, gain10d: 15.4, daysHit: 1, daysRequired: 5, risk: "觀察", status: "正常交易", volumeAnomaly: false },
 ];
 
 const HISTORICAL_CASES: HistoricalCase[] = [

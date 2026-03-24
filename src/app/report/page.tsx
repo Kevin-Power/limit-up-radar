@@ -89,13 +89,13 @@ interface StrongStock {
 
 const STRONG_SETUPS: StrongStock[] = [
   { code: "3324", name: "雙鴻",   price: 1065.0, changePct: 10.0,  score: 95, reasons: [{ label: "法人連買", variant: "green" }, { label: "營收加速", variant: "blue" }, { label: "KD金叉", variant: "amber" }] },
-  { code: "3017", name: "奇鋐",   price: 329.0,  changePct: 10.0,  score: 92, reasons: [{ label: "法人連買", variant: "green" }, { label: "突破前高", variant: "blue" }] },
-  { code: "6669", name: "緯穎",   price: 3775.0, changePct: 6.85,  score: 88, reasons: [{ label: "營收加速", variant: "blue" }, { label: "KD金叉", variant: "amber" }] },
-  { code: "6515", name: "穎崴",   price: 7930.0, changePct: 5.32,  score: 85, reasons: [{ label: "法人連買", variant: "green" }, { label: "量能擴增", variant: "amber" }] },
-  { code: "2454", name: "聯發科", price: 1700.0, changePct: 4.68,  score: 82, reasons: [{ label: "突破前高", variant: "blue" }, { label: "外資買超", variant: "green" }] },
-  { code: "2376", name: "技嘉",   price: 378.0,  changePct: 10.0,  score: 80, reasons: [{ label: "KD金叉", variant: "amber" }, { label: "量能擴增", variant: "amber" }] },
-  { code: "3037", name: "欣興",   price: 215.0,  changePct: 3.81,  score: 78, reasons: [{ label: "法人連買", variant: "green" }, { label: "營收加速", variant: "blue" }] },
-  { code: "6223", name: "旺矽",   price: 3860.0, changePct: 3.15,  score: 75, reasons: [{ label: "外資買超", variant: "green" }, { label: "KD金叉", variant: "amber" }] },
+  { code: "3017", name: "奇鋐",   price: 350.0,  changePct: 10.0,  score: 92, reasons: [{ label: "法人連買", variant: "green" }, { label: "突破前高", variant: "blue" }] },
+  { code: "6669", name: "緯穎",   price: 3200.0, changePct: 5.82,  score: 88, reasons: [{ label: "營收加速", variant: "blue" }, { label: "KD金叉", variant: "amber" }] },
+  { code: "6515", name: "穎崴",   price: 780.0,  changePct: 3.45,  score: 85, reasons: [{ label: "法人連買", variant: "green" }, { label: "量能擴增", variant: "amber" }] },
+  { code: "2454", name: "聯發科", price: 1580.0, changePct: 3.28,  score: 82, reasons: [{ label: "突破前高", variant: "blue" }, { label: "外資買超", variant: "green" }] },
+  { code: "2376", name: "技嘉",   price: 400.0,  changePct: 4.17,  score: 80, reasons: [{ label: "KD金叉", variant: "amber" }, { label: "量能擴增", variant: "amber" }] },
+  { code: "3037", name: "欣興",   price: 185.0,  changePct: 3.35,  score: 78, reasons: [{ label: "法人連買", variant: "green" }, { label: "營收加速", variant: "blue" }] },
+  { code: "6223", name: "旺矽",   price: 650.0,  changePct: 2.68,  score: 75, reasons: [{ label: "外資買超", variant: "green" }, { label: "KD金叉", variant: "amber" }] },
 ];
 
 interface RiskStock {
@@ -110,9 +110,9 @@ interface RiskStock {
 const RISK_LIST: RiskStock[] = [
   { code: "6683", name: "雍智",   price: 312.0,  changePct: -3.25, riskScore: 92, reasons: [{ label: "法人連賣", variant: "red" }, { label: "RSI過熱", variant: "amber" }, { label: "量縮破線", variant: "red" }] },
   { code: "4765", name: "精金",   price: 28.5,   changePct: -2.50, riskScore: 85, reasons: [{ label: "RSI過熱", variant: "amber" }, { label: "主力出貨", variant: "red" }] },
-  { code: "1301", name: "台塑",   price: 42.8,   changePct: -1.87, riskScore: 78, reasons: [{ label: "法人連賣", variant: "red" }, { label: "跌破月線", variant: "amber" }] },
-  { code: "2007", name: "燁興",   price: 8.63,   changePct: -1.36, riskScore: 72, reasons: [{ label: "量縮破線", variant: "red" }, { label: "KD死叉", variant: "amber" }] },
-  { code: "1303", name: "南亞",   price: 38.5,   changePct: -0.75, riskScore: 65, reasons: [{ label: "外資賣超", variant: "red" }, { label: "RSI過熱", variant: "amber" }] },
+  { code: "1301", name: "台塑",   price: 52.0,   changePct: -2.12, riskScore: 78, reasons: [{ label: "法人連賣", variant: "red" }, { label: "跌破月線", variant: "amber" }] },
+  { code: "2002", name: "中鋼",   price: 30.0,   changePct: -1.83, riskScore: 72, reasons: [{ label: "量縮破線", variant: "red" }, { label: "KD死叉", variant: "amber" }] },
+  { code: "1303", name: "南亞",   price: 45.0,   changePct: -1.32, riskScore: 65, reasons: [{ label: "外資賣超", variant: "red" }, { label: "RSI過熱", variant: "amber" }] },
 ];
 
 /* ================================================================
