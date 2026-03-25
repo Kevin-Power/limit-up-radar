@@ -3,15 +3,15 @@
   "market_summary": {
     "taiex_close": 32612.24,
     "taiex_change_pct": -0.34,
-    "total_volume": 5439232866,
+    "total_volume": 5456211598,
     "limit_up_count": 8,
     "limit_down_count": 8,
     "advance": 451,
     "decline": 538,
     "unchanged": 90,
-    "foreign_net": -12186789413.0,
-    "trust_net": 2594505286.0,
-    "dealer_net": -10484542216.0
+    "foreign_net": -12305739413.0,
+    "trust_net": 2379609569.0,
+    "dealer_net": -10484581290.0
   },
   "groups": [
     {
