@@ -1,0 +1,260 @@
+{
+  "date": "2026-03-26",
+  "market_summary": {
+    "taiex_close": 33337.62,
+    "taiex_change_pct": -0.3,
+    "total_volume": 5357931856,
+    "limit_up_count": 20,
+    "limit_down_count": 4,
+    "advance": 364,
+    "decline": 618,
+    "unchanged": 99,
+    "foreign_net": -7920352703.0,
+    "trust_net": 4331980031.0,
+    "dealer_net": 3294779493.0
+  },
+  "groups": [
+    {
+      "name": "電子 / 半導體",
+      "color": "#06b6d4",
+      "badges": [],
+      "reason": "電子族群受惠終端需求回升",
+      "stocks": [
+        {
+          "code": "1582",
+          "name": "信錦",
+          "industry": "電子",
+          "close": 93.0,
+          "change_pct": 9.93,
+          "volume": 8600863,
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "2305",
+          "name": "全友",
+          "industry": "電子",
+          "close": 16.15,
+          "change_pct": 9.86,
+          "volume": 5623874,
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "2355",
+          "name": "敬鵬",
+          "industry": "電子",
+          "close": 49.4,
+          "change_pct": 9.9,
+          "volume": 30011444,
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "2419",
+          "name": "仲琦",
+          "industry": "電子",
+          "close": 33.25,
+          "change_pct": 9.92,
+          "volume": 20348205,
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "2424",
+          "name": "隴華",
+          "industry": "電子",
+          "close": 26.85,
+          "change_pct": 9.82,
+          "volume": 160314,
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "3026",
+          "name": "禾伸堂",
+          "industry": "電子",
+          "close": 146.5,
+          "change_pct": 9.74,
+          "volume": 3198780,
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "3532",
+          "name": "台勝科",
+          "industry": "電子",
+          "close": 146.0,
+          "change_pct": 9.77,
+          "volume": 3814142,
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "6277",
+          "name": "宏正",
+          "industry": "電子",
+          "close": 65.4,
+          "change_pct": 9.92,
+          "volume": 912911,
+          "major_net": 0,
+          "streak": 1
+        }
+      ]
+    },
+    {
+      "name": "個股亮點",
+      "color": "#64748b",
+      "badges": [],
+      "reason": "個別利多驅動的漲停股",
+      "stocks": [
+        {
+          "code": "1905",
+          "name": "華紙",
+          "industry": "",
+          "close": 14.0,
+          "change_pct": 9.8,
+          "volume": 17861888,
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "6830",
+          "name": "汎銓",
+          "industry": "",
+          "close": 474.0,
+          "change_pct": 9.98,
+          "volume": 2349656,
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "6962",
+          "name": "奕力-KY",
+          "industry": "",
+          "close": 33.9,
+          "change_pct": 9.89,
+          "volume": 6071344,
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "7721",
+          "name": "微程式",
+          "industry": "",
+          "close": 55.7,
+          "change_pct": 9.86,
+          "volume": 486171,
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "2231",
+          "name": "為升",
+          "industry": "",
+          "close": 114.0,
+          "change_pct": 9.62,
+          "volume": 3725284,
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "3576",
+          "name": "聯合再生",
+          "industry": "",
+          "close": 25.0,
+          "change_pct": 9.89,
+          "volume": 40045391,
+          "major_net": 0,
+          "streak": 1
+        }
+      ]
+    },
+    {
+      "name": "塑化 / 化工",
+      "color": "#f97316",
+      "badges": [],
+      "reason": "原物料價格回升帶動塑化類股表現",
+      "stocks": [
+        {
+          "code": "1304",
+          "name": "台聚",
+          "industry": "塑化",
+          "close": 15.85,
+          "change_pct": 9.69,
+          "volume": 25013325,
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "1308",
+          "name": "亞聚",
+          "industry": "塑化",
+          "close": 18.05,
+          "change_pct": 9.73,
+          "volume": 21974233,
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "1309",
+          "name": "台達化",
+          "industry": "塑化",
+          "close": 20.15,
+          "change_pct": 9.81,
+          "volume": 11922223,
+          "major_net": 0,
+          "streak": 1
+        }
+      ]
+    },
+    {
+      "name": "生技 / 醫療器材",
+      "color": "#22c55e",
+      "badges": [],
+      "reason": "醫材新產品認證與生技族群人氣回升",
+      "stocks": [
+        {
+          "code": "6431",
+          "name": "光麗-KY",
+          "industry": "生技",
+          "close": 22.65,
+          "change_pct": 9.95,
+          "volume": 409580,
+          "major_net": 0,
+          "streak": 1
+        },
+        {
+          "code": "7780",
+          "name": "大研生醫*",
+          "industry": "生技",
+          "close": 20.0,
+          "change_pct": 9.89,
+          "volume": 1698498,
+          "major_net": 0,
+          "streak": 1
+        }
+      ]
+    },
+    {
+      "name": "光通訊 / 矽光子",
+      "color": "#ec4899",
+      "badges": [
+        "NEW"
+      ],
+      "reason": "800G光模組需求提前，矽光子技術突破",
+      "stocks": [
+        {
+          "code": "4906",
+          "name": "正文",
+          "industry": "光通訊",
+          "close": 36.6,
+          "change_pct": 9.91,
+          "volume": 16098854,
+          "major_net": 0,
+          "streak": 1
+        }
+      ]
+    }
+  ]
+}
