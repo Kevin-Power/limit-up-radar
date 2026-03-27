@@ -4,7 +4,7 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
-import { formatPct, formatPrice } from "@/lib/utils";
+import { formatPct, formatPrice, getTodayString } from "@/lib/utils";
 
 /* ================================================================
    TYPES
@@ -185,7 +185,7 @@ export default function ScreenerPage() {
 
   return (
     <div className="min-h-screen bg-bg-0 text-txt-1 animate-fade-in">
-      <TopNav currentDate="2026-03-20" />
+      <TopNav currentDate={getTodayString()} />
       <NavBar />
 
       <main className="max-w-7xl mx-auto px-4 pt-20 pb-16 space-y-6 animate-fade-in">

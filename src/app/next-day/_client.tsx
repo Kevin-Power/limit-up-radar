@@ -101,8 +101,8 @@ function makeStock(
 
 const MOCK_DATA: DayData[] = [
   {
-    limitDate: "2026-03-10",
-    nextDate: "2026-03-11",
+    limitDate: "2026-03-16",
+    nextDate: "2026-03-17",
     totalLimitUp: 48,
     stocks: [
       makeStock("3017","奇鋐","AI伺服器／散熱","上",1768,1.8, 1945,+10.00, 1945,+10.00, 1945,+10.00, +10.00,"續漲停"),
@@ -132,8 +132,8 @@ const MOCK_DATA: DayData[] = [
     ],
   },
   {
-    limitDate: "2026-03-11",
-    nextDate: "2026-03-12",
+    limitDate: "2026-03-17",
+    nextDate: "2026-03-18",
     totalLimitUp: 55,
     stocks: [
       makeStock("3017","奇鋐","AI伺服器／散熱","上",1630,1.5, 1630,+10.00, 1630,+10.00, 1630,+10.00, +10.00,"續漲停"),
@@ -150,8 +150,8 @@ const MOCK_DATA: DayData[] = [
     ],
   },
   {
-    limitDate: "2026-03-12",
-    nextDate: "2026-03-13",
+    limitDate: "2026-03-18",
+    nextDate: "2026-03-19",
     totalLimitUp: 42,
     stocks: [
       makeStock("3017","奇鋐","AI伺服器／散熱","上",1670,1.8, 1670,+10.00, 1670,+10.00, 1670,+10.00, +10.00,"續漲停"),
@@ -165,8 +165,8 @@ const MOCK_DATA: DayData[] = [
     ],
   },
   {
-    limitDate: "2026-03-13",
-    nextDate: "2026-03-14",
+    limitDate: "2026-03-19",
+    nextDate: "2026-03-20",
     totalLimitUp: 38,
     stocks: [
       makeStock("3017","奇鋐","AI伺服器／散熱","上",1710,2.0, 1710,+10.00, 1710,+10.00, 1710,+10.00, +10.00,"續漲停"),
@@ -178,8 +178,8 @@ const MOCK_DATA: DayData[] = [
     ],
   },
   {
-    limitDate: "2026-03-14",
-    nextDate: "2026-03-16",
+    limitDate: "2026-03-20",
+    nextDate: "2026-03-22",
     totalLimitUp: 45,
     stocks: [
       makeStock("3017","奇鋐","AI伺服器／散熱","上",1750,2.5, 1750,+10.00, 1750,+10.00, 1750,+10.00, +10.00,"續漲停"),
@@ -192,8 +192,8 @@ const MOCK_DATA: DayData[] = [
     ],
   },
   {
-    limitDate: "2026-03-16",
-    nextDate: "2026-03-17",
+    limitDate: "2026-03-22",
+    nextDate: "2026-03-23",
     totalLimitUp: 52,
     stocks: [
       makeStock("3017","奇鋐","AI伺服器／散熱","上",1795,2.8, 1795,+10.00, 1795,+10.00, 1795,+10.00, +10.00,"續漲停"),
@@ -207,8 +207,8 @@ const MOCK_DATA: DayData[] = [
     ],
   },
   {
-    limitDate: "2026-03-17",
-    nextDate: "2026-03-18",
+    limitDate: "2026-03-23",
+    nextDate: "2026-03-24",
     totalLimitUp: 58,
     stocks: [
       makeStock("3363","上詮","光通訊","櫃",660,2.0, 720,+9.09, 711,+7.73, 701,+6.21, +7.68,"續漲停"),
@@ -223,8 +223,8 @@ const MOCK_DATA: DayData[] = [
     ],
   },
   {
-    limitDate: "2026-03-18",
-    nextDate: "2026-03-19",
+    limitDate: "2026-03-24",
+    nextDate: "2026-03-25",
     totalLimitUp: 61,
     stocks: [
       makeStock("3363","上詮","光通訊","櫃",698,2.5, 756,+8.31, 748,+7.16, 738,+5.73, +7.07,"強漲"),
@@ -238,8 +238,8 @@ const MOCK_DATA: DayData[] = [
     ],
   },
   {
-    limitDate: "2026-03-19",
-    nextDate: "2026-03-20",
+    limitDate: "2026-03-25",
+    nextDate: "2026-03-26",
     totalLimitUp: 64,
     stocks: [
       makeStock("3017","奇鋐","AI伺服器／散熱","上",1945,2.0, 1945,+10.00, 1945,+10.00, 1945,+10.00, +10.00,"續漲停"),

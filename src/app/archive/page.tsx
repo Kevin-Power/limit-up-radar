@@ -5,7 +5,7 @@ import Link from "next/link";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
-import { formatPct, formatPrice } from "@/lib/utils";
+import { formatPct, formatPrice, getTodayString } from "@/lib/utils";
 
 /* ================================================================
    TYPES
@@ -38,21 +38,21 @@ const VERDICT_COLORS: Record<Verdict, string> = {
 };
 
 const MOCK_REPORTS: Report[] = [
-  { date: "2026-03-20", marketChange: 1.25,  limitUpCount: 54, verdict: "bullish", topGroup: "AI 伺服器 / 散熱" },
-  { date: "2026-03-19", marketChange: 0.83,  limitUpCount: 48, verdict: "bullish", topGroup: "半導體設備" },
-  { date: "2026-03-18", marketChange: -0.42, limitUpCount: 36, verdict: "neutral", topGroup: "光通訊" },
-  { date: "2026-03-17", marketChange: 0.67,  limitUpCount: 29, verdict: "neutral", topGroup: "PCB / CCL" },
-  { date: "2026-03-16", marketChange: 1.58,  limitUpCount: 41, verdict: "bullish", topGroup: "AI 伺服器 / 散熱" },
-  { date: "2026-03-13", marketChange: 0.35,  limitUpCount: 33, verdict: "neutral", topGroup: "IC 設計" },
-  { date: "2026-03-12", marketChange: -0.78, limitUpCount: 25, verdict: "bearish", topGroup: "鋼鐵 / 原物料" },
-  { date: "2026-03-11", marketChange: -1.12, limitUpCount: 19, verdict: "bearish", topGroup: "生技" },
-  { date: "2026-03-10", marketChange: 0.95,  limitUpCount: 38, verdict: "bullish", topGroup: "半導體設備" },
-  { date: "2026-03-09", marketChange: 1.82,  limitUpCount: 44, verdict: "bullish", topGroup: "AI 伺服器 / 散熱" },
-  { date: "2026-03-06", marketChange: 0.21,  limitUpCount: 27, verdict: "neutral", topGroup: "電動車" },
-  { date: "2026-03-05", marketChange: -1.55, limitUpCount: 12, verdict: "bearish", topGroup: "航運" },
-  { date: "2026-03-04", marketChange: 0.72,  limitUpCount: 31, verdict: "neutral", topGroup: "光通訊" },
-  { date: "2026-03-03", marketChange: 0.48,  limitUpCount: 23, verdict: "neutral", topGroup: "金融" },
-  { date: "2026-03-02", marketChange: -0.33, limitUpCount: 18, verdict: "bearish", topGroup: "PCB / CCL" },
+  { date: "2026-03-26", marketChange: 1.25,  limitUpCount: 54, verdict: "bullish", topGroup: "AI 伺服器 / 散熱" },
+  { date: "2026-03-25", marketChange: 0.83,  limitUpCount: 48, verdict: "bullish", topGroup: "半導體設備" },
+  { date: "2026-03-24", marketChange: -0.42, limitUpCount: 36, verdict: "neutral", topGroup: "光通訊" },
+  { date: "2026-03-23", marketChange: 0.67,  limitUpCount: 29, verdict: "neutral", topGroup: "PCB / CCL" },
+  { date: "2026-03-22", marketChange: 1.58,  limitUpCount: 41, verdict: "bullish", topGroup: "AI 伺服器 / 散熱" },
+  { date: "2026-03-19", marketChange: 0.35,  limitUpCount: 33, verdict: "neutral", topGroup: "IC 設計" },
+  { date: "2026-03-18", marketChange: -0.78, limitUpCount: 25, verdict: "bearish", topGroup: "鋼鐵 / 原物料" },
+  { date: "2026-03-17", marketChange: -1.12, limitUpCount: 19, verdict: "bearish", topGroup: "生技" },
+  { date: "2026-03-16", marketChange: 0.95,  limitUpCount: 38, verdict: "bullish", topGroup: "半導體設備" },
+  { date: "2026-03-15", marketChange: 1.82,  limitUpCount: 44, verdict: "bullish", topGroup: "AI 伺服器 / 散熱" },
+  { date: "2026-03-12", marketChange: 0.21,  limitUpCount: 27, verdict: "neutral", topGroup: "電動車" },
+  { date: "2026-03-11", marketChange: -1.55, limitUpCount: 12, verdict: "bearish", topGroup: "航運" },
+  { date: "2026-03-10", marketChange: 0.72,  limitUpCount: 31, verdict: "neutral", topGroup: "光通訊" },
+  { date: "2026-03-09", marketChange: 0.48,  limitUpCount: 23, verdict: "neutral", topGroup: "金融" },
+  { date: "2026-03-08", marketChange: -0.33, limitUpCount: 18, verdict: "bearish", topGroup: "PCB / CCL" },
 ];
 
 const COMPARISON_GROUPS_A = ["AI 伺服器 / 散熱", "半導體設備", "光通訊", "IC 設計", "電動車"];
@@ -84,14 +84,15 @@ function Card({ children, className = "" }: { children: React.ReactNode; classNa
    ================================================================ */
 
 export default function ArchivePage() {
+  const today = getTodayString();
   const [startDate, setStartDate] = useState("2026-03-01");
-  const [endDate, setEndDate] = useState("2026-03-20");
+  const [endDate, setEndDate] = useState(today);
   const [sortCol, setSortCol] = useState<"date" | "marketChange" | "limitUpCount">("date");
   const [sortAsc, setSortAsc] = useState(false);
 
   // Comparison
-  const [compareA, setCompareA] = useState("2026-03-20");
-  const [compareB, setCompareB] = useState("2026-03-09");
+  const [compareA, setCompareA] = useState(MOCK_REPORTS[0]?.date ?? today);
+  const [compareB, setCompareB] = useState(MOCK_REPORTS[4]?.date ?? today);
   const [showComparison, setShowComparison] = useState(false);
 
   const filteredReports = useMemo(() => {
@@ -138,7 +139,7 @@ export default function ArchivePage() {
 
   return (
     <div className="min-h-screen bg-bg-0 text-txt-1 animate-fade-in">
-      <TopNav currentDate="2026-03-20" />
+      <TopNav currentDate={today} />
       <NavBar />
 
       <main className="max-w-6xl mx-auto px-4 pt-20 pb-16 space-y-6 animate-fade-in">

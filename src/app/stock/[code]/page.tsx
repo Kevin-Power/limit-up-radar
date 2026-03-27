@@ -5,7 +5,7 @@ import Link from "next/link";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import { DailyData, Stock, StockGroup } from "@/lib/types";
-import { formatPrice, formatPct, formatNumber, formatNet } from "@/lib/utils";
+import { formatPrice, formatPct, formatNumber, formatNet, getTodayString } from "@/lib/utils";
 import { analyzeEma, getSignalFullLabel, getSignalColor } from "@/lib/ema";
 import KLineChart, { type CandleData } from "@/components/KLineChart";
 import StarButton from "@/components/StarButton";
@@ -675,7 +675,7 @@ export default function StockDetailPage({ params }: PageProps) {
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
-      <TopNav currentDate="2026-03-20" stocks={stock ? [stock] : []} />
+      <TopNav currentDate={getTodayString()} stocks={stock ? [stock] : []} />
       <NavBar />
       <main className="flex-1 overflow-y-auto">
         <div className="max-w-5xl mx-auto px-4 md:px-5 py-5 animate-fade-in">

@@ -4,8 +4,13 @@ import path from "path";
 
 const DATA_DIR = path.join(process.cwd(), "data", "daily");
 
+function todayStr() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
 const DEMO_DATA = {
-  date: "2026-03-20",
+  date: todayStr(),
   market_summary: {
     taiex_close: 33689,
     taiex_change_pct: 0.45,

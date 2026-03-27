@@ -5,7 +5,7 @@ import useSWR from "swr";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { DailyData, Stock } from "@/lib/types";
-import { shiftDate, formatPrice, formatPct, formatNumber } from "@/lib/utils";
+import { shiftDate, formatPrice, formatPct, formatNumber, getTodayString } from "@/lib/utils";
 import { buildCsvString, downloadCsv } from "@/components/DateNav";
 import TopNav from "@/components/TopNav";
 import TickerBar from "@/components/TickerBar";
@@ -23,7 +23,7 @@ import StarButton from "@/components/StarButton";
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 const DEMO_DATA: DailyData = {
-  date: "2026-03-20",
+  date: getTodayString(),
   market_summary: {
     taiex_close: 33689,
     taiex_change_pct: 0.45,

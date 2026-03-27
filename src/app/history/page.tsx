@@ -4,7 +4,7 @@ import { useState, useMemo } from "react";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
-import { formatDateDisplay } from "@/lib/utils";
+import { formatDateDisplay, getTodayString } from "@/lib/utils";
 
 interface DayRecord {
   date: string;
@@ -26,7 +26,7 @@ function generateMockHistory(): DayRecord[] {
     "面板",
   ];
 
-  const today = new Date("2026-03-21");
+  const today = new Date(getTodayString());
   for (let i = 89; i >= 0; i--) {
     const d = new Date(today);
     d.setDate(d.getDate() - i);
@@ -149,7 +149,7 @@ export default function HistoryPage() {
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
-      <TopNav currentDate="2026-03-21" />
+      <TopNav currentDate={getTodayString()} />
       <NavBar />
 
       <main className="flex-1 overflow-y-auto p-4 md:p-5 animate-fade-in">

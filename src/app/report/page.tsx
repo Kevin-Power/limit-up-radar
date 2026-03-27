@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
-import { formatPct, formatPrice } from "@/lib/utils";
+import { formatPct, formatPrice, getTodayString, getTodaySlash } from "@/lib/utils";
 
 /* ================================================================
    SUB-COMPONENTS
@@ -45,7 +45,7 @@ function Chip({ label, variant }: { label: string; variant: "green" | "red" | "b
    MOCK DATA
    ================================================================ */
 
-const REPORT_DATE = "2026/03/20";
+const REPORT_DATE = getTodaySlash();
 
 const MARKET_CONCLUSION = {
   regime: "偏多" as const,
@@ -259,7 +259,7 @@ export default function ReportPage() {
 
   return (
     <div className="min-h-screen bg-bg-0 text-txt-1 animate-fade-in">
-      <TopNav currentDate="2026-03-20" />
+      <TopNav currentDate={getTodayString()} />
       <NavBar />
 
       <main className="max-w-5xl mx-auto px-4 py-6 space-y-6 animate-fade-in">

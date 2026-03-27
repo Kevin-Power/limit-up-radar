@@ -1,3 +1,17 @@
+/** Returns today's date as YYYY-MM-DD string (local timezone). */
+export function getTodayString(): string {
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const dd = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${dd}`;
+}
+
+/** Returns today's date as YYYY/MM/DD string (local timezone). */
+export function getTodaySlash(): string {
+  return getTodayString().replace(/-/g, "/");
+}
+
 export function formatNumber(n: number): string {
   return n.toLocaleString("en-US");
 }
