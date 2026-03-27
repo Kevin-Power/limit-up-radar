@@ -45,18 +45,18 @@ const HEATMAP_DATA: Record<string, number[]> = {
 };
 
 const GROUP_HEAT = [
-  { name: "AI伺服器 / 散熱",       count: 58, prev: 45, trend: "up" as const },
-  { name: "半導體測試 / 先進封裝",  count: 49, prev: 42, trend: "up" as const },
-  { name: "IC設計 / AI邊緣運算",    count: 42, prev: 46, trend: "down" as const },
-  { name: "矽光子 / 高速傳輸",     count: 35, prev: 28, trend: "up" as const },
-  { name: "PCB / CCL基板",         count: 26, prev: 26, trend: "flat" as const },
-  { name: "光通訊",                count: 24, prev: 18, trend: "up" as const },
-  { name: "鋼鐵 / 鋼價調漲",       count: 20, prev: 23, trend: "down" as const },
-  { name: "塑化 / 油價",           count: 18, prev: 14, trend: "up" as const },
-  { name: "IC設計 / 邊緣運算",     count: 17, prev: 10, trend: "up" as const },
-  { name: "生技 / 醫藥",           count: 14, prev: 16, trend: "down" as const },
-  { name: "營建 / 資產",           count: 10, prev: 12, trend: "down" as const },
+  { name: "AI伺服器 / 散熱",       count: 43, prev: 35, trend: "up" as const },
+  { name: "半導體測試 / 先進封裝",  count: 36, prev: 30, trend: "up" as const },
+  { name: "IC設計 / AI邊緣運算",    count: 29, prev: 32, trend: "down" as const },
+  { name: "矽光子 / 高速傳輸",     count: 25, prev: 19, trend: "up" as const },
+  { name: "PCB / CCL基板",         count: 19, prev: 19, trend: "flat" as const },
+  { name: "光通訊",                count: 18, prev: 14, trend: "up" as const },
+  { name: "鋼鐵 / 鋼價調漲",       count: 15, prev: 18, trend: "down" as const },
+  { name: "塑化 / 油價",           count: 14, prev: 11, trend: "up" as const },
+  { name: "IC設計 / 邊緣運算",     count: 15, prev: 10, trend: "up" as const },
+  { name: "生技 / 醫藥",           count: 10, prev: 13, trend: "down" as const },
   { name: "個股亮點",              count: 8,  prev: 11, trend: "down" as const },
+  { name: "營建 / 資產",           count: 6,  prev: 9,  trend: "down" as const },
 ];
 
 const NEXT_DAY_STATS = {
@@ -140,7 +140,7 @@ function KpiRow() {
     { label: "本月漲停總數",  value: String(totalLimitUp), sub: `${MONTHLY_TREND.length} 交易日`, color: "#ef4444" },
     { label: "平均每日漲停",  value: avgDaily, sub: "家 / 日", color: "#3b82f6" },
     { label: "正報酬率",      value: `${positiveRate}%`, sub: "隔日收盤", color: "#22c55e" },
-    { label: "最強族群",      value: strongestGroup, sub: "58 次漲停", color: "#f59e0b" },
+    { label: "最強族群",      value: strongestGroup, sub: "43 次漲停", color: "#f59e0b" },
   ];
 
   return (

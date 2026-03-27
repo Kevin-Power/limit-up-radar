@@ -23,6 +23,7 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 import requests
 
 from scraper.twse import fetch_daily_quotes
+from scraper.tpex import fetch_tpex_quotes
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -689,6 +690,7 @@ def classify_stocks(limit_up_stocks: list[dict]) -> list[dict]:
                     # (e.g., 主力進出 from paid data providers). Set to 0 for now.
                     "major_net": 0,
                     "streak": 1,
+                    "market": s.get("market", "TWSE"),
                 }
                 for s in stocks
             ],
@@ -721,23 +723,43 @@ def main():
     # ---- Determine date ----
     if args.date:
         date = args.date
-        print(f"\n[1/4] Using specified date: {date}")
+        print(f"\n[1/5] Using specified date: {date}")
         quotes = _fetch_with_retry(date)
         if not quotes:
             print(f"ERROR: No data returned for {date}. Market may be closed.")
             sys.exit(1)
     else:
-        print("\n[1/4] Auto-detecting latest trading day...")
+        print("\n[1/5] Auto-detecting latest trading day...")
         date = find_latest_trading_day()
 
-    print(f"\n[2/4] Fetching quotes for {date}...")
+    print(f"\n[2/5] Fetching TWSE quotes for {date}...")
     quotes = _fetch_with_retry(date)
     if not quotes:
-        print("ERROR: No quotes data. Exiting.")
+        print("ERROR: No TWSE quotes data. Exiting.")
         sys.exit(1)
+    # Tag TWSE stocks with market field
+    for q in quotes:
+        q.setdefault("market", "TWSE")
+    twse_count = len(quotes)
+
+    print(f"  TWSE stocks: {twse_count}")
+
+    # ---- Fetch TPEx (OTC) quotes ----
+    print(f"\n[3/5] Fetching TPEx (OTC) quotes for {date}...")
+    time.sleep(3)  # be gentle between API calls
+    try:
+        tpex_quotes = fetch_tpex_quotes(date)
+        if tpex_quotes:
+            tpex_limit_up = len([q for q in tpex_quotes if q["is_limit_up"]])
+            print(f"  TPEx stocks: {len(tpex_quotes)} (limit-up: {tpex_limit_up})")
+            quotes.extend(tpex_quotes)
+        else:
+            print("  WARNING: No TPEx data returned (holiday or API issue)")
+    except Exception as exc:
+        print(f"  WARNING: TPEx fetch failed: {exc}")
 
     # ---- Market breadth ----
-    print(f"\n[3/4] Calculating market data...")
+    print(f"\n[4/5] Calculating market data...")
     advancing = len([q for q in quotes if q["change"] > 0])
     declining = len([q for q in quotes if q["change"] < 0])
     unchanged = len([q for q in quotes if q["change"] == 0])
@@ -790,7 +812,7 @@ def main():
     }
 
     # ---- Save to data/daily/<date>.json ----
-    print(f"\n[4/4] Saving data...")
+    print(f"\n[5/5] Saving data...")
     data_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "daily")
     os.makedirs(data_dir, exist_ok=True)
     filepath = os.path.join(data_dir, f"{date}.json")
@@ -798,14 +820,20 @@ def main():
         json.dump(daily_data, f, ensure_ascii=False, indent=2)
 
     # ---- Summary ----
+    twse_limit_up = len([q for q in limit_up if q.get("market", "TWSE") == "TWSE"])
+    otc_limit_up = len([q for q in limit_up if q.get("market") == "OTC"])
+    otc_total = len([q for q in quotes if q.get("market") == "OTC"])
+
     print("\n" + "=" * 60)
     print(f"  Date:           {date}")
     print(f"  TAIEX:          {taiex_close:,.2f} ({taiex_change_pct:+.2f}%)")
+    print(f"  TWSE stocks:    {twse_count}")
+    print(f"  TPEx stocks:    {otc_total}")
     print(f"  Total stocks:   {len(quotes)}")
     print(f"  Advancing:      {advancing}")
     print(f"  Declining:      {declining}")
     print(f"  Unchanged:      {unchanged}")
-    print(f"  Limit-up:       {len(limit_up)}")
+    print(f"  Limit-up:       {len(limit_up)} (TWSE: {twse_limit_up}, OTC: {otc_limit_up})")
     print(f"  Limit-down:     {limit_down_count}")
     print(f"  Groups:         {len(groups)}")
     for g in groups:

@@ -51,7 +51,7 @@ const MARKET_CONCLUSION = {
   regime: "偏多" as const,
   streak: 3,
   summary:
-    "加權指數收漲236點站上33,689點,量能溫和放大至4,128億元。AI伺服器散熱族群全面點火帶動電子股走強,半導體測試、矽光子類股漲停家數創近期新高。外資連三日買超,短線多頭格局延續。",
+    "加權指數收漲186點站上33,337點,量能溫和放大至4,128億元。AI伺服器散熱族群全面點火帶動電子股走強,半導體測試、矽光子類股漲停家數創近期新高。外資連三日買超,短線多頭格局延續。",
 };
 
 const BREADTH = {
@@ -340,8 +340,8 @@ export default function ReportPage() {
                     <td className="py-2.5 text-txt-3 font-mono">{s.code}</td>
                     <td className="py-2.5 text-txt-0 font-medium">{s.name}</td>
                     <td className="py-2.5 text-right text-txt-1 font-mono tabular-nums">{formatPrice(s.price)}</td>
-                    <td className="py-2.5 text-right text-green font-mono tabular-nums">
-                      +{s.changePct.toFixed(2)}%
+                    <td className={`py-2.5 text-right font-mono tabular-nums ${s.changePct >= 0 ? "text-green" : "text-red"}`}>
+                      {s.changePct >= 0 ? "+" : ""}{s.changePct.toFixed(2)}%
                     </td>
                     <td className="py-2.5 text-right">
                       <span className={`font-bold tabular-nums ${

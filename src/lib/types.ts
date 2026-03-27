@@ -21,6 +21,7 @@ export interface Stock {
   volume: number;
   major_net: number;
   streak: number;
+  market?: "TWSE" | "OTC";
 }
 
 export interface StockGroup {
