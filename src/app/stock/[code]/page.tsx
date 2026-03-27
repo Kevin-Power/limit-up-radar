@@ -8,6 +8,8 @@ import { DailyData, Stock, StockGroup } from "@/lib/types";
 import { formatPrice, formatPct, formatNumber, formatNet } from "@/lib/utils";
 import { analyzeEma, getSignalFullLabel, getSignalColor } from "@/lib/ema";
 import KLineChart, { type CandleData } from "@/components/KLineChart";
+import StarButton from "@/components/StarButton";
+import { useWatchlist } from "@/lib/useWatchlist";
 
 // --- Seeded RNG helpers ---
 
@@ -574,6 +576,7 @@ interface PageProps {
 
 export default function StockDetailPage({ params }: PageProps) {
   const { code } = use(params);
+  const { toggle: toggleWatch, isWatched } = useWatchlist();
   const [stock, setStock] = useState<Stock | null>(null);
   const [group, setGroup] = useState<StockGroup | null>(null);
   const [allGroups, setAllGroups] = useState<StockGroup[]>([]);
@@ -690,7 +693,10 @@ export default function StockDetailPage({ params }: PageProps) {
                         {marketType}
                       </span>
                     </div>
-                    <h1 className="text-xl md:text-3xl font-bold text-txt-0 tracking-tight mb-2">{displayStock.name}</h1>
+                    <div className="flex items-center gap-2 mb-2">
+                      <h1 className="text-xl md:text-3xl font-bold text-txt-0 tracking-tight">{displayStock.name}</h1>
+                      <StarButton code={code} isWatched={isWatched(code)} onToggle={toggleWatch} size="md" />
+                    </div>
                     <div className="flex flex-wrap items-center gap-2">
                       <a
                         href={`https://www.google.com/search?q=${displayStock.code}+外資買超`}

@@ -4,6 +4,10 @@ import { useEffect, useState } from "react";
 
 const SHORTCUTS = [
   { key: "← →", desc: "切換日期（前一天 / 後一天）" },
+  { key: "S", desc: "聚焦 / 切換搜尋框" },
+  { key: "W", desc: "捲動至連板股追蹤" },
+  { key: "E", desc: "匯出 CSV 檔案" },
+  { key: "1-9", desc: "快速切換頁面（1=總覽 2=隔日 3=小馬 ...）" },
   { key: "?", desc: "顯示快捷鍵說明" },
   { key: "Esc", desc: "關閉此視窗" },
 ];

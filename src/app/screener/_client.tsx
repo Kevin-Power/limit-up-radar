@@ -373,10 +373,32 @@ export default function ScreenerPage() {
             共 <span className="text-txt-0 font-semibold">{sorted.length}</span> 檔符合條件
           </p>
           <button
-            disabled
-            className="px-3 py-1 bg-bg-2 text-txt-4 text-[10px] rounded-md cursor-not-allowed flex items-center gap-1"
+            onClick={() => {
+              const BOM = "\ufeff";
+              const header = ["代號", "名稱", "收盤價", "漲跌幅%", "成交量(張)", "本益比", "ROE%", "月營收YoY%", "外資淨買(張)", "評分"];
+              const rows: string[] = [header.join(",")];
+              for (const s of sorted) {
+                rows.push([s.code, s.name, s.close, s.change, s.volume, s.pe, s.roe, s.revenueYoY, s.foreignNet, s.score].join(","));
+              }
+              const csv = BOM + rows.join("\n");
+              const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement("a");
+              a.href = url;
+              a.download = `選股結果_${new Date().toISOString().slice(0, 10)}.csv`;
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              URL.revokeObjectURL(url);
+            }}
+            className="px-3 py-1 bg-bg-2 text-txt-3 text-[10px] rounded-md hover:bg-bg-3 hover:text-txt-1 transition-colors flex items-center gap-1 cursor-pointer"
           >
-            CSV 匯出 <span className="text-[8px]">(即將推出)</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            CSV 匯出
           </button>
         </div>
 

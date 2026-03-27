@@ -8,6 +8,8 @@ import { formatNumber, formatPct } from "@/lib/utils";
 interface GroupBlockProps {
   group: StockGroup;
   totalStocks?: number;
+  isWatched?: (code: string) => boolean;
+  onToggleWatch?: (code: string) => void;
 }
 
 const BADGE_STYLES: Record<string, string> = {
@@ -57,7 +59,7 @@ function SortableHeader({ label, sortKey, sort, onSort, className = "" }: Sortab
   );
 }
 
-export default function GroupBlock({ group, totalStocks }: GroupBlockProps) {
+export default function GroupBlock({ group, totalStocks, isWatched, onToggleWatch }: GroupBlockProps) {
   const [collapsed, setCollapsed] = useState(false);
   const [sort, setSort] = useState<SortState | null>(null);
 
@@ -223,7 +225,13 @@ export default function GroupBlock({ group, totalStocks }: GroupBlockProps) {
 
           {/* Stock rows */}
           {sortedStocks.map((stock) => (
-            <StockRow key={stock.code} stock={stock} groupColor={group.color} />
+            <StockRow
+              key={stock.code}
+              stock={stock}
+              groupColor={group.color}
+              isWatched={isWatched?.(stock.code)}
+              onToggleWatch={onToggleWatch}
+            />
           ))}
         </>
       )}

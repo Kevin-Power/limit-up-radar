@@ -6,13 +6,16 @@ import { Stock } from "@/lib/types";
 import { formatPrice, formatPct, formatNumber, formatNet } from "@/lib/utils";
 import Sparkline from "./Sparkline";
 import { analyzeEma, getSignalLabel, getSignalColor } from "@/lib/ema";
+import StarButton from "./StarButton";
 
 interface StockRowProps {
   stock: Stock;
   groupColor: string;
+  isWatched?: boolean;
+  onToggleWatch?: (code: string) => void;
 }
 
-export default function StockRow({ stock, groupColor }: StockRowProps) {
+export default function StockRow({ stock, groupColor, isWatched = false, onToggleWatch }: StockRowProps) {
   const [expanded, setExpanded] = useState(false);
   const s = stock;
 
@@ -22,6 +25,13 @@ export default function StockRow({ stock, groupColor }: StockRowProps) {
         onClick={() => setExpanded(!expanded)}
         className="flex items-center gap-3 px-4 py-2.5 border-b border-white/[0.02] last:border-b-0 cursor-pointer hover:bg-white/[0.02] transition-colors group"
       >
+        {/* Star */}
+        {onToggleWatch && (
+          <div className="w-4 flex-shrink-0 flex items-center justify-center">
+            <StarButton code={s.code} isWatched={isWatched} onToggle={onToggleWatch} />
+          </div>
+        )}
+
         {/* Code */}
         <div className="w-11 flex-shrink-0">
           <Link

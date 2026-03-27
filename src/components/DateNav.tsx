@@ -26,6 +26,43 @@ function SummaryChip({ label, color }: { label: string; color: "red" | "blue" | 
   );
 }
 
+export function buildCsvString(data: DailyData): string {
+  const BOM = "\ufeff";
+  const header = ["代號", "名稱", "收盤價", "漲幅%", "成交量", "主力淨買", "族群", "市場"];
+  const rows: string[] = [header.join(",")];
+
+  for (const group of data.groups) {
+    for (const s of group.stocks) {
+      rows.push(
+        [
+          s.code,
+          s.name,
+          s.close,
+          s.change_pct,
+          s.volume,
+          s.major_net,
+          `"${group.name}"`,
+          s.market ?? "",
+        ].join(",")
+      );
+    }
+  }
+
+  return BOM + rows.join("\n");
+}
+
+export function downloadCsv(csv: string, filename: string) {
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
 function buildExportText(data: DailyData): string {
   const dateStr = data.date.replace(/-/g, ".");
   const lines: string[] = [`漲停雷達 ${dateStr}`, ""];
@@ -50,6 +87,12 @@ function buildExportText(data: DailyData): string {
 
 export default function DateNav({ date, limitUpCount, groupCount, onPrev, onNext, data }: DateNavProps) {
   const [copied, setCopied] = useState(false);
+
+  function handleCsvExport() {
+    if (!data) return;
+    const csv = buildCsvString(data);
+    downloadCsv(csv, `漲停雷達_${data.date}.csv`);
+  }
 
   async function handleExport() {
     if (!data) return;
@@ -113,9 +156,23 @@ export default function DateNav({ date, limitUpCount, groupCount, onPrev, onNext
                   <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
                   <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                 </svg>
-                匯出
+                複製
               </>
             )}
+          </button>
+        )}
+        {data && (
+          <button
+            onClick={handleCsvExport}
+            title="下載 CSV 檔案"
+            className="flex items-center gap-1 px-2.5 py-1 rounded text-[11px] font-semibold border bg-bg-3 text-txt-3 border-border hover:border-border-hover hover:text-txt-1 transition-colors"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            匯出 CSV
           </button>
         )}
       </div>
