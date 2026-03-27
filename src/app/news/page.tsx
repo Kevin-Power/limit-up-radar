@@ -3,6 +3,7 @@
 import { useState } from "react";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
+import Footer from "@/components/Footer";
 import { formatPct, formatPrice } from "@/lib/utils";
 
 /* ================================================================
@@ -370,6 +371,7 @@ export default function NewsPage() {
           </div>
         )}
       </main>
+      <Footer />
     </div>
   );
 }

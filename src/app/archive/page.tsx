@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
+import Footer from "@/components/Footer";
 import { formatPct, formatPrice } from "@/lib/utils";
 
 /* ================================================================
@@ -381,6 +382,7 @@ export default function ArchivePage() {
           )}
         </Card>
       </main>
+      <Footer />
     </div>
   );
 }

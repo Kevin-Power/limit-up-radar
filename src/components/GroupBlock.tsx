@@ -95,6 +95,11 @@ export default function GroupBlock({ group, totalStocks, isWatched, onToggleWatc
       <div
         className="flex items-start justify-between px-4 pt-3.5 pb-2 cursor-pointer"
         onClick={() => setCollapsed(!collapsed)}
+        role="button"
+        tabIndex={0}
+        aria-expanded={!collapsed}
+        aria-label={`${group.name} — ${collapsed ? "展開" : "收合"}`}
+        onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setCollapsed(!collapsed); } }}
       >
         <div className="flex items-center gap-2.5">
           <div

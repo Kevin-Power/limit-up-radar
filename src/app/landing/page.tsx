@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import Footer from "@/components/Footer";
 
 /* ------------------------------------------------------------------ */
 /*  Intersection Observer hook for scroll-based fade-in               */
@@ -427,27 +428,7 @@ export default function LandingPage() {
       </section>
 
       {/* ──────────────────────────── FOOTER ───────────────────────────── */}
-      <footer className="border-t border-border bg-bg-1 py-8">
-        <div className="mx-auto flex max-w-7xl flex-col items-center gap-4 px-4 text-sm text-txt-3 sm:flex-row sm:justify-between sm:px-6">
-          <span>&copy; 2026 漲停雷達. All rights reserved.</span>
-          <div className="flex gap-6">
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition hover:text-txt-1"
-            >
-              GitHub
-            </a>
-            <a href="#" className="transition hover:text-txt-1">
-              使用條款
-            </a>
-            <a href="#" className="transition hover:text-txt-1">
-              隱私政策
-            </a>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

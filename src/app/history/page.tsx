@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
+import Footer from "@/components/Footer";
 import { formatDateDisplay } from "@/lib/utils";
 
 interface DayRecord {
@@ -393,6 +394,9 @@ export default function HistoryPage() {
               </svg>
             </div>
           </div>
+        </div>
+        <div className="mt-8">
+          <Footer />
         </div>
       </main>
     </div>

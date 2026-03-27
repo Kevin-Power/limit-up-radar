@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import useSWR from "swr";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -187,6 +187,32 @@ export default function Home() {
   const displayData = rawData?.groups ? rawData : DEMO_DATA;
   const displayDate = displayData.date;
 
+  // Track data fetch time for freshness indicator
+  const [fetchedAt, setFetchedAt] = useState<Date | null>(null);
+  const [now, setNow] = useState<Date>(new Date());
+
+  useEffect(() => {
+    if (rawData?.groups) {
+      setFetchedAt(new Date());
+    }
+  }, [rawData]);
+
+  useEffect(() => {
+    const timer = setInterval(() => setNow(new Date()), 30000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const freshnessLabel = useMemo(() => {
+    if (!fetchedAt) return null;
+    const diffMs = now.getTime() - fetchedAt.getTime();
+    const diffMin = Math.floor(diffMs / 60000);
+    if (diffMin < 1) return "剛剛更新";
+    if (diffMin < 60) return `更新於 ${diffMin} 分鐘前`;
+    const hh = fetchedAt.getHours().toString().padStart(2, "0");
+    const mm = fetchedAt.getMinutes().toString().padStart(2, "0");
+    return `最後更新: ${hh}:${mm}`;
+  }, [fetchedAt, now]);
+
   // Flatten all stocks with their group name for the search box
   const allStocks: (Stock & { group: string })[] =
     displayData?.groups?.flatMap((g) =>
@@ -253,6 +279,7 @@ export default function Home() {
       <NavBar />
       <div className="flex flex-col md:flex-row flex-1 overflow-hidden animate-fade-in">
         <main className="flex-1 overflow-y-auto p-5">
+          <h1 className="sr-only">漲停雷達 — 每日漲停族群總覽</h1>
           {displayDate && (
             <DateNav
               date={displayDate}
@@ -262,6 +289,15 @@ export default function Home() {
               onNext={() => setCurrentDate(shiftDate(displayDate, 1))}
               data={displayData}
             />
+          )}
+          {freshnessLabel && (
+            <div className="flex items-center gap-1.5 mb-3 -mt-1">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-green" />
+              </span>
+              <span className="text-[10px] text-txt-4 tabular-nums">{freshnessLabel}</span>
+            </div>
           )}
           {showSkeleton && <Skeleton />}
           {error && !showSkeleton && (
@@ -278,6 +314,11 @@ export default function Home() {
                 <div
                   className="flex items-center gap-2 mb-3 cursor-pointer select-none"
                   onClick={() => setWatchlistCollapsed(!watchlistCollapsed)}
+                  role="button"
+                  tabIndex={0}
+                  aria-expanded={!watchlistCollapsed}
+                  aria-label={`自選股 — ${watchlistCollapsed ? "展開" : "收合"}`}
+                  onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setWatchlistCollapsed(!watchlistCollapsed); } }}
                 >
                   <svg viewBox="0 0 24 24" fill="#facc15" stroke="#facc15" strokeWidth={1} className="w-4 h-4 flex-shrink-0">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />

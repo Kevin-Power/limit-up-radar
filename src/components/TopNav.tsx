@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState, useRef, useEffect, useCallback } from "react";
 import { Stock } from "@/lib/types";
 import { formatPrice, formatPct } from "@/lib/utils";
 import ThemeToggle from "./ThemeToggle";
+import MarketClock from "./MarketClock";
 
 interface TopNavProps {
   currentDate?: string;
@@ -27,10 +28,12 @@ const NAV_ITEMS = [
   { label: "盤後報告", href: "/report" },
   { label: "統計分析", href: "/stats" },
   { label: "處置預測", href: "/disposal" },
+  { label: "股票比較", href: "/compare" },
 ];
 
 export default function TopNav({ currentDate, stocks = [] }: TopNavProps) {
   const pathname = usePathname();
+  const router = useRouter();
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -82,8 +85,12 @@ export default function TopNav({ currentDate, stocks = [] }: TopNavProps) {
       e.preventDefault();
       setActiveIndex((i) => Math.max(i - 1, 0));
     } else if (e.key === "Enter" && activeIndex >= 0) {
+      const selected = results[activeIndex];
       closeDropdown();
       setQuery("");
+      if (selected) {
+        router.push(`/stock/${selected.code}`);
+      }
     }
   }
 
@@ -93,9 +100,10 @@ export default function TopNav({ currentDate, stocks = [] }: TopNavProps) {
     setActiveIndex(-1);
   }
 
-  function handleResultClick() {
+  function handleResultClick(code: string) {
     closeDropdown();
     setQuery("");
+    router.push(`/stock/${code}`);
   }
 
   return (
@@ -111,10 +119,7 @@ export default function TopNav({ currentDate, stocks = [] }: TopNavProps) {
         </Link>
 
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 text-[10px] text-txt-4 font-medium">
-            <div className="pulse-dot w-[5px] h-[5px] rounded-full bg-green animate-pulse" />
-            <span className="hidden sm:inline">已更新</span>
-          </div>
+          <MarketClock />
 
           {/* Search box */}
           <div className="relative hidden md:block">
@@ -139,7 +144,7 @@ export default function TopNav({ currentDate, stocks = [] }: TopNavProps) {
                 {results.map((stock, idx) => (
                   <button
                     key={stock.code}
-                    onClick={handleResultClick}
+                    onClick={() => handleResultClick(stock.code)}
                     className={`w-full flex items-center gap-3 px-3 py-2.5 text-left transition-colors border-b border-white/[0.03] last:border-b-0 ${
                       idx === activeIndex ? "bg-white/[0.06]" : "hover:bg-white/[0.04]"
                     }`}
@@ -183,9 +188,11 @@ export default function TopNav({ currentDate, stocks = [] }: TopNavProps) {
 
           <ThemeToggle />
 
-          <div className="text-[11px] text-txt-4 tabular-nums tracking-wider whitespace-nowrap">
-            {(currentDate || "").replace(/-/g, "/")}
-          </div>
+          {currentDate && (
+            <div className="hidden sm:block text-[11px] text-txt-4 tabular-nums tracking-wider whitespace-nowrap">
+              {currentDate.replace(/-/g, "/")}
+            </div>
+          )}
 
           <button
             className="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-[5px] text-txt-3 hover:text-txt-1 transition-colors"

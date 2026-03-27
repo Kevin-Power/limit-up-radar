@@ -14,6 +14,7 @@ const NAV_ITEMS = [
   { label: "盤後報告", href: "/report" },
   { label: "統計分析", href: "/stats" },
   { label: "處置預測", href: "/disposal" },
+  { label: "股票比較", href: "/compare" },
 ];
 
 export default function NavBar() {
