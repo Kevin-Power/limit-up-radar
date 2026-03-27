@@ -219,14 +219,25 @@ export default function Highlights({ data }: HighlightsProps) {
             secondary={`量 ${formatNumber(topVolume.volume)}`}
             barValue={maxVol > 0 ? (topVolume.volume / maxVol) * 100 : 50}
           />
-          <HighlightCard
-            accentColor="#f59e0b"
-            icon="◆"
-            title="主力最愛"
-            primary={topMajor.major_net === 0 ? "-" : `${topMajor.name} ${topMajor.code}`}
-            secondary={topMajor.major_net === 0 ? "暫無主力資料" : `${formatNet(topMajor.major_net)} 張`}
-            barValue={maxNet > 0 ? (topMajor.major_net / maxNet) * 100 : 0}
-          />
+          {topMajor.major_net > 0 ? (
+            <HighlightCard
+              accentColor="#f59e0b"
+              icon="◆"
+              title="主力最愛"
+              primary={`${topMajor.name} ${topMajor.code}`}
+              secondary={`${formatNet(topMajor.major_net)} 張`}
+              barValue={maxNet > 0 ? (topMajor.major_net / maxNet) * 100 : 0}
+            />
+          ) : (
+            <HighlightCard
+              accentColor="#f59e0b"
+              icon="▲"
+              title="最大量"
+              primary={`${topVolume.name} ${topVolume.code}`}
+              secondary={`量 ${formatNumber(topVolume.volume)}`}
+              barValue={maxVol > 0 ? (topVolume.volume / maxVol) * 100 : 50}
+            />
+          )}
           {topStreak ? (
             <HighlightCard
               accentColor="#f97316"

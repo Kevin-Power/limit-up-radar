@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from "react";
 import useSWR from "swr";
+import Link from "next/link";
 import { DailyData, Stock } from "@/lib/types";
-import { shiftDate } from "@/lib/utils";
+import { shiftDate, formatPrice, formatPct, formatNumber } from "@/lib/utils";
 import TopNav from "@/components/TopNav";
 import TickerBar from "@/components/TickerBar";
 import DateNav from "@/components/DateNav";
@@ -234,6 +235,80 @@ export default function Home() {
           {!showSkeleton && displayData?.groups?.map((group) => (
             <GroupBlock key={group.name} group={group} totalStocks={displayData.groups.reduce((s, g) => s + g.stocks.length, 0)} />
           ))}
+
+          {/* Streak Tracker */}
+          {!showSkeleton && (() => {
+            const streakStocks = allStocks
+              .filter((s) => s.streak > 1)
+              .sort((a, b) => b.streak - a.streak || b.change_pct - a.change_pct);
+            if (streakStocks.length === 0) return null;
+            return (
+              <div className="mt-6 mb-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-txt-4">連板股追蹤</span>
+                  <span className="text-[10px] text-txt-4 bg-bg-2 px-1.5 py-0.5 rounded tabular-nums">{streakStocks.length} 檔</span>
+                </div>
+                <div className="bg-bg-1 border border-border rounded-lg overflow-hidden">
+                  {/* Header */}
+                  <div className="flex items-center gap-3 px-4 py-1.5 bg-bg-2 border-b border-border text-[10px] font-semibold uppercase tracking-wider text-txt-4">
+                    <div className="w-11 flex-shrink-0">代號</div>
+                    <div className="w-20 flex-shrink-0">名稱</div>
+                    <div className="w-16 flex-shrink-0 text-center">連板</div>
+                    <div className="w-20 text-right flex-shrink-0">收盤價</div>
+                    <div className="w-16 text-right flex-shrink-0">漲幅</div>
+                    <div className="hidden md:block w-20 text-right flex-shrink-0">成交量</div>
+                    <div className="flex-1 text-right">所屬族群</div>
+                  </div>
+                  {/* Rows */}
+                  {streakStocks.map((s) => (
+                    <div
+                      key={s.code}
+                      className="flex items-center gap-3 px-4 py-2.5 border-b border-white/[0.02] last:border-b-0 hover:bg-white/[0.02] transition-colors"
+                    >
+                      <div className="w-11 flex-shrink-0">
+                        <Link
+                          href={`/stock/${s.code}`}
+                          className="text-xs font-semibold text-txt-2 tabular-nums hover:text-txt-0 hover:underline underline-offset-2 transition-colors"
+                        >
+                          {s.code}
+                        </Link>
+                      </div>
+                      <div className="w-20 flex-shrink-0">
+                        <Link
+                          href={`/stock/${s.code}`}
+                          className="text-[13px] font-semibold text-txt-0 hover:underline underline-offset-2 hover:text-red/90 transition-colors"
+                        >
+                          {s.name}
+                        </Link>
+                      </div>
+                      <div className="w-16 flex-shrink-0 flex items-center justify-center gap-0.5">
+                        {Array.from({ length: Math.min(s.streak, 7) }).map((_, i) => (
+                          <span key={i} className="w-2 h-2 rounded-full bg-red" />
+                        ))}
+                        <span className="text-[11px] font-bold text-red tabular-nums ml-1">{s.streak}</span>
+                      </div>
+                      <div className="w-20 text-right text-[13px] font-bold text-red tabular-nums flex-shrink-0">
+                        {formatPrice(s.close)}
+                      </div>
+                      <div className="w-16 text-right flex-shrink-0">
+                        <span className={`text-[11px] font-semibold px-1.5 py-0.5 rounded tabular-nums ${
+                          s.change_pct >= 0 ? "text-red bg-red-bg" : "text-green bg-green-bg"
+                        }`}>
+                          {formatPct(s.change_pct)}
+                        </span>
+                      </div>
+                      <div className="hidden md:block w-20 text-right text-xs text-txt-2 tabular-nums flex-shrink-0">
+                        {formatNumber(s.volume)}
+                      </div>
+                      <div className="flex-1 text-right">
+                        <span className="text-[10px] text-txt-4 truncate">{s.group}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })()}
         </main>
         {displayData && (
           <div className="w-full md:w-auto">
