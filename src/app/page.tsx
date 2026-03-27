@@ -165,26 +165,19 @@ export default function Home() {
   const { watchlist, toggle: toggleWatch, isWatched, count: watchlistCount } = useWatchlist();
   const [watchlistCollapsed, setWatchlistCollapsed] = useState(false);
 
-  const { data: latestData, isLoading: isLatestLoading } = useSWR<DailyData>(
-    currentDate ? null : "/api/daily/latest",
-    fetcher
-  );
+  const apiUrl = currentDate ? `/api/daily/${currentDate}` : "/api/daily/latest";
+  const { data: fetchedData, isLoading } = useSWR<DailyData>(apiUrl, fetcher);
 
-  const { data, error, isLoading } = useSWR<DailyData>(
-    currentDate ? `/api/daily/${currentDate}` : null,
-    fetcher
-  );
+  const showSkeleton = isLoading && !fetchedData;
 
-  const showSkeleton = isLoading || (isLatestLoading && !latestData);
-
+  // Once we get latest data, remember its date for navigation
   useEffect(() => {
-    if (latestData?.date && !currentDate) {
-      setCurrentDate(latestData.date);
+    if (fetchedData?.date && !currentDate) {
+      setCurrentDate(fetchedData.date);
     }
-  }, [latestData, currentDate]);
+  }, [fetchedData, currentDate]);
 
-  const rawData = currentDate ? data : latestData;
-  const displayData = rawData?.groups ? rawData : DEMO_DATA;
+  const displayData = fetchedData?.groups ? fetchedData : DEMO_DATA;
   const displayDate = displayData.date;
 
   // Track data fetch time for freshness indicator
@@ -192,10 +185,10 @@ export default function Home() {
   const [now, setNow] = useState<Date>(new Date());
 
   useEffect(() => {
-    if (rawData?.groups) {
+    if (fetchedData?.groups) {
       setFetchedAt(new Date());
     }
-  }, [rawData]);
+  }, [fetchedData]);
 
   useEffect(() => {
     const timer = setInterval(() => setNow(new Date()), 30000);
@@ -300,7 +293,7 @@ export default function Home() {
             </div>
           )}
           {showSkeleton && <Skeleton />}
-          {error && !showSkeleton && (
+          {!fetchedData?.groups && !showSkeleton && !isLoading && (
             <div className="text-txt-3 text-sm text-center py-20">此日期無資料</div>
           )}
           {!showSkeleton && displayData && <Highlights data={displayData} />}
