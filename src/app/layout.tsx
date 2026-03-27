@@ -71,6 +71,30 @@ export default function RootLayout({
       <head>
         <meta name="theme-color" content="#07080c" />
         <meta name="color-scheme" content="dark light" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="漲停雷達" />
+        <link rel="apple-touch-icon" href="/icon-192.svg" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebApplication",
+              name: "漲停雷達",
+              description: "AI 驅動的台股漲停族群分類平台",
+              url: "https://limit-up-radar.vercel.app",
+              applicationCategory: "FinanceApplication",
+              operatingSystem: "Web",
+              offers: {
+                "@type": "Offer",
+                price: "0",
+                priceCurrency: "TWD",
+              },
+            }),
+          }}
+        />
       </head>
       <body className="font-sans antialiased">{children}</body>
     </html>
