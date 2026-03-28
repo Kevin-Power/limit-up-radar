@@ -1,6 +1,7 @@
 "use client";
 
 import { use, useEffect, useState } from "react";
+import useSWR from "swr";
 import Link from "next/link";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
@@ -622,6 +623,13 @@ export default function StockDetailPage({ params }: PageProps) {
       .catch(() => setLoading(false));
   }, [code]);
 
+  // Real K-line history from TWSE/TPEx
+  const { data: realCandles } = useSWR<CandleData[]>(
+    `/api/stock/${code}/history`,
+    (url: string) => fetch(url).then((r) => r.json()),
+    { revalidateOnFocus: false }
+  );
+
   const fallbackPrice = STOCK_PRICES[code] ?? 100;
   const displayStock: Stock = stock ?? {
     code,
@@ -790,7 +798,7 @@ export default function StockDetailPage({ params }: PageProps) {
               <div className="mb-6">
                 <SectionLabel>技術分析圖表</SectionLabel>
                 <KLineChart
-                  data={generateCandleData(code, displayStock.close, 60)}
+                  data={(realCandles && realCandles.length > 5) ? realCandles : generateCandleData(code, displayStock.close, 60)}
                   showMA={true}
                   showVolume={true}
                   showMACD={true}
