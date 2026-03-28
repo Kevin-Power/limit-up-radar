@@ -1,10 +1,12 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import useSWR from "swr";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import { formatDateDisplay, getTodayString } from "@/lib/utils";
+import type { StatsData } from "@/app/api/stats/route";
 
 interface DayRecord {
   date: string;
@@ -12,40 +14,7 @@ interface DayRecord {
   topGroup: string;
 }
 
-// Generate 90 days of mock historical data
-function generateMockHistory(): DayRecord[] {
-  const records: DayRecord[] = [];
-  const groups = [
-    "AI 伺服器",
-    "半導體設備",
-    "鋼鐵",
-    "航運",
-    "金融",
-    "生技",
-    "電動車",
-    "面板",
-  ];
-
-  const today = new Date(getTodayString());
-  for (let i = 89; i >= 0; i--) {
-    const d = new Date(today);
-    d.setDate(d.getDate() - i);
-    const dow = d.getDay();
-    // Skip weekends
-    if (dow === 0 || dow === 6) continue;
-
-    const dateStr = d.toISOString().split("T")[0];
-    // Pseudo-random but deterministic count: vary between 5 and 65
-    const seed = d.getDate() * 7 + d.getMonth() * 31;
-    const count = Math.max(0, Math.round(((Math.sin(seed) + 1) / 2) * 60) + 5);
-    const topGroup = groups[seed % groups.length];
-
-    records.push({ date: dateStr, count, topGroup });
-  }
-  return records;
-}
-
-const MOCK_HISTORY = generateMockHistory();
+const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 function getColor(count: number): string {
   if (count === 0) return "bg-bg-3";
@@ -122,30 +91,48 @@ function getMonthLabels(weeks: (DayRecord | null)[][]): { label: string; col: nu
 
 export default function HistoryPage() {
   const [selected, setSelected] = useState<DayRecord | null>(null);
+  const { data: stats } = useSWR<StatsData & { dates: string[] }>("/api/stats", fetcher, { revalidateOnFocus: false });
 
-  const weeks = useMemo(() => buildWeekGrid(MOCK_HISTORY), []);
+  // Build real DayRecord[] from stats data
+  const HISTORY: DayRecord[] = useMemo(() => {
+    if (!stats || stats.dailyTrend.length === 0) return [];
+    return stats.dailyTrend.map((d, i) => {
+      // Find top group for this day from heatmap
+      let topGroup = "—";
+      let maxCount = 0;
+      for (const [groupName, counts] of Object.entries(stats.heatmap)) {
+        if ((counts[i] ?? 0) > maxCount) {
+          maxCount = counts[i];
+          topGroup = groupName;
+        }
+      }
+      return { date: d.fullDate, count: d.count, topGroup };
+    });
+  }, [stats]);
+
+  const weeks = useMemo(() => buildWeekGrid(HISTORY), [HISTORY]);
   const monthLabels = useMemo(() => getMonthLabels(weeks), [weeks]);
 
   // For the trend sparkline
-  const maxCount = Math.max(...MOCK_HISTORY.map((r) => r.count), 1);
+  const maxCount = Math.max(...HISTORY.map((r) => r.count), 1);
   const sparklineH = 60;
   const sparklineW = 560;
-  const points = MOCK_HISTORY.map((r, i) => {
-    const x = (i / (MOCK_HISTORY.length - 1)) * sparklineW;
+  const points = HISTORY.map((r, i) => {
+    const x = HISTORY.length > 1 ? (i / (HISTORY.length - 1)) * sparklineW : 0;
     const y = sparklineH - (r.count / maxCount) * sparklineH;
     return `${x.toFixed(1)},${y.toFixed(1)}`;
   }).join(" ");
 
   // Stats for the selected day or overall
   const avgCount =
-    MOCK_HISTORY.length > 0
-      ? MOCK_HISTORY.reduce((s, r) => s + r.count, 0) / MOCK_HISTORY.length
+    HISTORY.length > 0
+      ? HISTORY.reduce((s, r) => s + r.count, 0) / HISTORY.length
       : 0;
-  const peakDay = MOCK_HISTORY.reduce(
-    (best, r) => (r.count > best.count ? r : best),
-    MOCK_HISTORY[0]
-  );
-  const tradingDays = MOCK_HISTORY.length;
+  const peakDay = HISTORY.length > 0
+    ? HISTORY.reduce((best, r) => (r.count > best.count ? r : best), HISTORY[0])
+    : null;
+  const tradingDays = HISTORY.length;
+  const isReal = HISTORY.length > 0;
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
@@ -159,7 +146,7 @@ export default function HistoryPage() {
             歷史數據
           </h1>
           <p className="mt-0.5 text-[11px] text-txt-4">
-            近 90 個交易日漲停分布熱力圖（示範數據）
+            {isReal ? `近 ${tradingDays} 個交易日漲停分布熱力圖` : "載入中..."}
           </p>
         </div>
 
@@ -188,7 +175,7 @@ export default function HistoryPage() {
               最強單日
             </div>
             <div className="text-xl font-bold text-red tabular-nums">
-              {peakDay?.count ?? 0}
+              {peakDay?.count ?? "—"}
             </div>
             <div className="text-[10px] text-txt-4 mt-0.5">
               {peakDay ? formatDateDisplay(peakDay.date) : "—"}
@@ -334,7 +321,7 @@ export default function HistoryPage() {
             <span className="text-[11px] font-medium text-txt-2">
               每日漲停家數走勢
             </span>
-            <span className="text-[10px] text-txt-4">近 {tradingDays} 個交易日</span>
+            <span className="text-[10px] text-txt-4">{isReal ? `近 ${tradingDays} 個交易日 (真實資料)` : "載入中..."}</span>
           </div>
 
           {/* Y-axis labels + chart */}

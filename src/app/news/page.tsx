@@ -1,10 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
+import useSWR from "swr";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
-import { formatPct, formatPrice, getTodayString } from "@/lib/utils";
+import { getTodayString } from "@/lib/utils";
+import type { NewsArticle } from "@/app/api/news/route";
+
+const fetcher = (url: string) => fetch(url).then((r) => r.json());
+
+function timeAgoFromTimestamp(ts: number): string {
+  const diffMs = Date.now() - ts * 1000;
+  const mins = Math.floor(diffMs / 60000);
+  if (mins < 60) return `${mins} 分鐘前`;
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return `${hrs} 小時前`;
+  const days = Math.floor(hrs / 24);
+  return `${days} 天前`;
+}
 
 /* ================================================================
    TYPES
@@ -211,7 +225,29 @@ export default function NewsPage() {
   const [activeTag, setActiveTag] = useState<string | null>(null);
   const [visibleCount, setVisibleCount] = useState(8);
 
-  const filtered = MOCK_NEWS.filter((n) => {
+  const { data: realNews } = useSWR<NewsArticle[]>("/api/news", fetcher, { revalidateOnFocus: false });
+
+  // Merge real news into NewsItem format, fall back to mock
+  const NEWS: NewsItem[] = useMemo(() => {
+    if (realNews && realNews.length > 0) {
+      return realNews.map((a) => ({
+        id: a.id.length > 0 ? parseInt(a.id.replace(/\D/g, "").slice(0, 9)) || Math.random() * 1e9 : Math.random() * 1e9,
+        title: a.title,
+        summary: a.summary || a.title,
+        source: a.source,
+        timeAgo: timeAgoFromTimestamp(a.publishedAt),
+        impact: a.impact,
+        category: (a.category as Category) || "industry",
+        relatedStocks: a.relatedTickers.slice(0, 3).map((t) => ({ code: t, name: t })),
+        markets: ["台股"],
+      }));
+    }
+    return MOCK_NEWS;
+  }, [realNews]);
+
+  const isReal = !!(realNews && realNews.length > 0);
+
+  const filtered = NEWS.filter((n) => {
     if (category !== "all" && n.category !== category) return false;
     if (impactFilter !== "all" && n.impact !== impactFilter) return false;
     if (activeTag && !n.title.includes(activeTag) && !n.relatedStocks.some((s) => s.name.includes(activeTag))) {
@@ -230,7 +266,10 @@ export default function NewsPage() {
       <main className="max-w-4xl mx-auto px-4 pt-20 pb-16 space-y-6 animate-fade-in">
         {/* Header */}
         <div>
-          <h1 className="text-xl font-bold text-txt-0 tracking-tight">市場情資</h1>
+          <div className="flex items-center gap-2">
+            <h1 className="text-xl font-bold text-txt-0 tracking-tight">市場情資</h1>
+            {isReal && <span className="px-1.5 py-0.5 text-[9px] font-bold bg-green/15 text-green rounded">LIVE</span>}
+          </div>
           <p className="text-xs text-txt-3 mt-1">全球財經新聞與台股相關情報</p>
         </div>
 

@@ -2,10 +2,14 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import useSWR from "swr";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import { formatPct, formatPrice, getTodayString } from "@/lib/utils";
+import type { StatsData } from "@/app/api/stats/route";
+
+const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 /* ================================================================
    TYPES
@@ -37,26 +41,21 @@ const VERDICT_COLORS: Record<Verdict, string> = {
   bearish: "bg-green/15 text-green",
 };
 
-const MOCK_REPORTS: Report[] = [
-  { date: "2026-03-26", marketChange: 1.25,  limitUpCount: 54, verdict: "bullish", topGroup: "AI 伺服器 / 散熱" },
-  { date: "2026-03-25", marketChange: 0.83,  limitUpCount: 48, verdict: "bullish", topGroup: "半導體設備" },
-  { date: "2026-03-24", marketChange: -0.42, limitUpCount: 36, verdict: "neutral", topGroup: "光通訊" },
-  { date: "2026-03-23", marketChange: 0.67,  limitUpCount: 29, verdict: "neutral", topGroup: "PCB / CCL" },
-  { date: "2026-03-22", marketChange: 1.58,  limitUpCount: 41, verdict: "bullish", topGroup: "AI 伺服器 / 散熱" },
-  { date: "2026-03-19", marketChange: 0.35,  limitUpCount: 33, verdict: "neutral", topGroup: "IC 設計" },
-  { date: "2026-03-18", marketChange: -0.78, limitUpCount: 25, verdict: "bearish", topGroup: "鋼鐵 / 原物料" },
-  { date: "2026-03-17", marketChange: -1.12, limitUpCount: 19, verdict: "bearish", topGroup: "生技" },
-  { date: "2026-03-16", marketChange: 0.95,  limitUpCount: 38, verdict: "bullish", topGroup: "半導體設備" },
-  { date: "2026-03-15", marketChange: 1.82,  limitUpCount: 44, verdict: "bullish", topGroup: "AI 伺服器 / 散熱" },
-  { date: "2026-03-12", marketChange: 0.21,  limitUpCount: 27, verdict: "neutral", topGroup: "電動車" },
-  { date: "2026-03-11", marketChange: -1.55, limitUpCount: 12, verdict: "bearish", topGroup: "航運" },
-  { date: "2026-03-10", marketChange: 0.72,  limitUpCount: 31, verdict: "neutral", topGroup: "光通訊" },
-  { date: "2026-03-09", marketChange: 0.48,  limitUpCount: 23, verdict: "neutral", topGroup: "金融" },
-  { date: "2026-03-08", marketChange: -0.33, limitUpCount: 18, verdict: "bearish", topGroup: "PCB / CCL" },
-];
-
-const COMPARISON_GROUPS_A = ["AI 伺服器 / 散熱", "半導體設備", "光通訊", "IC 設計", "電動車"];
-const COMPARISON_GROUPS_B = ["AI 伺服器 / 散熱", "半導體設備", "PCB / CCL", "鋼鐵 / 原物料", "生技"];
+function buildReportsFromStats(stats: StatsData): Report[] {
+  return stats.dailyTrend.map((d, i) => {
+    const verdict: Verdict =
+      d.taiexChangePct > 0.5 ? "bullish" : d.taiexChangePct < -0.5 ? "bearish" : "neutral";
+    let topGroup = "—";
+    let maxCnt = 0;
+    for (const [gName, counts] of Object.entries(stats.heatmap)) {
+      if ((counts[i] ?? 0) > maxCnt) {
+        maxCnt = counts[i];
+        topGroup = gName;
+      }
+    }
+    return { date: d.fullDate, marketChange: d.taiexChangePct, limitUpCount: d.count, verdict, topGroup };
+  }).reverse(); // newest first
+}
 
 /* ================================================================
    SUB-COMPONENTS
@@ -85,18 +84,29 @@ function Card({ children, className = "" }: { children: React.ReactNode; classNa
 
 export default function ArchivePage() {
   const today = getTodayString();
+  const { data: stats } = useSWR<StatsData & { dates: string[] }>("/api/stats", fetcher, { revalidateOnFocus: false });
+
+  const ALL_REPORTS: Report[] = useMemo(() => {
+    if (!stats || stats.dailyTrend.length === 0) return [];
+    return buildReportsFromStats(stats);
+  }, [stats]);
+
   const [startDate, setStartDate] = useState("2026-03-01");
   const [endDate, setEndDate] = useState(today);
   const [sortCol, setSortCol] = useState<"date" | "marketChange" | "limitUpCount">("date");
   const [sortAsc, setSortAsc] = useState(false);
 
   // Comparison
-  const [compareA, setCompareA] = useState(MOCK_REPORTS[0]?.date ?? today);
-  const [compareB, setCompareB] = useState(MOCK_REPORTS[4]?.date ?? today);
+  const [compareA, setCompareA] = useState("");
+  const [compareB, setCompareB] = useState("");
   const [showComparison, setShowComparison] = useState(false);
 
+  // Set default comparison dates once data loads
+  const effectiveA = compareA || ALL_REPORTS[0]?.date || today;
+  const effectiveB = compareB || ALL_REPORTS[Math.min(4, ALL_REPORTS.length - 1)]?.date || today;
+
   const filteredReports = useMemo(() => {
-    const arr = MOCK_REPORTS.filter((r) => r.date >= startDate && r.date <= endDate);
+    const arr = ALL_REPORTS.filter((r) => r.date >= startDate && r.date <= endDate);
     arr.sort((a, b) => {
       const va = a[sortCol];
       const vb = b[sortCol];
@@ -108,28 +118,32 @@ export default function ArchivePage() {
         : String(vb).localeCompare(String(va));
     });
     return arr;
-  }, [startDate, endDate, sortCol, sortAsc]);
+  }, [ALL_REPORTS, startDate, endDate, sortCol, sortAsc]);
 
   function handleSort(col: "date" | "marketChange" | "limitUpCount") {
     if (sortCol === col) setSortAsc(!sortAsc);
     else { setSortCol(col); setSortAsc(false); }
   }
 
-  const reportA = MOCK_REPORTS.find((r) => r.date === compareA);
-  const reportB = MOCK_REPORTS.find((r) => r.date === compareB);
+  const reportA = ALL_REPORTS.find((r) => r.date === effectiveA);
+  const reportB = ALL_REPORTS.find((r) => r.date === effectiveB);
 
   // Quick stats
   const bullishStreak = (() => {
     let count = 0;
-    for (const r of MOCK_REPORTS) {
+    for (const r of ALL_REPORTS) {
       if (r.verdict === "bullish") count++;
       else break;
     }
     return count;
   })();
 
-  const avgLimitUp = Math.round(MOCK_REPORTS.reduce((s, r) => s + r.limitUpCount, 0) / MOCK_REPORTS.length);
-  const maxLimitUpReport = MOCK_REPORTS.reduce((max, r) => r.limitUpCount > max.limitUpCount ? r : max, MOCK_REPORTS[0]);
+  const avgLimitUp = ALL_REPORTS.length > 0
+    ? Math.round(ALL_REPORTS.reduce((s, r) => s + r.limitUpCount, 0) / ALL_REPORTS.length)
+    : 0;
+  const maxLimitUpReport = ALL_REPORTS.length > 0
+    ? ALL_REPORTS.reduce((max, r) => r.limitUpCount > max.limitUpCount ? r : max, ALL_REPORTS[0])
+    : null;
 
   const SortIcon = ({ col }: { col: string }) => (
     <span className="text-[8px] text-txt-4 ml-0.5">
@@ -162,8 +176,8 @@ export default function ArchivePage() {
           <Card>
             <div className="text-[10px] text-txt-4 uppercase tracking-wider mb-1">最多漲停日</div>
             <div className="text-xl font-bold text-txt-0 tracking-tight">
-              {maxLimitUpReport.date.slice(5).replace("-", "/")}
-              <span className="text-sm text-txt-3 ml-1">({maxLimitUpReport.limitUpCount}檔)</span>
+              {maxLimitUpReport ? maxLimitUpReport.date.slice(5).replace("-", "/") : "—"}
+              {maxLimitUpReport && <span className="text-sm text-txt-3 ml-1">({maxLimitUpReport.limitUpCount}檔)</span>}
             </div>
           </Card>
         </div>
@@ -261,11 +275,11 @@ export default function ArchivePage() {
             <div>
               <label className="text-[10px] text-txt-4 block mb-1">報告 A</label>
               <select
-                value={compareA}
+                value={effectiveA}
                 onChange={(e) => setCompareA(e.target.value)}
                 className="bg-bg-2 border border-border rounded px-3 py-1.5 text-xs text-txt-1"
               >
-                {MOCK_REPORTS.map((r) => (
+                {ALL_REPORTS.map((r) => (
                   <option key={r.date} value={r.date}>{r.date}</option>
                 ))}
               </select>
@@ -273,11 +287,11 @@ export default function ArchivePage() {
             <div>
               <label className="text-[10px] text-txt-4 block mb-1">報告 B</label>
               <select
-                value={compareB}
+                value={effectiveB}
                 onChange={(e) => setCompareB(e.target.value)}
                 className="bg-bg-2 border border-border rounded px-3 py-1.5 text-xs text-txt-1"
               >
-                {MOCK_REPORTS.map((r) => (
+                {ALL_REPORTS.map((r) => (
                   <option key={r.date} value={r.date}>{r.date}</option>
                 ))}
               </select>
@@ -290,97 +304,70 @@ export default function ArchivePage() {
             </button>
           </div>
 
-          {showComparison && reportA && reportB && (
-            <div className="space-y-4">
-              {/* Side by side cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {/* Report A */}
-                <div className="bg-bg-2 rounded-lg p-4 border border-border">
-                  <div className="text-[10px] text-txt-4 mb-2">報告 A - {reportA.date}</div>
-                  <div className="space-y-2 text-xs">
-                    <div className="flex justify-between">
-                      <span className="text-txt-3">大盤</span>
-                      <span className={reportA.marketChange >= 0 ? "text-red" : "text-green"}>
-                        {reportA.marketChange >= 0 ? "+" : ""}{reportA.marketChange.toFixed(2)}%
-                      </span>
+          {showComparison && reportA && reportB && (() => {
+            // Build groups for each day from heatmap
+            const idxA = ALL_REPORTS.indexOf(reportA);
+            const idxB = ALL_REPORTS.indexOf(reportB);
+            // ALL_REPORTS is reversed, heatmap is oldest-first; map back
+            const totalDays = stats?.dailyTrend.length ?? 0;
+            const heatmapIdxA = totalDays - 1 - idxA;
+            const heatmapIdxB = totalDays - 1 - idxB;
+            const groupsA = Object.entries(stats?.heatmap ?? {}).filter(([, c]) => (c[heatmapIdxA] ?? 0) > 0).map(([g]) => g);
+            const groupsB = Object.entries(stats?.heatmap ?? {}).filter(([, c]) => (c[heatmapIdxB] ?? 0) > 0).map(([g]) => g);
+            return (
+              <div className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="bg-bg-2 rounded-lg p-4 border border-border">
+                    <div className="text-[10px] text-txt-4 mb-2">報告 A - {reportA.date}</div>
+                    <div className="space-y-2 text-xs">
+                      <div className="flex justify-between"><span className="text-txt-3">大盤</span><span className={reportA.marketChange >= 0 ? "text-red" : "text-green"}>{reportA.marketChange >= 0 ? "+" : ""}{reportA.marketChange.toFixed(2)}%</span></div>
+                      <div className="flex justify-between"><span className="text-txt-3">漲停數</span><span className="text-txt-1 font-mono">{reportA.limitUpCount}</span></div>
+                      <div className="flex justify-between"><span className="text-txt-3">結論</span><span className={`px-1.5 py-0.5 text-[9px] rounded ${VERDICT_COLORS[reportA.verdict]}`}>{VERDICT_LABELS[reportA.verdict]}</span></div>
+                      <div className="flex justify-between"><span className="text-txt-3">最強族群</span><span className="text-txt-1">{reportA.topGroup}</span></div>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-txt-3">漲停數</span>
-                      <span className="text-txt-1 font-mono">{reportA.limitUpCount}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-txt-3">結論</span>
-                      <span className={`px-1.5 py-0.5 text-[9px] rounded ${VERDICT_COLORS[reportA.verdict]}`}>
-                        {VERDICT_LABELS[reportA.verdict]}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-txt-3">最強族群</span>
-                      <span className="text-txt-1">{reportA.topGroup}</span>
+                  </div>
+                  <div className="bg-bg-2 rounded-lg p-4 border border-border">
+                    <div className="text-[10px] text-txt-4 mb-2">報告 B - {reportB.date}</div>
+                    <div className="space-y-2 text-xs">
+                      <div className="flex justify-between"><span className="text-txt-3">大盤</span><span className={reportB.marketChange >= 0 ? "text-red" : "text-green"}>{reportB.marketChange >= 0 ? "+" : ""}{reportB.marketChange.toFixed(2)}%</span></div>
+                      <div className="flex justify-between"><span className="text-txt-3">漲停數</span><span className="text-txt-1 font-mono">{reportB.limitUpCount}</span></div>
+                      <div className="flex justify-between"><span className="text-txt-3">結論</span><span className={`px-1.5 py-0.5 text-[9px] rounded ${VERDICT_COLORS[reportB.verdict]}`}>{VERDICT_LABELS[reportB.verdict]}</span></div>
+                      <div className="flex justify-between"><span className="text-txt-3">最強族群</span><span className="text-txt-1">{reportB.topGroup}</span></div>
                     </div>
                   </div>
                 </div>
-
-                {/* Report B */}
                 <div className="bg-bg-2 rounded-lg p-4 border border-border">
-                  <div className="text-[10px] text-txt-4 mb-2">報告 B - {reportB.date}</div>
-                  <div className="space-y-2 text-xs">
-                    <div className="flex justify-between">
-                      <span className="text-txt-3">大盤</span>
-                      <span className={reportB.marketChange >= 0 ? "text-red" : "text-green"}>
-                        {reportB.marketChange >= 0 ? "+" : ""}{reportB.marketChange.toFixed(2)}%
-                      </span>
+                  <div className="text-[10px] text-txt-4 mb-3">族群變化</div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                    <div>
+                      <div className="text-[10px] text-txt-4 mb-1.5">A 有 / B 無 (新出現)</div>
+                      <div className="flex flex-wrap gap-1">
+                        {groupsA.filter((g) => !groupsB.includes(g)).map((g) => (
+                          <span key={g} className="px-2 py-0.5 bg-red/10 text-red rounded text-[10px]">{g}</span>
+                        ))}
+                      </div>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-txt-3">漲停數</span>
-                      <span className="text-txt-1 font-mono">{reportB.limitUpCount}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-txt-3">結論</span>
-                      <span className={`px-1.5 py-0.5 text-[9px] rounded ${VERDICT_COLORS[reportB.verdict]}`}>
-                        {VERDICT_LABELS[reportB.verdict]}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-txt-3">最強族群</span>
-                      <span className="text-txt-1">{reportB.topGroup}</span>
+                    <div>
+                      <div className="text-[10px] text-txt-4 mb-1.5">B 有 / A 無 (已消失)</div>
+                      <div className="flex flex-wrap gap-1">
+                        {groupsB.filter((g) => !groupsA.includes(g)).map((g) => (
+                          <span key={g} className="px-2 py-0.5 bg-green/10 text-green rounded text-[10px]">{g}</span>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-
-              {/* Group changes */}
-              <div className="bg-bg-2 rounded-lg p-4 border border-border">
-                <div className="text-[10px] text-txt-4 mb-3">族群變化</div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                  <div>
-                    <div className="text-[10px] text-txt-4 mb-1.5">A 有 / B 無 (新出現)</div>
+                  <div className="mt-3">
+                    <div className="text-[10px] text-txt-4 mb-1.5">共同族群</div>
                     <div className="flex flex-wrap gap-1">
-                      {COMPARISON_GROUPS_A.filter((g) => !COMPARISON_GROUPS_B.includes(g)).map((g) => (
-                        <span key={g} className="px-2 py-0.5 bg-red/10 text-red rounded text-[10px]">{g}</span>
-                      ))}
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-[10px] text-txt-4 mb-1.5">B 有 / A 無 (已消失)</div>
-                    <div className="flex flex-wrap gap-1">
-                      {COMPARISON_GROUPS_B.filter((g) => !COMPARISON_GROUPS_A.includes(g)).map((g) => (
-                        <span key={g} className="px-2 py-0.5 bg-green/10 text-green rounded text-[10px]">{g}</span>
+                      {groupsA.filter((g) => groupsB.includes(g)).map((g) => (
+                        <span key={g} className="px-2 py-0.5 bg-bg-3 text-txt-2 rounded text-[10px]">{g}</span>
                       ))}
                     </div>
                   </div>
                 </div>
-                <div className="mt-3">
-                  <div className="text-[10px] text-txt-4 mb-1.5">共同族群</div>
-                  <div className="flex flex-wrap gap-1">
-                    {COMPARISON_GROUPS_A.filter((g) => COMPARISON_GROUPS_B.includes(g)).map((g) => (
-                      <span key={g} className="px-2 py-0.5 bg-bg-3 text-txt-2 rounded text-[10px]">{g}</span>
-                    ))}
-                  </div>
-                </div>
               </div>
-            </div>
-          )}
+            );
+          })()}
         </Card>
       </main>
       <Footer />
