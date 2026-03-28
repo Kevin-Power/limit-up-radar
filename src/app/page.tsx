@@ -166,7 +166,11 @@ export default function Home() {
   const [watchlistCollapsed, setWatchlistCollapsed] = useState(false);
 
   const apiUrl = currentDate ? `/api/daily/${currentDate}` : "/api/daily/latest";
-  const { data: fetchedData, isLoading } = useSWR<DailyData>(apiUrl, fetcher);
+  const { data: fetchedData, isLoading } = useSWR<DailyData>(apiUrl, fetcher, {
+    revalidateOnFocus: true,
+    revalidateOnReconnect: true,
+    dedupingInterval: 30000,
+  });
 
   const showSkeleton = isLoading && !fetchedData;
 
@@ -177,7 +181,8 @@ export default function Home() {
     }
   }, [fetchedData, currentDate]);
 
-  const displayData = fetchedData?.groups ? fetchedData : DEMO_DATA;
+  // Always prefer API data; only fall back to DEMO_DATA when API confirmed empty
+  const displayData: DailyData = fetchedData?.groups ? fetchedData : DEMO_DATA;
   const displayDate = displayData.date;
 
   // Track data fetch time for freshness indicator
