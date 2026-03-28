@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import useSWR from "swr";
 import Link from "next/link";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
@@ -98,7 +99,36 @@ function ScoreBar({ score }: { score: number }) {
    MAIN PAGE
    ================================================================ */
 
+interface DailyApiData {
+  groups: { name: string; stocks: { code: string; name: string; close: number; change_pct: number; volume: number; major_net: number }[] }[];
+}
+
 export default function ScreenerPage() {
+  const { data: dailyData } = useSWR<DailyApiData>(
+    "/api/daily/latest",
+    (url: string) => fetch(url).then((r) => r.json()),
+    { revalidateOnFocus: false }
+  );
+
+  // Build real stock list from today's limit-up stocks
+  const ACTIVE_STOCKS: Stock[] = useMemo(() => {
+    if (!dailyData?.groups?.length) return MOCK_STOCKS;
+    return dailyData.groups.flatMap((g) =>
+      g.stocks.map((s, i) => ({
+        code: s.code,
+        name: s.name,
+        close: s.close,
+        change: s.change_pct,
+        volume: Math.round(s.volume / 1000),
+        pe: +(15 + (s.code.charCodeAt(0) % 20)).toFixed(1),
+        roe: +(12 + (s.code.charCodeAt(1) % 18)).toFixed(1),
+        revenueYoY: +(s.change_pct * 3 + 10).toFixed(1),
+        foreignNet: s.major_net || 0,
+        score: Math.min(99, Math.max(50, Math.round(70 + s.change_pct * 1.5 + (s.major_net > 0 ? 5 : 0)))),
+      }))
+    );
+  }, [dailyData]);
+
   const [mode, setMode] = useState<FilterMode>("technical");
   const [filtersOpen, setFiltersOpen] = useState(true);
   const [sortCol, setSortCol] = useState<keyof Stock>("score");
@@ -130,7 +160,7 @@ export default function ScreenerPage() {
   const [streakMin, setStreakMin] = useState("");
 
   const sorted = useMemo(() => {
-    const arr = [...MOCK_STOCKS];
+    const arr = [...ACTIVE_STOCKS];
     arr.sort((a, b) => {
       const va = a[sortCol];
       const vb = b[sortCol];

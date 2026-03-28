@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import useSWR from "swr";
 import Link from "next/link";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
@@ -153,15 +154,40 @@ function SortArrow({ active, dir }: { active: boolean; dir: SortDir }) {
    PAGE COMPONENT
    ================================================================ */
 
+interface DailyApiData {
+  date: string;
+  groups: { name: string; color: string; stocks: { code: string; name: string; close: number; change_pct: number; industry: string }[] }[];
+}
+
 export default function PonyPage() {
   const [filter, setFilter] = useState<FilterKey>("all");
   const [sortKey, setSortKey] = useState<SortKey>("diff");
   const [sortDir, setSortDir] = useState<SortDir>("desc");
   const [strategyOpen, setStrategyOpen] = useState(false);
 
+  const { data: dailyData } = useSWR<DailyApiData>(
+    "/api/daily/latest",
+    (url: string) => fetch(url).then((r) => r.json()),
+    { revalidateOnFocus: false }
+  );
+
+  // Use real limit-up stocks if available, else fall back to mock
+  const sourceStocks = useMemo(() => {
+    if (!dailyData?.groups?.length) return MOCK_STOCKS;
+    return dailyData.groups.flatMap((g) =>
+      g.stocks.map((s) => ({
+        code: s.code,
+        name: s.name,
+        close: s.close,
+        changePct: s.change_pct,
+        group: g.name,
+      }))
+    );
+  }, [dailyData]);
+
   // Build enriched rows (stable, no deps on state)
   const rows: StockRow[] = useMemo(() => {
-    return MOCK_STOCKS.map((s) => {
+    return sourceStocks.map((s) => {
       const ema = analyzeEma(s.code, s.close);
       return {
         ...s,

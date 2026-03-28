@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import useSWR from "swr";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
-import { formatPct, formatPrice, getTodayString } from "@/lib/utils";
+import { getTodayString } from "@/lib/utils";
+import type { GlobalIndex } from "@/app/api/market/global/route";
 
 /* ================================================================
    SEEDED RNG
@@ -58,6 +60,7 @@ interface IndexData {
   sparkSeed: number;
   volatility: number;
   emaSignal: "multi" | "short";
+  realSparkline?: number[];
 }
 
 const INDICES: IndexData[] = [
@@ -149,7 +152,7 @@ function IndexCard({ idx }: { idx: IndexData }) {
   const isUp = idx.changePct >= 0;
   const borderColor = isUp ? "border-green/40" : "border-red/40";
   const changeColor = isUp ? "text-green" : "text-red";
-  const sparkData = generateSparkline(idx.sparkSeed, idx.value, idx.volatility);
+  const sparkData = idx.realSparkline ?? generateSparkline(idx.sparkSeed, idx.value, idx.volatility);
   const path = sparklinePath(sparkData, 100, 28);
   const strokeColor = isUp ? "var(--green)" : "var(--red)";
   const sign = isUp ? "+" : "";
@@ -255,13 +258,50 @@ function FearGreedGauge({ value }: { value: number }) {
    MAIN PAGE
    ================================================================ */
 
+// Map API symbol to mock IndexData for fallback metadata
+const SYMBOL_TO_MOCK: Record<string, IndexData> = Object.fromEntries(INDICES.map((i) => [i.id.toUpperCase(), i]));
+
+const SYMBOL_MAP: Record<string, string> = {
+  "^GSPC": "spx", "^IXIC": "ndx", "^DJI": "dji", "^VIX": "vix",
+  "^TWII": "twii", "^N225": "n225", "^HSI": "hsi", "^KS11": "kospi",
+  "^FTSE": "ftse", "^GDAXI": "dax", "^FCHI": "cac",
+};
+
+function realToIndexData(r: GlobalIndex): IndexData {
+  const mockId = SYMBOL_MAP[r.symbol] ?? r.symbol.toLowerCase().replace(/[\^=]/g, "");
+  const fallback = INDICES.find((i) => i.id === mockId);
+  return {
+    id: mockId,
+    name: r.name,
+    nameCn: r.nameCn,
+    region: r.region,
+    value: r.price,
+    change: r.change,
+    changePct: r.changePct,
+    sparkSeed: fallback?.sparkSeed ?? 0,
+    volatility: fallback?.volatility ?? 10,
+    emaSignal: r.changePct >= 0 ? "multi" : "short",
+    realSparkline: r.sparkline.length > 2 ? r.sparkline : undefined,
+  };
+}
+
 export default function GlobalPage() {
   const [activeRegion, setActiveRegion] = useState<Region | "all">("all");
 
+  const { data: realData } = useSWR<GlobalIndex[]>(
+    "/api/market/global",
+    (url: string) => fetch(url).then((r) => r.json()),
+    { revalidateOnFocus: false, dedupingInterval: 900000 }
+  );
+
+  const displayIndices: IndexData[] = realData && realData.length > 0
+    ? realData.map(realToIndexData)
+    : INDICES;
+
   const filteredIndices =
     activeRegion === "all"
-      ? INDICES
-      : INDICES.filter((i) => i.region === activeRegion);
+      ? displayIndices
+      : displayIndices.filter((i) => i.region === activeRegion);
 
   return (
     <div className="min-h-screen bg-bg-0 text-txt-1 animate-fade-in">
@@ -278,9 +318,12 @@ export default function GlobalPage() {
         {/* ── Regional Summary Cards ── */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           {REGION_INFO.map((r) => {
-            const sentiment = getRegionSentiment(r.key);
-            const items = INDICES.filter((i) => i.region === r.key);
+            const items = displayIndices.filter((i) => i.region === r.key);
             const upCount = items.filter((i) => i.changePct > 0).length;
+            const ratio = items.length > 0 ? upCount / items.length : 0.5;
+            const sentiment = ratio >= 0.6 ? { label: "偏多", color: "text-green bg-green-bg" }
+              : ratio <= 0.4 ? { label: "偏空", color: "text-red bg-red-bg" }
+              : { label: "中性", color: "text-amber bg-amber-bg" };
             return (
               <Card key={r.key}>
                 <div className="flex items-center justify-between">
@@ -337,7 +380,7 @@ export default function GlobalPage() {
             {/* VIX Gauge */}
             <Card>
               <div className="text-[10px] text-txt-4 uppercase tracking-wider mb-3">VIX 恐慌指數</div>
-              <VixGauge value={RISK_DATA.vix} />
+              <VixGauge value={displayIndices.find((i) => i.id === "vix")?.value ?? RISK_DATA.vix} />
             </Card>
 
             {/* US 10Y */}

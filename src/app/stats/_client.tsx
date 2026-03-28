@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import useSWR from "swr";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import { getTodayString } from "@/lib/utils";
+import type { StatsData } from "@/app/api/stats/route";
 
 /* ================================================================
    MOCK DATA
@@ -131,17 +133,18 @@ function Card({ children, className = "" }: { children: React.ReactNode; classNa
    1. KPI SUMMARY ROW
    ================================================================ */
 
-function KpiRow() {
-  const totalLimitUp = MONTHLY_TREND.reduce((s, d) => s + d.count, 0);
-  const avgDaily = (totalLimitUp / MONTHLY_TREND.length).toFixed(1);
+function KpiRow({ realStats }: { realStats?: StatsData & { dates: string[] } }) {
+  const totalLimitUp = realStats?.totalLimitUps ?? MONTHLY_TREND.reduce((s, d) => s + d.count, 0);
+  const avgDaily = realStats?.avgLimitUpsPerDay?.toFixed(1) ?? (totalLimitUp / MONTHLY_TREND.length).toFixed(1);
   const positiveRate = "55.2";
-  const strongestGroup = "AI伺服器";
+  const strongestGroup = realStats?.groupStats?.[0]?.name ?? "AI伺服器";
+  const strongestCount = realStats?.groupStats?.[0]?.total ?? 43;
 
   const kpis = [
-    { label: "本月漲停總數",  value: String(totalLimitUp), sub: `${MONTHLY_TREND.length} 交易日`, color: "#ef4444" },
+    { label: "統計漲停總數",  value: String(totalLimitUp), sub: `${realStats?.totalDays ?? MONTHLY_TREND.length} 交易日`, color: "#ef4444" },
     { label: "平均每日漲停",  value: avgDaily, sub: "家 / 日", color: "#3b82f6" },
     { label: "正報酬率",      value: `${positiveRate}%`, sub: "隔日收盤", color: "#22c55e" },
-    { label: "最強族群",      value: strongestGroup, sub: "43 次漲停", color: "#f59e0b" },
+    { label: "最強族群",      value: strongestGroup.slice(0, 6), sub: `${strongestCount} 次漲停`, color: "#f59e0b" },
   ];
 
   return (
@@ -753,23 +756,37 @@ function TimePeriodWinRate() {
    ================================================================ */
 
 export default function StatsPage() {
+  const { data: realStats } = useSWR<StatsData & { dates: string[] }>(
+    "/api/stats",
+    (url: string) => fetch(url).then((r) => r.json()),
+    { revalidateOnFocus: false }
+  );
+
+  const hasRealData = realStats && realStats.totalDays > 0;
+
   return (
     <div className="flex flex-col h-screen overflow-hidden">
       <TopNav currentDate={getTodayString()} />
       <NavBar />
 
       <main className="flex-1 overflow-y-auto p-4 md:p-5 animate-fade-in">
-        {/* Demo banner */}
-        <div className="mb-5 px-3 py-2 bg-amber-bg border border-amber/30 rounded-lg flex items-center gap-2 text-xs text-amber font-medium">
-          <span className="text-amber font-bold">DEMO</span>
-          <span>-- 示範資料，以下統計均為模擬數據，非實際歷史資料</span>
+        {/* Data source banner */}
+        <div className={`mb-5 px-3 py-2 border rounded-lg flex items-center gap-2 text-xs font-medium ${
+          hasRealData
+            ? "bg-green-bg border-green/30 text-green"
+            : "bg-amber-bg border-amber/30 text-amber"
+        }`}>
+          <span className="font-bold">{hasRealData ? "LIVE" : "DEMO"}</span>
+          <span>{hasRealData
+            ? `── 真實資料，統計 ${realStats.totalDays} 個交易日（${realStats.dailyTrend[0]?.fullDate} ~ ${realStats.dailyTrend[realStats.dailyTrend.length - 1]?.fullDate}）`
+            : "── 示範資料，以下統計均為模擬數據，非實際歷史資料"}</span>
         </div>
 
         <h1 className="text-base font-bold text-txt-0 tracking-tight mb-5">統計分析</h1>
 
         {/* KPI Row */}
         <div className="mb-4">
-          <KpiRow />
+          <KpiRow realStats={realStats} />
         </div>
 
         {/* Main grid */}

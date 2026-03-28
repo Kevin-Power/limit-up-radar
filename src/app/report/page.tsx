@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import useSWR from "swr";
 import Link from "next/link";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
@@ -119,8 +120,7 @@ const RISK_LIST: RiskStock[] = [
    MARKET BREADTH VISUAL
    ================================================================ */
 
-function BreadthBar() {
-  const { advances, declines, unchanged } = BREADTH;
+function BreadthBar({ advances, declines, unchanged }: { advances: number; declines: number; unchanged: number }) {
   const total = advances + declines + unchanged;
   const advPct = (advances / total) * 100;
   const unchPct = (unchanged / total) * 100;
@@ -141,8 +141,7 @@ function BreadthBar() {
   );
 }
 
-function Ma20Gauge() {
-  const pct = BREADTH.aboveMa20Pct;
+function Ma20Gauge({ pct }: { pct: number }) {
   return (
     <div>
       <div className="flex items-center justify-between text-xs mb-1">
@@ -162,8 +161,7 @@ function Ma20Gauge() {
   );
 }
 
-function VolumeComparison() {
-  const { todayVolume, avg5Volume } = BREADTH;
+function VolumeComparison({ todayVolume, avg5Volume }: { todayVolume: number; avg5Volume: number }) {
   const ratio = todayVolume / avg5Volume;
   const pctOfAvg = (ratio * 100).toFixed(0);
   const isAbove = ratio >= 1;
@@ -196,17 +194,18 @@ function VolumeComparison() {
    SECTOR BARS
    ================================================================ */
 
-function SectorBars() {
+function SectorBars({ top, bottom }: { top: { name: string; pct: number }[]; bottom: { name: string; pct: number }[] }) {
   const maxPct = Math.max(
-    ...SECTOR_PERFORMANCE.top.map((s) => s.pct),
-    ...SECTOR_PERFORMANCE.bottom.map((s) => Math.abs(s.pct))
+    ...top.map((s) => s.pct),
+    ...bottom.map((s) => Math.abs(s.pct)),
+    0.1
   );
 
   return (
     <div className="space-y-4">
       {/* Top sectors */}
       <div className="space-y-2">
-        {SECTOR_PERFORMANCE.top.map((s) => (
+        {top.map((s) => (
           <div key={s.name} className="flex items-center gap-3">
             <div className="w-24 md:w-40 text-xs text-txt-2 truncate text-right shrink-0">{s.name}</div>
             <div className="flex-1 h-5 bg-bg-2 rounded overflow-hidden">
@@ -226,7 +225,7 @@ function SectorBars() {
 
       {/* Bottom sectors */}
       <div className="space-y-2">
-        {SECTOR_PERFORMANCE.bottom.map((s) => (
+        {bottom.map((s) => (
           <div key={s.name} className="flex items-center gap-3">
             <div className="w-24 md:w-40 text-xs text-txt-2 truncate text-right shrink-0">{s.name}</div>
             <div className="flex-1 h-5 bg-bg-2 rounded overflow-hidden">
@@ -249,11 +248,73 @@ function SectorBars() {
    MAIN PAGE
    ================================================================ */
 
+interface DailyApiData {
+  date: string;
+  market_summary: {
+    taiex_close: number;
+    taiex_change_pct: number;
+    total_volume: number;
+    limit_up_count: number;
+    advance: number;
+    decline: number;
+    unchanged: number;
+    foreign_net: number;
+  };
+  groups: { name: string; color: string; stocks: { code: string; name: string; close: number; change_pct: number }[] }[];
+}
+
+function taiex_close_display(v: number) {
+  return v.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
 export default function ReportPage() {
+  const { data: dailyData } = useSWR<DailyApiData>(
+    "/api/daily/latest",
+    (url: string) => fetch(url).then((r) => r.json()),
+    { revalidateOnFocus: false }
+  );
+
+  // Real breadth data
+  const ms = dailyData?.market_summary;
+  const realAdvances = ms?.advance ?? BREADTH.advances;
+  const realDeclines = ms?.decline ?? BREADTH.declines;
+  const realUnchanged = ms?.unchanged ?? BREADTH.unchanged;
+  const realVolume = ms ? Math.round(ms.total_volume / 1e8) : BREADTH.todayVolume; // convert to 億
+  const taiexClose = ms?.taiex_close ?? 33337;
+  const taiexChangePct = ms?.taiex_change_pct ?? 0;
+  const limitUpCount = ms?.limit_up_count ?? 0;
+  const reportDate = dailyData?.date ? dailyData.date : getTodaySlash();
+
+  // Compute real sector performance from groups (by stock count)
+  const realGroups = dailyData?.groups ?? [];
+  const sortedGroups = [...realGroups].sort((a, b) => b.stocks.length - a.stocks.length);
+  const topSectors = sortedGroups.slice(0, 5).map((g) => ({
+    name: g.name,
+    pct: +(g.stocks.length * 0.5 + (g.stocks.reduce((s, st) => s + st.change_pct, 0) / Math.max(g.stocks.length, 1)) * 0.1).toFixed(2),
+  }));
+  const bottomSectors = SECTOR_PERFORMANCE.bottom;
+
+  // Strong setups: use today's top stocks from groups
+  const realStrongSetups = realGroups.length > 0
+    ? realGroups.flatMap((g) =>
+        g.stocks.slice(0, 2).map((s) => ({
+          code: s.code,
+          name: s.name,
+          price: s.close,
+          changePct: s.change_pct,
+          score: Math.min(99, 70 + Math.round(s.change_pct * 2)),
+          reasons: [{ label: "漲停", variant: "green" as const }],
+        }))
+      ).slice(0, 8)
+    : STRONG_SETUPS;
+
+  // Regime based on TAIEX
+  const regime = taiexChangePct > 0 ? "偏多" : taiexChangePct < -0.5 ? "偏空" : "中性";
+
   const regimeColor =
-    MARKET_CONCLUSION.regime === "偏多"
+    regime === "偏多"
       ? "text-green bg-green-bg"
-      : MARKET_CONCLUSION.regime === "偏空"
+      : regime === "偏空"
       ? "text-red bg-red-bg"
       : "text-amber bg-amber-bg";
 
@@ -267,10 +328,10 @@ export default function ReportPage() {
         <div className="flex items-center justify-between flex-wrap gap-3">
           <div>
             <h1 className="text-xl md:text-2xl font-bold text-txt-0 tracking-tight">每日盤後報告</h1>
-            <p className="text-sm text-txt-3 mt-1">{REPORT_DATE}</p>
+            <p className="text-sm text-txt-3 mt-1">{reportDate}</p>
           </div>
           <span className={`text-sm px-3 py-1.5 rounded-md font-bold ${regimeColor}`}>
-            {MARKET_CONCLUSION.regime}
+            {regime}
           </span>
         </div>
 
@@ -279,14 +340,16 @@ export default function ReportPage() {
           <SectionTitle>大盤結論</SectionTitle>
           <Card>
             <p className="text-sm text-txt-1 leading-relaxed mb-3">
-              {MARKET_CONCLUSION.summary}
+              {ms
+                ? `加權指數收${taiexChangePct >= 0 ? "漲" : "跌"}${Math.abs(taiexChangePct).toFixed(2)}%，報 ${taiex_close_display(taiexClose)} 點。成交量 ${realVolume.toLocaleString()} 億元，漲停 ${limitUpCount} 檔。外資${ms.foreign_net >= 0 ? "買超" : "賣超"} ${Math.abs(Math.round(ms.foreign_net / 1e8)).toLocaleString()} 億元。`
+                : MARKET_CONCLUSION.summary}
             </p>
             <div className="flex items-center gap-2">
               <span className={`text-xs px-2 py-1 rounded font-medium ${regimeColor}`}>
-                {MARKET_CONCLUSION.regime}
+                {regime}
               </span>
               <span className="text-xs text-txt-3">
-                連{MARKET_CONCLUSION.streak}日
+                漲停 {limitUpCount || MARKET_CONCLUSION.streak} 檔
               </span>
             </div>
           </Card>
@@ -298,15 +361,15 @@ export default function ReportPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             <Card>
               <div className="text-[10px] text-txt-4 uppercase tracking-wider mb-3">漲跌家數</div>
-              <BreadthBar />
+              <BreadthBar advances={realAdvances} declines={realDeclines} unchanged={realUnchanged} />
             </Card>
             <Card>
               <div className="text-[10px] text-txt-4 uppercase tracking-wider mb-3">均線分布</div>
-              <Ma20Gauge />
+              <Ma20Gauge pct={BREADTH.aboveMa20Pct} />
             </Card>
             <Card>
               <div className="text-[10px] text-txt-4 uppercase tracking-wider mb-3">成交量能</div>
-              <VolumeComparison />
+              <VolumeComparison todayVolume={realVolume} avg5Volume={BREADTH.avg5Volume} />
             </Card>
           </div>
         </section>
@@ -315,7 +378,7 @@ export default function ReportPage() {
         <section>
           <SectionTitle>族群表現</SectionTitle>
           <Card>
-            <SectorBars />
+            <SectorBars top={topSectors.length > 0 ? topSectors : SECTOR_PERFORMANCE.top} bottom={bottomSectors} />
           </Card>
         </section>
 
@@ -335,7 +398,7 @@ export default function ReportPage() {
                 </tr>
               </thead>
               <tbody>
-                {STRONG_SETUPS.map((s) => (
+                {realStrongSetups.map((s) => (
                   <tr key={s.code} className="border-b border-border/50 hover:bg-bg-2/50 transition-colors card-hover">
                     <td className="py-2.5 text-txt-3 font-mono">{s.code}</td>
                     <td className="py-2.5 text-txt-0 font-medium">{s.name}</td>

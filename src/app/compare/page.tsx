@@ -1,9 +1,13 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import useSWR from "swr";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import { formatPrice, formatPct, formatNumber } from "@/lib/utils";
+import type { CandleData } from "@/app/api/stock/[code]/history/route";
+
+const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 // --- Seeded RNG helpers (same as stock detail page) ---
 
@@ -69,7 +73,7 @@ function generatePriceSeries(seed: string, basePrice: number, count = 30): numbe
 
 function generateDateLabels(count = 30): string[] {
   const labels: string[] = [];
-  const now = new Date(2026, 2, 20);
+  const now = new Date();
   for (let i = count - 1; i >= 0; i--) {
     const d = new Date(now);
     d.setDate(d.getDate() - i);
@@ -79,6 +83,13 @@ function generateDateLabels(count = 30): string[] {
     labels.push(`${d.getMonth() + 1}/${d.getDate()}`);
   }
   return labels;
+}
+
+function histToDateLabels(hist: CandleData[]): string[] {
+  return hist.slice(-30).map((d) => {
+    const parts = d.date.split("-");
+    return `${parseInt(parts[1])}/${parseInt(parts[2])}`;
+  });
 }
 
 interface StockCompareData {
@@ -175,8 +186,9 @@ function rsiColor(rsi: number): string {
 
 // --- SVG Price Chart ---
 
-function PriceChart({ stocks }: { stocks: StockCompareData[] }) {
-  const dateLabels = useMemo(() => generateDateLabels(30), []);
+function PriceChart({ stocks, dateLabels: realDateLabels }: { stocks: StockCompareData[]; dateLabels?: string[] }) {
+  const fallbackLabels = useMemo(() => generateDateLabels(30), []);
+  const dateLabels = realDateLabels ?? fallbackLabels;
   const W = 720;
   const H = 320;
   const PAD = { top: 30, right: 20, bottom: 40, left: 50 };
@@ -193,8 +205,9 @@ function PriceChart({ stocks }: { stocks: StockCompareData[] }) {
   const maxVal = Math.max(...allValues) + 1;
   const range = maxVal - minVal || 1;
 
+  const seriesLen = allNormalized[0]?.length ?? 30;
   function toX(i: number) {
-    return PAD.left + (i / 29) * plotW;
+    return PAD.left + (i / Math.max(seriesLen - 1, 1)) * plotW;
   }
   function toY(v: number) {
     return PAD.top + plotH - ((v - minVal) / range) * plotH;
@@ -208,7 +221,8 @@ function PriceChart({ stocks }: { stocks: StockCompareData[] }) {
   }
 
   // X-axis label indices (every 5th)
-  const xLabelIdxs = [0, 5, 10, 15, 20, 25, 29];
+  const lastIdx = seriesLen - 1;
+  const xLabelIdxs = [0, 5, 10, 15, 20, 25, lastIdx].filter((v, i, a) => v <= lastIdx && a.indexOf(v) === i);
 
   return (
     <div className="bg-bg-2 rounded-lg border border-border p-4">
@@ -285,20 +299,68 @@ function PriceChart({ stocks }: { stocks: StockCompareData[] }) {
 
 // --- Main page ---
 
+function buildStockData(code: string, hist: CandleData[] | undefined): StockCompareData {
+  const rng = makeRng(code + "_compare");
+  const pe = 8 + rng() * 40;
+  const roe = 3 + rng() * 30;
+  const revenueYoy = (rng() - 0.3) * 60;
+  const rsi = 30 + rng() * 50;
+  const macdOptions: Array<"golden_cross" | "death_cross" | "neutral"> = ["golden_cross", "death_cross", "neutral"];
+  const macdSignal = macdOptions[Math.floor(rng() * 3)];
+  const kdK = 20 + rng() * 65;
+  const kdD = 20 + rng() * 60;
+  const kdSignal: "golden_cross" | "death_cross" | "neutral" =
+    kdK > kdD + 5 ? "golden_cross" : kdK < kdD - 5 ? "death_cross" : "neutral";
+
+  if (hist && hist.length > 5) {
+    const last = hist[hist.length - 1];
+    const prev = hist[hist.length - 2];
+    const close = last.close;
+    const changePct = prev ? ((close - prev.close) / prev.close) * 100 : 0;
+    const volume = last.volume;
+    const priceSeries = hist.slice(-30).map((d) => d.close);
+    const name = STOCK_NAMES[code] ?? code;
+    return { code, name, close, changePct, volume, pe, roe, revenueYoy, rsi, macdSignal, kdSignal, priceSeries };
+  }
+
+  // Fallback to mock
+  const mock = mockCompareData(code);
+  if (mock) return mock;
+  const close = STOCK_PRICES[code] ?? 100;
+  const name = STOCK_NAMES[code] ?? code;
+  return {
+    code, name, close, changePct: 0, volume: 0, pe, roe, revenueYoy, rsi, macdSignal, kdSignal,
+    priceSeries: generatePriceSeries(code, close, 30),
+  };
+}
+
 export default function ComparePage() {
   const [codes, setCodes] = useState<string[]>(["2330", "2454"]);
   const [inputValue, setInputValue] = useState("");
 
+  const { data: hist0 } = useSWR<CandleData[]>(codes[0] ? `/api/stock/${codes[0]}/history` : null, fetcher, { revalidateOnFocus: false });
+  const { data: hist1 } = useSWR<CandleData[]>(codes[1] ? `/api/stock/${codes[1]}/history` : null, fetcher, { revalidateOnFocus: false });
+  const { data: hist2 } = useSWR<CandleData[]>(codes[2] ? `/api/stock/${codes[2]}/history` : null, fetcher, { revalidateOnFocus: false });
+  const { data: hist3 } = useSWR<CandleData[]>(codes[3] ? `/api/stock/${codes[3]}/history` : null, fetcher, { revalidateOnFocus: false });
+  const allHists = [hist0, hist1, hist2, hist3];
+
   const stocks = useMemo(() => {
-    return codes.map((c) => mockCompareData(c)).filter(Boolean) as StockCompareData[];
-  }, [codes]);
+    return codes.map((c, i) => buildStockData(c, allHists[i]));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [codes, hist0, hist1, hist2, hist3]);
+
+  // Date labels from first stock's real history
+  const dateLabels = useMemo(() => {
+    const firstHist = allHists.find((h) => h && h.length > 5);
+    return firstHist ? histToDateLabels(firstHist) : undefined;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hist0, hist1, hist2, hist3]);
 
   function addStock() {
     const code = inputValue.trim();
     if (!code) return;
     if (codes.length >= 4) return;
     if (codes.includes(code)) return;
-    if (!STOCK_NAMES[code]) return;
     setCodes([...codes, code]);
     setInputValue("");
   }
@@ -338,7 +400,7 @@ export default function ComparePage() {
                 className="flex items-center gap-1.5 bg-bg-3 border border-border rounded-md px-3 py-1.5 text-xs"
               >
                 <span className="font-bold text-txt-0 tabular-nums">{code}</span>
-                <span className="text-txt-3">{STOCK_NAMES[code]}</span>
+                <span className="text-txt-3">{stocks.find((s) => s.code === code)?.name ?? STOCK_NAMES[code] ?? ""}</span>
                 {codes.length > 2 && (
                   <button
                     onClick={() => removeStock(code)}
@@ -371,9 +433,6 @@ export default function ComparePage() {
             )}
           </div>
 
-          {inputValue.trim() && !STOCK_NAMES[inputValue.trim()] && (
-            <p className="text-[11px] text-red mt-2">找不到代號 {inputValue.trim()}</p>
-          )}
         </div>
 
         {stocks.length >= 2 && (
@@ -422,7 +481,7 @@ export default function ComparePage() {
             </div>
 
             {/* Price chart overlay */}
-            <PriceChart stocks={stocks} />
+            <PriceChart stocks={stocks} dateLabels={dateLabels} />
 
             {/* Technical indicators comparison */}
             <div className="bg-bg-1 rounded-lg border border-border overflow-hidden">

@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { useState, useMemo } from "react";
+import useSWR from "swr";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import { formatPct, formatPrice } from "@/lib/utils";
+import type { NextDayData } from "@/app/api/next-day/route";
 
 /* ═══════════════════════════════════════════════════════════════
    Types
@@ -488,13 +490,60 @@ function StreakBadge({ days }: { days: number }) {
    Main Page
    ═══════════════════════════════════════════════════════════════ */
 
+function mapRealToDay(r: NextDayData): DayData {
+  const stocks: NextDayStock[] = r.stocks.map((s) => {
+    const op = s.nextOpenPct ?? 0;
+    const cl = s.nextClosePct ?? 0;
+    const avg = (op + cl) / 2;
+    return {
+      code: s.code,
+      name: s.name,
+      group: s.group,
+      groupColor: s.groupColor,
+      market: "上" as Market,
+      limitPrice: s.limitPrice,
+      volumeRatio: s.volumeRatio,
+      nextOpen: s.nextOpen ?? s.limitPrice,
+      nextOpenPct: op,
+      nextAvg: s.nextOpen != null && s.nextClose != null ? (s.nextOpen + s.nextClose) / 2 : s.limitPrice,
+      nextAvgPct: avg,
+      nextClose: s.nextClose ?? s.limitPrice,
+      nextClosePct: cl,
+      weightedReturn: +(op * 0.3 + avg * 0.3 + cl * 0.4).toFixed(2),
+      label: s.label as StockLabel,
+    };
+  });
+  return {
+    limitDate: r.limitDate,
+    nextDate: r.nextDate,
+    totalLimitUp: r.totalLimitUp,
+    stocks,
+  };
+}
+
 export default function NextDayPage() {
-  const [dateIndex, setDateIndex] = useState(MOCK_DATA.length - 1);
+  const { data: realData } = useSWR<NextDayData[]>(
+    "/api/next-day",
+    (url: string) => fetch(url).then((r) => r.json()),
+    { revalidateOnFocus: false }
+  );
+
+  const DATA: DayData[] = useMemo(() => {
+    if (realData && realData.length > 0) {
+      return realData.map(mapRealToDay);
+    }
+    return MOCK_DATA;
+  }, [realData]);
+
+  const [dateIndex, setDateIndex] = useState(0);
+  const currentIndex = Math.min(dateIndex, DATA.length - 1);
+  const realDateIndex = DATA.length - 1 - currentIndex; // show latest first
+
   const [activeFilter, setActiveFilter] = useState<StockLabel | "all">("all");
   const [sortKey, setSortKey] = useState("weightedReturn");
   const [sortAsc, setSortAsc] = useState(false);
 
-  const day = MOCK_DATA[dateIndex];
+  const day = DATA[realDateIndex] ?? DATA[DATA.length - 1];
   const stats = computeDayStats(day);
   const groupPerfs = useMemo(() => computeGroupPerfs(day), [day]);
 
@@ -531,16 +580,16 @@ export default function NextDayPage() {
   }
 
   // History chart data
-  const histLabels = MOCK_DATA.map((d) => d.nextDate.slice(5).replace("-", "/"));
+  const histLabels = DATA.map((d) => d.nextDate.slice(5).replace("-", "/"));
   const histAvg: ChartLine[] = [
-    { values: MOCK_DATA.map((d) => computeDayStats(d).openAvg), color: "#3b82f6", label: "開盤" },
-    { values: MOCK_DATA.map((d) => computeDayStats(d).avgAvg), color: "#f59e0b", label: "均價" },
-    { values: MOCK_DATA.map((d) => computeDayStats(d).closeAvg), color: "#ef4444", label: "收盤" },
+    { values: DATA.map((d) => computeDayStats(d).openAvg), color: "#3b82f6", label: "開盤" },
+    { values: DATA.map((d) => computeDayStats(d).avgAvg), color: "#f59e0b", label: "均價" },
+    { values: DATA.map((d) => computeDayStats(d).closeAvg), color: "#ef4444", label: "收盤" },
   ];
   const histRate: ChartLine[] = [
-    { values: MOCK_DATA.map((d) => computeDayStats(d).openPositive), color: "#3b82f6", label: "開盤" },
-    { values: MOCK_DATA.map((d) => computeDayStats(d).avgPositive), color: "#f59e0b", label: "均價" },
-    { values: MOCK_DATA.map((d) => computeDayStats(d).closePositive), color: "#ef4444", label: "收盤" },
+    { values: DATA.map((d) => computeDayStats(d).openPositive), color: "#3b82f6", label: "開盤" },
+    { values: DATA.map((d) => computeDayStats(d).avgPositive), color: "#f59e0b", label: "均價" },
+    { values: DATA.map((d) => computeDayStats(d).closePositive), color: "#ef4444", label: "收盤" },
   ];
 
   const SortIcon = ({ k }: { k: string }) =>
@@ -572,7 +621,7 @@ export default function NextDayPage() {
                   {day.nextDate.replace(/-/g, "/")}
                 </span>
               </div>
-              <button onClick={() => setDateIndex((i) => Math.min(MOCK_DATA.length - 1, i + 1))} disabled={dateIndex === MOCK_DATA.length - 1}
+              <button onClick={() => setDateIndex((i) => Math.min(DATA.length - 1, i + 1))} disabled={dateIndex === DATA.length - 1}
                 className="w-8 h-8 rounded-lg bg-bg-3 border border-border flex items-center justify-center text-txt-3 hover:text-txt-0 hover:bg-bg-4 disabled:opacity-30 disabled:cursor-not-allowed transition-all">
                 ▶
               </button>

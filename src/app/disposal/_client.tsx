@@ -1,10 +1,12 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import useSWR from "swr";
 import Link from "next/link";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import { getTodayString } from "@/lib/utils";
+import type { DisposalCandidate } from "@/app/api/disposal/route";
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -347,11 +349,36 @@ export default function DisposalPage() {
   const [sortKey, setSortKey] = useState<SortKey>("risk");
   const [sortAsc, setSortAsc] = useState(false);
 
-  const sorted = useMemo(() => sortStocks(DISPOSAL_STOCKS, sortKey, sortAsc), [sortKey, sortAsc]);
+  const { data: realCandidates } = useSWR<DisposalCandidate[]>(
+    "/api/disposal",
+    (url: string) => fetch(url).then((r) => r.json()),
+    { revalidateOnFocus: false }
+  );
 
-  const countWarning = DISPOSAL_STOCKS.filter(s => s.risk === "高危").length;
-  const countAlert = DISPOSAL_STOCKS.filter(s => s.status === "預警中").length;
-  const countDisposed = DISPOSAL_STOCKS.filter(s => s.status === "已處置").length;
+  // Map real candidates to DisposalStock shape
+  const ACTIVE_STOCKS: DisposalStock[] = useMemo(() => {
+    if (realCandidates && realCandidates.length > 0) {
+      return realCandidates.map((c) => ({
+        code: c.code,
+        name: c.name,
+        industry: c.industry,
+        streak: c.streak,
+        gain10d: c.gain,
+        daysHit: c.daysLimitUp,
+        daysRequired: 5,
+        risk: c.risk,
+        status: c.status,
+        volumeAnomaly: c.daysLimitUp >= 3,
+      }));
+    }
+    return DISPOSAL_STOCKS;
+  }, [realCandidates]);
+
+  const sorted = useMemo(() => sortStocks(ACTIVE_STOCKS, sortKey, sortAsc), [ACTIVE_STOCKS, sortKey, sortAsc]);
+
+  const countWarning = ACTIVE_STOCKS.filter(s => s.risk === "高危").length;
+  const countAlert = ACTIVE_STOCKS.filter(s => s.status === "預警中").length;
+  const countDisposed = ACTIVE_STOCKS.filter(s => s.status === "已處置").length;
 
   function handleSort(key: SortKey) {
     if (sortKey === key) setSortAsc(!sortAsc);
@@ -453,7 +480,7 @@ export default function DisposalPage() {
           </div>
           </div>
           <div className="mt-2 text-[10px] text-txt-4 text-right">
-            {DISPOSAL_STOCKS.length} stocks monitored / updated after market close
+            {ACTIVE_STOCKS.length} stocks monitored / updated after market close
           </div>
         </div>
 
