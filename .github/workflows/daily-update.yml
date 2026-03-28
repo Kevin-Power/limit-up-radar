@@ -74,12 +74,22 @@ jobs:
           git commit -m "data: add daily data for ${DATE_PART}" || echo "No changes to commit"
           git push
 
+      - name: Deploy to Vercel
+        if: steps.classify.outputs.data_found == 'true'
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          npm install -g vercel --silent
+          vercel --prod --token="$VERCEL_TOKEN" --yes
+
       - name: Summary
         run: |
           if [ "${{ steps.classify.outputs.data_found }}" == "true" ]; then
             echo "### Daily Update Complete" >> $GITHUB_STEP_SUMMARY
             echo "- Data file: \`${{ steps.classify.outputs.json_file }}\`" >> $GITHUB_STEP_SUMMARY
-            echo "- Deploy to Vercel manually via \`vercel --prod\` or connect Vercel Git integration" >> $GITHUB_STEP_SUMMARY
+            echo "- Deployed to Vercel production" >> $GITHUB_STEP_SUMMARY
           else
             echo "### No Update Today" >> $GITHUB_STEP_SUMMARY
             echo "- No trading data found (holiday or weekend)" >> $GITHUB_STEP_SUMMARY
