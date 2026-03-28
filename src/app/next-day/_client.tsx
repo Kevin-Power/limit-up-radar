@@ -12,7 +12,7 @@ import type { NextDayData } from "@/app/api/next-day/route";
    Types
    ═══════════════════════════════════════════════════════════════ */
 
-type StockLabel = "續漲停" | "強漲" | "強勢漲" | "銘碼漲" | "開高走低" | "直接跌";
+type StockLabel = "續漲停" | "強漲" | "強勢漲" | "銘碼漲" | "開高走低" | "直接跌" | "無資料";
 type Market = "上" | "櫃";
 
 interface NextDayStock {
@@ -63,6 +63,7 @@ const LABEL_CONFIG: Record<StockLabel, { bg: string; text: string; border: strin
   "銘碼漲": { bg: "bg-amber/15", text: "text-amber", border: "border-amber/30" },
   "開高走低": { bg: "bg-[rgba(234,179,8,0.12)]", text: "text-[#eab308]", border: "border-[#eab308]/25" },
   "直接跌": { bg: "bg-blue/12", text: "text-blue", border: "border-blue/25" },
+  "無資料": { bg: "bg-bg-3", text: "text-txt-4", border: "border-border" },
 };
 
 const GROUP_COLORS: Record<string, string> = {
@@ -425,7 +426,7 @@ function KpiCard({ label, value, subLabel, subValue, accent }: {
    ═══════════════════════════════════════════════════════════════ */
 
 function LabelBadge({ label }: { label: StockLabel }) {
-  const c = LABEL_CONFIG[label];
+  const c = LABEL_CONFIG[label] ?? LABEL_CONFIG["無資料"];
   return (
     <span className={`inline-flex items-center text-[10px] font-bold px-2 py-0.5 rounded ${c.bg} ${c.text} border ${c.border}`}>
       {label}

@@ -40,6 +40,10 @@ function stripCdata(s: string): string {
   return s.replace(/<!\[CDATA\[[\s\S]*?\]\]>/g, (m) => m.slice(9, m.length - 3)).trim();
 }
 
+function decodeHtmlEntities(s: string): string {
+  return s.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+}
+
 async function fetchGoogleNewsRss(query: string): Promise<NewsArticle[]> {
   const url = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=zh-TW&gl=TW&ceid=TW:zh-Hant`;
   const res = await fetch(url, {
@@ -68,7 +72,7 @@ async function fetchGoogleNewsRss(query: string): Promise<NewsArticle[]> {
     const source = sourceMatch ? stripCdata(sourceMatch[1]) : "新聞";
     const link = linkMatch ? stripCdata(linkMatch[1]).trim() : "";
     const pubDate = pubDateMatch ? parseRssDate(pubDateMatch[1]) : Math.floor(Date.now() / 1000);
-    const desc = descMatch ? stripCdata(descMatch[1]).replace(/<[^>]+>/g, "").trim() : "";
+    const desc = descMatch ? decodeHtmlEntities(stripCdata(descMatch[1])).replace(/<[^>]+>/g, "").trim() : "";
 
     // Use description as summary if it has content beyond title
     const summary = desc.length > title.length ? desc.slice(0, 120) : "";
