@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import { formatPct, formatPrice, getTodayString } from "@/lib/utils";
+import type { BacktestResult as RealBacktestResult } from "@/app/api/backtest/route";
 
 /* ================================================================
    SEEDED RNG
@@ -220,8 +221,19 @@ function sortTrades(trades: Trade[], field: SortField, asc: boolean): Trade[] {
 /* ================================================================
    COMPONENT
    ================================================================ */
+const POPULAR_STOCKS = [
+  { code: "2330", name: "台積電" }, { code: "2454", name: "聯發科" },
+  { code: "2317", name: "鴻海" },   { code: "3017", name: "奇鋐" },
+  { code: "6669", name: "緯穎" },   { code: "3324", name: "雙鴻" },
+];
+
 export default function BacktestPage() {
   const [strategy, setStrategy] = useState<StrategyKey>("ema");
+  const [stockCode, setStockCode] = useState("2330");
+  const [stockInput, setStockInput] = useState("2330");
+  const [realResult, setRealResult] = useState<RealBacktestResult | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   // EMA params
   const [emaFast, setEmaFast] = useState(11);
@@ -242,6 +254,30 @@ export default function BacktestPage() {
   const [sortField, setSortField] = useState<SortField>("entryDate");
   const [sortAsc, setSortAsc] = useState(true);
 
+  const buildUrl = useCallback(() => {
+    const base = `/api/backtest?code=${stockCode}&strategy=${strategy}`;
+    if (strategy === "ema") return `${base}&emaFast=${emaFast}&emaSlow=${emaSlow}`;
+    if (strategy === "kd") return `${base}&kdBuy=${kdBuy}&kdSell=${kdSell}`;
+    if (strategy === "macd") return `${base}&macdFast=${macdFast}&macdSlow=${macdSlow}&macdSignal=${macdSignal}`;
+    return `${base}&rsiPeriod=${rsiPeriod}&rsiOverbought=${rsiOverbought}&rsiOversold=${rsiOversold}`;
+  }, [stockCode, strategy, emaFast, emaSlow, kdBuy, kdSell, macdFast, macdSlow, macdSignal, rsiPeriod, rsiOverbought, rsiOversold]);
+
+  const runBacktest = useCallback(() => {
+    setLoading(true);
+    setError(null);
+    fetch(buildUrl(), { cache: "no-store" })
+      .then((r) => r.json())
+      .then((d: RealBacktestResult) => {
+        if (d.isReal) setRealResult(d);
+        else setError("資料不足，請換一檔股票");
+      })
+      .catch(() => setError("API 錯誤，顯示模擬資料"))
+      .finally(() => setLoading(false));
+  }, [buildUrl]);
+
+  // Auto-run on mount and when params change
+  useEffect(() => { runBacktest(); }, [runBacktest]);
+
   const params = useMemo((): Record<string, number> => {
     if (strategy === "kd") return { buy: kdBuy, sell: kdSell };
     if (strategy === "macd") return { fast: macdFast, slow: macdSlow, signal: macdSignal };
@@ -249,7 +285,12 @@ export default function BacktestPage() {
     return { fast: emaFast, slow: emaSlow };
   }, [strategy, emaFast, emaSlow, kdBuy, kdSell, macdFast, macdSlow, macdSignal, rsiPeriod, rsiOverbought, rsiOversold]);
 
-  const result = useMemo(() => generateBacktest(strategy, params), [strategy, params]);
+  // Use real result if available, else fall back to mock
+  const result = useMemo(() => {
+    if (realResult) return realResult;
+    return generateBacktest(strategy, params);
+  }, [realResult, strategy, params]);
+
   const sortedTrades = useMemo(() => sortTrades(result.trades, sortField, sortAsc), [result.trades, sortField, sortAsc]);
 
   function handleSort(field: SortField) {
@@ -303,6 +344,26 @@ export default function BacktestPage() {
   // Date labels for X-axis
   const tradingDates = generateTradingDates("2025-06-02", 200);
   const xLabelIndices = [0, 40, 80, 120, 160, 199];
+  const curveLen = result.equityCurve.length;
+  const xIndices = curveLen <= 6
+    ? Array.from({ length: curveLen }, (_, i) => i)
+    : [0, Math.floor(curveLen * 0.2), Math.floor(curveLen * 0.4), Math.floor(curveLen * 0.6), Math.floor(curveLen * 0.8), curveLen - 1];
+  // For real data, build date array from dateRange; otherwise use tradingDates
+  const chartDates: string[] = realResult
+    ? (() => {
+        const dates: string[] = [];
+        const d = new Date(realResult.dateRange.start);
+        const end = new Date(realResult.dateRange.end);
+        while (d <= end && dates.length < curveLen) {
+          const day = d.getDay();
+          if (day !== 0 && day !== 6) {
+            dates.push(`${d.getMonth() + 1}/${d.getDate()}`);
+          }
+          d.setDate(d.getDate() + 1);
+        }
+        return dates;
+      })()
+    : tradingDates.map((s) => s.slice(5));
 
   return (
     <div className="min-h-screen bg-bg-0 text-txt-1 animate-fade-in">
@@ -314,6 +375,46 @@ export default function BacktestPage() {
         <div className="mb-6">
           <h1 className="text-xl font-bold text-txt-0 tracking-tight">策略回測</h1>
           <p className="text-xs text-txt-3 mt-1">歷史數據驗證交易策略表現</p>
+        </div>
+
+        {/* Stock Selector */}
+        <div className="bg-bg-1 border border-border rounded-xl p-4 mb-5">
+          <h2 className="text-xs font-semibold text-txt-2 mb-3">選擇股票</h2>
+          <div className="flex flex-wrap items-center gap-2">
+            <input
+              type="text"
+              value={stockInput}
+              onChange={(e) => setStockInput(e.target.value.replace(/\D/g, "").slice(0, 6))}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && stockInput.length >= 4) {
+                  setRealResult(null);
+                  setStockCode(stockInput);
+                }
+              }}
+              placeholder="股票代碼"
+              className="w-24 bg-bg-3 border border-border rounded-md px-2 py-1.5 text-xs text-txt-1 outline-none focus:border-border-hover tabular-nums text-center"
+            />
+            <button
+              onClick={() => { if (stockInput.length >= 4) { setRealResult(null); setStockCode(stockInput); } }}
+              className="px-3 py-1.5 bg-red text-white rounded-md text-xs font-medium hover:opacity-90 transition-opacity"
+            >
+              回測
+            </button>
+            <span className="text-txt-4 text-xs">快速選股：</span>
+            {POPULAR_STOCKS.map((s) => (
+              <button
+                key={s.code}
+                onClick={() => { setRealResult(null); setStockCode(s.code); setStockInput(s.code); }}
+                className={`px-2.5 py-1 rounded-md text-xs transition-all ${
+                  stockCode === s.code
+                    ? "bg-red/20 text-red border border-red/40"
+                    : "bg-bg-2 text-txt-3 hover:bg-bg-3 hover:text-txt-1 border border-border"
+                }`}
+              >
+                {s.code} {s.name}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Strategy Selector Tabs */}
@@ -369,6 +470,30 @@ export default function BacktestPage() {
           </div>
         </div>
 
+        {/* Status Banner */}
+        {loading ? (
+          <div className="flex items-center gap-2 bg-bg-1 border border-border rounded-xl px-4 py-3 mb-5">
+            <span className="inline-block w-3 h-3 border-2 border-red border-t-transparent rounded-full animate-spin" />
+            <span className="text-xs text-txt-3">正在抓取 {stockCode} 歷史資料並執行回測...</span>
+          </div>
+        ) : error ? (
+          <div className="flex items-center gap-2 bg-amber/10 border border-amber/30 rounded-xl px-4 py-3 mb-5">
+            <span className="inline-block w-2 h-2 rounded-full bg-amber" />
+            <span className="text-xs text-amber font-medium">DEMO</span>
+            <span className="text-xs text-txt-3">{error}，以下為模擬資料</span>
+          </div>
+        ) : realResult ? (
+          <div className="flex items-center gap-2 bg-green/10 border border-green/30 rounded-xl px-4 py-3 mb-5">
+            <span className="inline-block w-2 h-2 rounded-full bg-green" />
+            <span className="text-xs text-green font-semibold">LIVE</span>
+            <span className="text-xs text-txt-2">{realResult.stockCode}</span>
+            <span className="text-xs text-txt-4">·</span>
+            <span className="text-xs text-txt-3">{realResult.dateRange.start} ~ {realResult.dateRange.end}</span>
+            <span className="text-xs text-txt-4">·</span>
+            <span className="text-xs text-txt-3">{realResult.dataPoints} 個交易日</span>
+          </div>
+        ) : null}
+
         {/* KPI Cards */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
           <KpiCard
@@ -413,7 +538,7 @@ export default function BacktestPage() {
               ))}
 
               {/* X-axis date labels */}
-              {xLabelIndices.map((idx) => (
+              {xIndices.map((idx) => (
                 <text
                   key={idx}
                   x={toX(idx)}
@@ -422,7 +547,7 @@ export default function BacktestPage() {
                   fill="var(--text-4)"
                   fontSize="8"
                 >
-                  {tradingDates[idx]?.slice(5) || ""}
+                  {chartDates[idx] || ""}
                 </text>
               ))}
 
