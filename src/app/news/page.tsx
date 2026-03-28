@@ -1,14 +1,12 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import useSWR from "swr";
+import { useState, useMemo, useEffect } from "react";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import { getTodayString } from "@/lib/utils";
 import type { NewsArticle } from "@/app/api/news/route";
 
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 function timeAgoFromTimestamp(ts: number): string {
   const diffMs = Date.now() - ts * 1000;
@@ -225,20 +223,26 @@ export default function NewsPage() {
   const [activeTag, setActiveTag] = useState<string | null>(null);
   const [visibleCount, setVisibleCount] = useState(8);
 
-  const { data: realNews } = useSWR<NewsArticle[]>("/api/news", fetcher, { revalidateOnFocus: false });
+  const [realNews, setRealNews] = useState<NewsArticle[] | null>(null);
 
-  // Merge real news into NewsItem format, fall back to mock
+  useEffect(() => {
+    fetch("/api/news", { cache: "no-store" })
+      .then((r) => r.json())
+      .then((d: NewsArticle[]) => { if (d.length > 0) setRealNews(d); })
+      .catch(() => {});
+  }, []);
+
   const NEWS: NewsItem[] = useMemo(() => {
     if (realNews && realNews.length > 0) {
       return realNews.map((a) => ({
-        id: a.id.length > 0 ? parseInt(a.id.replace(/\D/g, "").slice(0, 9)) || Math.random() * 1e9 : Math.random() * 1e9,
+        id: a.id ? parseInt(a.id.replace(/\D/g, "").slice(0, 9)) || Math.random() * 1e9 : Math.random() * 1e9,
         title: a.title,
         summary: a.summary || a.title,
         source: a.source,
         timeAgo: timeAgoFromTimestamp(a.publishedAt),
         impact: a.impact,
         category: (a.category as Category) || "industry",
-        relatedStocks: a.relatedTickers.slice(0, 3).map((t) => ({ code: t, name: t })),
+        relatedStocks: (a.relatedTickers ?? []).slice(0, 3).map((t) => ({ code: t, name: t })),
         markets: ["台股"],
       }));
     }
