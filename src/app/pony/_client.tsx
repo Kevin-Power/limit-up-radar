@@ -12,34 +12,9 @@ import {
   getSignalFullLabel,
   getSignalColor,
   EmaSignal,
+  EmaResult,
 } from "@/lib/ema";
-
-/* ================================================================
-   MOCK DATA
-   ================================================================ */
-
-const MOCK_STOCKS = [
-  { code: "3324", name: "雙鴻", close: 1065, changePct: 2.40, group: "AI 伺服器" },
-  { code: "3017", name: "奇鋐", close: 1945, changePct: -2.51, group: "AI 伺服器" },
-  { code: "6669", name: "緯穎", close: 3725, changePct: 2.19, group: "AI 伺服器" },
-  { code: "2376", name: "技嘉", close: 235, changePct: 1.08, group: "AI 伺服器" },
-  { code: "6515", name: "穎崴", close: 8190, changePct: 3.87, group: "半導體設備" },
-  { code: "6223", name: "旺矽", close: 3860, changePct: 4.89, group: "半導體設備" },
-  { code: "2330", name: "台積電", close: 1810, changePct: -1.63, group: "半導體" },
-  { code: "2454", name: "聯發科", close: 1620, changePct: -0.31, group: "IC 設計" },
-  { code: "5274", name: "信驊", close: 11750, changePct: 3.52, group: "IC 設計" },
-  { code: "2379", name: "瑞昱", close: 480.5, changePct: 2.34, group: "IC 設計" },
-  { code: "2014", name: "中鴻", close: 18.45, changePct: 1.65, group: "鋼鐵" },
-  { code: "1301", name: "台塑", close: 45.05, changePct: 0.67, group: "塑化" },
-  { code: "1303", name: "南亞", close: 72.3, changePct: -2.03, group: "塑化" },
-  { code: "2317", name: "鴻海", close: 195, changePct: -0.51, group: "電子代工" },
-  { code: "4743", name: "合一", close: 52, changePct: -2.44, group: "生技" },
-  { code: "2401", name: "凌陽", close: 20.45, changePct: -0.24, group: "IC 設計" },
-  { code: "3037", name: "欣興", close: 460, changePct: -1.28, group: "PCB" },
-  { code: "4977", name: "眾達-KY", close: 181.5, changePct: -1.89, group: "光通訊" },
-  { code: "2458", name: "義隆", close: 128, changePct: -2.29, group: "IC 設計" },
-  { code: "3576", name: "聯合再生", close: 20.7, changePct: -3.72, group: "太陽能" },
-];
+import { DailyData, StockGroup } from "@/lib/types";
 
 /* ================================================================
    TYPES & HELPERS
@@ -154,10 +129,7 @@ function SortArrow({ active, dir }: { active: boolean; dir: SortDir }) {
    PAGE COMPONENT
    ================================================================ */
 
-interface DailyApiData {
-  date: string;
-  groups: { name: string; color: string; stocks: { code: string; name: string; close: number; change_pct: number; industry: string }[] }[];
-}
+const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 export default function PonyPage() {
   const [filter, setFilter] = useState<FilterKey>("all");
@@ -165,16 +137,11 @@ export default function PonyPage() {
   const [sortDir, setSortDir] = useState<SortDir>("desc");
   const [strategyOpen, setStrategyOpen] = useState(false);
 
-  const { data: dailyData } = useSWR<DailyApiData>(
-    "/api/daily/latest",
-    (url: string) => fetch(url).then((r) => r.json()),
-    { revalidateOnFocus: false }
-  );
+  const { data: dailyData } = useSWR<DailyData>("/api/daily/latest", fetcher);
 
-  // Use real limit-up stocks if available, else fall back to mock
   const sourceStocks = useMemo(() => {
-    if (!dailyData?.groups?.length) return MOCK_STOCKS;
-    return dailyData.groups.flatMap((g) =>
+    if (!dailyData?.groups) return [];
+    return dailyData.groups.flatMap((g: StockGroup) =>
       g.stocks.map((s) => ({
         code: s.code,
         name: s.name,
@@ -185,10 +152,14 @@ export default function PonyPage() {
     );
   }, [dailyData]);
 
-  // Build enriched rows (stable, no deps on state)
+  const codes = sourceStocks.map((s) => s.code);
+  const emaUrl = codes.length > 0 ? `/api/ema/batch?codes=${codes.join(",")}` : null;
+  const { data: emaData } = useSWR<Record<string, EmaResult>>(emaUrl, fetcher);
+
+  // Build enriched rows with real EMA data
   const rows: StockRow[] = useMemo(() => {
     return sourceStocks.map((s) => {
-      const ema = analyzeEma(s.code, s.close);
+      const ema = emaData?.[s.code] ?? analyzeEma(s.code, s.close);
       return {
         ...s,
         ema11: ema.ema11,
@@ -200,7 +171,7 @@ export default function PonyPage() {
         ema24Series: ema.ema24Series,
       };
     });
-  }, []);
+  }, [sourceStocks, emaData]);
 
   // Signal counts
   const counts = useMemo(() => {
@@ -340,6 +311,15 @@ export default function PonyPage() {
             </div>
           )}
         </div>
+
+        {/* ── Loading Skeleton ──────────────────────── */}
+        {!dailyData && (
+          <div className="space-y-2 animate-pulse mb-6">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} className="h-10 bg-bg-2 rounded" />
+            ))}
+          </div>
+        )}
 
         {/* ── Filter Tabs ────────────────────────────── */}
         <div className="flex flex-wrap gap-2 mb-6">

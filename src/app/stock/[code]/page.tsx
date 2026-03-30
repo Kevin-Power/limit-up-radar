@@ -1,316 +1,19 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
+import { use, useEffect, useMemo, useState } from "react";
 import useSWR from "swr";
 import Link from "next/link";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import { DailyData, Stock, StockGroup } from "@/lib/types";
 import { formatPrice, formatPct, formatNumber, formatNet, getTodayString } from "@/lib/utils";
-import { analyzeEma, getSignalFullLabel, getSignalColor } from "@/lib/ema";
+import { getSignalFullLabel, getSignalColor } from "@/lib/ema";
+import type { EmaResult } from "@/lib/ema";
 import KLineChart, { type CandleData } from "@/components/KLineChart";
 import StarButton from "@/components/StarButton";
 import { useWatchlist } from "@/lib/useWatchlist";
 
-// --- Seeded RNG helpers ---
-
-function hashSeed(s: string): number {
-  let h = 2166136261;
-  for (let i = 0; i < s.length; i++) {
-    h ^= s.charCodeAt(i);
-    h = (h * 16777619) >>> 0;
-  }
-  return h;
-}
-
-function makeRng(seed: string) {
-  let state = hashSeed(seed);
-  return () => {
-    state = (state * 1664525 + 1013904223) >>> 0;
-    return state / 0xffffffff;
-  };
-}
-
-// --- Stock name & price lookup maps ---
-
-const STOCK_NAMES: Record<string, string> = {
-  "3324": "雙鴻", "3017": "奇鋐", "6515": "穎崴", "6223": "旺矽",
-  "2330": "台積電", "2454": "聯發科", "6669": "緯穎", "2376": "技嘉",
-  "3037": "欣興", "2317": "鴻海", "4977": "眾達-KY", "4743": "合一",
-  "3576": "聯合再生", "2014": "中鴻", "1301": "台塑", "1303": "南亞",
-  "2007": "燁興", "2025": "千興", "1325": "恒大", "2542": "興富發",
-  "2388": "威健", "6670": "復盛應用", "1471": "首利", "3363": "上詮",
-  "7795": "長廣", "6274": "台燿", "2401": "凌陽", "2458": "義隆",
-  "2548": "華固", "2012": "春雨", "2459": "敦吉", "5522": "遠翔",
-  "2379": "瑞昱", "5274": "信驊", "6446": "藥華藥", "1402": "遠東新",
-  "2368": "金像電", "2421": "建準", "4904": "遠傳", "5534": "長虹",
-  // 2026-03-26 data
-  "1304": "台聚", "1308": "亞聚", "1309": "台達化", "1582": "信錦",
-  "1905": "華紙", "2231": "為升", "2305": "全友", "2355": "敬鵬",
-  "2419": "仲琦", "2424": "隴華", "3026": "禾伸堂", "3081": "聯亞",
-  "3085": "新零售", "3310": "佳穎", "3467": "台灣精材", "3491": "昇達科",
-  "3532": "台勝科", "4154": "樂威科-KY", "4577": "達航科技", "4804": "大略-KY",
-  "4906": "正文", "4971": "IET-KY", "5272": "笙科", "5278": "尚凡",
-  "6147": "頎邦", "6277": "宏正", "6431": "光麗-KY", "6609": "瀧澤科",
-  "6640": "均華", "6821": "聯寶", "6830": "汎銓", "6962": "奕力-KY",
-  "7709": "榮田", "7717": "萊德光電-KY", "7721": "微程式", "7780": "大研生醫",
-  "8027": "鈦昇", "8064": "東捷", "8358": "金居",
-};
-
-const STOCK_PRICES: Record<string, number> = {
-  "3324": 1065, "3017": 1945, "6515": 8190, "6223": 3860,
-  "2330": 1810, "2454": 1620, "6669": 3725, "2376": 235,
-  "3037": 460, "2317": 195, "4977": 181.5, "4743": 52,
-  "3576": 25, "2014": 18.45, "1301": 45.05, "1303": 72.3,
-  "2007": 8.48, "2025": 11.6, "1325": 24.8, "2542": 67.5,
-  "2388": 32.5, "6670": 142, "1471": 13.05, "3363": 734,
-  "7795": 403, "6274": 554, "2401": 20.45, "2458": 128,
-  "2548": 119.5, "2012": 32.5, "2379": 480.5, "5274": 11750,
-  "6446": 620, "1402": 25.9, "2368": 165, "2421": 112,
-  "4904": 85, "5534": 45.2,
-  // 2026-03-26 data
-  "1304": 15.85, "1308": 18.05, "1309": 20.15, "1582": 93,
-  "1905": 14, "2231": 114, "2305": 16.15, "2355": 49.4,
-  "2419": 33.25, "2424": 26.85, "3026": 146.5, "3081": 1690,
-  "3085": 13.55, "3310": 83.9, "3467": 43.5, "3491": 1550,
-  "3532": 146, "4154": 13.6, "4577": 104.5, "4804": 5.5,
-  "4906": 36.6, "4971": 526, "5272": 23.95, "5278": 26.6,
-  "6147": 77.8, "6277": 65.4, "6431": 22.65, "6609": 37.95,
-  "6640": 1295, "6821": 50.9, "6830": 474, "6962": 33.9,
-  "7709": 62, "7717": 701, "7721": 55.7, "7780": 20,
-  "8027": 133.5, "8064": 74.7, "8358": 249.5,
-};
-
-// --- Mock data generators ---
-
-function generatePriceSeries(seed: string, basePrice: number, count = 30): number[] {
-  const rng = makeRng(seed + "_chart");
-  // Start at ~92% of base price and drift toward it, staying within +/- 15%
-  const startOffset = 0.88 + rng() * 0.09; // 0.88 ~ 0.97
-  const prices: number[] = [basePrice * startOffset];
-  for (let i = 1; i < count; i++) {
-    const drift = (basePrice - prices[i - 1]) * 0.03; // mean-revert toward base
-    const noise = (rng() - 0.5) * basePrice * 0.015;
-    const next = prices[i - 1] + drift + noise;
-    prices.push(Math.max(Math.min(next, basePrice * 1.15), basePrice * 0.85));
-  }
-  return prices;
-}
-
-function generateVolumeSeries(seed: string, baseVol: number, count = 30): number[] {
-  const rng = makeRng(seed + "_vol");
-  const vols: number[] = [];
-  for (let i = 0; i < count; i++) {
-    vols.push(Math.max(baseVol * (0.3 + rng() * 1.4), baseVol * 0.1));
-  }
-  return vols;
-}
-
-function generateDateLabels(count = 30): string[] {
-  const labels: string[] = [];
-  const now = new Date(2026, 2, 20);
-  for (let i = count - 1; i >= 0; i--) {
-    const d = new Date(now);
-    d.setDate(d.getDate() - i);
-    // Skip weekends
-    const dow = d.getDay();
-    if (dow === 0) d.setDate(d.getDate() - 2);
-    else if (dow === 6) d.setDate(d.getDate() - 1);
-    labels.push(`${d.getMonth() + 1}/${d.getDate()}`);
-  }
-  return labels;
-}
-
-function generateCandleData(seed: string, basePrice: number, count = 60): CandleData[] {
-  const rng = makeRng(seed + "_candle");
-  const data: CandleData[] = [];
-  let price = basePrice * (0.90 + rng() * 0.08); // start ~90-98% of base
-  const baseVol = basePrice > 500 ? 3000 : basePrice > 100 ? 8000 : 15000;
-  const now = new Date(2026, 2, 20);
-
-  // Walk backwards to find enough trading days
-  let tradingDays = 0;
-  let dayOffset = 0;
-  const dates: Date[] = [];
-  while (tradingDays < count) {
-    const d = new Date(now);
-    d.setDate(d.getDate() - dayOffset);
-    const dow = d.getDay();
-    if (dow !== 0 && dow !== 6) {
-      dates.unshift(d);
-      tradingDays++;
-    }
-    dayOffset++;
-  }
-
-  for (let i = 0; i < dates.length; i++) {
-    const d = dates[i];
-    const dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-
-    // Daily change: +/- 1-3% with slight upward drift toward basePrice
-    const drift = (basePrice - price) * 0.015;
-    const volatility = (rng() - 0.5) * basePrice * 0.03;
-    const open = price;
-    const close = Math.max(open * 0.9, Math.min(open * 1.1, open + drift + volatility));
-
-    // High and low: extend beyond open/close range
-    const highExtra = rng() * Math.abs(close - open) * 0.8 + basePrice * 0.002;
-    const lowExtra = rng() * Math.abs(close - open) * 0.8 + basePrice * 0.002;
-    const high = Math.max(open, close) + highExtra;
-    const low = Math.min(open, close) - lowExtra;
-
-    // Volume with daily variation
-    const volume = Math.round(baseVol * (0.4 + rng() * 1.6));
-
-    data.push({
-      date: dateStr,
-      open: +open.toFixed(2),
-      high: +high.toFixed(2),
-      low: +low.toFixed(2),
-      close: +close.toFixed(2),
-      volume,
-    });
-
-    price = close;
-  }
-  return data;
-}
-
-interface LimitUpEntry {
-  date: string;
-  group: string;
-  nextDayOpenPct: number;
-  nextDayClosePct: number;
-  nextDayVol: number;
-}
-
-function mockLimitUpHistory(code: string): LimitUpEntry[] {
-  const rng = makeRng(code + "_history");
-  const months = ["2026-03", "2026-02", "2026-01", "2025-12", "2025-11"];
-  const groups = ["AI 伺服器", "半導體設備", "光通訊", "PCB 基板", "IC 設計"];
-  return months.map((m) => ({
-    date: `${m}-${String(Math.floor(rng() * 20 + 1)).padStart(2, "0")}`,
-    group: groups[Math.floor(rng() * groups.length)],
-    nextDayOpenPct: (rng() - 0.3) * 6,
-    nextDayClosePct: (rng() - 0.45) * 8,
-    nextDayVol: Math.round(5000 + rng() * 30000),
-  }));
-}
-
-interface TechnicalData {
-  ma5: number;
-  ma10: number;
-  ma20: number;
-  ma60: number;
-  rsi: number;
-  macdSignal: "golden_cross" | "death_cross" | "neutral";
-  kd_k: number;
-  kd_d: number;
-  overall: "bullish" | "neutral" | "bearish";
-}
-
-function mockTechnicalData(code: string, price: number): TechnicalData {
-  const rng = makeRng(code + "_tech");
-  const ma5 = price * (0.97 + rng() * 0.06);
-  const ma10 = price * (0.94 + rng() * 0.08);
-  const ma20 = price * (0.90 + rng() * 0.12);
-  const ma60 = price * (0.85 + rng() * 0.15);
-  const rsi = 30 + rng() * 50;
-  const signals: Array<"golden_cross" | "death_cross" | "neutral"> = ["golden_cross", "death_cross", "neutral"];
-  const macdSignal = signals[Math.floor(rng() * 3)];
-  const kd_k = 20 + rng() * 65;
-  const kd_d = 20 + rng() * 60;
-
-  let overall: "bullish" | "neutral" | "bearish" = "neutral";
-  if (rsi > 55 && price > ma5 && price > ma20) overall = "bullish";
-  else if (rsi < 40 && price < ma5 && price < ma20) overall = "bearish";
-
-  return { ma5, ma10, ma20, ma60, rsi, macdSignal, kd_k, kd_d, overall };
-}
-
-interface ChipData {
-  foreign3d: number[];
-  trust3d: number[];
-  dealer3d: number[];
-  topBuyers: { name: string; net: number }[];
-  topSellers: { name: string; net: number }[];
-  marginBuy: number;
-  marginSell: number;
-  shortSell: number;
-  shortCover: number;
-}
-
-function mockChipData(code: string): ChipData {
-  const rng = makeRng(code + "_chip");
-  return {
-    foreign3d: [
-      Math.round((rng() - 0.4) * 5000),
-      Math.round((rng() - 0.4) * 4000),
-      Math.round((rng() - 0.4) * 6000),
-    ],
-    trust3d: [
-      Math.round((rng() - 0.5) * 2000),
-      Math.round((rng() - 0.5) * 1500),
-      Math.round((rng() - 0.5) * 2500),
-    ],
-    dealer3d: [
-      Math.round((rng() - 0.5) * 1000),
-      Math.round((rng() - 0.5) * 800),
-      Math.round((rng() - 0.5) * 1200),
-    ],
-    topBuyers: [
-      { name: "凱基-台北", net: Math.round(500 + rng() * 3000) },
-      { name: "元大-館前", net: Math.round(300 + rng() * 2000) },
-      { name: "富邦-台中", net: Math.round(200 + rng() * 1500) },
-    ],
-    topSellers: [
-      { name: "美林", net: Math.round(500 + rng() * 3000) },
-      { name: "摩根士丹利", net: Math.round(300 + rng() * 2000) },
-      { name: "瑞銀", net: Math.round(200 + rng() * 1500) },
-    ],
-    marginBuy: Math.round(1000 + rng() * 8000),
-    marginSell: Math.round(800 + rng() * 6000),
-    shortSell: Math.round(200 + rng() * 3000),
-    shortCover: Math.round(150 + rng() * 2500),
-  };
-}
-
-interface PeerStock {
-  code: string;
-  name: string;
-  price: number;
-  changePct: number;
-  volume: number;
-  pe: number;
-}
-
-function mockPeerStocks(code: string, groupStocks: Stock[]): PeerStock[] {
-  const rng = makeRng(code + "_peer");
-  // Use real group stocks if available, else generate mock
-  if (groupStocks.length > 1) {
-    return groupStocks
-      .filter((s) => s.code !== code)
-      .slice(0, 4)
-      .map((s) => ({
-        code: s.code,
-        name: s.name,
-        price: s.close,
-        changePct: s.change_pct,
-        volume: s.volume,
-        pe: +(12 + rng() * 30).toFixed(1),
-      }));
-  }
-  const names = ["台積電", "聯發科", "鴻海", "廣達"];
-  const codes = ["2330", "2454", "2317", "2382"];
-  return names.map((n, i) => ({
-    code: codes[i],
-    name: n,
-    price: +(100 + rng() * 800).toFixed(0),
-    changePct: +((rng() - 0.4) * 12).toFixed(2),
-    volume: Math.round(5000 + rng() * 50000),
-    pe: +(10 + rng() * 35).toFixed(1),
-  }));
-}
+const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 // --- Section label component ---
 
@@ -319,206 +22,6 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
     <div className="flex items-center gap-3 mb-4">
       <h2 className="text-sm font-bold text-txt-1 tracking-wide whitespace-nowrap">{children}</h2>
       <div className="flex-1 h-px bg-border" />
-    </div>
-  );
-}
-
-// --- Price Chart Component (SVG) ---
-
-function PriceChart({
-  code,
-  basePrice,
-  baseVol,
-  color,
-}: {
-  code: string;
-  basePrice: number;
-  baseVol: number;
-  color: string;
-}) {
-  const W = 800;
-  const CHART_H = 200;
-  const VOL_H = 50;
-  const TOTAL_H = CHART_H + VOL_H + 30; // extra for x-axis labels
-  const PAD_L = 55;
-  const PAD_R = 10;
-  const PAD_T = 10;
-  const CHART_BOTTOM = CHART_H;
-  const VOL_TOP = CHART_H + 8;
-  const VOL_BOTTOM = CHART_H + VOL_H;
-  const DRAW_W = W - PAD_L - PAD_R;
-
-  const prices = generatePriceSeries(code, basePrice);
-  const volumes = generateVolumeSeries(code, baseVol);
-  const dateLabels = generateDateLabels(prices.length);
-
-  const pMin = Math.min(...prices);
-  const pMax = Math.max(...prices);
-  const pRange = pMax - pMin || 1;
-  const vMax = Math.max(...volumes);
-
-  // Price Y-axis ticks (5 ticks)
-  const priceTicks: number[] = [];
-  for (let i = 0; i < 5; i++) {
-    priceTicks.push(pMin + (pRange * i) / 4);
-  }
-
-  const priceToY = (p: number) =>
-    PAD_T + (CHART_BOTTOM - PAD_T) - ((p - pMin) / pRange) * (CHART_BOTTOM - PAD_T - 4);
-
-  const volToH = (v: number) => (v / vMax) * (VOL_BOTTOM - VOL_TOP - 4);
-
-  // Build polyline
-  const linePoints = prices
-    .map((p, i) => {
-      const x = PAD_L + (i / (prices.length - 1)) * DRAW_W;
-      const y = priceToY(p);
-      return `${x.toFixed(1)},${y.toFixed(1)}`;
-    })
-    .join(" ");
-
-  // Build area path
-  const areaPath = (() => {
-    const pts = prices.map((p, i) => {
-      const x = PAD_L + (i / (prices.length - 1)) * DRAW_W;
-      const y = priceToY(p);
-      return `${x.toFixed(1)},${y.toFixed(1)}`;
-    });
-    const lastX = PAD_L + DRAW_W;
-    const firstX = PAD_L;
-    return `M ${pts[0]} L ${pts.join(" L ")} L ${lastX},${CHART_BOTTOM} L ${firstX},${CHART_BOTTOM} Z`;
-  })();
-
-  // Current price Y
-  const currentPriceY = priceToY(prices[prices.length - 1]);
-
-  const gradId = `grad_${code}`;
-
-  // X-axis: show every 5th label
-  const xLabels: { x: number; label: string }[] = [];
-  for (let i = 0; i < prices.length; i += 5) {
-    xLabels.push({
-      x: PAD_L + (i / (prices.length - 1)) * DRAW_W,
-      label: dateLabels[i],
-    });
-  }
-
-  return (
-    <div className="w-full border border-border rounded-lg overflow-hidden bg-bg-2 mb-6">
-      <div className="px-4 py-2 border-b border-border flex items-center justify-between">
-        <span className="text-[10px] font-semibold text-txt-4 uppercase tracking-wider">30-Day Price / Volume</span>
-        <span className="text-[10px] text-txt-4">
-          High: {formatPrice(pMax)} / Low: {formatPrice(pMin)}
-        </span>
-      </div>
-      <svg viewBox={`0 0 ${W} ${TOTAL_H}`} preserveAspectRatio="none" className="w-full" style={{ height: 280 }}>
-        <defs>
-          <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor={color} stopOpacity="0.3" />
-            <stop offset="100%" stopColor={color} stopOpacity="0.02" />
-          </linearGradient>
-        </defs>
-
-        {/* Y-axis grid lines and labels */}
-        {priceTicks.map((tick, i) => {
-          const y = priceToY(tick);
-          return (
-            <g key={i}>
-              <line x1={PAD_L} y1={y} x2={W - PAD_R} y2={y} stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
-              <text x={PAD_L - 8} y={y + 3} textAnchor="end" fill="#475569" fontSize="9" fontFamily="monospace">
-                {formatPrice(tick)}
-              </text>
-            </g>
-          );
-        })}
-
-        {/* Current price dashed line */}
-        <line
-          x1={PAD_L}
-          y1={currentPriceY}
-          x2={W - PAD_R}
-          y2={currentPriceY}
-          stroke={color}
-          strokeWidth="1"
-          strokeDasharray="4,3"
-          opacity="0.6"
-        />
-        <text
-          x={W - PAD_R + 2}
-          y={currentPriceY + 3}
-          fill={color}
-          fontSize="8"
-          fontFamily="monospace"
-        >
-          {formatPrice(prices[prices.length - 1])}
-        </text>
-
-        {/* Area fill */}
-        <path d={areaPath} fill={`url(#${gradId})`} />
-
-        {/* Price line */}
-        <polyline
-          points={linePoints}
-          fill="none"
-          stroke={color}
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-
-        {/* EMA overlay lines */}
-        {(() => {
-          const { ema11Series, ema24Series } = analyzeEma(code, basePrice);
-          const last30_11 = ema11Series.slice(-30);
-          const last30_24 = ema24Series.slice(-30);
-          const ema11Points = last30_11
-            .map((v, i) => {
-              const x = PAD_L + (i / (prices.length - 1)) * DRAW_W;
-              const y = priceToY(v);
-              return `${x.toFixed(1)},${y.toFixed(1)}`;
-            })
-            .join(" ");
-          const ema24Points = last30_24
-            .map((v, i) => {
-              const x = PAD_L + (i / (prices.length - 1)) * DRAW_W;
-              const y = priceToY(v);
-              return `${x.toFixed(1)},${y.toFixed(1)}`;
-            })
-            .join(" ");
-          return (
-            <>
-              <polyline points={ema24Points} fill="none" stroke="#f59e0b" strokeWidth="1.5" opacity="0.6" strokeDasharray="4,2" />
-              <polyline points={ema11Points} fill="none" stroke="#3b82f6" strokeWidth="1.5" opacity="0.7" />
-            </>
-          );
-        })()}
-
-        {/* Volume bars */}
-        {volumes.map((v, i) => {
-          const x = PAD_L + (i / (prices.length - 1)) * DRAW_W;
-          const barW = DRAW_W / prices.length * 0.7;
-          const barH = volToH(v);
-          const isUp = i > 0 ? prices[i] >= prices[i - 1] : true;
-          return (
-            <rect
-              key={i}
-              x={x - barW / 2}
-              y={VOL_BOTTOM - barH}
-              width={barW}
-              height={barH}
-              fill={isUp ? "rgba(239,68,68,0.4)" : "rgba(34,197,94,0.4)"}
-              rx="1"
-            />
-          );
-        })}
-
-        {/* X-axis date labels */}
-        {xLabels.map(({ x, label }, i) => (
-          <text key={i} x={x} y={TOTAL_H - 4} textAnchor="middle" fill="#475569" fontSize="9" fontFamily="monospace">
-            {label}
-          </text>
-        ))}
-      </svg>
     </div>
   );
 }
@@ -626,16 +129,50 @@ export default function StockDetailPage({ params }: PageProps) {
   // Real K-line history from TWSE/TPEx
   const { data: realCandles } = useSWR<CandleData[]>(
     `/api/stock/${code}/history`,
-    (url: string) => fetch(url).then((r) => r.json()),
+    fetcher,
     { revalidateOnFocus: false }
   );
 
-  const fallbackPrice = STOCK_PRICES[code] ?? 100;
+  // Real API data
+  const { data: emaResult } = useSWR<EmaResult & { code: string }>(
+    `/api/ema/${code}`, fetcher
+  );
+  const { data: techData } = useSWR(
+    `/api/stock/${code}/technicals`, fetcher
+  );
+  const { data: chipData } = useSWR(
+    `/api/stock/${code}/chip`, fetcher
+  );
+  const { data: limitUpHistory } = useSWR(
+    `/api/stock/${code}/limitup-history`, fetcher
+  );
+  const { data: peData } = useSWR<Record<string, { pe: number; pb: number }>>(
+    "/api/pe", fetcher
+  );
+
+  // stock name: from daily data
+  const stockName = useMemo(() => {
+    if (!allGroups.length) return code;
+    for (const g of allGroups) {
+      const found = g.stocks.find((s) => s.code === code);
+      if (found) return found.name;
+    }
+    return code;
+  }, [allGroups, code]);
+
+  const stockPrice = useMemo(() => {
+    for (const g of allGroups) {
+      const found = g.stocks.find((s) => s.code === code);
+      if (found) return found.close;
+    }
+    return realCandles?.[realCandles.length - 1]?.close ?? 0;
+  }, [allGroups, realCandles, code]);
+
   const displayStock: Stock = stock ?? {
     code,
-    name: STOCK_NAMES[code] ?? `Stock ${code}`,
+    name: stockName,
     industry: "--",
-    close: fallbackPrice,
+    close: stockPrice,
     change_pct: 10,
     volume: 10000,
     major_net: 1000,
@@ -643,29 +180,31 @@ export default function StockDetailPage({ params }: PageProps) {
   };
 
   const displayGroup = group ?? { name: "--", color: "#ef4444", badges: [], reason: "--", stocks: [] };
-  const rng = makeRng(code);
+
   const isPositive = displayStock.change_pct >= 0;
   const changeAmount = displayStock.close * (displayStock.change_pct / 100) / (1 + displayStock.change_pct / 100);
-  const marketType = rng() > 0.3 ? "上市" : "上櫃";
 
-  // Key metrics
-  const openPrice = displayStock.close * (0.9 + rng() * 0.05);
-  const highPrice = displayStock.close;
-  const lowPrice = openPrice * (0.93 + rng() * 0.04);
-  const pe = +(15 + rng() * 25).toFixed(1);
-  const marketCap = Math.round(displayStock.close * (800 + rng() * 5000));
+  // PE from real API
+  const stockPe = peData?.[code]?.pe ?? 0;
+  const stockPb = peData?.[code]?.pb ?? 0;
 
-  // Technical
-  const tech = mockTechnicalData(code, displayStock.close);
+  // Last candle for open/high/low
+  const lastCandle = realCandles?.[realCandles.length - 1] ?? null;
 
-  // Chips
-  const chip = mockChipData(code);
-
-  // History
-  const limitUpHistory = mockLimitUpHistory(code);
-
-  // Peers
-  const peers = mockPeerStocks(code, displayGroup.stocks);
+  // Peers from same group with real PE
+  const peers = useMemo(() => {
+    return displayGroup.stocks
+      .filter((s) => s.code !== code)
+      .slice(0, 4)
+      .map((s) => ({
+        code: s.code,
+        name: s.name,
+        price: s.close,
+        changePct: s.change_pct,
+        volume: s.volume,
+        pe: peData?.[s.code]?.pe ?? 0,
+      }));
+  }, [displayGroup.stocks, code, peData]);
 
   // Groups this stock appeared in
   const appearedGroups: { name: string; color: string }[] = [];
@@ -674,12 +213,6 @@ export default function StockDetailPage({ params }: PageProps) {
       appearedGroups.push({ name: g.name, color: g.color });
     }
   }
-  const mockHistGroups = [
-    { name: "AI 伺服器 / 散熱", color: "#ef4444" },
-    { name: "半導體設備", color: "#22c55e" },
-    { name: "光通訊", color: "#3b82f6" },
-  ].filter((g) => !appearedGroups.some((a) => a.name === g.name));
-  const allAppearedGroups = [...appearedGroups, ...mockHistGroups.slice(0, 3 - appearedGroups.length)].slice(0, 4);
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
@@ -712,15 +245,6 @@ export default function StockDetailPage({ params }: PageProps) {
                       <span className="text-xs font-mono font-semibold text-txt-3">{displayStock.code}</span>
                       <span className="text-[10px] px-2 py-0.5 bg-bg-3 border border-border rounded font-semibold text-txt-3">
                         {displayStock.industry}
-                      </span>
-                      <span
-                        className={`text-[10px] px-2 py-0.5 rounded font-semibold ${
-                          marketType === "上市"
-                            ? "bg-blue-bg text-blue border border-blue/20"
-                            : "bg-amber-bg text-amber border border-amber/20"
-                        }`}
-                      >
-                        {marketType}
                       </span>
                     </div>
                     <div className="flex items-center gap-2 mb-2">
@@ -783,22 +307,12 @@ export default function StockDetailPage({ params }: PageProps) {
               </div>
 
               {/* ============================================================
-                  SECTION 2: Price Chart
-                  ============================================================ */}
-              <PriceChart
-                code={code}
-                basePrice={displayStock.close}
-                baseVol={displayStock.volume}
-                color={displayGroup.color}
-              />
-
-              {/* ============================================================
                   SECTION 2.5: K-Line / Candlestick Technical Chart
                   ============================================================ */}
               <div className="mb-6">
                 <SectionLabel>技術分析圖表</SectionLabel>
                 <KLineChart
-                  data={(realCandles && realCandles.length > 5) ? realCandles : generateCandleData(code, displayStock.close, 60)}
+                  data={realCandles ?? []}
                   showMA={true}
                   showVolume={true}
                   showMACD={true}
@@ -811,14 +325,14 @@ export default function StockDetailPage({ params }: PageProps) {
                   ============================================================ */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
                 {[
-                  { label: "Open", sub: "開盤", value: formatPrice(openPrice), positive: openPrice >= displayStock.close * 0.95 },
-                  { label: "High", sub: "最高", value: formatPrice(highPrice), positive: true },
-                  { label: "Low", sub: "最低", value: formatPrice(lowPrice), positive: false },
+                  { label: "Open", sub: "開盤", value: lastCandle ? formatPrice(lastCandle.open) : "\u2014", positive: lastCandle ? lastCandle.open >= lastCandle.close * 0.95 : null },
+                  { label: "High", sub: "最高", value: lastCandle ? formatPrice(lastCandle.high) : "\u2014", positive: lastCandle ? true : null },
+                  { label: "Low", sub: "最低", value: lastCandle ? formatPrice(lastCandle.low) : "\u2014", positive: lastCandle ? false : null },
                   { label: "Volume", sub: "成交量", value: formatNumber(displayStock.volume) + " lots", positive: null },
                   { label: "Major Net", sub: "主力買超", value: formatNet(displayStock.major_net) + " lots", positive: displayStock.major_net > 0 },
                   { label: "Streak", sub: "連板天數", value: displayStock.streak > 0 ? `${displayStock.streak} days` : "--", positive: displayStock.streak > 0 ? true : null },
-                  { label: "P/E", sub: "本益比", value: pe.toFixed(1), positive: null },
-                  { label: "Mkt Cap", sub: "市值", value: marketCap.toLocaleString() + " B", positive: null },
+                  { label: "P/E", sub: "本益比", value: stockPe ? stockPe.toFixed(1) : "\u2014", positive: null },
+                  { label: "P/B", sub: "股價淨值比", value: stockPb ? stockPb.toFixed(2) : "\u2014", positive: null },
                 ].map(({ label, sub, value, positive }) => (
                   <div
                     key={label}
@@ -852,8 +366,7 @@ export default function StockDetailPage({ params }: PageProps) {
                   <SectionLabel>Technical Analysis / 技術面分析</SectionLabel>
 
                   {/* 快樂小馬 EMA11/24 */}
-                  {(() => {
-                    const emaResult = analyzeEma(code, displayStock.close);
+                  {emaResult && (() => {
                     const sc = getSignalColor(emaResult.signal);
                     return (
                       <div className="mb-5">
@@ -916,17 +429,17 @@ export default function StockDetailPage({ params }: PageProps) {
                     <div className="text-[10px] font-semibold text-txt-4 uppercase tracking-wider mb-2">Moving Averages</div>
                     <div className="grid grid-cols-2 gap-2">
                       {[
-                        { label: "MA5 (5日)", value: tech.ma5 },
-                        { label: "MA10 (10日)", value: tech.ma10 },
-                        { label: "MA20 (20日)", value: tech.ma20 },
-                        { label: "MA60 (60日)", value: tech.ma60 },
+                        { label: "MA5 (5日)", value: techData?.ma5 },
+                        { label: "MA10 (10日)", value: techData?.ma10 },
+                        { label: "MA20 (20日)", value: techData?.ma20 },
+                        { label: "MA60 (60日)", value: techData?.ma60 },
                       ].map(({ label, value }) => {
-                        const aboveMA = displayStock.close > value;
+                        const aboveMA = value != null && displayStock.close > value;
                         return (
                           <div key={label} className="flex items-center justify-between px-2.5 py-1.5 rounded bg-bg-2">
                             <span className="text-[10px] text-txt-3">{label}</span>
-                            <span className={`text-xs font-bold tabular-nums ${aboveMA ? "text-red" : "text-green"}`}>
-                              {formatPrice(value)}
+                            <span className={`text-xs font-bold tabular-nums ${value == null ? "text-txt-3" : aboveMA ? "text-red" : "text-green"}`}>
+                              {value != null ? formatPrice(value) : "\u2014"}
                             </span>
                           </div>
                         );
@@ -939,10 +452,12 @@ export default function StockDetailPage({ params }: PageProps) {
                     <div className="flex items-center justify-between mb-1.5">
                       <span className="text-[10px] font-semibold text-txt-4 uppercase tracking-wider">RSI (14)</span>
                       <span className="text-[9px] text-txt-4">
-                        {tech.rsi > 70 ? "Overbought" : tech.rsi < 30 ? "Oversold" : "Neutral"}
+                        {techData?.rsi != null
+                          ? techData.rsi > 70 ? "Overbought" : techData.rsi < 30 ? "Oversold" : "Neutral"
+                          : "\u2014"}
                       </span>
                     </div>
-                    <RsiGauge value={tech.rsi} />
+                    {techData?.rsi != null ? <RsiGauge value={techData.rsi} /> : <span className="text-xs text-txt-3">{"\u2014"}</span>}
                   </div>
 
                   {/* MACD */}
@@ -951,14 +466,14 @@ export default function StockDetailPage({ params }: PageProps) {
                       <span className="text-[10px] font-semibold text-txt-4 uppercase tracking-wider">MACD Signal</span>
                       <span
                         className={`text-[10px] font-bold px-2 py-0.5 rounded ${
-                          tech.macdSignal === "golden_cross"
+                          techData?.macdSignal === "golden_cross"
                             ? "bg-red-bg text-red"
-                            : tech.macdSignal === "death_cross"
+                            : techData?.macdSignal === "death_cross"
                             ? "bg-green-bg text-green"
                             : "bg-bg-3 text-txt-3"
                         }`}
                       >
-                        {tech.macdSignal === "golden_cross" ? "Golden Cross / 金叉" : tech.macdSignal === "death_cross" ? "Death Cross / 死叉" : "Neutral / 中性"}
+                        {techData?.macdSignal === "golden_cross" ? "Golden Cross / 金叉" : techData?.macdSignal === "death_cross" ? "Death Cross / 死叉" : techData?.macdSignal ? "Neutral / 中性" : "\u2014"}
                       </span>
                     </div>
                   </div>
@@ -969,16 +484,18 @@ export default function StockDetailPage({ params }: PageProps) {
                     <div className="flex gap-4">
                       <div className="flex items-center gap-1.5">
                         <span className="text-[10px] text-txt-4">K:</span>
-                        <span className="text-xs font-bold tabular-nums text-txt-1">{tech.kd_k.toFixed(1)}</span>
+                        <span className="text-xs font-bold tabular-nums text-txt-1">{techData?.kd_k != null ? techData.kd_k.toFixed(1) : "\u2014"}</span>
                       </div>
                       <div className="flex items-center gap-1.5">
                         <span className="text-[10px] text-txt-4">D:</span>
-                        <span className="text-xs font-bold tabular-nums text-txt-1">{tech.kd_d.toFixed(1)}</span>
+                        <span className="text-xs font-bold tabular-nums text-txt-1">{techData?.kd_d != null ? techData.kd_d.toFixed(1) : "\u2014"}</span>
                       </div>
                       <div className="flex items-center gap-1.5">
                         <span className="text-[10px] text-txt-4">K-D:</span>
-                        <span className={`text-xs font-bold tabular-nums ${tech.kd_k > tech.kd_d ? "text-red" : "text-green"}`}>
-                          {(tech.kd_k - tech.kd_d) > 0 ? "+" : ""}{(tech.kd_k - tech.kd_d).toFixed(1)}
+                        <span className={`text-xs font-bold tabular-nums ${techData?.kd_k != null && techData?.kd_d != null ? (techData.kd_k > techData.kd_d ? "text-red" : "text-green") : "text-txt-3"}`}>
+                          {techData?.kd_k != null && techData?.kd_d != null
+                            ? `${(techData.kd_k - techData.kd_d) > 0 ? "+" : ""}${(techData.kd_k - techData.kd_d).toFixed(1)}`
+                            : "\u2014"}
                         </span>
                       </div>
                     </div>
@@ -990,14 +507,14 @@ export default function StockDetailPage({ params }: PageProps) {
                       <span className="text-[10px] font-semibold text-txt-4 uppercase tracking-wider">Overall Signal</span>
                       <span
                         className={`text-xs font-bold px-3 py-1 rounded ${
-                          tech.overall === "bullish"
+                          techData?.overall === "bullish"
                             ? "bg-red-bg text-red"
-                            : tech.overall === "bearish"
+                            : techData?.overall === "bearish"
                             ? "bg-green-bg text-green"
                             : "bg-amber-bg text-amber"
                         }`}
                       >
-                        {tech.overall === "bullish" ? "Bullish / 偏多" : tech.overall === "bearish" ? "Bearish / 偏空" : "Neutral / 中性"}
+                        {techData?.overall === "bullish" ? "Bullish / 偏多" : techData?.overall === "bearish" ? "Bearish / 偏空" : techData?.overall ? "Neutral / 中性" : "\u2014"}
                       </span>
                     </div>
                   </div>
@@ -1012,9 +529,9 @@ export default function StockDetailPage({ params }: PageProps) {
                   {/* 3-day institutional */}
                   <div className="mb-5">
                     <div className="text-[10px] font-semibold text-txt-4 uppercase tracking-wider mb-2">3-Day Institutional Net (lots)</div>
-                    <ChipBar values={chip.foreign3d} label="Foreign / 外資" />
-                    <ChipBar values={chip.trust3d} label="Trust / 投信" />
-                    <ChipBar values={chip.dealer3d} label="Dealer / 自營" />
+                    <ChipBar values={chipData?.foreign3d ?? [0, 0, 0]} label="Foreign / 外資" />
+                    <ChipBar values={chipData?.trust3d ?? [0, 0, 0]} label="Trust / 投信" />
+                    <ChipBar values={chipData?.dealer3d ?? [0, 0, 0]} label="Dealer / 自營" />
                   </div>
 
                   {/* Top brokers */}
@@ -1023,21 +540,11 @@ export default function StockDetailPage({ params }: PageProps) {
                     <div className="grid grid-cols-2 gap-3">
                       <div>
                         <div className="text-[9px] text-red mb-1 font-semibold">BUY SIDE</div>
-                        {chip.topBuyers.map((b, i) => (
-                          <div key={i} className="flex items-center justify-between py-1 border-b border-white/[0.03] last:border-b-0">
-                            <span className="text-[10px] text-txt-2">{b.name}</span>
-                            <span className="text-[10px] font-bold tabular-nums text-red">+{formatNumber(b.net)}</span>
-                          </div>
-                        ))}
+                        <span className="text-[10px] text-txt-3">{"\u2014"}</span>
                       </div>
                       <div>
                         <div className="text-[9px] text-green mb-1 font-semibold">SELL SIDE</div>
-                        {chip.topSellers.map((s, i) => (
-                          <div key={i} className="flex items-center justify-between py-1 border-b border-white/[0.03] last:border-b-0">
-                            <span className="text-[10px] text-txt-2">{s.name}</span>
-                            <span className="text-[10px] font-bold tabular-nums text-green">-{formatNumber(s.net)}</span>
-                          </div>
-                        ))}
+                        <span className="text-[10px] text-txt-3">{"\u2014"}</span>
                       </div>
                     </div>
                   </div>
@@ -1048,19 +555,19 @@ export default function StockDetailPage({ params }: PageProps) {
                     <div className="grid grid-cols-2 gap-3">
                       <div className="bg-bg-2 rounded-lg px-3 py-2">
                         <div className="text-[9px] text-txt-4 mb-0.5">Margin Buy / 融資買進</div>
-                        <div className="text-xs font-bold tabular-nums text-txt-1">{formatNumber(chip.marginBuy)}</div>
+                        <div className="text-xs font-bold tabular-nums text-txt-1">{"\u2014"}</div>
                       </div>
                       <div className="bg-bg-2 rounded-lg px-3 py-2">
                         <div className="text-[9px] text-txt-4 mb-0.5">Margin Sell / 融資賣出</div>
-                        <div className="text-xs font-bold tabular-nums text-txt-1">{formatNumber(chip.marginSell)}</div>
+                        <div className="text-xs font-bold tabular-nums text-txt-1">{"\u2014"}</div>
                       </div>
                       <div className="bg-bg-2 rounded-lg px-3 py-2">
                         <div className="text-[9px] text-txt-4 mb-0.5">Short Sell / 融券賣出</div>
-                        <div className="text-xs font-bold tabular-nums text-txt-1">{formatNumber(chip.shortSell)}</div>
+                        <div className="text-xs font-bold tabular-nums text-txt-1">{"\u2014"}</div>
                       </div>
                       <div className="bg-bg-2 rounded-lg px-3 py-2">
                         <div className="text-[9px] text-txt-4 mb-0.5">Short Cover / 融券回補</div>
-                        <div className="text-xs font-bold tabular-nums text-txt-1">{formatNumber(chip.shortCover)}</div>
+                        <div className="text-xs font-bold tabular-nums text-txt-1">{"\u2014"}</div>
                       </div>
                     </div>
                   </div>
@@ -1074,35 +581,45 @@ export default function StockDetailPage({ params }: PageProps) {
                 <SectionLabel>Limit-Up History / 歷史漲停紀錄</SectionLabel>
                 <div className="overflow-x-auto">
                 <div className="border border-border rounded-xl overflow-hidden min-w-[500px]">
-                  <div className="grid grid-cols-[1fr_1.2fr_0.8fr_0.8fr_0.8fr] gap-0 px-4 py-2.5 bg-bg-2 border-b border-border">
-                    {["Date / 日期", "Group / 族群", "Next Open%", "Next Close%", "Volume"].map((h) => (
+                  <div className="grid grid-cols-[1fr_1.2fr_0.8fr_0.8fr] gap-0 px-4 py-2.5 bg-bg-2 border-b border-border">
+                    {["Date / 日期", "Group / 族群", "Next Open%", "Next Close%"].map((h) => (
                       <div key={h} className="text-[9px] font-semibold text-txt-4 uppercase tracking-wider">{h}</div>
                     ))}
                   </div>
-                  {limitUpHistory.map((entry, i) => (
+                  {(limitUpHistory ?? []).map((entry: { date: string; group: string; nextDayOpenPct: number | null; nextDayClosePct: number | null }, i: number) => (
                     <div
                       key={i}
-                      className="grid grid-cols-[1fr_1.2fr_0.8fr_0.8fr_0.8fr] gap-0 px-4 py-2.5 items-center border-b border-white/[0.03] last:border-b-0 hover:bg-white/[0.02] transition-colors"
+                      className="grid grid-cols-[1fr_1.2fr_0.8fr_0.8fr] gap-0 px-4 py-2.5 items-center border-b border-white/[0.03] last:border-b-0 hover:bg-white/[0.02] transition-colors"
                     >
                       <div className="text-xs tabular-nums text-txt-2">{entry.date}</div>
                       <div className="text-xs text-txt-2 truncate pr-2">{entry.group}</div>
                       <div
                         className={`text-xs font-semibold tabular-nums ${
-                          entry.nextDayOpenPct > 0 ? "text-red" : entry.nextDayOpenPct < 0 ? "text-green" : "text-txt-3"
+                          entry.nextDayOpenPct != null
+                            ? entry.nextDayOpenPct > 0 ? "text-red" : entry.nextDayOpenPct < 0 ? "text-green" : "text-txt-3"
+                            : "text-txt-3"
                         }`}
                       >
-                        {entry.nextDayOpenPct > 0 ? "+" : ""}{entry.nextDayOpenPct.toFixed(2)}%
+                        {entry.nextDayOpenPct != null
+                          ? `${entry.nextDayOpenPct > 0 ? "+" : ""}${entry.nextDayOpenPct.toFixed(2)}%`
+                          : "\u2014"}
                       </div>
                       <div
                         className={`text-xs font-semibold tabular-nums ${
-                          entry.nextDayClosePct > 0 ? "text-red" : entry.nextDayClosePct < 0 ? "text-green" : "text-txt-3"
+                          entry.nextDayClosePct != null
+                            ? entry.nextDayClosePct > 0 ? "text-red" : entry.nextDayClosePct < 0 ? "text-green" : "text-txt-3"
+                            : "text-txt-3"
                         }`}
                       >
-                        {entry.nextDayClosePct > 0 ? "+" : ""}{entry.nextDayClosePct.toFixed(2)}%
+                        {entry.nextDayClosePct != null
+                          ? `${entry.nextDayClosePct > 0 ? "+" : ""}${entry.nextDayClosePct.toFixed(2)}%`
+                          : "\u2014"}
                       </div>
-                      <div className="text-xs tabular-nums text-txt-2">{formatNumber(entry.nextDayVol)}</div>
                     </div>
                   ))}
+                  {(limitUpHistory ?? []).length === 0 && (
+                    <div className="px-4 py-4 text-xs text-txt-4 text-center">No limit-up history available</div>
+                  )}
                 </div>
                 </div>
               </div>
@@ -1136,9 +653,12 @@ export default function StockDetailPage({ params }: PageProps) {
                         {p.changePct > 0 ? "+" : ""}{p.changePct.toFixed(2)}%
                       </div>
                       <div className="text-xs tabular-nums text-txt-2">{formatNumber(p.volume)}</div>
-                      <div className="text-xs tabular-nums text-txt-2">{p.pe}</div>
+                      <div className="text-xs tabular-nums text-txt-2">{p.pe ? p.pe.toFixed(1) : "\u2014"}</div>
                     </Link>
                   ))}
+                  {peers.length === 0 && (
+                    <div className="px-4 py-4 text-xs text-txt-4 text-center">No peer data available</div>
+                  )}
                 </div>
                 </div>
               </div>
@@ -1149,7 +669,7 @@ export default function StockDetailPage({ params }: PageProps) {
               <div className="mb-10">
                 <SectionLabel>Groups / 所屬族群</SectionLabel>
                 <div className="flex flex-wrap gap-2">
-                  {allAppearedGroups.map(({ name, color }) => (
+                  {appearedGroups.map(({ name, color }) => (
                     <span
                       key={name}
                       className="px-3.5 py-1.5 rounded-full text-xs font-semibold border"
@@ -1162,7 +682,7 @@ export default function StockDetailPage({ params }: PageProps) {
                       {name}
                     </span>
                   ))}
-                  {allAppearedGroups.length === 0 && (
+                  {appearedGroups.length === 0 && (
                     <span className="text-xs text-txt-4">No group data available</span>
                   )}
                 </div>

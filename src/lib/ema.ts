@@ -48,6 +48,7 @@ export interface EmaResult {
   ema24Series: number[];
   prices: number[];
   crossoverDay: number; // days since last crossover (0 = today)
+  isReal: boolean;
 }
 
 export function detectSignal(ema11Series: number[], ema24Series: number[]): { signal: EmaSignal; crossoverDay: number } {
@@ -163,6 +164,7 @@ export function analyzeEma(code: string, basePrice: number): EmaResult {
     ema24Series,
     prices,
     crossoverDay,
+    isReal: false,
   };
 }
 

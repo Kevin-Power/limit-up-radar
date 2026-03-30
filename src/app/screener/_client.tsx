@@ -6,12 +6,11 @@ import Link from "next/link";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import { formatPct, formatPrice, getTodayString } from "@/lib/utils";
+import { DailyData, StockGroup } from "@/lib/types";
 
 /* ================================================================
    TYPES
    ================================================================ */
-
-type FilterMode = "value" | "growth" | "technical" | "momentum";
 
 interface Stock {
   code: string;
@@ -20,60 +19,15 @@ interface Stock {
   change: number;
   volume: number;
   pe: number;
-  roe: number;
-  revenueYoY: number;
+  pb: number;
   foreignNet: number;
-  score: number;
+  streak: number;
+  group: string;
 }
-
-/* ================================================================
-   MOCK DATA
-   ================================================================ */
-
-const MODE_LABELS: Record<FilterMode, string> = {
-  value: "價值型",
-  growth: "成長型",
-  technical: "技術面",
-  momentum: "動能型",
-};
-
-const PRESETS = [
-  "外資連買強勢股",
-  "營收高成長",
-  "技術面突破",
-  "低估值好股",
-];
-
-const MOCK_STOCKS: Stock[] = [
-  { code: "2330", name: "台積電",   close: 1810, change: -1.63, volume: 32500, pe: 22.5, roe: 28.6, revenueYoY: 38.5, foreignNet: 15200, score: 94 },
-  { code: "2454", name: "聯發科",   close: 1620, change: -0.31, volume: 7800,  pe: 18.2, roe: 24.1, revenueYoY: 32.4, foreignNet: 5100,  score: 90 },
-  { code: "2317", name: "鴻海",     close: 195,  change: -0.51, volume: 48200, pe: 11.8, roe: 13.9, revenueYoY: 15.6, foreignNet: 7500,  score: 83 },
-  { code: "6669", name: "緯穎",     close: 3725, change: 2.19,  volume: 1850,  pe: 24.3, roe: 27.5, revenueYoY: 45.2, foreignNet: 1200,  score: 93 },
-  { code: "3017", name: "奇鋐",     close: 1945, change: -2.51, volume: 18300, pe: 16.2, roe: 19.5, revenueYoY: 28.9, foreignNet: 3800,  score: 86 },
-  { code: "3324", name: "雙鴻",     close: 1065, change: 2.40,  volume: 6200,  pe: 21.5, roe: 25.8, revenueYoY: 35.7, foreignNet: 1650,  score: 89 },
-  { code: "6515", name: "穎崴",     close: 8190, change: 3.87,  volume: 1480,  pe: 28.6, roe: 22.1, revenueYoY: 42.3, foreignNet: 420,   score: 88 },
-  { code: "6223", name: "旺矽",     close: 3860, change: 4.89,  volume: 2350,  pe: 23.4, roe: 20.8, revenueYoY: 22.8, foreignNet: -380,  score: 82 },
-  { code: "5274", name: "信驊",     close: 11750,change: 3.52,  volume: 1100,  pe: 29.8, roe: 26.3, revenueYoY: 18.5, foreignNet: 650,   score: 80 },
-  { code: "4743", name: "合一",     close: 52,   change: -2.44, volume: 15800, pe: 52.3, roe: 8.5,  revenueYoY: 72.6, foreignNet: -1200, score: 72 },
-  { code: "6446", name: "藥華藥",   close: 620,  change: 0.98,  volume: 9500,  pe: 48.8, roe: 9.8,  revenueYoY: 68.4, foreignNet: -950,  score: 58 },
-  { code: "1301", name: "台塑",     close: 45.05,change: 0.67,  volume: 22100, pe: 12.5, roe: 6.8,  revenueYoY: -8.5, foreignNet: -4200, score: 45 },
-  { code: "1303", name: "南亞",     close: 72.3, change: -2.03, volume: 18600, pe: 14.2, roe: 5.2,  revenueYoY: -12.3,foreignNet: -3500, score: 42 },
-  { code: "6274", name: "台燿",     close: 554,  change: 4.33,  volume: 8200,  pe: 12.8, roe: 17.5, revenueYoY: 22.1, foreignNet: 1100,  score: 79 },
-  { code: "2376", name: "技嘉",     close: 235,  change: 1.08,  volume: 9800,  pe: 14.5, roe: 20.3, revenueYoY: 25.8, foreignNet: 2800,  score: 84 },
-];
 
 /* ================================================================
    SUB-COMPONENTS
    ================================================================ */
-
-function SectionTitle({ children }: { children: React.ReactNode }) {
-  return (
-    <h2 className="text-sm font-bold text-txt-0 tracking-tight mb-4 flex items-center gap-2">
-      <span className="w-1 h-4 bg-red rounded-full inline-block" />
-      {children}
-    </h2>
-  );
-}
 
 function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
@@ -83,84 +37,64 @@ function Card({ children, className = "" }: { children: React.ReactNode; classNa
   );
 }
 
-function ScoreBar({ score }: { score: number }) {
-  const color = score >= 80 ? "bg-red" : score >= 60 ? "bg-amber" : "bg-blue";
-  return (
-    <div className="flex items-center gap-2">
-      <div className="w-16 h-2 bg-bg-3 rounded-full overflow-hidden">
-        <div className={`h-full rounded-full ${color}`} style={{ width: `${score}%` }} />
-      </div>
-      <span className="text-[10px] text-txt-2 w-6 text-right">{score}</span>
-    </div>
-  );
-}
-
 /* ================================================================
    MAIN PAGE
    ================================================================ */
 
-interface DailyApiData {
-  groups: { name: string; stocks: { code: string; name: string; close: number; change_pct: number; volume: number; major_net: number }[] }[];
-}
+const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 export default function ScreenerPage() {
-  const { data: dailyData } = useSWR<DailyApiData>(
-    "/api/daily/latest",
-    (url: string) => fetch(url).then((r) => r.json()),
-    { revalidateOnFocus: false }
-  );
+  const { data: dailyData } = useSWR<DailyData>("/api/daily/latest", fetcher);
+  const { data: peData } = useSWR<Record<string, { pe: number; pb: number }>>("/api/pe", fetcher);
 
-  // Build real stock list from today's limit-up stocks
   const ACTIVE_STOCKS: Stock[] = useMemo(() => {
-    if (!dailyData?.groups?.length) return MOCK_STOCKS;
-    return dailyData.groups.flatMap((g) =>
-      g.stocks.map((s, i) => ({
+    if (!dailyData?.groups) return [];
+    return dailyData.groups.flatMap((g: StockGroup) =>
+      g.stocks.map((s) => ({
         code: s.code,
         name: s.name,
         close: s.close,
         change: s.change_pct,
-        volume: Math.round(s.volume / 1000),
-        pe: +(15 + (s.code.charCodeAt(0) % 20)).toFixed(1),
-        roe: +(12 + (s.code.charCodeAt(1) % 18)).toFixed(1),
-        revenueYoY: +(s.change_pct * 3 + 10).toFixed(1),
-        foreignNet: s.major_net || 0,
-        score: Math.min(99, Math.max(50, Math.round(70 + s.change_pct * 1.5 + (s.major_net > 0 ? 5 : 0)))),
+        volume: s.volume,
+        pe: peData?.[s.code]?.pe ?? 0,
+        pb: peData?.[s.code]?.pb ?? 0,
+        foreignNet: s.major_net,
+        streak: s.streak,
+        group: g.name,
       }))
     );
-  }, [dailyData]);
+  }, [dailyData, peData]);
 
-  const [mode, setMode] = useState<FilterMode>("technical");
   const [filtersOpen, setFiltersOpen] = useState(true);
-  const [sortCol, setSortCol] = useState<keyof Stock>("score");
+  const [sortCol, setSortCol] = useState<keyof Stock>("change");
   const [sortAsc, setSortAsc] = useState(false);
 
-  // Technical filters
-  const [kMin, setKMin] = useState(0);
-  const [kMax, setKMax] = useState(100);
-  const [rsiMin, setRsiMin] = useState(0);
-  const [rsiMax, setRsiMax] = useState(100);
-  const [maBiasMin, setMaBiasMin] = useState("");
-  const [maBiasMax, setMaBiasMax] = useState("");
-  const [institution, setInstitution] = useState("all");
-  const [revenueMin, setRevenueMin] = useState("");
-  const [daytradingMax, setDaytradingMax] = useState("");
+  // Filters
+  const [groupFilter, setGroupFilter] = useState("");
+  const [streakMinFilter, setStreakMinFilter] = useState("");
+  const [volumeMinFilter, setVolumeMinFilter] = useState("");
 
-  // Value filters
-  const [roeMin, setRoeMin] = useState("14.5");
-  const [profitMin, setProfitMin] = useState("5");
-  const [peMax, setPeMax] = useState("");
+  const groups = useMemo(() => {
+    const set = new Set(ACTIVE_STOCKS.map((s) => s.group));
+    return Array.from(set).sort();
+  }, [ACTIVE_STOCKS]);
 
-  // Growth filters
-  const [growthYears, setGrowthYears] = useState("2");
-  const [roeTrend, setRoeTrend] = useState("up");
-
-  // Momentum filters
-  const [gainMin, setGainMin] = useState("");
-  const [volumeRatioMin, setVolumeRatioMin] = useState("");
-  const [streakMin, setStreakMin] = useState("");
+  const filtered = useMemo(() => {
+    let list = ACTIVE_STOCKS;
+    if (groupFilter) list = list.filter((s) => s.group === groupFilter);
+    if (streakMinFilter) {
+      const min = parseInt(streakMinFilter);
+      if (!isNaN(min)) list = list.filter((s) => s.streak >= min);
+    }
+    if (volumeMinFilter) {
+      const min = parseInt(volumeMinFilter) * 10000; // 萬張 → 張
+      if (!isNaN(min)) list = list.filter((s) => s.volume >= min);
+    }
+    return list;
+  }, [ACTIVE_STOCKS, groupFilter, streakMinFilter, volumeMinFilter]);
 
   const sorted = useMemo(() => {
-    const arr = [...ACTIVE_STOCKS];
+    const arr = [...filtered];
     arr.sort((a, b) => {
       const va = a[sortCol];
       const vb = b[sortCol];
@@ -172,7 +106,7 @@ export default function ScreenerPage() {
         : String(vb).localeCompare(String(va));
     });
     return arr;
-  }, [sortCol, sortAsc]);
+  }, [filtered, sortCol, sortAsc]);
 
   function handleSort(col: keyof Stock) {
     if (sortCol === col) {
@@ -183,20 +117,9 @@ export default function ScreenerPage() {
     }
   }
 
-  function resetFilters() {
-    setKMin(0); setKMax(100);
-    setRsiMin(0); setRsiMax(100);
-    setMaBiasMin(""); setMaBiasMax("");
-    setInstitution("all");
-    setRevenueMin(""); setDaytradingMax("");
-    setRoeMin("14.5"); setProfitMin("5"); setPeMax("");
-    setGrowthYears("2"); setRoeTrend("up");
-    setGainMin(""); setVolumeRatioMin(""); setStreakMin("");
-  }
-
   const SortIcon = ({ col }: { col: keyof Stock }) => (
     <span className="text-[8px] text-txt-4 ml-0.5">
-      {sortCol === col ? (sortAsc ? "▲" : "▼") : "▽"}
+      {sortCol === col ? (sortAsc ? "\u25B2" : "\u25BC") : "\u25BD"}
     </span>
   );
 
@@ -207,10 +130,10 @@ export default function ScreenerPage() {
     { key: "change",     label: "漲跌幅",        align: "right" },
     { key: "volume",     label: "成交量(張)",     align: "right" },
     { key: "pe",         label: "本益比",        align: "right" },
-    { key: "roe",        label: "ROE%",          align: "right" },
-    { key: "revenueYoY", label: "月營收YoY%",    align: "right" },
+    { key: "pb",         label: "股價淨值比",     align: "right" },
     { key: "foreignNet", label: "外資淨買(張)",   align: "right" },
-    { key: "score",      label: "評分" },
+    { key: "streak",     label: "連板",          align: "right" },
+    { key: "group",      label: "族群" },
   ];
 
   return (
@@ -232,170 +155,55 @@ export default function ScreenerPage() {
             className="w-full flex items-center justify-between text-sm font-semibold text-txt-0 mb-3"
           >
             <span>篩選條件</span>
-            <span className="text-txt-4 text-xs">{filtersOpen ? "收起 ▲" : "展開 ▼"}</span>
+            <span className="text-txt-4 text-xs">{filtersOpen ? "收起 \u25B2" : "展開 \u25BC"}</span>
           </button>
 
           {filtersOpen && (
             <div className="space-y-4">
-              {/* Mode Tabs */}
-              <div className="flex gap-1 bg-bg-2 rounded-lg p-1">
-                {(Object.keys(MODE_LABELS) as FilterMode[]).map((m) => (
-                  <button
-                    key={m}
-                    onClick={() => setMode(m)}
-                    className={`flex-1 text-xs py-1.5 rounded-md font-medium transition-colors ${
-                      mode === m
-                        ? "bg-red text-white"
-                        : "text-txt-3 hover:text-txt-1"
-                    }`}
-                  >
-                    {MODE_LABELS[m]}
-                  </button>
-                ))}
-              </div>
-
-              {/* Technical Filters */}
-              {mode === "technical" && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
-                  <div>
-                    <label className="text-txt-3 block mb-1">KD 範圍 (K值)</label>
-                    <div className="flex items-center gap-2">
-                      <input type="number" value={kMin} onChange={(e) => setKMin(Number(e.target.value))}
-                        className="w-20 bg-bg-2 border border-border rounded px-2 py-1 text-txt-1" placeholder="0" />
-                      <span className="text-txt-4">-</span>
-                      <input type="number" value={kMax} onChange={(e) => setKMax(Number(e.target.value))}
-                        className="w-20 bg-bg-2 border border-border rounded px-2 py-1 text-txt-1" placeholder="100" />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="text-txt-3 block mb-1">RSI 範圍</label>
-                    <div className="flex items-center gap-2">
-                      <input type="number" value={rsiMin} onChange={(e) => setRsiMin(Number(e.target.value))}
-                        className="w-20 bg-bg-2 border border-border rounded px-2 py-1 text-txt-1" placeholder="0" />
-                      <span className="text-txt-4">-</span>
-                      <input type="number" value={rsiMax} onChange={(e) => setRsiMax(Number(e.target.value))}
-                        className="w-20 bg-bg-2 border border-border rounded px-2 py-1 text-txt-1" placeholder="100" />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="text-txt-3 block mb-1">均線偏離 (MA20 %)</label>
-                    <div className="flex items-center gap-2">
-                      <input type="number" value={maBiasMin} onChange={(e) => setMaBiasMin(e.target.value)}
-                        className="w-20 bg-bg-2 border border-border rounded px-2 py-1 text-txt-1" placeholder="min" />
-                      <span className="text-txt-4">-</span>
-                      <input type="number" value={maBiasMax} onChange={(e) => setMaBiasMax(e.target.value)}
-                        className="w-20 bg-bg-2 border border-border rounded px-2 py-1 text-txt-1" placeholder="max" />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="text-txt-3 block mb-1">法人動向</label>
-                    <select value={institution} onChange={(e) => setInstitution(e.target.value)}
-                      className="w-full bg-bg-2 border border-border rounded px-2 py-1 text-txt-1">
-                      <option value="all">全部</option>
-                      <option value="foreign_buy">外資買超</option>
-                      <option value="trust_buy">投信買超</option>
-                      <option value="foreign_sell">外資賣超</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="text-txt-3 block mb-1">月營收年增率 (min %)</label>
-                    <input type="number" value={revenueMin} onChange={(e) => setRevenueMin(e.target.value)}
-                      className="w-full bg-bg-2 border border-border rounded px-2 py-1 text-txt-1" placeholder="e.g. 20" />
-                  </div>
-                  <div>
-                    <label className="text-txt-3 block mb-1">當沖比 (max %)</label>
-                    <input type="number" value={daytradingMax} onChange={(e) => setDaytradingMax(e.target.value)}
-                      className="w-full bg-bg-2 border border-border rounded px-2 py-1 text-txt-1" placeholder="e.g. 50" />
-                  </div>
-                </div>
-              )}
-
-              {/* Value Filters */}
-              {mode === "value" && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
-                  <div>
-                    <label className="text-txt-3 block mb-1">ROE min (%)</label>
-                    <input type="number" value={roeMin} onChange={(e) => setRoeMin(e.target.value)}
-                      className="w-full bg-bg-2 border border-border rounded px-2 py-1 text-txt-1" placeholder="14.5" />
-                  </div>
-                  <div>
-                    <label className="text-txt-3 block mb-1">淨利 min (億)</label>
-                    <input type="number" value={profitMin} onChange={(e) => setProfitMin(e.target.value)}
-                      className="w-full bg-bg-2 border border-border rounded px-2 py-1 text-txt-1" placeholder="5" />
-                  </div>
-                  <div>
-                    <label className="text-txt-3 block mb-1">本益比 max</label>
-                    <input type="number" value={peMax} onChange={(e) => setPeMax(e.target.value)}
-                      className="w-full bg-bg-2 border border-border rounded px-2 py-1 text-txt-1" placeholder="e.g. 20" />
-                  </div>
-                </div>
-              )}
-
-              {/* Growth Filters */}
-              {mode === "growth" && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                  <div>
-                    <label className="text-txt-3 block mb-1">營收連續成長</label>
-                    <select value={growthYears} onChange={(e) => setGrowthYears(e.target.value)}
-                      className="w-full bg-bg-2 border border-border rounded px-2 py-1 text-txt-1">
-                      <option value="2">2 年</option>
-                      <option value="3">3 年</option>
-                      <option value="5">5 年</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="text-txt-3 block mb-1">ROE 趨勢</label>
-                    <select value={roeTrend} onChange={(e) => setRoeTrend(e.target.value)}
-                      className="w-full bg-bg-2 border border-border rounded px-2 py-1 text-txt-1">
-                      <option value="up">向上</option>
-                      <option value="flat">持平</option>
-                      <option value="any">不限</option>
-                    </select>
-                  </div>
-                </div>
-              )}
-
-              {/* Momentum Filters */}
-              {mode === "momentum" && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
-                  <div>
-                    <label className="text-txt-3 block mb-1">漲幅 min (%)</label>
-                    <input type="number" value={gainMin} onChange={(e) => setGainMin(e.target.value)}
-                      className="w-full bg-bg-2 border border-border rounded px-2 py-1 text-txt-1" placeholder="e.g. 5" />
-                  </div>
-                  <div>
-                    <label className="text-txt-3 block mb-1">量比 min</label>
-                    <input type="number" value={volumeRatioMin} onChange={(e) => setVolumeRatioMin(e.target.value)}
-                      className="w-full bg-bg-2 border border-border rounded px-2 py-1 text-txt-1" placeholder="e.g. 2" />
-                  </div>
-                  <div>
-                    <label className="text-txt-3 block mb-1">連板天數 min</label>
-                    <input type="number" value={streakMin} onChange={(e) => setStreakMin(e.target.value)}
-                      className="w-full bg-bg-2 border border-border rounded px-2 py-1 text-txt-1" placeholder="e.g. 2" />
-                  </div>
-                </div>
-              )}
-
-              {/* Action Buttons */}
-              <div className="flex flex-wrap items-center gap-3 pt-2 border-t border-border">
-                <button className="px-4 py-1.5 bg-red text-white text-xs font-medium rounded-md hover:bg-red/90 transition-colors">
-                  篩選
-                </button>
-                <button onClick={resetFilters}
-                  className="px-4 py-1.5 bg-bg-2 text-txt-2 text-xs font-medium rounded-md hover:bg-bg-3 transition-colors">
+              <div className="flex items-center gap-3 flex-wrap">
+                <select
+                  value={groupFilter}
+                  onChange={(e) => setGroupFilter(e.target.value)}
+                  className="bg-bg-2 border border-border rounded px-2 py-1.5 text-xs text-txt-1"
+                >
+                  <option value="">所有族群</option>
+                  {groups.map((g) => (
+                    <option key={g} value={g}>{g}</option>
+                  ))}
+                </select>
+                <input
+                  type="number"
+                  placeholder="連板 \u2265"
+                  value={streakMinFilter}
+                  onChange={(e) => setStreakMinFilter(e.target.value)}
+                  className="w-24 bg-bg-2 border border-border rounded px-2 py-1.5 text-xs text-txt-1"
+                />
+                <input
+                  type="number"
+                  placeholder="成交量(萬張) \u2265"
+                  value={volumeMinFilter}
+                  onChange={(e) => setVolumeMinFilter(e.target.value)}
+                  className="w-32 bg-bg-2 border border-border rounded px-2 py-1.5 text-xs text-txt-1"
+                />
+                <button
+                  onClick={() => { setGroupFilter(""); setStreakMinFilter(""); setVolumeMinFilter(""); }}
+                  className="px-3 py-1.5 bg-bg-2 text-txt-2 text-xs font-medium rounded-md hover:bg-bg-3 transition-colors"
+                >
                   重置
                 </button>
-                <div className="h-4 w-px bg-border" />
-                {PRESETS.map((p) => (
-                  <button key={p}
-                    className="px-3 py-1 bg-bg-2 text-txt-3 text-[10px] rounded-full hover:text-txt-1 hover:bg-bg-3 transition-colors">
-                    {p}
-                  </button>
-                ))}
               </div>
             </div>
           )}
         </Card>
+
+        {/* Loading skeleton */}
+        {!dailyData && (
+          <div className="space-y-2 animate-pulse">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} className="h-10 bg-bg-2 rounded" />
+            ))}
+          </div>
+        )}
 
         {/* Results Summary */}
         <div className="flex items-center justify-between">
@@ -405,10 +213,10 @@ export default function ScreenerPage() {
           <button
             onClick={() => {
               const BOM = "\ufeff";
-              const header = ["代號", "名稱", "收盤價", "漲跌幅%", "成交量(張)", "本益比", "ROE%", "月營收YoY%", "外資淨買(張)", "評分"];
+              const header = ["代號", "名稱", "收盤價", "漲跌幅%", "成交量(張)", "本益比", "股價淨值比", "外資淨買(張)", "連板", "族群"];
               const rows: string[] = [header.join(",")];
               for (const s of sorted) {
-                rows.push([s.code, s.name, s.close, s.change, s.volume, s.pe, s.roe, s.revenueYoY, s.foreignNet, s.score].join(","));
+                rows.push([s.code, s.name, s.close, s.change, s.volume, s.pe, s.pb, s.foreignNet, s.streak, s.group].join(","));
               }
               const csv = BOM + rows.join("\n");
               const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
@@ -467,16 +275,20 @@ export default function ScreenerPage() {
                   <td className="px-3 py-2.5 text-right font-mono text-txt-2 tabular-nums">
                     {s.volume.toLocaleString()}
                   </td>
-                  <td className="px-3 py-2.5 text-right font-mono text-txt-2 tabular-nums">{s.pe.toFixed(1)}</td>
-                  <td className="px-3 py-2.5 text-right font-mono text-txt-2 tabular-nums">{s.roe.toFixed(1)}</td>
-                  <td className={`px-3 py-2.5 text-right font-mono tabular-nums ${s.revenueYoY >= 0 ? "text-red" : "text-green"}`}>
-                    {s.revenueYoY >= 0 ? "+" : ""}{s.revenueYoY.toFixed(1)}%
+                  <td className="px-3 py-2.5 text-right font-mono text-txt-2 tabular-nums">
+                    {s.pe ? s.pe.toFixed(1) : "\u2014"}
+                  </td>
+                  <td className="px-3 py-2.5 text-right font-mono text-txt-2 tabular-nums">
+                    {s.pb ? s.pb.toFixed(2) : "\u2014"}
                   </td>
                   <td className={`px-3 py-2.5 text-right font-mono tabular-nums ${s.foreignNet >= 0 ? "text-red" : "text-green"}`}>
                     {s.foreignNet >= 0 ? "+" : ""}{s.foreignNet.toLocaleString()}
                   </td>
-                  <td className="px-3 py-2.5">
-                    <ScoreBar score={s.score} />
+                  <td className="px-3 py-2.5 text-right font-mono text-txt-2 tabular-nums">
+                    {s.streak > 0 ? s.streak : "\u2014"}
+                  </td>
+                  <td className="px-3 py-2.5 text-txt-3 whitespace-nowrap text-xs">
+                    {s.group}
                   </td>
                 </tr>
               ))}

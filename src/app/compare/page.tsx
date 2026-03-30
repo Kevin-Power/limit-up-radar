@@ -5,7 +5,7 @@ import useSWR from "swr";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import { formatPrice, formatPct, formatNumber } from "@/lib/utils";
-import type { CandleData } from "@/app/api/stock/[code]/history/route";
+import type { CandleData } from "@/lib/twse-helpers";
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 

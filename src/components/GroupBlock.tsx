@@ -4,12 +4,14 @@ import { useState, useMemo } from "react";
 import { Stock, StockGroup } from "@/lib/types";
 import StockRow from "./StockRow";
 import { formatNumber, formatPct } from "@/lib/utils";
+import { EmaSignal } from "@/lib/ema";
 
 interface GroupBlockProps {
   group: StockGroup;
   totalStocks?: number;
   isWatched?: (code: string) => boolean;
   onToggleWatch?: (code: string) => void;
+  emaSignalMap?: Record<string, EmaSignal>;
 }
 
 const BADGE_STYLES: Record<string, string> = {
@@ -59,7 +61,7 @@ function SortableHeader({ label, sortKey, sort, onSort, className = "" }: Sortab
   );
 }
 
-export default function GroupBlock({ group, totalStocks, isWatched, onToggleWatch }: GroupBlockProps) {
+export default function GroupBlock({ group, totalStocks, isWatched, onToggleWatch, emaSignalMap }: GroupBlockProps) {
   const [collapsed, setCollapsed] = useState(false);
   const [sort, setSort] = useState<SortState | null>(null);
 
@@ -225,6 +227,9 @@ export default function GroupBlock({ group, totalStocks, isWatched, onToggleWatc
             />
 
             <div className="hidden md:block w-14 text-[10px] font-semibold uppercase tracking-wider text-txt-4 text-right flex-shrink-0">5日</div>
+            <div className="hidden md:block w-10 text-right text-[10px] font-semibold uppercase tracking-wider text-txt-4 flex-shrink-0">
+              EMA
+            </div>
             <div className="hidden md:block w-4 flex-shrink-0" />
           </div>
 
@@ -236,6 +241,7 @@ export default function GroupBlock({ group, totalStocks, isWatched, onToggleWatc
               groupColor={group.color}
               isWatched={isWatched?.(stock.code)}
               onToggleWatch={onToggleWatch}
+              emaSignal={emaSignalMap?.[stock.code]}
             />
           ))}
         </>
