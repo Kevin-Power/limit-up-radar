@@ -155,7 +155,7 @@ export default function ScreenerPage() {
             className="w-full flex items-center justify-between text-sm font-semibold text-txt-0 mb-3"
           >
             <span>篩選條件</span>
-            <span className="text-txt-4 text-xs">{filtersOpen ? "收起 \u25B2" : "展開 \u25BC"}</span>
+            <span className="text-txt-4 text-xs">{filtersOpen ? "收起 ▲" : "展開 ▼"}</span>
           </button>
 
           {filtersOpen && (
@@ -173,14 +173,14 @@ export default function ScreenerPage() {
                 </select>
                 <input
                   type="number"
-                  placeholder="連板 \u2265"
+                  placeholder="連板 ≥"
                   value={streakMinFilter}
                   onChange={(e) => setStreakMinFilter(e.target.value)}
                   className="w-24 bg-bg-2 border border-border rounded px-2 py-1.5 text-xs text-txt-1"
                 />
                 <input
                   type="number"
-                  placeholder="成交量(萬張) \u2265"
+                  placeholder="成交量(萬張) ≥"
                   value={volumeMinFilter}
                   onChange={(e) => setVolumeMinFilter(e.target.value)}
                   className="w-32 bg-bg-2 border border-border rounded px-2 py-1.5 text-xs text-txt-1"
