@@ -3,7 +3,7 @@
   "market_summary": {
     "taiex_close": 31722.99,
     "taiex_change_pct": -2.45,
-    "total_volume": 7416605041,
+    "total_volume": 7589266649,
     "limit_up_count": 12,
     "limit_down_count": 46,
     "advance": 250,
@@ -48,7 +48,7 @@
           "industry": "",
           "close": 86.3,
           "change_pct": 9.94,
-          "volume": 20025939,
+          "volume": 20539939,
           "major_net": 0,
           "streak": 1,
           "market": "TWSE"
