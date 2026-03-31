@@ -1,0 +1,174 @@
+{
+  "date": "2026-03-31",
+  "market_summary": {
+    "taiex_close": 31722.99,
+    "taiex_change_pct": -2.45,
+    "total_volume": 7416605041,
+    "limit_up_count": 12,
+    "limit_down_count": 46,
+    "advance": 250,
+    "decline": 1598,
+    "unchanged": 98,
+    "foreign_net": -80745514607.0,
+    "trust_net": 3097858557.0,
+    "dealer_net": -21016682536.0
+  },
+  "groups": [
+    {
+      "name": "個股亮點",
+      "color": "#64748b",
+      "badges": [],
+      "reason": "個別利多驅動的漲停股",
+      "stocks": [
+        {
+          "code": "1905",
+          "name": "華紙",
+          "industry": "",
+          "close": 18.55,
+          "change_pct": 9.76,
+          "volume": 39064303,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "1906",
+          "name": "寶隆",
+          "industry": "",
+          "close": 13.9,
+          "change_pct": 9.88,
+          "volume": 2200608,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "6919",
+          "name": "康霈*",
+          "industry": "",
+          "close": 86.3,
+          "change_pct": 9.94,
+          "volume": 20025939,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "6934",
+          "name": "心誠鎂",
+          "industry": "",
+          "close": 77.4,
+          "change_pct": 9.94,
+          "volume": 164471,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "7721",
+          "name": "微程式",
+          "industry": "",
+          "close": 74.0,
+          "change_pct": 9.96,
+          "volume": 782718,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "4558",
+          "name": "寶緯",
+          "industry": "",
+          "close": 22.8,
+          "change_pct": 9.88,
+          "volume": 306000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        }
+      ]
+    },
+    {
+      "name": "塑化 / 化工",
+      "color": "#f97316",
+      "badges": [],
+      "reason": "原物料價格回升帶動塑化類股表現",
+      "stocks": [
+        {
+          "code": "1323",
+          "name": "永裕",
+          "industry": "塑化",
+          "close": 23.1,
+          "change_pct": 10.0,
+          "volume": 886767,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "1324",
+          "name": "地球",
+          "industry": "塑化",
+          "close": 11.95,
+          "change_pct": 9.63,
+          "volume": 871857,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "1338",
+          "name": "廣華-KY",
+          "industry": "塑化",
+          "close": 15.6,
+          "change_pct": 9.86,
+          "volume": 376330,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        }
+      ]
+    },
+    {
+      "name": "電子 / 半導體",
+      "color": "#06b6d4",
+      "badges": [],
+      "reason": "電子族群受惠終端需求回升",
+      "stocks": [
+        {
+          "code": "1528",
+          "name": "恩德",
+          "industry": "電子",
+          "close": 26.95,
+          "change_pct": 10.0,
+          "volume": 33533681,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "3205",
+          "name": "佰研",
+          "industry": "電子",
+          "close": 62.5,
+          "change_pct": 9.84,
+          "volume": 2997000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "3552",
+          "name": "同致",
+          "industry": "電子",
+          "close": 57.7,
+          "change_pct": 9.9,
+          "volume": 1941000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        }
+      ]
+    }
+  ]
+}
