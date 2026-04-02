@@ -1,0 +1,204 @@
+{
+  "date": "2026-04-02",
+  "market_summary": {
+    "taiex_close": 32572.43,
+    "taiex_change_pct": -1.82,
+    "total_volume": 5700429042,
+    "limit_up_count": 14,
+    "limit_down_count": 10,
+    "advance": 209,
+    "decline": 798,
+    "unchanged": 75,
+    "foreign_net": -38695561840.0,
+    "trust_net": 8326338681.0,
+    "dealer_net": -6988539906.0
+  },
+  "groups": [
+    {
+      "name": "個股亮點",
+      "color": "#64748b",
+      "badges": [],
+      "reason": "個別利多驅動的漲停股",
+      "stocks": [
+        {
+          "code": "1449",
+          "name": "佳和",
+          "industry": "",
+          "close": 12.4,
+          "change_pct": 9.73,
+          "volume": 3654631,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "3714",
+          "name": "富采",
+          "industry": "",
+          "close": 54.2,
+          "change_pct": 9.94,
+          "volume": 45397542,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "6830",
+          "name": "汎銓",
+          "industry": "",
+          "close": 565.0,
+          "change_pct": 9.92,
+          "volume": 5759569,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "6909",
+          "name": "創控",
+          "industry": "",
+          "close": 48.45,
+          "change_pct": 9.99,
+          "volume": 3123931,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "6933",
+          "name": "AMAX-KY",
+          "industry": "",
+          "close": 139.5,
+          "change_pct": 9.84,
+          "volume": 337257,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "8039",
+          "name": "台虹",
+          "industry": "",
+          "close": 122.0,
+          "change_pct": 9.91,
+          "volume": 16524819,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        }
+      ]
+    },
+    {
+      "name": "電子 / 半導體",
+      "color": "#06b6d4",
+      "badges": [],
+      "reason": "電子族群受惠終端需求回升",
+      "stocks": [
+        {
+          "code": "2364",
+          "name": "倫飛",
+          "industry": "電子",
+          "close": 66.2,
+          "change_pct": 9.97,
+          "volume": 873961,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "2426",
+          "name": "鼎元",
+          "industry": "電子",
+          "close": 38.3,
+          "change_pct": 9.9,
+          "volume": 11959044,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "3167",
+          "name": "大量",
+          "industry": "電子",
+          "close": 445.5,
+          "change_pct": 10.0,
+          "volume": 12708323,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "6168",
+          "name": "宏齊",
+          "industry": "電子",
+          "close": 26.0,
+          "change_pct": 9.94,
+          "volume": 13553796,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        }
+      ]
+    },
+    {
+      "name": "塑化 / 化工",
+      "color": "#f97316",
+      "badges": [],
+      "reason": "原物料價格回升帶動塑化類股表現",
+      "stocks": [
+        {
+          "code": "1309",
+          "name": "台達化",
+          "industry": "塑化",
+          "close": 25.95,
+          "change_pct": 9.96,
+          "volume": 53264129,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "1323",
+          "name": "永裕",
+          "industry": "塑化",
+          "close": 23.3,
+          "change_pct": 9.91,
+          "volume": 962697,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        }
+      ]
+    },
+    {
+      "name": "生技 / 醫療器材",
+      "color": "#22c55e",
+      "badges": [],
+      "reason": "醫材新產品認證與生技族群人氣回升",
+      "stocks": [
+        {
+          "code": "6405",
+          "name": "悅城",
+          "industry": "生技",
+          "close": 37.15,
+          "change_pct": 9.91,
+          "volume": 1276619,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "7780",
+          "name": "大研生醫*",
+          "industry": "生技",
+          "close": 22.25,
+          "change_pct": 9.88,
+          "volume": 7407595,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        }
+      ]
+    }
+  ]
+}
