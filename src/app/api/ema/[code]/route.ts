@@ -10,7 +10,7 @@ export async function GET(
   const { code } = await params;
 
   try {
-    const candles = await fetchRecentCandles(code, 2);
+    const candles = await fetchRecentCandles(code, 3);
     const closes = candles.map((c) => c.close);
 
     // Insufficient data — return null result
