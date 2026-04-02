@@ -5,25 +5,6 @@
  * Multiplier = 2 / (Period + 1)
  */
 
-// ─── Seeded RNG ──────────────────────────────────────────────
-
-function hashSeed(s: string): number {
-  let h = 2166136261;
-  for (let i = 0; i < s.length; i++) {
-    h ^= s.charCodeAt(i);
-    h = (h * 16777619) >>> 0;
-  }
-  return h;
-}
-
-function makeRng(seed: string) {
-  let state = hashSeed(seed);
-  return () => {
-    state = (state * 1664525 + 1013904223) >>> 0;
-    return state / 0xffffffff;
-  };
-}
-
 // ─── EMA Calculation ─────────────────────────────────────────
 
 export function calculateEMA(prices: number[], period: number): number[] {
@@ -91,67 +72,11 @@ export function detectSignal(ema11Series: number[], ema24Series: number[]): { si
   };
 }
 
-// ─── Mock Price Generation ───────────────────────────────────
+// ─── Full Analysis (requires real price data) ───────────────
 
-export function generateMockPrices(code: string, basePrice: number, count: number = 60): number[] {
-  const rng = makeRng(code + "_ema_prices");
-  const seedVal = rng();
+export function analyzeEma(prices: number[]): EmaResult | null {
+  if (prices.length < 30) return null;
 
-  // Use code char sum for more varied distribution
-  const codeSum = code.split("").reduce((s, c) => s + c.charCodeAt(0), 0);
-  const patternIdx = (codeSum + Math.floor(seedVal * 97)) % 8;
-  // ~25% golden cross, ~12.5% death cross, ~37.5% bullish, ~25% bearish
-  const pattern = patternIdx < 2 ? "golden" : patternIdx < 3 ? "death" : patternIdx < 6 ? "up" : "down";
-
-  // Start prices near the base price so EMAs stay within 1-5% of close
-  const prices: number[] = [basePrice * (0.96 + rng() * 0.03)];
-  for (let i = 1; i < count; i++) {
-    let drift: number;
-    const phase = i / count;
-
-    switch (pattern) {
-      case "golden":
-        // Slight dip then recover to base price - creates EMA11 crossing above EMA24
-        if (phase < 0.5) drift = basePrice * -0.0008;
-        else if (phase < 0.75) drift = basePrice * 0.0002;
-        else drift = basePrice * 0.003; // moderate reversal up
-        break;
-      case "death":
-        // Slight rise then fall - creates EMA11 crossing below EMA24
-        if (phase < 0.5) drift = basePrice * 0.001;
-        else if (phase < 0.75) drift = basePrice * -0.0002;
-        else drift = basePrice * -0.0025; // moderate reversal down
-        break;
-      case "up":
-        // Gentle uptrend (bullish alignment)
-        drift = basePrice * 0.0006;
-        break;
-      case "down":
-        // Gentle downtrend (bearish alignment)
-        drift = basePrice * -0.0005;
-        break;
-      default:
-        drift = 0;
-    }
-
-    const noise = (rng() - 0.5) * basePrice * 0.006;
-    prices.push(Math.max(prices[i - 1] + drift + noise, basePrice * 0.8));
-  }
-
-  // Normalize: scale prices so the last value equals basePrice
-  const lastPrice = prices[prices.length - 1];
-  const scale = basePrice / lastPrice;
-  for (let i = 0; i < prices.length; i++) {
-    prices[i] = prices[i] * scale;
-  }
-
-  return prices;
-}
-
-// ─── Full Analysis ───────────────────────────────────────────
-
-export function analyzeEma(code: string, basePrice: number): EmaResult {
-  const prices = generateMockPrices(code, basePrice);
   const ema11Series = calculateEMA(prices, 11);
   const ema24Series = calculateEMA(prices, 24);
   const { signal, crossoverDay } = detectSignal(ema11Series, ema24Series);
@@ -164,7 +89,7 @@ export function analyzeEma(code: string, basePrice: number): EmaResult {
     ema24Series,
     prices,
     crossoverDay,
-    isReal: false,
+    isReal: true,
   };
 }
 

@@ -3,24 +3,8 @@
 import { useState, useMemo, useEffect, useCallback } from "react";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
-import { formatPct, formatPrice, getTodayString } from "@/lib/utils";
-import type { BacktestResult as RealBacktestResult } from "@/app/api/backtest/route";
-
-/* ================================================================
-   SEEDED RNG
-   ================================================================ */
-function seededRng(seed: string) {
-  let h = 0;
-  for (let i = 0; i < seed.length; i++) {
-    h = (Math.imul(31, h) + seed.charCodeAt(i)) | 0;
-  }
-  return () => {
-    h = (h ^ (h >>> 16)) * 0x45d9f3b;
-    h = (h ^ (h >>> 16)) * 0x45d9f3b;
-    h = h ^ (h >>> 16);
-    return (h >>> 0) / 0xffffffff;
-  };
-}
+import { formatPrice, getTodayString } from "@/lib/utils";
+import type { BacktestResult as RealBacktestResult, Trade } from "@/app/api/backtest/route";
 
 /* ================================================================
    STRATEGIES & TYPES
@@ -34,173 +18,7 @@ const STRATEGIES: { key: StrategyKey; label: string; desc: string }[] = [
   { key: "rsi", label: "RSI 超買超賣", desc: "RSI > 80 賣出, < 20 買入" },
 ];
 
-interface Trade {
-  entryDate: string;
-  entryPrice: number;
-  exitDate: string;
-  exitPrice: number;
-  returnPct: number;
-  holdDays: number;
-  win: boolean;
-}
 
-interface BacktestResult {
-  totalReturn: number;
-  winRate: number;
-  tradeCount: number;
-  maxDrawdown: number;
-  trades: Trade[];
-  equityCurve: number[];
-  benchmarkCurve: number[];
-  avgReturn: number;
-  avgHoldDays: number;
-  maxWin: number;
-  maxLoss: number;
-  maxConsecWins: number;
-  maxConsecLosses: number;
-  sharpeRatio: number;
-}
-
-/* ================================================================
-   GENERATE MOCK DATA
-   ================================================================ */
-function generateTradingDates(start: string, count: number): string[] {
-  const dates: string[] = [];
-  const d = new Date(start);
-  while (dates.length < count) {
-    const day = d.getDay();
-    if (day !== 0 && day !== 6) {
-      const y = d.getFullYear();
-      const m = String(d.getMonth() + 1).padStart(2, "0");
-      const dd = String(d.getDate()).padStart(2, "0");
-      dates.push(`${y}-${m}-${dd}`);
-    }
-    d.setDate(d.getDate() + 1);
-  }
-  return dates;
-}
-
-function generateBacktest(strategyKey: string, _params: Record<string, number>): BacktestResult {
-  const rng = seededRng(`backtest-${strategyKey}-v3`);
-  const tradeCount = Math.floor(rng() * 6) + 15; // 15-20
-  const allDates = generateTradingDates("2025-06-02", 200);
-  const trades: Trade[] = [];
-
-  let currentIdx = 0;
-  for (let i = 0; i < tradeCount; i++) {
-    const gap = Math.floor(rng() * 5) + 2;
-    const entryIdx = currentIdx + gap;
-    if (entryIdx >= allDates.length - 10) break;
-
-    const holdDays = Math.floor(rng() * 15) + 2;
-    const exitIdx = Math.min(entryIdx + holdDays, allDates.length - 1);
-    currentIdx = exitIdx;
-
-    const entryPrice = Math.round((50 + rng() * 400) * 10) / 10;
-    const isWin = rng() > 0.42;
-    const magnitude = rng() * 12 + 0.5;
-    const returnPct = isWin ? magnitude : -magnitude;
-    const exitPrice = Math.round(entryPrice * (1 + returnPct / 100) * 10) / 10;
-
-    trades.push({
-      entryDate: allDates[entryIdx],
-      entryPrice,
-      exitDate: allDates[exitIdx],
-      exitPrice,
-      returnPct: Math.round(returnPct * 100) / 100,
-      holdDays: exitIdx - entryIdx,
-      win: isWin,
-    });
-  }
-
-  // Compute stats
-  const wins = trades.filter((t) => t.win).length;
-  const winRate = trades.length > 0 ? (wins / trades.length) * 100 : 0;
-  const avgReturn = trades.length > 0 ? trades.reduce((s, t) => s + t.returnPct, 0) / trades.length : 0;
-  const avgHoldDays = trades.length > 0 ? Math.round(trades.reduce((s, t) => s + t.holdDays, 0) / trades.length) : 0;
-  const maxWin = trades.length > 0 ? Math.max(...trades.map((t) => t.returnPct)) : 0;
-  const maxLoss = trades.length > 0 ? Math.min(...trades.map((t) => t.returnPct)) : 0;
-
-  // Consecutive wins / losses
-  let maxConsecWins = 0;
-  let maxConsecLosses = 0;
-  let cw = 0;
-  let cl = 0;
-  for (const t of trades) {
-    if (t.win) {
-      cw++;
-      cl = 0;
-      maxConsecWins = Math.max(maxConsecWins, cw);
-    } else {
-      cl++;
-      cw = 0;
-      maxConsecLosses = Math.max(maxConsecLosses, cl);
-    }
-  }
-
-  // Equity curve
-  const equityCurve: number[] = [100];
-  let equity = 100;
-  let tradeIdx = 0;
-  for (let i = 1; i < 200; i++) {
-    if (tradeIdx < trades.length) {
-      const dateIdx = allDates.indexOf(trades[tradeIdx].exitDate);
-      if (i === dateIdx || (i > dateIdx && tradeIdx < trades.length)) {
-        equity *= 1 + trades[tradeIdx].returnPct / 100;
-        tradeIdx++;
-      }
-    }
-    // Add small daily noise
-    equity *= 1 + (rng() - 0.5) * 0.004;
-    equityCurve.push(Math.round(equity * 100) / 100);
-  }
-
-  // Benchmark: buy & hold with slight upward bias
-  const benchmarkCurve: number[] = [100];
-  let bench = 100;
-  const rng2 = seededRng(`bench-${strategyKey}`);
-  for (let i = 1; i < 200; i++) {
-    bench *= 1 + (rng2() - 0.48) * 0.015;
-    benchmarkCurve.push(Math.round(bench * 100) / 100);
-  }
-
-  const totalReturn = Math.round((equity - 100) * 100) / 100;
-
-  // Max drawdown
-  let peak = equityCurve[0];
-  let maxDD = 0;
-  for (const v of equityCurve) {
-    if (v > peak) peak = v;
-    const dd = ((peak - v) / peak) * 100;
-    if (dd > maxDD) maxDD = dd;
-  }
-
-  // Sharpe ratio (simplified)
-  const returns: number[] = [];
-  for (let i = 1; i < equityCurve.length; i++) {
-    returns.push((equityCurve[i] - equityCurve[i - 1]) / equityCurve[i - 1]);
-  }
-  const meanR = returns.reduce((s, r) => s + r, 0) / returns.length;
-  const stdR = Math.sqrt(returns.reduce((s, r) => s + (r - meanR) ** 2, 0) / returns.length);
-  const sharpeRatio = stdR > 0 ? Math.round((meanR / stdR) * Math.sqrt(252) * 100) / 100 : 0;
-
-  return {
-    totalReturn,
-    winRate: Math.round(winRate * 10) / 10,
-    tradeCount: trades.length,
-    maxDrawdown: Math.round(maxDD * 100) / 100,
-    trades,
-    equityCurve,
-    benchmarkCurve,
-    avgReturn: Math.round(avgReturn * 100) / 100,
-    avgHoldDays,
-    maxWin: Math.round(maxWin * 100) / 100,
-    maxLoss: Math.round(maxLoss * 100) / 100,
-    maxConsecWins,
-    maxConsecLosses,
-    sharpeRatio,
-  };
-}
 
 /* ================================================================
    SORT HELPERS
@@ -271,27 +89,16 @@ export default function BacktestPage() {
         if (d.isReal) setRealResult(d);
         else setError("資料不足，請換一檔股票");
       })
-      .catch(() => setError("API 錯誤，顯示模擬資料"))
+      .catch(() => setError("回測資料載入失敗"))
       .finally(() => setLoading(false));
   }, [buildUrl]);
 
   // Auto-run on mount and when params change
   useEffect(() => { runBacktest(); }, [runBacktest]);
 
-  const params = useMemo((): Record<string, number> => {
-    if (strategy === "kd") return { buy: kdBuy, sell: kdSell };
-    if (strategy === "macd") return { fast: macdFast, slow: macdSlow, signal: macdSignal };
-    if (strategy === "rsi") return { period: rsiPeriod, overbought: rsiOverbought, oversold: rsiOversold };
-    return { fast: emaFast, slow: emaSlow };
-  }, [strategy, emaFast, emaSlow, kdBuy, kdSell, macdFast, macdSlow, macdSignal, rsiPeriod, rsiOverbought, rsiOversold]);
+  const result = realResult;
 
-  // Use real result if available, else fall back to mock
-  const result = useMemo(() => {
-    if (realResult) return realResult;
-    return generateBacktest(strategy, params);
-  }, [realResult, strategy, params]);
-
-  const sortedTrades = useMemo(() => sortTrades(result.trades, sortField, sortAsc), [result.trades, sortField, sortAsc]);
+  const sortedTrades = useMemo(() => result ? sortTrades(result.trades, sortField, sortAsc) : [], [result, sortField, sortAsc]);
 
   function handleSort(field: SortField) {
     if (sortField === field) {
@@ -317,22 +124,24 @@ export default function BacktestPage() {
   const plotW = chartW - padL - padR;
   const plotH = chartH - padT - padB;
 
-  const allValues = [...result.equityCurve, ...result.benchmarkCurve];
+  const allValues = result ? [...result.equityCurve, ...result.benchmarkCurve] : [100];
   const minY = Math.min(...allValues) * 0.97;
   const maxY = Math.max(...allValues) * 1.03;
 
+  const curveLen = result ? result.equityCurve.length : 0;
+
   function toX(i: number) {
-    return padL + (i / (result.equityCurve.length - 1)) * plotW;
+    return padL + (curveLen > 1 ? (i / (curveLen - 1)) * plotW : 0);
   }
   function toY(v: number) {
     return padT + (1 - (v - minY) / (maxY - minY)) * plotH;
   }
 
-  const strategyPath = result.equityCurve.map((v, i) => `${i === 0 ? "M" : "L"}${toX(i).toFixed(1)},${toY(v).toFixed(1)}`).join(" ");
-  const benchmarkPath = result.benchmarkCurve.map((v, i) => `${i === 0 ? "M" : "L"}${toX(i).toFixed(1)},${toY(v).toFixed(1)}`).join(" ");
+  const strategyPath = result ? result.equityCurve.map((v, i) => `${i === 0 ? "M" : "L"}${toX(i).toFixed(1)},${toY(v).toFixed(1)}`).join(" ") : "";
+  const benchmarkPath = result ? result.benchmarkCurve.map((v, i) => `${i === 0 ? "M" : "L"}${toX(i).toFixed(1)},${toY(v).toFixed(1)}`).join(" ") : "";
 
   // Area fill under strategy curve
-  const areaPath = `${strategyPath} L${toX(result.equityCurve.length - 1).toFixed(1)},${(padT + plotH).toFixed(1)} L${toX(0).toFixed(1)},${(padT + plotH).toFixed(1)} Z`;
+  const areaPath = result ? `${strategyPath} L${toX(curveLen - 1).toFixed(1)},${(padT + plotH).toFixed(1)} L${toX(0).toFixed(1)},${(padT + plotH).toFixed(1)} Z` : "";
 
   // Y-axis labels
   const yTicks = 5;
@@ -342,18 +151,15 @@ export default function BacktestPage() {
   }
 
   // Date labels for X-axis
-  const tradingDates = generateTradingDates("2025-06-02", 200);
-  const xLabelIndices = [0, 40, 80, 120, 160, 199];
-  const curveLen = result.equityCurve.length;
   const xIndices = curveLen <= 6
     ? Array.from({ length: curveLen }, (_, i) => i)
     : [0, Math.floor(curveLen * 0.2), Math.floor(curveLen * 0.4), Math.floor(curveLen * 0.6), Math.floor(curveLen * 0.8), curveLen - 1];
-  // For real data, build date array from dateRange; otherwise use tradingDates
-  const chartDates: string[] = realResult
+  // Build date array from dateRange
+  const chartDates: string[] = result
     ? (() => {
         const dates: string[] = [];
-        const d = new Date(realResult.dateRange.start);
-        const end = new Date(realResult.dateRange.end);
+        const d = new Date(result.dateRange.start);
+        const end = new Date(result.dateRange.end);
         while (d <= end && dates.length < curveLen) {
           const day = d.getDay();
           if (day !== 0 && day !== 6) {
@@ -363,7 +169,7 @@ export default function BacktestPage() {
         }
         return dates;
       })()
-    : tradingDates.map((s) => s.slice(5));
+    : [];
 
   return (
     <div className="min-h-screen bg-bg-0 text-txt-1 animate-fade-in">
@@ -474,28 +280,31 @@ export default function BacktestPage() {
         {loading ? (
           <div className="flex items-center gap-2 bg-bg-1 border border-border rounded-xl px-4 py-3 mb-5">
             <span className="inline-block w-3 h-3 border-2 border-red border-t-transparent rounded-full animate-spin" />
-            <span className="text-xs text-txt-3">正在抓取 {stockCode} 歷史資料並執行回測...</span>
+            <span className="text-xs text-txt-3">載入回測資料中...</span>
           </div>
         ) : error ? (
-          <div className="flex items-center gap-2 bg-amber/10 border border-amber/30 rounded-xl px-4 py-3 mb-5">
-            <span className="inline-block w-2 h-2 rounded-full bg-amber" />
-            <span className="text-xs text-amber font-medium">DEMO</span>
-            <span className="text-xs text-txt-3">{error}，以下為模擬資料</span>
+          <div className="flex items-center gap-2 bg-red/10 border border-red/30 rounded-xl px-4 py-3 mb-5">
+            <span className="inline-block w-2 h-2 rounded-full bg-red" />
+            <span className="text-xs text-red font-medium">{error}</span>
           </div>
-        ) : realResult ? (
+        ) : result ? (
           <div className="flex items-center gap-2 bg-green/10 border border-green/30 rounded-xl px-4 py-3 mb-5">
             <span className="inline-block w-2 h-2 rounded-full bg-green" />
             <span className="text-xs text-green font-semibold">LIVE</span>
-            <span className="text-xs text-txt-2">{realResult.stockCode}</span>
+            <span className="text-xs text-txt-2">{result.stockCode}</span>
             <span className="text-xs text-txt-4">·</span>
-            <span className="text-xs text-txt-3">{realResult.dateRange.start} ~ {realResult.dateRange.end}</span>
+            <span className="text-xs text-txt-3">{result.dateRange.start} ~ {result.dateRange.end}</span>
             <span className="text-xs text-txt-4">·</span>
-            <span className="text-xs text-txt-3">{realResult.dataPoints} 個交易日</span>
+            <span className="text-xs text-txt-3">{result.dataPoints} 個交易日</span>
           </div>
-        ) : null}
+        ) : (
+          <div className="flex items-center gap-2 bg-bg-1 border border-border rounded-xl px-4 py-3 mb-5">
+            <span className="text-xs text-txt-3">請選擇股票和策略進行回測</span>
+          </div>
+        )}
 
         {/* KPI Cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
+        {result && <><div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
           <KpiCard
             label="總報酬率"
             value={`${result.totalReturn > 0 ? "+" : ""}${result.totalReturn.toFixed(2)}%`}
@@ -656,7 +465,7 @@ export default function BacktestPage() {
             <StatCell label="連續虧損" value={`${result.maxConsecLosses}`} color="text-red" />
             <StatCell label="Sharpe Ratio" value={`${result.sharpeRatio.toFixed(2)}`} color={result.sharpeRatio >= 1 ? "text-green" : result.sharpeRatio >= 0 ? "text-amber" : "text-red"} />
           </div>
-        </div>
+        </div></>}
       </main>
     </div>
   );

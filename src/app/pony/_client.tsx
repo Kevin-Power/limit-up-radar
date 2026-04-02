@@ -7,7 +7,6 @@ import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import { formatPct, formatPrice, getTodayString } from "@/lib/utils";
 import {
-  analyzeEma,
   getSignalLabel,
   getSignalFullLabel,
   getSignalColor,
@@ -156,21 +155,23 @@ export default function PonyPage() {
   const emaUrl = codes.length > 0 ? `/api/ema/batch?codes=${codes.join(",")}` : null;
   const { data: emaData } = useSWR<Record<string, EmaResult>>(emaUrl, fetcher);
 
-  // Build enriched rows with real EMA data
+  // Build enriched rows with real EMA data (skip stocks without EMA data)
   const rows: StockRow[] = useMemo(() => {
-    return sourceStocks.map((s) => {
-      const ema = emaData?.[s.code] ?? analyzeEma(s.code, s.close);
-      return {
-        ...s,
-        ema11: ema.ema11,
-        ema24: ema.ema24,
-        diff: ema.ema11 - ema.ema24,
-        signal: ema.signal,
-        crossoverDay: ema.crossoverDay,
-        ema11Series: ema.ema11Series,
-        ema24Series: ema.ema24Series,
-      };
-    });
+    return sourceStocks
+      .filter((s) => emaData?.[s.code] != null)
+      .map((s) => {
+        const ema = emaData![s.code];
+        return {
+          ...s,
+          ema11: ema.ema11,
+          ema24: ema.ema24,
+          diff: ema.ema11 - ema.ema24,
+          signal: ema.signal,
+          crossoverDay: ema.crossoverDay,
+          ema11Series: ema.ema11Series,
+          ema24Series: ema.ema24Series,
+        };
+      });
   }, [sourceStocks, emaData]);
 
   // Signal counts

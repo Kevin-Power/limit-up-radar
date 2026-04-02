@@ -102,53 +102,6 @@ function calcKD(data: CandleData[]): { k: number[]; d: number[] } {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   Mock Data Generator (seeded RNG for determinism)
-   ═══════════════════════════════════════════════════════════════════════ */
-
-function generateMockData(count: number = 60): CandleData[] {
-  let seed = 42;
-  const next = () => {
-    seed = (seed * 1664525 + 1013904223) >>> 0;
-    return (seed >>> 0) / 4294967296;
-  };
-
-  const data: CandleData[] = [];
-  let price = 150;
-  const baseDate = new Date(2025, 11, 1); // Dec 1 2025
-
-  for (let i = 0; i < count; i++) {
-    const date = new Date(baseDate);
-    date.setDate(date.getDate() + i);
-    // skip weekends
-    const dow = date.getDay();
-    if (dow === 0 || dow === 6) {
-      count++;
-      continue;
-    }
-
-    const change = (next() - 0.48) * 6;
-    const open = price;
-    const close = open + change;
-    const highExtra = next() * 3;
-    const lowExtra = next() * 3;
-    const high = Math.max(open, close) + highExtra;
-    const low = Math.min(open, close) - lowExtra;
-    const volume = Math.round(5000 + next() * 30000);
-
-    data.push({
-      date: `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`,
-      open: +open.toFixed(2),
-      high: +high.toFixed(2),
-      low: +low.toFixed(2),
-      close: +close.toFixed(2),
-      volume,
-    });
-    price = close;
-  }
-  return data;
-}
-
-/* ═══════════════════════════════════════════════════════════════════════
    Formatting helpers
    ═══════════════════════════════════════════════════════════════════════ */
 
@@ -214,7 +167,27 @@ export default function KLineChart({
   const [hover, setHover] = useState<HoverState | null>(null);
   const [period, setPeriod] = useState<"日K" | "週K" | "月K">("日K");
 
-  const data = useMemo(() => dataProp ?? generateMockData(60), [dataProp]);
+  const data = dataProp;
+
+  /* ── Empty state ── */
+  if (!data || data.length === 0) {
+    return (
+      <div
+        className="rounded-lg overflow-hidden select-none"
+        style={{
+          background: "var(--bg-1)",
+          border: "1px solid var(--border)",
+        }}
+      >
+        <div
+          className="flex items-center justify-center"
+          style={{ height, color: "var(--text-3)", fontFamily: "monospace" }}
+        >
+          載入K線資料中...
+        </div>
+      </div>
+    );
+  }
 
   /* ── Layout constants ── */
   const W = 900;

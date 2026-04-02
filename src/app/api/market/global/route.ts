@@ -32,6 +32,8 @@ const INDEX_META: {
   { symbol: "^FCHI",  name: "CAC 40",     nameCn: "法國 CAC",   region: "europe" },
   { symbol: "GC=F",   name: "Gold",       nameCn: "黃金期貨",   region: "americas" },
   { symbol: "CL=F",   name: "Crude Oil",  nameCn: "原油期貨",   region: "americas" },
+  { symbol: "^TNX",   name: "US 10Y",     nameCn: "美國10年期", region: "americas" },
+  { symbol: "DX-Y.NYB", name: "Dollar Index", nameCn: "美元指數", region: "americas" },
 ];
 
 async function fetchIndex(meta: (typeof INDEX_META)[0]): Promise<GlobalIndex | null> {

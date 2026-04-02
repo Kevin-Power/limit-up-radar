@@ -1,15 +1,14 @@
 // src/app/api/ema/batch/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { fetchRecentCandles } from "@/lib/twse-helpers";
-import { calculateEMA, detectSignal, analyzeEma, EmaResult } from "@/lib/ema";
+import { calculateEMA, detectSignal, EmaResult } from "@/lib/ema";
 
-async function computeEmaForCode(code: string): Promise<EmaResult> {
+async function computeEmaForCode(code: string): Promise<EmaResult | null> {
   try {
     const candles = await fetchRecentCandles(code, 2);
     const closes = candles.map((c) => c.close);
     if (closes.length < 30) {
-      const price = closes.length > 0 ? closes[closes.length - 1] : 100;
-      return analyzeEma(code, price);
+      return null;
     }
     const ema11Series = calculateEMA(closes, 11);
     const ema24Series = calculateEMA(closes, 24);
@@ -21,7 +20,7 @@ async function computeEmaForCode(code: string): Promise<EmaResult> {
       prices: closes, isReal: true,
     };
   } catch {
-    return analyzeEma(code, 100);
+    return null;
   }
 }
 
@@ -40,7 +39,11 @@ export async function GET(req: NextRequest) {
     const chunk = codes.slice(i, i + CHUNK);
     const settled = await Promise.allSettled(chunk.map(computeEmaForCode));
     settled.forEach((r, idx) => {
-      result[chunk[idx]] = r.status === "fulfilled" ? r.value : analyzeEma(chunk[idx], 100);
+      const ema = r.status === "fulfilled" ? r.value : null;
+      if (ema) {
+        result[chunk[idx]] = ema;
+      }
+      // Skip stocks with insufficient data (null results)
     });
   }
 

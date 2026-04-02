@@ -8,7 +8,7 @@ import { getTodayString } from "@/lib/utils";
 import type { StatsData } from "@/app/api/stats/route";
 
 /* ================================================================
-   MOCK DATA
+   CONSTANTS
    ================================================================ */
 
 const GROUPS = [

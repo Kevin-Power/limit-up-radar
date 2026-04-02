@@ -8,33 +8,39 @@ interface HighlightsProps {
   data: DailyData;
 }
 
-/* ---------- seeded sparkline ---------- */
-function seededRng(seed: number) {
-  let s = seed;
-  return () => {
-    s = (s * 16807 + 0) % 2147483647;
-    return s / 2147483647;
-  };
-}
-
-function MiniSparkline({ seed, width = 180, height = 40 }: { seed: number; width?: number; height?: number }) {
-  const rng = seededRng(seed);
-  const pts = 30;
-  const data: number[] = [];
-  let v = 50;
-  for (let i = 0; i < pts; i++) {
-    v += (rng() - 0.48) * 6;
-    v = Math.max(10, Math.min(90, v));
-    data.push(v);
+/* ---------- sparkline ---------- */
+function MiniSparkline({
+  data: sparkData,
+  width = 180,
+  height = 40,
+}: {
+  data?: number[];
+  width?: number;
+  height?: number;
+}) {
+  // If no real data, render a flat neutral line
+  if (!sparkData || sparkData.length < 2) {
+    const midY = height / 2;
+    return (
+      <svg width={width} height={height} className="flex-shrink-0">
+        <line
+          x1={0} y1={midY} x2={width} y2={midY}
+          stroke="rgba(255,255,255,0.15)"
+          strokeWidth="1.5"
+          strokeDasharray="4,3"
+        />
+      </svg>
+    );
   }
-  const min = Math.min(...data);
-  const max = Math.max(...data);
+
+  const min = Math.min(...sparkData);
+  const max = Math.max(...sparkData);
   const range = max - min || 1;
-  const points = data
-    .map((d, i) => `${(i / (pts - 1)) * width},${height - ((d - min) / range) * (height - 4) - 2}`)
+  const points = sparkData
+    .map((d, i) => `${(i / (sparkData.length - 1)) * width},${height - ((d - min) / range) * (height - 4) - 2}`)
     .join(" ");
-  const last = data[data.length - 1];
-  const first = data[0];
+  const last = sparkData[sparkData.length - 1];
+  const first = sparkData[0];
   const color = last >= first ? "#ef4444" : "#22c55e";
 
   return (
@@ -181,7 +187,7 @@ export default function Highlights({ data }: HighlightsProps) {
               </div>
             </div>
             {/* Sparkline */}
-            <MiniSparkline seed={ms.taiex_close} width={140} height={36} />
+            <MiniSparkline width={140} height={36} />
           </div>
 
           {/* Divider */}

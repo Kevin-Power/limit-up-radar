@@ -83,184 +83,6 @@ const GROUP_COLORS: Record<string, string> = {
 };
 
 /* ═══════════════════════════════════════════════════════════════
-   Mock Data — realistic next-day performance
-   ═══════════════════════════════════════════════════════════════ */
-
-function makeStock(
-  code: string, name: string, group: string, market: Market,
-  limitPrice: number, volumeRatio: number,
-  nextOpen: number, nextOpenPct: number,
-  nextAvg: number, nextAvgPct: number,
-  nextClose: number, nextClosePct: number,
-  weightedReturn: number, label: StockLabel
-): NextDayStock {
-  return {
-    code, name, group, market, limitPrice, volumeRatio,
-    nextOpen, nextOpenPct, nextAvg, nextAvgPct,
-    nextClose, nextClosePct, weightedReturn, label,
-    groupColor: GROUP_COLORS[group] || "#64748b",
-  };
-}
-
-const MOCK_DATA: DayData[] = [
-  {
-    limitDate: "2026-03-16",
-    nextDate: "2026-03-17",
-    totalLimitUp: 48,
-    stocks: [
-      makeStock("3017","奇鋐","AI伺服器／散熱","上",1768,1.8, 1945,+10.00, 1945,+10.00, 1945,+10.00, +10.00,"續漲停"),
-      makeStock("4743","合一","生技新藥","上",53.3,2.1, 58.6,+10.00, 58.6,+10.00, 58.6,+10.00, +10.00,"續漲停"),
-      makeStock("6515","穎崴","半導體設備／檢測","上",7445,0.9, 8190,+10.00, 8190,+10.00, 8190,+10.00, +10.00,"續漲停"),
-      makeStock("3363","上詮","光通訊","櫃",667,1.2, 734,+10.00, 734,+10.00, 734,+10.00, +10.00,"續漲停"),
-      makeStock("1471","首利","低價投機／籌碼面","櫃",11.86,1.5, 13.05,+10.00, 13.05,+10.00, 13.05,+10.00, +10.00,"續漲停"),
-      makeStock("2007","燁興","鋼鐵","上",7.71,2.5, 8.48,+10.00, 8.48,+10.00, 8.48,+10.00, +10.00,"續漲停"),
-      makeStock("6274","台燿","PCB／CCL銅箔基板","上",504,1.6, 554,+10.00, 549,+8.95, 554,+10.00, +9.65,"續漲停"),
-      makeStock("1301","台塑","塑化","上",45.05,2.8, 48.9,+8.55, 48.3,+7.22, 47.2,+4.77, +6.85,"強漲"),
-      makeStock("4977","眾達-KY","光通訊","上",165,1.3, 181.5,+10.00, 179.8,+8.97, 181.5,+10.00, +9.66,"續漲停"),
-      makeStock("2458","義隆","IC設計","上",116.4,1.7, 128.0,+10.00, 125.8,+8.08, 128.0,+10.00, +9.36,"續漲停"),
-      makeStock("2548","華固","營建資產","上",119.5,3.2, 130.2,+8.95, 127.9,+7.03, 124.8,+4.44, +6.81,"強漲"),
-      makeStock("2401","凌陽","IC設計","上",20.45,2.0, 22.5,+10.02, 22.1,+8.07, 22.5,+10.02, +9.37,"強漲"),
-      makeStock("1303","南亞","塑化","上",72.3,1.9, 78.8,+8.99, 77.9,+7.75, 77.1,+6.64, +7.79,"強漲"),
-      makeStock("2014","中鴻","鋼鐵","櫃",18.45,3.5, 20.0,+8.40, 19.5,+5.69, 19.0,+2.98, +5.69,"銘碼漲"),
-      makeStock("2376","技嘉","AI伺服器／散熱","上",235,2.8, 255.5,+8.72, 252.6,+7.49, 249.4,+6.13, +7.45,"強勢漲"),
-      makeStock("3324","雙鴻","AI伺服器／散熱","上",1065,1.5, 1120,+5.16, 1040,-2.35, 985,-7.51, +1.80,"開高走低"),
-      makeStock("2379","瑞昱","IC設計","上",480.5,1.8, 494.2,+2.85, 487.8,+1.52, 473.2,-1.52, +0.95,"開高走低"),
-      makeStock("6669","緯穎","AI伺服器／散熱","櫃",3725,1.2, 3935,+5.64, 3632,-2.50, 3585,-3.76, +0.46,"開高走低"),
-      makeStock("6446","藥華藥","生技新藥","上",620,0.9, 633.7,+2.21, 626.9,+1.11, 613.1,-1.11, +0.74,"銘碼漲"),
-      makeStock("5274","信驊","IC設計","上",11750,0.8, 12010,+2.21, 11880,+1.11, 11620,-1.11, +0.74,"開高走低"),
-      makeStock("6223","旺矽","半導體設備／檢測","上",3860,0.6, 3931,+1.84, 3813,-1.22, 3741,-3.08, -0.82,"開高走低"),
-      makeStock("2330","台積電","半導體設備／檢測","上",1810,0.9, 1839.5,+1.63, 1794.3,-0.87, 1770.7,-2.17, -0.47,"開高走低"),
-      makeStock("2454","聯發科","IC設計","上",1620,1.0, 1640.6,+1.27, 1604.6,-0.95, 1587.1,-2.03, -0.57,"開高走低"),
-      makeStock("2317","鴻海","電子代工","上",195,0.8, 196.9,+0.97, 192.2,-1.44, 188.4,-3.38, -1.28,"直接跌"),
-    ],
-  },
-  {
-    limitDate: "2026-03-17",
-    nextDate: "2026-03-18",
-    totalLimitUp: 55,
-    stocks: [
-      makeStock("3017","奇鋐","AI伺服器／散熱","上",1630,1.5, 1630,+10.00, 1630,+10.00, 1630,+10.00, +10.00,"續漲停"),
-      makeStock("3363","上詮","光通訊","櫃",482,1.0, 482,+10.00, 482,+10.00, 482,+10.00, +10.00,"續漲停"),
-      makeStock("7795","長廣","電子零組件","櫃",295,0.9, 320,+8.47, 315,+6.78, 312,+5.76, +7.00,"強漲"),
-      makeStock("6274","台燿","PCB／CCL銅箔基板","上",385,1.8, 416,+8.05, 409,+6.23, 402,+4.42, +6.23,"強勢漲"),
-      makeStock("1301","台塑","塑化","上",40.8,2.2, 43.7,+7.11, 42.6,+4.41, 41.7,+2.21, +4.58,"強勢漲"),
-      makeStock("4977","眾達-KY","光通訊","上",143,1.5, 154.4,+7.97, 151.7,+6.08, 148.8,+4.06, +6.04,"強勢漲"),
-      makeStock("1471","首利","低價投機／籌碼面","櫃",10.5,1.8, 11.3,+7.62, 11.0,+4.76, 10.8,+2.86, +5.08,"強勢漲"),
-      makeStock("2007","燁興","鋼鐵","上",9.49,2.0, 9.95,+4.85, 9.64,+1.58, 9.29,-2.11, +1.44,"開高走低"),
-      makeStock("4743","合一","生技新藥","上",57.2,2.5, 59.4,+3.85, 58.0,+1.40, 55.7,-2.62, +0.88,"開高走低"),
-      makeStock("2548","華固","營建資產","上",119.5,2.8, 122.5,+2.51, 117.5,-1.67, 114.5,-4.18, -1.11,"開高走低"),
-      makeStock("6515","穎崴","半導體設備／檢測","上",8190,1.2, 8229,+0.48, 8018,-2.10, 7923,-3.26, -1.63,"直接跌"),
-    ],
-  },
-  {
-    limitDate: "2026-03-18",
-    nextDate: "2026-03-19",
-    totalLimitUp: 42,
-    stocks: [
-      makeStock("3017","奇鋐","AI伺服器／散熱","上",1670,1.8, 1670,+10.00, 1670,+10.00, 1670,+10.00, +10.00,"續漲停"),
-      makeStock("3363","上詮","光通訊","櫃",515,1.2, 551,+6.99, 540,+4.85, 529,+2.72, +4.85,"強漲"),
-      makeStock("7795","長廣","電子零組件","櫃",312,1.0, 336,+7.69, 331,+6.09, 326,+4.49, +6.09,"強漲"),
-      makeStock("6274","台燿","PCB／CCL銅箔基板","上",405,2.0, 430,+6.17, 423,+4.44, 412,+1.73, +4.11,"強勢漲"),
-      makeStock("1301","台塑","塑化","上",41.5,1.8, 43.2,+4.10, 42.2,+1.69, 40.8,-1.69, +1.37,"開高走低"),
-      makeStock("4977","眾達-KY","光通訊","上",150,1.5, 155.6,+3.73, 152.8,+1.87, 148.6,-0.93, +1.56,"開高走低"),
-      makeStock("1471","首利","低價投機／籌碼面","櫃",11.1,1.5, 11.4,+2.70, 11.2,+0.90, 10.8,-2.70, +0.30,"開高走低"),
-      makeStock("2007","燁興","鋼鐵","上",9.95,1.2, 9.65,-3.02, 9.44,-5.13, 9.24,-7.14, -5.10,"直接跌"),
-    ],
-  },
-  {
-    limitDate: "2026-03-19",
-    nextDate: "2026-03-20",
-    totalLimitUp: 38,
-    stocks: [
-      makeStock("3017","奇鋐","AI伺服器／散熱","上",1710,2.0, 1710,+10.00, 1710,+10.00, 1710,+10.00, +10.00,"續漲停"),
-      makeStock("3363","上詮","光通訊","櫃",548,1.5, 592,+8.03, 581,+6.02, 570,+4.01, +6.02,"強漲"),
-      makeStock("7795","長廣","電子零組件","櫃",328,1.2, 356,+8.54, 351,+7.01, 347,+5.79, +7.11,"強勢漲"),
-      makeStock("6274","台燿","PCB／CCL銅箔基板","上",425,1.5, 453,+6.59, 446,+4.94, 436,+2.59, +4.71,"強勢漲"),
-      makeStock("1301","台塑","塑化","上",42.1,1.5, 43.4,+3.09, 42.4,+0.71, 41.4,-1.66, +0.71,"開高走低"),
-      makeStock("4977","眾達-KY","光通訊","上",155,1.0, 157.8,+1.81, 153.6,-0.90, 150.8,-2.71, -0.60,"開高走低"),
-    ],
-  },
-  {
-    limitDate: "2026-03-20",
-    nextDate: "2026-03-22",
-    totalLimitUp: 45,
-    stocks: [
-      makeStock("3017","奇鋐","AI伺服器／散熱","上",1750,2.5, 1750,+10.00, 1750,+10.00, 1750,+10.00, +10.00,"續漲停"),
-      makeStock("3363","上詮","光通訊","櫃",582,1.8, 635,+9.11, 625,+7.39, 614,+5.50, +7.33,"強漲"),
-      makeStock("7795","長廣","電子零組件","櫃",345,1.5, 374,+8.41, 370,+7.25, 363,+5.22, +6.96,"強勢漲"),
-      makeStock("6274","台燿","PCB／CCL銅箔基板","上",448,1.2, 483,+7.81, 476,+6.25, 465,+3.79, +5.95,"強勢漲"),
-      makeStock("1301","台塑","塑化","上",42.6,1.2, 43.9,+3.05, 42.9,+0.70, 41.9,-1.64, +0.70,"開高走低"),
-      makeStock("4977","眾達-KY","光通訊","上",159,0.9, 161.8,+1.76, 158.3,-0.44, 154.8,-2.64, -0.44,"開高走低"),
-      makeStock("2007","燁興","鋼鐵","上",9.65,0.8, 9.35,-3.11, 9.14,-5.28, 8.94,-7.36, -5.25,"直接跌"),
-    ],
-  },
-  {
-    limitDate: "2026-03-22",
-    nextDate: "2026-03-23",
-    totalLimitUp: 52,
-    stocks: [
-      makeStock("3017","奇鋐","AI伺服器／散熱","上",1795,2.8, 1795,+10.00, 1795,+10.00, 1795,+10.00, +10.00,"續漲停"),
-      makeStock("3363","上詮","光通訊","櫃",618,2.0, 670,+8.41, 660,+6.80, 649,+5.02, +6.74,"強漲"),
-      makeStock("7795","長廣","電子零組件","櫃",362,1.8, 390,+7.73, 386,+6.63, 380,+4.97, +6.44,"強漲"),
-      makeStock("6274","台燿","PCB／CCL銅箔基板","上",472,1.5, 506,+7.20, 499,+5.72, 489,+3.60, +5.51,"強勢漲"),
-      makeStock("1301","台塑","塑化","上",43.0,1.5, 44.9,+4.42, 44.3,+3.02, 43.3,+0.70, +2.71,"開高走低"),
-      makeStock("1471","首利","低價投機／籌碼面","櫃",11.4,1.2, 12.1,+6.14, 11.8,+3.51, 11.6,+1.75, +3.80,"強勢漲"),
-      makeStock("4977","眾達-KY","光通訊","上",163,1.0, 166.5,+2.15, 164.4,+0.86, 161.6,-0.86, +0.72,"開高走低"),
-      makeStock("2007","燁興","鋼鐵","上",9.35,0.8, 9.05,-3.21, 8.84,-5.45, 8.64,-7.59, -5.42,"直接跌"),
-    ],
-  },
-  {
-    limitDate: "2026-03-23",
-    nextDate: "2026-03-24",
-    totalLimitUp: 58,
-    stocks: [
-      makeStock("3363","上詮","光通訊","櫃",660,2.0, 720,+9.09, 711,+7.73, 701,+6.21, +7.68,"續漲停"),
-      makeStock("3017","奇鋐","AI伺服器／散熱","上",1845,3.2, 1810,+8.57, 1798,+6.43, 1772,+4.76, +6.59,"強漲"),
-      makeStock("7795","長廣","電子零組件","櫃",372,2.5, 401,+7.80, 397,+6.72, 389,+4.57, +6.36,"強漲"),
-      makeStock("6274","台燿","PCB／CCL銅箔基板","上",498,1.8, 532,+6.83, 525,+5.42, 515,+3.41, +5.22,"強勢漲"),
-      makeStock("1301","台塑","塑化","上",43.5,1.8, 45.4,+4.37, 44.7,+2.76, 43.8,+0.69, +2.61,"開高走低"),
-      makeStock("1471","首利","低價投機／籌碼面","櫃",11.8,1.5, 12.5,+5.93, 12.3,+4.24, 12.0,+1.69, +3.95,"強勢漲"),
-      makeStock("4977","眾達-KY","光通訊","上",168,1.2, 173.0,+2.98, 170.2,+1.31, 166.6,-0.83, +1.15,"開高走低"),
-      makeStock("4743","合一","生技新藥","上",55.8,2.0, 57.9,+3.76, 56.7,+1.61, 55.0,-1.43, +1.31,"開高走低"),
-      makeStock("2007","燁興","鋼鐵","上",9.05,0.6, 8.74,-3.43, 8.64,-4.53, 8.44,-6.74, -4.90,"直接跌"),
-    ],
-  },
-  {
-    limitDate: "2026-03-24",
-    nextDate: "2026-03-25",
-    totalLimitUp: 61,
-    stocks: [
-      makeStock("3363","上詮","光通訊","櫃",698,2.5, 756,+8.31, 748,+7.16, 738,+5.73, +7.07,"強漲"),
-      makeStock("3017","奇鋐","AI伺服器／散熱","上",1880,3.5, 1880,+10.00, 1880,+10.00, 1880,+10.00, +10.00,"續漲停"),
-      makeStock("7795","長廣","電子零組件","櫃",388,2.8, 420,+8.25, 416,+7.22, 410,+5.67, +7.05,"續漲停"),
-      makeStock("6274","台燿","PCB／CCL銅箔基板","上",528,1.8, 568,+7.58, 561,+6.25, 551,+4.36, +6.06,"強漲"),
-      makeStock("1301","台塑","塑化","上",44.2,2.0, 46.6,+5.43, 45.9,+3.85, 45.1,+2.04, +3.77,"強勢漲"),
-      makeStock("1471","首利","低價投機／籌碼面","櫃",12.5,1.5, 13.4,+7.20, 13.1,+4.80, 12.8,+2.40, +4.80,"強勢漲"),
-      makeStock("4743","合一","生技新藥","上",54.5,2.2, 56.6,+3.85, 55.8,+2.39, 54.2,-0.55, +1.90,"開高走低"),
-      makeStock("4977","眾達-KY","光通訊","上",173,1.2, 178.7,+3.30, 177.3,+2.49, 175.1,+1.21, +2.33,"強勢漲"),
-    ],
-  },
-  {
-    limitDate: "2026-03-25",
-    nextDate: "2026-03-26",
-    totalLimitUp: 64,
-    stocks: [
-      makeStock("3017","奇鋐","AI伺服器／散熱","上",1945,2.0, 1945,+10.00, 1945,+10.00, 1945,+10.00, +10.00,"續漲停"),
-      makeStock("3363","上詮","光通訊","櫃",734,1.8, 795,+8.31, 782,+6.54, 770,+4.90, +6.58,"強漲"),
-      makeStock("7795","長廣","電子零組件","櫃",403,1.5, 435,+7.94, 429,+6.45, 422,+4.71, +6.37,"強勢漲"),
-      makeStock("6274","台燿","PCB／CCL銅箔基板","上",554,1.2, 593,+7.04, 587,+5.96, 580,+4.69, +5.90,"強勢漲"),
-      makeStock("4743","合一","生技新藥","上",52,2.5, 55,+5.77, 54,+3.85, 52.5,+0.96, +3.53,"開高走低"),
-      makeStock("1301","台塑","塑化","上",45.05,1.5, 46.8,+3.88, 45.7,+1.44, 44.6,-1.00, +1.44,"開高走低"),
-      makeStock("2376","技嘉","AI伺服器／散熱","上",235,2.8, 246.0,+4.68, 242.3,+3.11, 238.5,+1.49, +3.09,"強勢漲"),
-      makeStock("2458","義隆","IC設計","上",128,1.7, 133.6,+4.38, 131.0,+2.34, 127.0,-0.78, +1.98,"開高走低"),
-      makeStock("6446","藥華藥","生技新藥","上",620,0.9, 631.0,+1.77, 623.5,+0.56, 613.8,-1.00, +0.44,"開高走低"),
-      makeStock("1303","南亞","塑化","上",72.3,1.2, 73.7,+1.94, 71.6,-0.97, 70.1,-3.04, -0.69,"直接跌"),
-      makeStock("2317","鴻海","電子代工","上",195,0.8, 196.0,+0.51, 193.0,-1.03, 189.5,-2.82, -1.11,"直接跌"),
-    ],
-  },
-];
-
-/* ═══════════════════════════════════════════════════════════════
    Helpers
    ═══════════════════════════════════════════════════════════════ */
 
@@ -295,13 +117,6 @@ function computeGroupPerfs(day: DayData): GroupPerf[] {
     .map(([name, stocks]) => {
       const closeArr = stocks.map((s) => s.nextClosePct);
       const positiveCount = closeArr.filter((v) => v > 0).length;
-      // mock streak
-      const streakMap: Record<string, number> = {
-        "AI伺服器／散熱": 3, "光通訊": 3, "電子零組件": 2,
-        "PCB／CCL銅箔基板": 2, "塑化": 2, "低價投機／籌碼面": 0,
-        "鋼鐵": 0, "半導體設備／檢測": 1, "IC設計": 0,
-        "生技新藥": 1, "營建資產": 0, "電子代工": 0,
-      };
       return {
         name,
         color: stocks[0]?.groupColor || "#64748b",
@@ -311,7 +126,7 @@ function computeGroupPerfs(day: DayData): GroupPerf[] {
         openAvg: avg(stocks.map((s) => s.nextOpenPct)),
         avgAvg: avg(stocks.map((s) => s.nextAvgPct)),
         closeAvg: avg(closeArr),
-        streak: streakMap[name] ?? 0,
+        streak: 0,
       };
     })
     .sort((a, b) => b.positiveRate - a.positiveRate || b.closeAvg - a.closeAvg);
@@ -523,7 +338,7 @@ function mapRealToDay(r: NextDayData): DayData {
 }
 
 export default function NextDayPage() {
-  const { data: realData } = useSWR<NextDayData[]>(
+  const { data: realData, isLoading } = useSWR<NextDayData[]>(
     "/api/next-day",
     (url: string) => fetch(url).then((r) => r.json()),
     { revalidateOnFocus: false }
@@ -533,30 +348,32 @@ export default function NextDayPage() {
     if (realData && realData.length > 0) {
       return realData.map(mapRealToDay);
     }
-    return MOCK_DATA;
+    return [];
   }, [realData]);
 
   const [dateIndex, setDateIndex] = useState(0);
-  const currentIndex = Math.min(dateIndex, DATA.length - 1);
-  const realDateIndex = DATA.length - 1 - currentIndex; // show latest first
+  const currentIndex = Math.min(dateIndex, Math.max(0, DATA.length - 1));
+  const realDateIndex = Math.max(0, DATA.length - 1 - currentIndex); // show latest first
 
   const [activeFilter, setActiveFilter] = useState<StockLabel | "all">("all");
   const [sortKey, setSortKey] = useState("weightedReturn");
   const [sortAsc, setSortAsc] = useState(false);
 
-  const day = DATA[realDateIndex] ?? DATA[DATA.length - 1];
-  const stats = computeDayStats(day);
-  const groupPerfs = useMemo(() => computeGroupPerfs(day), [day]);
+  const day = DATA.length > 0 ? (DATA[realDateIndex] ?? DATA[DATA.length - 1]) : null;
+  const stats = day ? computeDayStats(day) : null;
+  const groupPerfs = useMemo(() => day ? computeGroupPerfs(day) : [], [day]);
 
   // Filter counts
   const filterCounts = useMemo(() => {
+    if (!day) return { all: 0 } as Record<string, number>;
     const counts: Record<string, number> = { all: day.stocks.length };
     ALL_LABELS.forEach((l) => { counts[l] = day.stocks.filter((s) => s.label === l).length; });
     return counts;
-  }, [day.stocks]);
+  }, [day]);
 
   // Filtered + sorted stocks
   const displayStocks = useMemo(() => {
+    if (!day) return [];
     let list = activeFilter === "all" ? [...day.stocks] : day.stocks.filter((s) => s.label === activeFilter);
     list.sort((a, b) => {
       let va: number | string, vb: number | string;
@@ -573,7 +390,7 @@ export default function NextDayPage() {
       return sortAsc ? String(va).localeCompare(String(vb)) : String(vb).localeCompare(String(va));
     });
     return list;
-  }, [day.stocks, activeFilter, sortKey, sortAsc]);
+  }, [day, activeFilter, sortKey, sortAsc]);
 
   function handleSort(key: string) {
     if (key === sortKey) setSortAsc(!sortAsc);
@@ -595,6 +412,31 @@ export default function NextDayPage() {
 
   const SortIcon = ({ k }: { k: string }) =>
     sortKey === k ? <span className="ml-0.5 text-accent">{sortAsc ? "▲" : "▼"}</span> : null;
+
+  /* Loading / empty state */
+  if (isLoading || !realData) {
+    return (
+      <div className="flex flex-col h-screen overflow-hidden">
+        <TopNav currentDate="" />
+        <NavBar />
+        <main className="flex-1 flex items-center justify-center">
+          <p className="text-txt-3 text-sm animate-pulse">載入隔日表現資料中...</p>
+        </main>
+      </div>
+    );
+  }
+
+  if (!day || !stats) {
+    return (
+      <div className="flex flex-col h-screen overflow-hidden">
+        <TopNav currentDate="" />
+        <NavBar />
+        <main className="flex-1 flex items-center justify-center">
+          <p className="text-txt-4 text-sm">尚無隔日表現資料</p>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">

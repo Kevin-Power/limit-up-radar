@@ -1,11 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import useSWR from "swr";
 import Link from "next/link";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
-import { formatPct, formatPrice, getTodayString, getTodaySlash } from "@/lib/utils";
+import { formatPrice, getTodayString, getTodaySlash } from "@/lib/utils";
 
 /* ================================================================
    SUB-COMPONENTS
@@ -43,80 +42,6 @@ function Chip({ label, variant }: { label: string; variant: "green" | "red" | "b
 }
 
 /* ================================================================
-   MOCK DATA
-   ================================================================ */
-
-const REPORT_DATE = getTodaySlash();
-
-const MARKET_CONCLUSION = {
-  regime: "偏多" as const,
-  streak: 3,
-  summary:
-    "加權指數收漲186點站上33,337點,量能溫和放大至4,128億元。AI伺服器散熱族群全面點火帶動電子股走強,半導體測試、矽光子類股漲停家數創近期新高。外資連三日買超,短線多頭格局延續。",
-};
-
-const BREADTH = {
-  advances: 892,
-  declines: 421,
-  unchanged: 87,
-  aboveMa20Pct: 63.5,
-  todayVolume: 4128,
-  avg5Volume: 3645,
-};
-
-const SECTOR_PERFORMANCE = {
-  top: [
-    { name: "AI伺服器 / 散熱",      pct: 4.82 },
-    { name: "矽光子 / 高速傳輸",     pct: 3.65 },
-    { name: "半導體測試 / 先進封裝",  pct: 2.91 },
-    { name: "IC設計 / AI邊緣運算",   pct: 2.34 },
-    { name: "PCB / CCL基板",        pct: 1.87 },
-  ],
-  bottom: [
-    { name: "營建 / 資產",     pct: -1.23 },
-    { name: "塑化 / 油價",     pct: -0.85 },
-    { name: "鋼鐵 / 鋼價調漲", pct: -0.62 },
-  ],
-};
-
-interface StrongStock {
-  code: string;
-  name: string;
-  price: number;
-  changePct: number;
-  score: number;
-  reasons: { label: string; variant: "green" | "blue" | "amber" }[];
-}
-
-const STRONG_SETUPS: StrongStock[] = [
-  { code: "3324", name: "雙鴻",   price: 1065.0, changePct: 2.40,  score: 95, reasons: [{ label: "法人連買", variant: "green" }, { label: "營收加速", variant: "blue" }, { label: "KD金叉", variant: "amber" }] },
-  { code: "3017", name: "奇鋐",   price: 1945.0, changePct: -2.51, score: 92, reasons: [{ label: "法人連買", variant: "green" }, { label: "突破前高", variant: "blue" }] },
-  { code: "6669", name: "緯穎",   price: 3725.0, changePct: 2.19,  score: 88, reasons: [{ label: "營收加速", variant: "blue" }, { label: "KD金叉", variant: "amber" }] },
-  { code: "6515", name: "穎崴",   price: 8190.0, changePct: 3.87,  score: 85, reasons: [{ label: "法人連買", variant: "green" }, { label: "量能擴增", variant: "amber" }] },
-  { code: "2454", name: "聯發科", price: 1620.0, changePct: -0.31, score: 82, reasons: [{ label: "突破前高", variant: "blue" }, { label: "外資買超", variant: "green" }] },
-  { code: "2376", name: "技嘉",   price: 235.0,  changePct: 1.08,  score: 80, reasons: [{ label: "KD金叉", variant: "amber" }, { label: "量能擴增", variant: "amber" }] },
-  { code: "3037", name: "欣興",   price: 460.0,  changePct: -1.28, score: 78, reasons: [{ label: "法人連買", variant: "green" }, { label: "營收加速", variant: "blue" }] },
-  { code: "6223", name: "旺矽",   price: 3860.0, changePct: 4.89,  score: 75, reasons: [{ label: "外資買超", variant: "green" }, { label: "KD金叉", variant: "amber" }] },
-];
-
-interface RiskStock {
-  code: string;
-  name: string;
-  price: number;
-  changePct: number;
-  riskScore: number;
-  reasons: { label: string; variant: "red" | "amber" }[];
-}
-
-const RISK_LIST: RiskStock[] = [
-  { code: "6683", name: "雍智",   price: 1285.0, changePct: -3.25, riskScore: 92, reasons: [{ label: "法人連賣", variant: "red" }, { label: "RSI過熱", variant: "amber" }, { label: "量縮破線", variant: "red" }] },
-  { code: "4765", name: "精金",   price: 28.5,   changePct: -2.50, riskScore: 85, reasons: [{ label: "RSI過熱", variant: "amber" }, { label: "主力出貨", variant: "red" }] },
-  { code: "1301", name: "台塑",   price: 45.05,  changePct: 0.67,  riskScore: 78, reasons: [{ label: "法人連賣", variant: "red" }, { label: "跌破月線", variant: "amber" }] },
-  { code: "2002", name: "中鋼",   price: 19.2,   changePct: 0.79,  riskScore: 72, reasons: [{ label: "量縮破線", variant: "red" }, { label: "KD死叉", variant: "amber" }] },
-  { code: "1303", name: "南亞",   price: 72.3,   changePct: -2.03, riskScore: 65, reasons: [{ label: "外資賣超", variant: "red" }, { label: "RSI過熱", variant: "amber" }] },
-];
-
-/* ================================================================
    MARKET BREADTH VISUAL
    ================================================================ */
 
@@ -141,54 +66,6 @@ function BreadthBar({ advances, declines, unchanged }: { advances: number; decli
   );
 }
 
-function Ma20Gauge({ pct }: { pct: number }) {
-  return (
-    <div>
-      <div className="flex items-center justify-between text-xs mb-1">
-        <span className="text-txt-3">站上20MA比例</span>
-        <span className={`font-medium ${pct >= 50 ? "text-green" : "text-red"}`}>{pct}%</span>
-      </div>
-      <div className="w-full h-2 bg-bg-3 rounded-full overflow-hidden">
-        <div
-          className="h-full rounded-full"
-          style={{
-            width: `${pct}%`,
-            background: pct >= 50 ? "var(--green)" : "var(--red)",
-          }}
-        />
-      </div>
-    </div>
-  );
-}
-
-function VolumeComparison({ todayVolume, avg5Volume }: { todayVolume: number; avg5Volume: number }) {
-  const ratio = todayVolume / avg5Volume;
-  const pctOfAvg = (ratio * 100).toFixed(0);
-  const isAbove = ratio >= 1;
-
-  return (
-    <div>
-      <div className="flex items-center justify-between text-xs mb-1">
-        <span className="text-txt-3">量能 vs 5日均量</span>
-        <span className={`font-medium ${isAbove ? "text-green" : "text-red"}`}>
-          {pctOfAvg}%
-        </span>
-      </div>
-      <div className="flex items-end gap-3">
-        <div className="flex-1">
-          <div className="text-[10px] text-txt-4 mb-0.5">今日</div>
-          <div className="h-5 bg-blue rounded" style={{ width: `${Math.min(ratio * 80, 100)}%` }} />
-          <div className="text-[10px] text-txt-3 mt-0.5">{todayVolume.toLocaleString()} 億</div>
-        </div>
-        <div className="flex-1">
-          <div className="text-[10px] text-txt-4 mb-0.5">5日均量</div>
-          <div className="h-5 bg-bg-3 rounded" style={{ width: "80%" }} />
-          <div className="text-[10px] text-txt-3 mt-0.5">{avg5Volume.toLocaleString()} 億</div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 /* ================================================================
    SECTOR BARS
@@ -276,11 +153,11 @@ export default function ReportPage() {
 
   // Real breadth data
   const ms = dailyData?.market_summary;
-  const realAdvances = ms?.advance ?? BREADTH.advances;
-  const realDeclines = ms?.decline ?? BREADTH.declines;
-  const realUnchanged = ms?.unchanged ?? BREADTH.unchanged;
-  const realVolume = ms ? Math.round(ms.total_volume / 1e8) : BREADTH.todayVolume; // convert to 億
-  const taiexClose = ms?.taiex_close ?? 33337;
+  const realAdvances = ms?.advance ?? 0;
+  const realDeclines = ms?.decline ?? 0;
+  const realUnchanged = ms?.unchanged ?? 0;
+  const realVolume = ms ? Math.round(ms.total_volume / 1e8) : 0;
+  const taiexClose = ms?.taiex_close ?? 0;
   const taiexChangePct = ms?.taiex_change_pct ?? 0;
   const limitUpCount = ms?.limit_up_count ?? 0;
   const reportDate = dailyData?.date ? dailyData.date : getTodaySlash();
@@ -292,7 +169,16 @@ export default function ReportPage() {
     name: g.name,
     pct: +(g.stocks.length * 0.5 + (g.stocks.reduce((s, st) => s + st.change_pct, 0) / Math.max(g.stocks.length, 1)) * 0.1).toFixed(2),
   }));
-  const bottomSectors = SECTOR_PERFORMANCE.bottom;
+  const bottomSectors = sortedGroups.length > 3
+    ? [...realGroups].sort((a, b) => {
+        const avgA = a.stocks.reduce((s, st) => s + st.change_pct, 0) / Math.max(a.stocks.length, 1);
+        const avgB = b.stocks.reduce((s, st) => s + st.change_pct, 0) / Math.max(b.stocks.length, 1);
+        return avgA - avgB;
+      }).slice(0, 3).map((g) => ({
+        name: g.name,
+        pct: +(g.stocks.reduce((s, st) => s + st.change_pct, 0) / Math.max(g.stocks.length, 1)).toFixed(2),
+      }))
+    : [];
 
   // Strong setups: use today's top stocks from groups
   const realStrongSetups = realGroups.length > 0
@@ -306,7 +192,7 @@ export default function ReportPage() {
           reasons: [{ label: "漲停", variant: "green" as const }],
         }))
       ).slice(0, 8)
-    : STRONG_SETUPS;
+    : [];
 
   // Regime based on TAIEX
   const regime = taiexChangePct > 0 ? "偏多" : taiexChangePct < -0.5 ? "偏空" : "中性";
@@ -335,6 +221,10 @@ export default function ReportPage() {
           </span>
         </div>
 
+        {!dailyData && (
+          <div className="text-center py-12 text-txt-3 text-sm">載入盤後報告中...</div>
+        )}
+
         {/* ── 1. Market Conclusion ── */}
         <section>
           <SectionTitle>大盤結論</SectionTitle>
@@ -342,14 +232,14 @@ export default function ReportPage() {
             <p className="text-sm text-txt-1 leading-relaxed mb-3">
               {ms
                 ? `加權指數收${taiexChangePct >= 0 ? "漲" : "跌"}${Math.abs(taiexChangePct).toFixed(2)}%，報 ${taiex_close_display(taiexClose)} 點。成交量 ${realVolume.toLocaleString()} 億元，漲停 ${limitUpCount} 檔。外資${ms.foreign_net >= 0 ? "買超" : "賣超"} ${Math.abs(Math.round(ms.foreign_net / 1e8)).toLocaleString()} 億元。`
-                : MARKET_CONCLUSION.summary}
+                : "載入中..."}
             </p>
             <div className="flex items-center gap-2">
               <span className={`text-xs px-2 py-1 rounded font-medium ${regimeColor}`}>
                 {regime}
               </span>
               <span className="text-xs text-txt-3">
-                漲停 {limitUpCount || MARKET_CONCLUSION.streak} 檔
+                漲停 {limitUpCount} 檔
               </span>
             </div>
           </Card>
@@ -358,18 +248,14 @@ export default function ReportPage() {
         {/* ── 2. Market Breadth ── */}
         <section>
           <SectionTitle>市場寬度</SectionTitle>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <Card>
               <div className="text-[10px] text-txt-4 uppercase tracking-wider mb-3">漲跌家數</div>
               <BreadthBar advances={realAdvances} declines={realDeclines} unchanged={realUnchanged} />
             </Card>
             <Card>
-              <div className="text-[10px] text-txt-4 uppercase tracking-wider mb-3">均線分布</div>
-              <Ma20Gauge pct={BREADTH.aboveMa20Pct} />
-            </Card>
-            <Card>
               <div className="text-[10px] text-txt-4 uppercase tracking-wider mb-3">成交量能</div>
-              <VolumeComparison todayVolume={realVolume} avg5Volume={BREADTH.avg5Volume} />
+              <div className="text-sm text-txt-1 font-mono tabular-nums">{realVolume.toLocaleString()} 億元</div>
             </Card>
           </div>
         </section>
@@ -378,7 +264,7 @@ export default function ReportPage() {
         <section>
           <SectionTitle>族群表現</SectionTitle>
           <Card>
-            <SectorBars top={topSectors.length > 0 ? topSectors : SECTOR_PERFORMANCE.top} bottom={bottomSectors} />
+            <SectorBars top={topSectors} bottom={bottomSectors} />
           </Card>
         </section>
 
@@ -427,52 +313,7 @@ export default function ReportPage() {
           </Card>
         </section>
 
-        {/* ── 5. Risk List ── */}
-        <section>
-          <SectionTitle>風險警示</SectionTitle>
-          <Card className="overflow-x-auto">
-            <table className="w-full text-xs">
-              <thead>
-                <tr className="text-txt-4 border-b border-border">
-                  <th className="text-left pb-2 font-medium">代碼</th>
-                  <th className="text-left pb-2 font-medium">名稱</th>
-                  <th className="text-right pb-2 font-medium">股價</th>
-                  <th className="text-right pb-2 font-medium">跌幅</th>
-                  <th className="text-right pb-2 font-medium">風險分</th>
-                  <th className="text-left pb-2 font-medium pl-4">警示原因</th>
-                </tr>
-              </thead>
-              <tbody>
-                {RISK_LIST.map((s) => (
-                  <tr key={s.code} className="border-b border-border/50 hover:bg-bg-2/50 transition-colors">
-                    <td className="py-2.5 text-txt-3 font-mono">{s.code}</td>
-                    <td className="py-2.5 text-txt-0 font-medium">{s.name}</td>
-                    <td className="py-2.5 text-right text-txt-1 font-mono tabular-nums">{formatPrice(s.price)}</td>
-                    <td className="py-2.5 text-right text-red font-mono tabular-nums">
-                      {s.changePct.toFixed(2)}%
-                    </td>
-                    <td className="py-2.5 text-right">
-                      <span className={`font-bold tabular-nums ${
-                        s.riskScore >= 85 ? "text-red" : s.riskScore >= 70 ? "text-amber" : "text-txt-2"
-                      }`}>
-                        {s.riskScore}
-                      </span>
-                    </td>
-                    <td className="py-2.5 pl-4">
-                      <div className="flex flex-wrap gap-1">
-                        {s.reasons.map((r) => (
-                          <Chip key={r.label} label={r.label} variant={r.variant} />
-                        ))}
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </Card>
-        </section>
-
-        {/* ── 6. Report Archive Link ── */}
+        {/* ── 5. Report Archive Link ── */}
         <div className="flex justify-end">
           <Link
             href="/history"

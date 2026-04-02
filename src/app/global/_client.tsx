@@ -1,34 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import useSWR from "swr";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import { getTodayString } from "@/lib/utils";
 import type { GlobalIndex } from "@/app/api/market/global/route";
-
-/* ================================================================
-   SEEDED RNG
-   ================================================================ */
-
-function seededRng(seed: number) {
-  let s = seed;
-  return () => {
-    s = (s * 16807 + 0) % 2147483647;
-    return s / 2147483647;
-  };
-}
-
-function generateSparkline(seed: number, base: number, volatility: number): number[] {
-  const rng = seededRng(seed);
-  const points: number[] = [];
-  let val = base;
-  for (let i = 0; i < 30; i++) {
-    val += (rng() - 0.48) * volatility;
-    points.push(val);
-  }
-  return points;
-}
 
 function sparklinePath(data: number[], w: number, h: number): string {
   const min = Math.min(...data);
@@ -44,7 +21,7 @@ function sparklinePath(data: number[], w: number, h: number): string {
 }
 
 /* ================================================================
-   TYPES & MOCK DATA
+   TYPES & CONSTANTS
    ================================================================ */
 
 type Region = "americas" | "asia" | "europe";
@@ -63,34 +40,15 @@ interface IndexData {
   realSparkline?: number[];
 }
 
-const INDICES: IndexData[] = [
-  // Americas
-  { id: "spx",   name: "S&P 500",           nameCn: "標普500",   region: "americas", value: 5823.45, change: 32.18,   changePct: 0.56,  sparkSeed: 101, volatility: 15, emaSignal: "multi" },
-  { id: "ndx",   name: "NASDAQ",             nameCn: "那斯達克",  region: "americas", value: 19042.73, change: 148.52, changePct: 0.79,  sparkSeed: 102, volatility: 55, emaSignal: "multi" },
-  { id: "dji",   name: "Dow Jones",          nameCn: "道瓊工業",  region: "americas", value: 43218.60, change: -85.30, changePct: -0.20, sparkSeed: 103, volatility: 120, emaSignal: "multi" },
-  { id: "vix",   name: "VIX",                nameCn: "恐慌指數",  region: "americas", value: 18.42,    change: -0.85,  changePct: -4.41, sparkSeed: 104, volatility: 0.5, emaSignal: "short" },
-  // Asia-Pacific
-  { id: "twii",  name: "TAIEX",              nameCn: "加權指數",  region: "asia", value: 33337.28, change: 118.45,  changePct: 0.36,  sparkSeed: 201, volatility: 120, emaSignal: "multi" },
-  { id: "n225",  name: "Nikkei 225",         nameCn: "日經225",   region: "asia", value: 39821.50, change: -124.30, changePct: -0.31, sparkSeed: 202, volatility: 150, emaSignal: "short" },
-  { id: "hsi",   name: "Hang Seng",          nameCn: "恒生指數",  region: "asia", value: 17285.60, change: 98.73,   changePct: 0.57,  sparkSeed: 203, volatility: 60, emaSignal: "short" },
-  { id: "kospi", name: "KOSPI",              nameCn: "韓國綜合",  region: "asia", value: 2634.18,  change: -12.45,  changePct: -0.47, sparkSeed: 204, volatility: 10, emaSignal: "short" },
-  { id: "shcomp",name: "Shanghai Composite", nameCn: "上證綜指",  region: "asia", value: 3078.42,  change: 15.67,   changePct: 0.51,  sparkSeed: 205, volatility: 12, emaSignal: "multi" },
-  // Europe
-  { id: "dax",   name: "DAX",                nameCn: "德國DAX",   region: "europe", value: 18456.30, change: 72.15,   changePct: 0.39,  sparkSeed: 301, volatility: 50, emaSignal: "multi" },
-  { id: "ftse",  name: "FTSE 100",           nameCn: "英國富時",  region: "europe", value: 8124.85,  change: -18.42,  changePct: -0.23, sparkSeed: 302, volatility: 25, emaSignal: "short" },
-  { id: "cac",   name: "CAC 40",             nameCn: "法國CAC",   region: "europe", value: 8042.56,  change: 35.80,   changePct: 0.45,  sparkSeed: 303, volatility: 22, emaSignal: "multi" },
-  { id: "stoxx", name: "STOXX 600",          nameCn: "歐洲600",   region: "europe", value: 512.38,   change: 1.92,    changePct: 0.38,  sparkSeed: 304, volatility: 1.5, emaSignal: "multi" },
-  { id: "ibex",  name: "IBEX 35",            nameCn: "西班牙IBEX",region: "europe", value: 11284.70, change: -42.35,  changePct: -0.37, sparkSeed: 305, volatility: 35, emaSignal: "short" },
-];
-
 const REGION_INFO: { key: Region; label: string; labelEn: string }[] = [
   { key: "americas", label: "美洲", labelEn: "Americas" },
   { key: "asia",     label: "亞太", labelEn: "Asia-Pacific" },
   { key: "europe",   label: "歐洲", labelEn: "Europe" },
 ];
 
-function getRegionSentiment(region: Region): { label: string; color: string } {
-  const items = INDICES.filter((i) => i.region === region);
+function getRegionSentiment(region: Region, indices: IndexData[]): { label: string; color: string } {
+  const items = indices.filter((i) => i.region === region);
+  if (items.length === 0) return { label: "中性", color: "text-amber bg-amber-bg" };
   const upCount = items.filter((i) => i.changePct > 0).length;
   const ratio = upCount / items.length;
   if (ratio >= 0.6) return { label: "偏多", color: "text-green bg-green-bg" };
@@ -101,13 +59,6 @@ function getRegionSentiment(region: Region): { label: string; color: string } {
 /* ================================================================
    RISK DATA
    ================================================================ */
-
-const RISK_DATA = {
-  vix: 18.42,
-  us10y: 4.28,
-  dxy: 104.35,
-  fearGreed: 58,
-};
 
 function vixLevel(v: number): { label: string; color: string } {
   if (v < 15) return { label: "Low", color: "text-green" };
@@ -152,8 +103,8 @@ function IndexCard({ idx }: { idx: IndexData }) {
   const isUp = idx.changePct >= 0;
   const borderColor = isUp ? "border-green/40" : "border-red/40";
   const changeColor = isUp ? "text-green" : "text-red";
-  const sparkData = idx.realSparkline ?? generateSparkline(idx.sparkSeed, idx.value, idx.volatility);
-  const path = sparklinePath(sparkData, 100, 28);
+  const sparkData = idx.realSparkline;
+  const path = sparkData ? sparklinePath(sparkData, 100, 28) : "";
   const strokeColor = isUp ? "var(--green)" : "var(--red)";
   const sign = isUp ? "+" : "";
 
@@ -258,28 +209,17 @@ function FearGreedGauge({ value }: { value: number }) {
    MAIN PAGE
    ================================================================ */
 
-// Map API symbol to mock IndexData for fallback metadata
-const SYMBOL_TO_MOCK: Record<string, IndexData> = Object.fromEntries(INDICES.map((i) => [i.id.toUpperCase(), i]));
-
-const SYMBOL_MAP: Record<string, string> = {
-  "^GSPC": "spx", "^IXIC": "ndx", "^DJI": "dji", "^VIX": "vix",
-  "^TWII": "twii", "^N225": "n225", "^HSI": "hsi", "^KS11": "kospi",
-  "^FTSE": "ftse", "^GDAXI": "dax", "^FCHI": "cac",
-};
-
 function realToIndexData(r: GlobalIndex): IndexData {
-  const mockId = SYMBOL_MAP[r.symbol] ?? r.symbol.toLowerCase().replace(/[\^=]/g, "");
-  const fallback = INDICES.find((i) => i.id === mockId);
   return {
-    id: mockId,
+    id: r.symbol.toLowerCase().replace(/[\^=\-.]/g, ""),
     name: r.name,
     nameCn: r.nameCn,
     region: r.region,
     value: r.price,
     change: r.change,
     changePct: r.changePct,
-    sparkSeed: fallback?.sparkSeed ?? 0,
-    volatility: fallback?.volatility ?? 10,
+    sparkSeed: 0,
+    volatility: 0,
     emaSignal: r.changePct >= 0 ? "multi" : "short",
     realSparkline: r.sparkline.length > 2 ? r.sparkline : undefined,
   };
@@ -296,7 +236,24 @@ export default function GlobalPage() {
 
   const displayIndices: IndexData[] = realData && realData.length > 0
     ? realData.map(realToIndexData)
-    : INDICES;
+    : [];
+
+  const riskData = useMemo(() => {
+    if (!realData) return null;
+    const vixItem = realData.find(r => r.symbol === "^VIX");
+    const tnxItem = realData.find(r => r.symbol === "^TNX");
+    const dxyItem = realData.find(r => r.symbol === "DX-Y.NYB");
+    const vix = vixItem?.price ?? 0;
+    const fearGreed = vix < 15 ? 75 : vix <= 20 ? 60 : vix <= 25 ? 40 : vix <= 30 ? 25 : 15;
+    return {
+      vix,
+      us10y: tnxItem?.price ?? 0,
+      us10yChange: tnxItem?.change ?? 0,
+      dxy: dxyItem?.price ?? 0,
+      dxyChange: dxyItem?.change ?? 0,
+      fearGreed,
+    };
+  }, [realData]);
 
   const filteredIndices =
     activeRegion === "all"
@@ -366,6 +323,9 @@ export default function GlobalPage() {
         {/* ── Indices Grid ── */}
         <section>
           <SectionTitle>指數總覽</SectionTitle>
+          {displayIndices.length === 0 && (
+            <div className="text-center py-12 text-txt-3 text-sm">載入國際市場資料中...</div>
+          )}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
             {filteredIndices.map((idx) => (
               <IndexCard key={idx.id} idx={idx} />
@@ -376,33 +336,41 @@ export default function GlobalPage() {
         {/* ── Global Risk Tone ── */}
         <section>
           <SectionTitle>全球風險情緒</SectionTitle>
+          {riskData ? (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
             {/* VIX Gauge */}
             <Card>
               <div className="text-[10px] text-txt-4 uppercase tracking-wider mb-3">VIX 恐慌指數</div>
-              <VixGauge value={displayIndices.find((i) => i.id === "vix")?.value ?? RISK_DATA.vix} />
+              <VixGauge value={riskData.vix} />
             </Card>
 
             {/* US 10Y */}
             <Card>
               <div className="text-[10px] text-txt-4 uppercase tracking-wider mb-3">美國10年期公債殖利率</div>
-              <div className="text-xl font-bold text-txt-0 tracking-tight tabular-nums">{RISK_DATA.us10y.toFixed(2)}%</div>
-              <div className="text-xs text-red mt-1">+0.03 (較前日)</div>
+              <div className="text-xl font-bold text-txt-0 tracking-tight tabular-nums">{riskData.us10y.toFixed(2)}%</div>
+              <div className={`text-xs ${riskData.us10yChange >= 0 ? "text-red" : "text-green"} mt-1`}>
+                {riskData.us10yChange >= 0 ? "+" : ""}{riskData.us10yChange.toFixed(2)} (較前日)
+              </div>
             </Card>
 
             {/* DXY */}
             <Card>
               <div className="text-[10px] text-txt-4 uppercase tracking-wider mb-3">美元指數 DXY</div>
-              <div className="text-xl font-bold text-txt-0 tracking-tight tabular-nums">{RISK_DATA.dxy.toFixed(2)}</div>
-              <div className="text-xs text-green mt-1">-0.18 (較前日)</div>
+              <div className="text-xl font-bold text-txt-0 tracking-tight tabular-nums">{riskData.dxy.toFixed(2)}</div>
+              <div className={`text-xs ${riskData.dxyChange >= 0 ? "text-red" : "text-green"} mt-1`}>
+                {riskData.dxyChange >= 0 ? "+" : ""}{riskData.dxyChange.toFixed(2)} (較前日)
+              </div>
             </Card>
 
             {/* Fear & Greed */}
             <Card>
               <div className="text-[10px] text-txt-4 uppercase tracking-wider mb-3">Fear & Greed Index</div>
-              <FearGreedGauge value={RISK_DATA.fearGreed} />
+              <FearGreedGauge value={riskData.fearGreed} />
             </Card>
           </div>
+          ) : (
+            <div className="text-center py-8 text-txt-3 text-sm">載入風險資料中...</div>
+          )}
         </section>
       </main>
     </div>

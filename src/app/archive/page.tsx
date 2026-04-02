@@ -26,7 +26,7 @@ interface Report {
 }
 
 /* ================================================================
-   MOCK DATA
+   CONSTANTS
    ================================================================ */
 
 const VERDICT_LABELS: Record<Verdict, string> = {
