@@ -32,7 +32,7 @@ async function fetchPeForDate(dateStr: string): Promise<Record<string, PeData> |
 export async function GET() {
   // Try today, then walk back up to 5 trading days
   const base = new Date();
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 10; i++) {
     const d = new Date(base);
     d.setDate(d.getDate() - i);
     const dateStr = `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(2, "0")}`;
