@@ -183,7 +183,7 @@ export default function StockQuickView({
             ) : (
               <span />
             )}
-            {emaResult.crossoverDay !== undefined && emaResult.crossoverDay >= 0 && (
+            {emaResult.crossoverDay !== undefined && emaResult.crossoverDay >= 0 && emaResult.crossoverDay <= 60 && (
               <span className="text-[10px] text-txt-4">
                 {emaResult.crossoverDay === 0
                   ? "今日交叉"

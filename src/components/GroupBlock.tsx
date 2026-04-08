@@ -4,14 +4,14 @@ import { useState, useMemo } from "react";
 import { Stock, StockGroup } from "@/lib/types";
 import StockRow from "./StockRow";
 import { formatNumber, formatPct } from "@/lib/utils";
-import { EmaSignal } from "@/lib/ema";
+import { EmaResult } from "@/lib/ema";
 
 interface GroupBlockProps {
   group: StockGroup;
   totalStocks?: number;
   isWatched?: (code: string) => boolean;
   onToggleWatch?: (code: string) => void;
-  emaSignalMap?: Record<string, EmaSignal>;
+  emaData?: Record<string, EmaResult>;
   selectedCode?: string | null;
   onSelectStock?: (code: string) => void;
 }
@@ -63,7 +63,7 @@ function SortableHeader({ label, sortKey, sort, onSort, className = "" }: Sortab
   );
 }
 
-export default function GroupBlock({ group, totalStocks, isWatched, onToggleWatch, emaSignalMap, selectedCode, onSelectStock }: GroupBlockProps) {
+export default function GroupBlock({ group, totalStocks, isWatched, onToggleWatch, emaData, selectedCode, onSelectStock }: GroupBlockProps) {
   const [collapsed, setCollapsed] = useState(false);
   const [sort, setSort] = useState<SortState | null>(null);
 
@@ -243,7 +243,7 @@ export default function GroupBlock({ group, totalStocks, isWatched, onToggleWatc
               groupColor={group.color}
               isWatched={isWatched?.(stock.code)}
               onToggleWatch={onToggleWatch}
-              emaSignal={emaSignalMap?.[stock.code]}
+              emaResult={emaData?.[stock.code]}
               isSelected={selectedCode === stock.code}
               onSelectStock={onSelectStock}
             />

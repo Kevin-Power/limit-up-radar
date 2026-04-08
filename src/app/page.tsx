@@ -5,7 +5,7 @@ import useSWR from "swr";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { DailyData, Stock, StockGroup } from "@/lib/types";
-import { EmaSignal, EmaResult } from "@/lib/ema";
+import { EmaResult } from "@/lib/ema";
 import { shiftDate, formatPrice, formatPct, formatNumber } from "@/lib/utils";
 import { buildCsvString, downloadCsv } from "@/components/DateNav";
 import TopNav from "@/components/TopNav";
@@ -46,13 +46,6 @@ export default function Home() {
 
   const emaUrl = allCodes.length > 0 ? `/api/ema/batch?codes=${allCodes.join(",")}` : null;
   const { data: emaData } = useSWR<Record<string, EmaResult>>(emaUrl, fetcher);
-
-  const emaSignalMap = useMemo<Record<string, EmaSignal>>(() => {
-    if (!emaData) return {};
-    return Object.fromEntries(
-      Object.entries(emaData).map(([k, v]) => [k, v.signal])
-    );
-  }, [emaData]);
 
   // Once we get latest data, remember its date for navigation
   useEffect(() => {
@@ -275,7 +268,7 @@ export default function Home() {
               totalStocks={displayData.groups.reduce((s, g) => s + g.stocks.length, 0)}
               isWatched={isWatched}
               onToggleWatch={toggleWatch}
-              emaSignalMap={emaSignalMap}
+              emaData={emaData ?? undefined}
               selectedCode={selectedStockCode}
               onSelectStock={(code) => setSelectedStockCode(prev => prev === code ? null : code)}
             />

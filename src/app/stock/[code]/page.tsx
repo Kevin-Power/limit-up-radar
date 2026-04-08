@@ -173,9 +173,9 @@ export default function StockDetailPage({ params }: PageProps) {
     name: stockName,
     industry: "--",
     close: stockPrice,
-    change_pct: 10,
-    volume: 10000,
-    major_net: 1000,
+    change_pct: 0,
+    volume: 0,
+    major_net: 0,
     streak: 0,
   };
 
@@ -534,43 +534,6 @@ export default function StockDetailPage({ params }: PageProps) {
                     <ChipBar values={chipData?.dealer3d ?? [0, 0, 0]} label="Dealer / 自營" />
                   </div>
 
-                  {/* Top brokers */}
-                  <div className="mb-5">
-                    <div className="text-[10px] font-semibold text-txt-4 uppercase tracking-wider mb-2">Top Brokers / 主要券商</div>
-                    <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <div className="text-[9px] text-red mb-1 font-semibold">BUY SIDE</div>
-                        <span className="text-[10px] text-txt-3">{"\u2014"}</span>
-                      </div>
-                      <div>
-                        <div className="text-[9px] text-green mb-1 font-semibold">SELL SIDE</div>
-                        <span className="text-[10px] text-txt-3">{"\u2014"}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Margin trading */}
-                  <div>
-                    <div className="text-[10px] font-semibold text-txt-4 uppercase tracking-wider mb-2">Margin / 融資融券</div>
-                    <div className="grid grid-cols-2 gap-3">
-                      <div className="bg-bg-2 rounded-lg px-3 py-2">
-                        <div className="text-[9px] text-txt-4 mb-0.5">Margin Buy / 融資買進</div>
-                        <div className="text-xs font-bold tabular-nums text-txt-1">{"\u2014"}</div>
-                      </div>
-                      <div className="bg-bg-2 rounded-lg px-3 py-2">
-                        <div className="text-[9px] text-txt-4 mb-0.5">Margin Sell / 融資賣出</div>
-                        <div className="text-xs font-bold tabular-nums text-txt-1">{"\u2014"}</div>
-                      </div>
-                      <div className="bg-bg-2 rounded-lg px-3 py-2">
-                        <div className="text-[9px] text-txt-4 mb-0.5">Short Sell / 融券賣出</div>
-                        <div className="text-xs font-bold tabular-nums text-txt-1">{"\u2014"}</div>
-                      </div>
-                      <div className="bg-bg-2 rounded-lg px-3 py-2">
-                        <div className="text-[9px] text-txt-4 mb-0.5">Short Cover / 融券回補</div>
-                        <div className="text-xs font-bold tabular-nums text-txt-1">{"\u2014"}</div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
 

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Stock } from "@/lib/types";
 import { formatPrice, formatPct, formatNumber, formatNet } from "@/lib/utils";
 import Sparkline from "./Sparkline";
-import { EmaSignal, getSignalLabel, getSignalColor } from "@/lib/ema";
+import { EmaResult, EmaSignal, getSignalLabel, getSignalColor } from "@/lib/ema";
 import StarButton from "./StarButton";
 
 interface StockRowProps {
@@ -12,13 +12,14 @@ interface StockRowProps {
   groupColor: string;
   isWatched?: boolean;
   onToggleWatch?: (code: string) => void;
-  emaSignal?: EmaSignal;
+  emaResult?: EmaResult;
   isSelected?: boolean;
   onSelectStock?: (code: string) => void;
 }
 
-export default function StockRow({ stock, groupColor, isWatched = false, onToggleWatch, emaSignal, isSelected, onSelectStock }: StockRowProps) {
+export default function StockRow({ stock, groupColor, isWatched = false, onToggleWatch, emaResult, isSelected, onSelectStock }: StockRowProps) {
   const s = stock;
+  const emaSignal: EmaSignal | undefined = emaResult?.signal;
 
   return (
     <div>
@@ -91,9 +92,9 @@ export default function StockRow({ stock, groupColor, isWatched = false, onToggl
           {s.major_net === 0 ? "-" : formatNet(s.major_net)}
         </div>
 
-        {/* Sparkline: hidden on mobile */}
+        {/* Sparkline: real price data if available */}
         <div className="hidden md:flex w-14 justify-end flex-shrink-0">
-          <Sparkline color={groupColor} seed={s.code} />
+          <Sparkline color={groupColor} data={emaResult?.prices} />
         </div>
 
         {/* EMA Signal Badge: hidden on mobile */}

@@ -1,45 +1,31 @@
 interface SparklineProps {
   color: string;
-  seed?: string; // stock code used as seed
+  data?: number[]; // real price series; if absent show flat line
 }
 
-function hashSeed(s: string): number {
-  let h = 2166136261;
-  for (let i = 0; i < s.length; i++) {
-    h ^= s.charCodeAt(i);
-    h = (h * 16777619) >>> 0;
-  }
-  return h;
-}
-
-function generatePoints(seed: string): string {
-  const h = hashSeed(seed);
-  // 8 x-positions: 0, 8, 16, 24, 32, 40, 48, 56
-  // y range: 2-20 (lower = higher on SVG = higher price)
-  // We want a general upward trend with variation
-  const nums: number[] = [];
-  let rng = h;
-  for (let i = 0; i < 8; i++) {
-    rng = (rng * 1664525 + 1013904223) >>> 0;
-    nums.push(rng);
+export default function Sparkline({ color, data }: SparklineProps) {
+  if (!data || data.length < 2) {
+    // Flat dashed line when no data
+    return (
+      <svg className="w-14 h-[22px]" viewBox="0 0 56 22">
+        <line x1="2" y1="11" x2="54" y2="11" stroke={color} strokeWidth="1" strokeDasharray="3,3" opacity="0.3" />
+      </svg>
+    );
   }
 
-  // Map to y values: start high (y~18) end low (y~2), with noise
-  const points: string[] = [];
-  for (let i = 0; i < 8; i++) {
-    const x = i * 8;
-    // Base trend: linearly from 18 down to 4 (upward in chart terms)
-    const base = 18 - (14 * i) / 7;
-    // Noise: ±4 units
-    const noise = ((nums[i] % 800) / 100) - 4;
-    const y = Math.max(2, Math.min(20, base + noise));
-    points.push(`${x},${y.toFixed(1)}`);
-  }
-  return points.join(" ");
-}
+  const n = Math.min(data.length, 20);
+  const pts = data.slice(-n);
+  const mn = Math.min(...pts);
+  const mx = Math.max(...pts);
+  const range = mx - mn || 1;
+  const points = pts
+    .map((v, i) => {
+      const x = (i / (n - 1)) * 54 + 1;
+      const y = 20 - ((v - mn) / range) * 18;
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    })
+    .join(" ");
 
-export default function Sparkline({ color, seed = "default" }: SparklineProps) {
-  const points = generatePoints(seed);
   return (
     <svg className="w-14 h-[22px]" viewBox="0 0 56 22">
       <polyline points={points} fill="none" stroke={color} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />

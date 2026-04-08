@@ -229,7 +229,7 @@ function StockAnalysisPanel({
                       {getSignalLabel(ema.signal)}
                     </span>
                   )}
-                  {ema.crossoverDay !== undefined && ema.crossoverDay >= 0 && (
+                  {ema.crossoverDay !== undefined && ema.crossoverDay >= 0 && ema.crossoverDay <= 60 && (
                     <span className="text-[10px] text-txt-4">
                       {ema.crossoverDay === 0 ? "今日交叉" : `${ema.crossoverDay}天前交叉`}
                     </span>
