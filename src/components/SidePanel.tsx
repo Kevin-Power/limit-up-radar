@@ -1,8 +1,13 @@
 import { DailyData, Stock, StockGroup } from "@/lib/types";
-import { formatNumber, formatVolume, formatMoneyShort } from "@/lib/utils";
+import { EmaResult } from "@/lib/ema";
+import { formatNumber, formatMoneyShort } from "@/lib/utils";
+import StockQuickView from "./StockQuickView";
 
 interface SidePanelProps {
   data: DailyData;
+  selectedCode?: string | null;
+  emaData?: Record<string, EmaResult>;
+  onCloseStock?: () => void;
 }
 
 function PanelSection({ title, children }: { title: string; children: React.ReactNode }) {
@@ -170,8 +175,25 @@ function MarketBreadth({ advance, decline, unchanged }: { advance: number; decli
   );
 }
 
-export default function SidePanel({ data }: SidePanelProps) {
+export default function SidePanel({ data, selectedCode, emaData, onCloseStock }: SidePanelProps) {
   const { market_summary: s, groups } = data;
+
+  // When a stock is selected, show quick view instead of market overview
+  if (selectedCode) {
+    const allStocksFlat = groups.flatMap((g) => g.stocks);
+    const selectedStock = allStocksFlat.find((st) => st.code === selectedCode);
+    if (selectedStock) {
+      return (
+        <div className="w-full md:w-[320px] md:flex-shrink-0 bg-bg-1 border-t md:border-t-0 md:border-l border-border overflow-y-auto">
+          <StockQuickView
+            stock={selectedStock}
+            emaResult={emaData?.[selectedCode]}
+            onClose={onCloseStock ?? (() => {})}
+          />
+        </div>
+      );
+    }
+  }
 
   const allStocks: (Stock & { groupColor: string })[] = groups.flatMap((g) =>
     g.stocks.map((st) => ({ ...st, groupColor: g.color }))

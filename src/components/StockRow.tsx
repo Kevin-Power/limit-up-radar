@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { Stock } from "@/lib/types";
 import { formatPrice, formatPct, formatNumber, formatNet } from "@/lib/utils";
@@ -14,17 +13,22 @@ interface StockRowProps {
   isWatched?: boolean;
   onToggleWatch?: (code: string) => void;
   emaSignal?: EmaSignal;
+  isSelected?: boolean;
+  onSelectStock?: (code: string) => void;
 }
 
-export default function StockRow({ stock, groupColor, isWatched = false, onToggleWatch, emaSignal }: StockRowProps) {
-  const [expanded, setExpanded] = useState(false);
+export default function StockRow({ stock, groupColor, isWatched = false, onToggleWatch, emaSignal, isSelected, onSelectStock }: StockRowProps) {
   const s = stock;
 
   return (
     <div>
       <div
-        onClick={() => setExpanded(!expanded)}
-        className="flex items-center gap-3 px-4 py-2.5 border-b border-white/[0.02] last:border-b-0 cursor-pointer hover:bg-white/[0.02] transition-colors group"
+        onClick={() => onSelectStock?.(s.code)}
+        className={`flex items-center gap-3 px-4 py-2.5 border-b border-white/[0.02] last:border-b-0 cursor-pointer transition-colors group ${
+          isSelected
+            ? "bg-white/[0.05] border-l-2 border-l-red/60"
+            : "hover:bg-white/[0.02]"
+        }`}
       >
         {/* Star */}
         {onToggleWatch && (
@@ -104,57 +108,11 @@ export default function StockRow({ stock, groupColor, isWatched = false, onToggl
           })() : <span className="w-10" />}
         </div>
 
-        {/* Expand indicator: hidden on mobile */}
+        {/* Chevron indicator */}
         <div className="hidden md:block w-4 text-txt-4 text-[10px] opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
-          {expanded ? "▾" : "▸"}
+          ▸
         </div>
       </div>
-
-      {/* Expanded detail */}
-      {expanded && (
-        <div className="px-4 py-3 bg-bg-2/50 border-b border-white/[0.02] animate-in">
-          <div className="grid grid-cols-4 gap-4 ml-11">
-            <div>
-              <div className="text-[9px] text-txt-4 uppercase tracking-wider mb-1">開盤價</div>
-              <div className="text-xs text-txt-1 tabular-nums">{formatPrice(s.close * 0.95)}</div>
-            </div>
-            <div>
-              <div className="text-[9px] text-txt-4 uppercase tracking-wider mb-1">最高價</div>
-              <div className="text-xs text-red tabular-nums">{formatPrice(s.close)}</div>
-            </div>
-            <div>
-              <div className="text-[9px] text-txt-4 uppercase tracking-wider mb-1">最低價</div>
-              <div className="text-xs text-txt-1 tabular-nums">{formatPrice(s.close * 0.93)}</div>
-            </div>
-            <div>
-              <div className="text-[9px] text-txt-4 uppercase tracking-wider mb-1">成交額</div>
-              <div className="text-xs text-txt-1 tabular-nums">
-                {formatNumber(Math.round(s.close * s.volume / 1000))}千
-              </div>
-            </div>
-            <div>
-              <div className="text-[9px] text-txt-4 uppercase tracking-wider mb-1">連板天數</div>
-              <div className="text-xs text-txt-1">{s.streak > 0 ? `${s.streak} 天` : "—"}</div>
-            </div>
-            <div>
-              <div className="text-[9px] text-txt-4 uppercase tracking-wider mb-1">主力淨買</div>
-              <div className={`text-xs font-semibold ${s.major_net === 0 ? "text-txt-4" : s.major_net > 0 ? "text-red" : "text-green"}`}>
-                {s.major_net === 0 ? "-" : `${formatNet(s.major_net)} 張`}
-              </div>
-            </div>
-            <div>
-              <div className="text-[9px] text-txt-4 uppercase tracking-wider mb-1">漲停價</div>
-              <div className="text-xs text-red tabular-nums">{formatPrice(s.close)}</div>
-            </div>
-            <div>
-              <div className="text-[9px] text-txt-4 uppercase tracking-wider mb-1">成交比重</div>
-              <div className="text-xs text-txt-1 tabular-nums">
-                {(s.volume / 10000).toFixed(1)}%
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

@@ -12,6 +12,8 @@ interface GroupBlockProps {
   isWatched?: (code: string) => boolean;
   onToggleWatch?: (code: string) => void;
   emaSignalMap?: Record<string, EmaSignal>;
+  selectedCode?: string | null;
+  onSelectStock?: (code: string) => void;
 }
 
 const BADGE_STYLES: Record<string, string> = {
@@ -61,7 +63,7 @@ function SortableHeader({ label, sortKey, sort, onSort, className = "" }: Sortab
   );
 }
 
-export default function GroupBlock({ group, totalStocks, isWatched, onToggleWatch, emaSignalMap }: GroupBlockProps) {
+export default function GroupBlock({ group, totalStocks, isWatched, onToggleWatch, emaSignalMap, selectedCode, onSelectStock }: GroupBlockProps) {
   const [collapsed, setCollapsed] = useState(false);
   const [sort, setSort] = useState<SortState | null>(null);
 
@@ -242,6 +244,8 @@ export default function GroupBlock({ group, totalStocks, isWatched, onToggleWatc
               isWatched={isWatched?.(stock.code)}
               onToggleWatch={onToggleWatch}
               emaSignal={emaSignalMap?.[stock.code]}
+              isSelected={selectedCode === stock.code}
+              onSelectStock={onSelectStock}
             />
           ))}
         </>
