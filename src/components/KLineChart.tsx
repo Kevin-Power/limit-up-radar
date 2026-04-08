@@ -167,27 +167,8 @@ export default function KLineChart({
   const [hover, setHover] = useState<HoverState | null>(null);
   const [period, setPeriod] = useState<"日K" | "週K" | "月K">("日K");
 
-  const data = dataProp;
-
-  /* ── Empty state ── */
-  if (!data || data.length === 0) {
-    return (
-      <div
-        className="rounded-lg overflow-hidden select-none"
-        style={{
-          background: "var(--bg-1)",
-          border: "1px solid var(--border)",
-        }}
-      >
-        <div
-          className="flex items-center justify-center"
-          style={{ height, color: "var(--text-3)", fontFamily: "monospace" }}
-        >
-          載入K線資料中...
-        </div>
-      </div>
-    );
-  }
+  const data = dataProp ?? [];
+  const isEmpty = data.length === 0;
 
   /* ── Layout constants ── */
   const W = 900;
@@ -220,7 +201,7 @@ export default function KLineChart({
 
   const totalH = height;
   const n = data.length;
-  const candleW = Math.max(2, Math.floor(chartW / n) - 1);
+  const candleW = isEmpty ? 8 : Math.max(2, Math.floor(chartW / n) - 1);
   const gap = 1;
   const step = candleW + gap;
 
@@ -228,7 +209,7 @@ export default function KLineChart({
   const closes = useMemo(() => data.map((d) => d.close), [data]);
 
   const maLines = useMemo(() => {
-    if (!showMA) return {};
+    if (isEmpty || !showMA) return {};
     const result: Record<string, (number | null)[]> = {
       ma5: calcMA(closes, 5),
       ma10: calcMA(closes, 10),
@@ -236,14 +217,14 @@ export default function KLineChart({
     };
     if (closes.length >= 60) result.ma60 = calcMA(closes, 60);
     return result;
-  }, [closes, showMA]);
+  }, [closes, showMA, isEmpty]);
 
-  const macd = useMemo(() => (showMACD ? calcMACD(closes) : null), [closes, showMACD]);
-  const kd = useMemo(() => (showKD ? calcKD(data) : null), [data, showKD]);
+  const macd = useMemo(() => (!isEmpty && showMACD ? calcMACD(closes) : null), [closes, showMACD, isEmpty]);
+  const kd = useMemo(() => (!isEmpty && showKD ? calcKD(data) : null), [data, showKD, isEmpty]);
 
   /* ── Price scale (main chart) ── */
-  const priceMin = useMemo(() => Math.min(...data.map((d) => d.low)), [data]);
-  const priceMax = useMemo(() => Math.max(...data.map((d) => d.high)), [data]);
+  const priceMin = useMemo(() => isEmpty ? 0 : Math.min(...data.map((d) => d.low)), [data, isEmpty]);
+  const priceMax = useMemo(() => isEmpty ? 1 : Math.max(...data.map((d) => d.high)), [data, isEmpty]);
   const pricePad = (priceMax - priceMin) * 0.06 || 1;
   const pLow = priceMin - pricePad;
   const pHigh = priceMax + pricePad;
@@ -256,7 +237,7 @@ export default function KLineChart({
   const candleX = useCallback((i: number) => padL + i * step, [step]);
 
   /* ── Volume scale ── */
-  const volMax = useMemo(() => Math.max(...data.map((d) => d.volume)), [data]);
+  const volMax = useMemo(() => isEmpty ? 1 : Math.max(...data.map((d) => d.volume)), [data, isEmpty]);
 
   /* ── MACD scale ── */
   const macdRange = useMemo(() => {
@@ -303,13 +284,14 @@ export default function KLineChart({
 
   /* ── X-axis labels ── */
   const xLabels = useMemo(() => {
+    if (isEmpty) return [];
     const interval = n <= 30 ? 5 : 10;
     const labels: { x: number; label: string }[] = [];
     for (let i = 0; i < n; i += interval) {
       labels.push({ x: candleX(i) + candleW / 2, label: fmtDate(data[i].date) });
     }
     return labels;
-  }, [n, data, candleX, candleW]);
+  }, [n, data, candleX, candleW, isEmpty]);
 
   /* ── Hovered candle data ── */
   const hd = hover ? data[hover.index] : null;
@@ -324,6 +306,22 @@ export default function KLineChart({
   /* ════════════════════════════════════════════════════════════════════
      Render
      ════════════════════════════════════════════════════════════════════ */
+
+  if (isEmpty) {
+    return (
+      <div
+        className="rounded-lg overflow-hidden select-none"
+        style={{ background: "var(--bg-1)", border: "1px solid var(--border)" }}
+      >
+        <div
+          className="flex items-center justify-center"
+          style={{ height, color: "var(--text-3)", fontFamily: "monospace" }}
+        >
+          載入K線資料中...
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div

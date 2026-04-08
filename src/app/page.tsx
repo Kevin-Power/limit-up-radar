@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { DailyData, Stock, StockGroup } from "@/lib/types";
 import { EmaSignal, EmaResult } from "@/lib/ema";
-import { shiftDate, formatPrice, formatPct, formatNumber, getTodayString } from "@/lib/utils";
+import { shiftDate, formatPrice, formatPct, formatNumber } from "@/lib/utils";
 import { buildCsvString, downloadCsv } from "@/components/DateNav";
 import TopNav from "@/components/TopNav";
 import TickerBar from "@/components/TickerBar";
