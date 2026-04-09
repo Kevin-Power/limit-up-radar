@@ -4,14 +4,16 @@ import { NextRequest, NextResponse } from "next/server";
 function lastNTradingDates(n: number): string[] {
   const dates: string[] = [];
   const d = new Date();
-  while (dates.length < n) {
-    const dow = d.getDay();
+  // Walk back up to 14 calendar days to find n trading days
+  for (let i = 0; i < 14 && dates.length < n; i++) {
+    const check = new Date(d);
+    check.setDate(d.getDate() - i);
+    const dow = check.getDay();
     if (dow !== 0 && dow !== 6) {
       dates.push(
-        `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(2, "0")}`
+        `${check.getFullYear()}${String(check.getMonth() + 1).padStart(2, "0")}${String(check.getDate()).padStart(2, "0")}`
       );
     }
-    d.setDate(d.getDate() - 1);
   }
   return dates;
 }
@@ -26,14 +28,14 @@ async function fetchInstitutional(stockNo: string, dateStr: string) {
     if (!res.ok) return null;
     const json = await res.json();
     if (json.stat !== "OK" || !Array.isArray(json.data)) return null;
-    // Find row for this stock
+    // Row format: [category, code, name, fgnBuy, fgnSell, fgnNet, trustBuy, trustSell, trustNet, dealerBuy, dealerSell, dealerNet]
     for (const row of json.data) {
-      if (String(row[0]).trim() !== stockNo) continue;
+      if (String(row[1]).trim() !== stockNo) continue;
       const parseN = (s: string) => parseInt(String(s).replace(/,/g, "")) || 0;
       return {
-        foreign: parseN(row[4]),  // 外資買超（張）
-        trust: parseN(row[10]),   // 投信買超
-        dealer: parseN(row[16]),  // 自營商買超
+        foreign: parseN(row[5]),  // 外資買賣超股數
+        trust: parseN(row[8]),    // 投信買賣超股數
+        dealer: parseN(row[11]), // 自營商買賣超股數
       };
     }
     return null;
