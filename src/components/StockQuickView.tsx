@@ -61,14 +61,18 @@ function MiniEmaChart({
 
 function ChipRow({ label, values }: { label: string; values: number[] }) {
   if (!values || values.length === 0) return null;
+  // API returns newest-first; reverse to display oldest→newest (left→right)
+  const ordered = [...values].reverse();
   const total = values.reduce((a, b) => a + b, 0);
   const maxAbs = Math.max(...values.map(Math.abs), 1);
+  const allLabels = ["前日", "昨日", "今日"];
+  const dateLabels = allLabels.slice(-ordered.length);
 
   return (
     <div className="flex items-center gap-2 py-1">
       <div className="text-[11px] text-txt-3 w-12 flex-shrink-0">{label}</div>
       <div className="flex gap-1 flex-1 items-end" style={{ height: 28 }}>
-        {values.map((v, i) => {
+        {ordered.map((v, i) => {
           const barH = Math.max((Math.abs(v) / maxAbs) * 24, 3);
           return (
             <div
@@ -79,7 +83,7 @@ function ChipRow({ label, values }: { label: string; values: number[] }) {
                 backgroundColor:
                   v >= 0 ? "rgba(239,68,68,0.55)" : "rgba(34,197,94,0.55)",
               }}
-              title={`Day ${i + 1}: ${v > 0 ? "+" : ""}${formatNumber(v)}`}
+              title={`${dateLabels[i]}: ${v > 0 ? "+" : ""}${formatNumber(v)}`}
             />
           );
         })}

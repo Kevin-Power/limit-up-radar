@@ -87,13 +87,17 @@ interface ChipData {
 
 function ChipBarRow({ label, values }: { label: string; values: number[] }) {
   if (!values || values.length === 0) return null;
+  // API returns newest-first; reverse to display oldest→newest (left→right)
+  const ordered = [...values].reverse();
   const total = values.reduce((a, b) => a + b, 0);
   const maxAbs = Math.max(...values.map(Math.abs), 1);
+  const allLabels = ["前日", "昨日", "今日"];
+  const dateLabels = allLabels.slice(-ordered.length);
   return (
     <div className="flex items-center gap-2 py-1.5">
       <div className="text-[11px] text-txt-3 w-14 flex-shrink-0">{label}</div>
       <div className="flex gap-1 flex-1 items-end" style={{ height: 32 }}>
-        {values.map((v, i) => (
+        {ordered.map((v, i) => (
           <div
             key={i}
             className="flex-1 rounded-sm"
@@ -101,7 +105,7 @@ function ChipBarRow({ label, values }: { label: string; values: number[] }) {
               height: `${Math.max((Math.abs(v) / maxAbs) * 28, 3)}px`,
               backgroundColor: v >= 0 ? "rgba(239,68,68,0.55)" : "rgba(34,197,94,0.55)",
             }}
-            title={`${v > 0 ? "+" : ""}${formatNumber(v)}`}
+            title={`${dateLabels[i]}: ${v > 0 ? "+" : ""}${formatNumber(v)}`}
           />
         ))}
       </div>

@@ -55,8 +55,12 @@ function RsiGauge({ value }: { value: number }) {
 // --- Chip bar visual ---
 
 function ChipBar({ values, label }: { values: number[]; label: string }) {
+  // API returns newest-first; reverse to display oldest→newest (left→right)
+  const ordered = [...values].reverse();
   const total = values.reduce((a, b) => a + b, 0);
   const maxAbs = Math.max(...values.map(Math.abs), 1);
+  const allLabels = ["前日", "昨日", "今日"];
+  const dateLabels = allLabels.slice(-ordered.length);
 
   return (
     <div className="mb-3">
@@ -67,7 +71,7 @@ function ChipBar({ values, label }: { values: number[]; label: string }) {
         </span>
       </div>
       <div className="flex gap-1">
-        {values.map((v, i) => {
+        {ordered.map((v, i) => {
           const barW = Math.max((Math.abs(v) / maxAbs) * 100, 8);
           return (
             <div key={i} className="flex items-center gap-1 flex-1">
@@ -86,7 +90,7 @@ function ChipBar({ values, label }: { values: number[]; label: string }) {
         })}
       </div>
       <div className="flex gap-1 mt-0.5">
-        {["前日", "昨日", "今日"].map((d, i) => (
+        {dateLabels.map((d, i) => (
           <span key={i} className="flex-1 text-[8px] text-txt-4">{d}</span>
         ))}
       </div>
