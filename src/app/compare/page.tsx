@@ -132,9 +132,9 @@ function rankIndices(values: number[], dir: CompareDir): { best: number; worst: 
 // --- Signal helpers ---
 
 function signalLabel(s: "golden_cross" | "death_cross" | "neutral"): string {
-  if (s === "golden_cross") return "Golden Cross";
-  if (s === "death_cross") return "Death Cross";
-  return "Neutral";
+  if (s === "golden_cross") return "金叉";
+  if (s === "death_cross") return "死叉";
+  return "中性";
 }
 
 function signalColor(s: "golden_cross" | "death_cross" | "neutral"): string {

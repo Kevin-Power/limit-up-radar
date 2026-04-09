@@ -86,7 +86,7 @@ function ChipBar({ values, label }: { values: number[]; label: string }) {
         })}
       </div>
       <div className="flex gap-1 mt-0.5">
-        {["D-2", "D-1", "Today"].map((d, i) => (
+        {["前日", "昨日", "今日"].map((d, i) => (
           <span key={i} className="flex-1 text-[8px] text-txt-4">{d}</span>
         ))}
       </div>

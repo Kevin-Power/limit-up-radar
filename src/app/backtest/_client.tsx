@@ -463,7 +463,7 @@ export default function BacktestPage() {
             <StatCell label="最大單筆虧損" value={`${result.maxLoss.toFixed(2)}%`} color="text-red" />
             <StatCell label="連續獲利" value={`${result.maxConsecWins}`} color="text-green" />
             <StatCell label="連續虧損" value={`${result.maxConsecLosses}`} color="text-red" />
-            <StatCell label="Sharpe Ratio" value={`${result.sharpeRatio.toFixed(2)}`} color={result.sharpeRatio >= 1 ? "text-green" : result.sharpeRatio >= 0 ? "text-amber" : "text-red"} />
+            <StatCell label="夏普比率" value={`${result.sharpeRatio.toFixed(2)}`} color={result.sharpeRatio >= 1 ? "text-green" : result.sharpeRatio >= 0 ? "text-amber" : "text-red"} />
           </div>
         </div></>}
       </main>
