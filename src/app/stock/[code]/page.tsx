@@ -533,10 +533,12 @@ export default function StockDetailPage({ params }: PageProps) {
 
                   {/* 3-day institutional */}
                   <div className="mb-5">
-                    <div className="text-[10px] font-semibold text-txt-4 uppercase tracking-wider mb-2">三大法人近3日買賣超（股）</div>
-                    <ChipBar values={chipData?.foreign3d ?? [0, 0, 0]} label="外資" />
-                    <ChipBar values={chipData?.trust3d ?? [0, 0, 0]} label="投信" />
-                    <ChipBar values={chipData?.dealer3d ?? [0, 0, 0]} label="自營商" />
+                    <div className="text-[10px] font-semibold text-txt-4 uppercase tracking-wider mb-2">
+                      三大法人近{chipData?.foreign3d?.length ?? 3}日買賣超（股）
+                    </div>
+                    <ChipBar values={chipData?.foreign3d ?? []} label="外資" />
+                    <ChipBar values={chipData?.trust3d ?? []} label="投信" />
+                    <ChipBar values={chipData?.dealer3d ?? []} label="自營商" />
                   </div>
 
                 </div>

@@ -341,7 +341,7 @@ function StockAnalysisPanel({
         {/* Chip */}
         <div className="bg-bg-1 border border-border rounded-lg p-4">
           <div className="text-[10px] font-bold uppercase tracking-widest text-txt-4 mb-3">
-            三大法人籌碼 (近3日)
+            三大法人籌碼 (近{chip?.foreign3d?.length ?? 3}日)
           </div>
           {chip?.isReal ? (
             <>
