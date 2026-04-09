@@ -8,19 +8,20 @@ async function fetchPeForDate(dateStr: string): Promise<Record<string, PeData> |
   try {
     const res = await fetch(url, {
       headers: { "User-Agent": "Mozilla/5.0" },
-      next: { revalidate: 7200 },
+      cache: "no-store",
     });
     if (!res.ok) return null;
     const json = await res.json();
     if (json.stat !== "OK" || !Array.isArray(json.data)) return null;
     const map: Record<string, PeData> = {};
     for (const row of json.data) {
-      if (!Array.isArray(row) || row.length < 6) continue;
+      if (!Array.isArray(row) || row.length < 7) continue;
       const code = String(row[0]).trim();
       if (!/^\d{4}$/.test(code)) continue;
-      const dividendYield = parseFloat(String(row[2]).replace(/,/g, "")) || 0;
-      const pe = parseFloat(String(row[4]).replace(/,/g, "")) || 0;
-      const pb = parseFloat(String(row[5]).replace(/,/g, "")) || 0;
+      // BWIBBU_d fields: [code, name, close, dividendYield(%), dividendYear, pe, pb]
+      const dividendYield = parseFloat(String(row[3]).replace(/,/g, "")) || 0;
+      const pe = parseFloat(String(row[5]).replace(/,/g, "")) || 0;
+      const pb = parseFloat(String(row[6]).replace(/,/g, "")) || 0;
       map[code] = { pe, pb, dividendYield };
     }
     return Object.keys(map).length > 0 ? map : null;

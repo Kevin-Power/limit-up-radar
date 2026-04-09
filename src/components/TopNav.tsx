@@ -115,7 +115,7 @@ export default function TopNav({ currentDate, stocks = [] }: TopNavProps) {
           className="flex items-center gap-2 font-bold text-sm text-txt-0 tracking-tight whitespace-nowrap hover:opacity-80 transition-opacity"
         >
           <div className="w-[7px] h-[7px] bg-red rounded-sm" />
-          漲停雷達
+          股文觀指 大師專區
         </Link>
 
         <div className="flex items-center gap-3">
