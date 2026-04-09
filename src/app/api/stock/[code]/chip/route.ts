@@ -27,7 +27,7 @@ async function fetchInstitutional(stockNo: string, dateStr: string) {
   try {
     const res = await fetch(url, {
       headers: { "User-Agent": "Mozilla/5.0" },
-      next: { revalidate: 3600 },
+      cache: "no-store",
     });
     if (!res.ok) return null;
     const json = await res.json();
