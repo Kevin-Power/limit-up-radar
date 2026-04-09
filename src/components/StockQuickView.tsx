@@ -66,7 +66,7 @@ function ChipRow({ label, values }: { label: string; values: number[] }) {
   const total = values.reduce((a, b) => a + b, 0);
   const maxAbs = Math.max(...values.map(Math.abs), 1);
   const allLabels = ["前日", "昨日", "今日"];
-  const dateLabels = allLabels.slice(-ordered.length);
+  const dateLabels = allLabels.slice(0, ordered.length);
 
   return (
     <div className="flex items-center gap-2 py-1">
