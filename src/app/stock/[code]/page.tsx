@@ -228,11 +228,11 @@ export default function StockDetailPage({ params }: PageProps) {
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="opacity-60">
               <path d="M9 3L5 7l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            Back
+            返回
           </Link>
 
           {loading ? (
-            <div className="text-txt-4 text-sm text-center py-20">Loading...</div>
+            <div className="text-txt-4 text-sm text-center py-20">載入中...</div>
           ) : (
             <>
               {/* ============================================================
@@ -253,12 +253,12 @@ export default function StockDetailPage({ params }: PageProps) {
                     </div>
                     <div className="flex flex-wrap items-center gap-2">
                       <a
-                        href={`https://www.google.com/search?q=${displayStock.code}+外資買超`}
+                        href={`https://www.google.com/search?q=${displayStock.code}+${displayStock.name}+外資買超`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-[10px] px-2.5 py-1 rounded bg-bg-3 border border-border text-txt-3 hover:text-txt-1 hover:border-border-hover transition-colors"
                       >
-                        Foreign Net Buy
+                        外資動向
                       </a>
                       <a
                         href={`https://www.google.com/search?q=${displayStock.code}+${displayStock.name}+新聞`}
@@ -266,15 +266,15 @@ export default function StockDetailPage({ params }: PageProps) {
                         rel="noopener noreferrer"
                         className="text-[10px] px-2.5 py-1 rounded bg-bg-3 border border-border text-txt-3 hover:text-txt-1 hover:border-border-hover transition-colors"
                       >
-                        News
+                        相關新聞
                       </a>
                       <a
-                        href={`https://mops.twse.com.tw/mops/web/t05st01_0`}
+                        href={`https://mops.twse.com.tw/mops/web/t05st01?encodeURIComponent=1&step=1&firstin=1&co_id=${displayStock.code}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-[10px] px-2.5 py-1 rounded bg-bg-3 border border-border text-txt-3 hover:text-txt-1 hover:border-border-hover transition-colors"
                       >
-                        Announcements
+                        公司公告
                       </a>
                     </div>
                   </div>
@@ -328,9 +328,9 @@ export default function StockDetailPage({ params }: PageProps) {
                   { label: "Open", sub: "開盤", value: lastCandle ? formatPrice(lastCandle.open) : "\u2014", positive: lastCandle ? lastCandle.open >= lastCandle.close * 0.95 : null },
                   { label: "High", sub: "最高", value: lastCandle ? formatPrice(lastCandle.high) : "\u2014", positive: lastCandle ? true : null },
                   { label: "Low", sub: "最低", value: lastCandle ? formatPrice(lastCandle.low) : "\u2014", positive: lastCandle ? false : null },
-                  { label: "Volume", sub: "成交量", value: formatNumber(displayStock.volume) + " lots", positive: null },
-                  { label: "Major Net", sub: "主力買超", value: formatNet(displayStock.major_net) + " lots", positive: displayStock.major_net > 0 },
-                  { label: "Streak", sub: "連板天數", value: displayStock.streak > 0 ? `${displayStock.streak} days` : "--", positive: displayStock.streak > 0 ? true : null },
+                  { label: "Volume", sub: "成交量", value: formatNumber(displayStock.volume) + " 張", positive: null },
+                  { label: "Major Net", sub: "主力買超", value: formatNet(displayStock.major_net) + " 張", positive: displayStock.major_net > 0 },
+                  { label: "Streak", sub: "連板天數", value: displayStock.streak > 0 ? `${displayStock.streak} 天` : "--", positive: displayStock.streak > 0 ? true : null },
                   { label: "P/E", sub: "本益比", value: stockPe ? stockPe.toFixed(1) : "\u2014", positive: null },
                   { label: "P/B", sub: "股價淨值比", value: stockPb ? stockPb.toFixed(2) : "\u2014", positive: null },
                 ].map(({ label, sub, value, positive }) => (
@@ -363,7 +363,7 @@ export default function StockDetailPage({ params }: PageProps) {
                     SECTION 4: Technical Analysis
                     ============================================================ */}
                 <div className="bg-bg-1 border border-border rounded-xl p-5">
-                  <SectionLabel>Technical Analysis / 技術面分析</SectionLabel>
+                  <SectionLabel>技術面分析</SectionLabel>
 
                   {/* 快樂小馬 EMA11/24 */}
                   {emaResult && (() => {
@@ -426,7 +426,7 @@ export default function StockDetailPage({ params }: PageProps) {
 
                   {/* Moving Averages */}
                   <div className="mb-5">
-                    <div className="text-[10px] font-semibold text-txt-4 uppercase tracking-wider mb-2">Moving Averages</div>
+                    <div className="text-[10px] font-semibold text-txt-4 uppercase tracking-wider mb-2">均線</div>
                     <div className="grid grid-cols-2 gap-2">
                       {[
                         { label: "MA5 (5日)", value: techData?.ma5 },
@@ -453,7 +453,7 @@ export default function StockDetailPage({ params }: PageProps) {
                       <span className="text-[10px] font-semibold text-txt-4 uppercase tracking-wider">RSI (14)</span>
                       <span className="text-[9px] text-txt-4">
                         {techData?.rsi != null
-                          ? techData.rsi > 70 ? "Overbought" : techData.rsi < 30 ? "Oversold" : "Neutral"
+                          ? techData.rsi > 70 ? "超買" : techData.rsi < 30 ? "超賣" : "中性"
                           : "\u2014"}
                       </span>
                     </div>
@@ -463,7 +463,7 @@ export default function StockDetailPage({ params }: PageProps) {
                   {/* MACD */}
                   <div className="mb-4">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-semibold text-txt-4 uppercase tracking-wider">MACD Signal</span>
+                      <span className="text-[10px] font-semibold text-txt-4 uppercase tracking-wider">MACD 信號</span>
                       <span
                         className={`text-[10px] font-bold px-2 py-0.5 rounded ${
                           techData?.macdSignal === "golden_cross"
@@ -473,14 +473,14 @@ export default function StockDetailPage({ params }: PageProps) {
                             : "bg-bg-3 text-txt-3"
                         }`}
                       >
-                        {techData?.macdSignal === "golden_cross" ? "Golden Cross / 金叉" : techData?.macdSignal === "death_cross" ? "Death Cross / 死叉" : techData?.macdSignal ? "Neutral / 中性" : "\u2014"}
+                        {techData?.macdSignal === "golden_cross" ? "金叉" : techData?.macdSignal === "death_cross" ? "死叉" : techData?.macdSignal ? "中性" : "\u2014"}
                       </span>
                     </div>
                   </div>
 
                   {/* KD */}
                   <div className="mb-4">
-                    <div className="text-[10px] font-semibold text-txt-4 uppercase tracking-wider mb-1.5">KD Indicator</div>
+                    <div className="text-[10px] font-semibold text-txt-4 uppercase tracking-wider mb-1.5">KD 指標</div>
                     <div className="flex gap-4">
                       <div className="flex items-center gap-1.5">
                         <span className="text-[10px] text-txt-4">K:</span>
@@ -504,7 +504,7 @@ export default function StockDetailPage({ params }: PageProps) {
                   {/* Overall Signal */}
                   <div className="pt-3 border-t border-border">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-semibold text-txt-4 uppercase tracking-wider">Overall Signal</span>
+                      <span className="text-[10px] font-semibold text-txt-4 uppercase tracking-wider">綜合信號</span>
                       <span
                         className={`text-xs font-bold px-3 py-1 rounded ${
                           techData?.overall === "bullish"
@@ -514,7 +514,7 @@ export default function StockDetailPage({ params }: PageProps) {
                             : "bg-amber-bg text-amber"
                         }`}
                       >
-                        {techData?.overall === "bullish" ? "Bullish / 偏多" : techData?.overall === "bearish" ? "Bearish / 偏空" : techData?.overall ? "Neutral / 中性" : "\u2014"}
+                        {techData?.overall === "bullish" ? "偏多" : techData?.overall === "bearish" ? "偏空" : techData?.overall ? "中性" : "\u2014"}
                       </span>
                     </div>
                   </div>
@@ -524,14 +524,14 @@ export default function StockDetailPage({ params }: PageProps) {
                     SECTION 5: Chip Analysis
                     ============================================================ */}
                 <div className="bg-bg-1 border border-border rounded-xl p-5">
-                  <SectionLabel>Chip Analysis / 籌碼面分析</SectionLabel>
+                  <SectionLabel>籌碼面分析</SectionLabel>
 
                   {/* 3-day institutional */}
                   <div className="mb-5">
-                    <div className="text-[10px] font-semibold text-txt-4 uppercase tracking-wider mb-2">3-Day Institutional Net (lots)</div>
-                    <ChipBar values={chipData?.foreign3d ?? [0, 0, 0]} label="Foreign / 外資" />
-                    <ChipBar values={chipData?.trust3d ?? [0, 0, 0]} label="Trust / 投信" />
-                    <ChipBar values={chipData?.dealer3d ?? [0, 0, 0]} label="Dealer / 自營" />
+                    <div className="text-[10px] font-semibold text-txt-4 uppercase tracking-wider mb-2">三大法人近3日買賣超（股）</div>
+                    <ChipBar values={chipData?.foreign3d ?? [0, 0, 0]} label="外資" />
+                    <ChipBar values={chipData?.trust3d ?? [0, 0, 0]} label="投信" />
+                    <ChipBar values={chipData?.dealer3d ?? [0, 0, 0]} label="自營商" />
                   </div>
 
                 </div>
@@ -541,11 +541,11 @@ export default function StockDetailPage({ params }: PageProps) {
                   SECTION 6: Limit-Up History
                   ============================================================ */}
               <div className="mb-6">
-                <SectionLabel>Limit-Up History / 歷史漲停紀錄</SectionLabel>
+                <SectionLabel>歷史漲停紀錄</SectionLabel>
                 <div className="overflow-x-auto">
                 <div className="border border-border rounded-xl overflow-hidden min-w-[500px]">
                   <div className="grid grid-cols-[1fr_1.2fr_0.8fr_0.8fr] gap-0 px-4 py-2.5 bg-bg-2 border-b border-border">
-                    {["Date / 日期", "Group / 族群", "Next Open%", "Next Close%"].map((h) => (
+                    {["日期", "族群", "隔日開盤%", "隔日收盤%"].map((h) => (
                       <div key={h} className="text-[9px] font-semibold text-txt-4 uppercase tracking-wider">{h}</div>
                     ))}
                   </div>
@@ -581,7 +581,7 @@ export default function StockDetailPage({ params }: PageProps) {
                     </div>
                   ))}
                   {(limitUpHistory ?? []).length === 0 && (
-                    <div className="px-4 py-4 text-xs text-txt-4 text-center">No limit-up history available</div>
+                    <div className="px-4 py-4 text-xs text-txt-4 text-center">無歷史漲停紀錄</div>
                   )}
                 </div>
                 </div>
@@ -591,11 +591,11 @@ export default function StockDetailPage({ params }: PageProps) {
                   SECTION 7: Peer Comparison
                   ============================================================ */}
               <div className="mb-6">
-                <SectionLabel>Peer Comparison / 同族群比較</SectionLabel>
+                <SectionLabel>同族群比較</SectionLabel>
                 <div className="overflow-x-auto">
                 <div className="border border-border rounded-xl overflow-hidden min-w-[500px]">
                   <div className="grid grid-cols-[0.6fr_1fr_0.8fr_0.8fr_0.8fr_0.6fr] gap-0 px-4 py-2.5 bg-bg-2 border-b border-border">
-                    {["Code", "Name", "Price", "Change%", "Volume", "P/E"].map((h) => (
+                    {["代號", "名稱", "收盤", "漲幅%", "成交量", "本益比"].map((h) => (
                       <div key={h} className="text-[9px] font-semibold text-txt-4 uppercase tracking-wider">{h}</div>
                     ))}
                   </div>
