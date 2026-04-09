@@ -221,7 +221,7 @@ export default function StockQuickView({
       {/* Chip data */}
       <div className="px-3.5 py-3 border-b border-border flex-shrink-0">
         <div className="text-[10px] font-bold uppercase tracking-widest text-txt-4 mb-2">
-          三大法人 (近3日)
+          三大法人 (近{chip?.foreign3d?.length ?? 3}日)
         </div>
         {!chip ? (
           <div className="text-xs text-txt-4 py-2">載入中...</div>
