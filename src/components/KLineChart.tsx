@@ -340,7 +340,7 @@ export default function KLineChart({
           className="text-sm font-medium"
           style={{ color: "var(--text-1)", fontFamily: "monospace" }}
         >
-          K Line Chart
+          K 線圖
         </span>
         <div className="flex gap-1">
           {(["日K", "週K", "月K"] as const).map((p) => (
