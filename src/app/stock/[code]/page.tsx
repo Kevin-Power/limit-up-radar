@@ -133,10 +133,11 @@ export default function StockDetailPage({ params }: PageProps) {
     { revalidateOnFocus: false }
   );
 
-  // Real API data
-  const { data: emaResult } = useSWR<EmaResult & { code: string }>(
+  // Real API data — normalize { code, data: null } to null when signal is absent
+  const { data: emaRaw } = useSWR<EmaResult & { code: string }>(
     `/api/ema/${code}`, fetcher
   );
+  const emaResult = emaRaw?.signal ? emaRaw : null;
   const { data: techData } = useSWR(
     `/api/stock/${code}/technicals`, fetcher
   );
