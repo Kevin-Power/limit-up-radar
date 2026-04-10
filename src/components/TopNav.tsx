@@ -7,6 +7,7 @@ import { Stock } from "@/lib/types";
 import { formatPrice, formatPct } from "@/lib/utils";
 import ThemeToggle from "./ThemeToggle";
 import MarketClock from "./MarketClock";
+import UserMenu from "./UserMenu";
 
 interface TopNavProps {
   currentDate?: string;
@@ -187,6 +188,7 @@ export default function TopNav({ currentDate, stocks = [] }: TopNavProps) {
           </div>
 
           <ThemeToggle />
+          <UserMenu />
 
           {currentDate && (
             <div className="hidden sm:block text-[11px] text-txt-4 tabular-nums tracking-wider whitespace-nowrap">

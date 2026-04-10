@@ -26,16 +26,21 @@ def extract_sign(html_or_text: str) -> str:
     return html_or_text.strip()
 
 def find_stock_table(tables: list[dict]) -> list[list]:
-    """Find the table with individual stock data (has 16 fields and stock codes)."""
+    """Find the table with individual stock data (has 16 fields and stock codes).
+
+    Scans multiple rows because the first row may be an ETF with non-4-digit code
+    (e.g. '00400A'). Accepts the table if at least one row in the first 20 has a
+    4-digit numeric code.
+    """
     for t in tables:
         data = t.get("data", [])
         fields = t.get("fields", [])
         if len(fields) >= 14 and len(data) > 100:
-            # Check if first row has a stock-code-like value
-            if data and len(data[0]) >= 14:
-                code = str(data[0][0]).strip()
-                if re.match(r"^\d{4}$", code):
-                    return data
+            for row in data[:20]:
+                if len(row) >= 14:
+                    code = str(row[0]).strip()
+                    if re.match(r"^\d{4}$", code):
+                        return data
     return []
 
 def parse_daily_quotes_v2(tables: list[dict], date: str) -> list[dict]:

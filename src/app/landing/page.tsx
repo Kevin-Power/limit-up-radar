@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Link from "next/link";
 import Footer from "@/components/Footer";
 
 /* ------------------------------------------------------------------ */
@@ -218,14 +217,15 @@ export default function LandingPage() {
       <nav className="glass fixed top-0 z-50 w-full border-b border-border bg-bg-0/70">
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6">
           <span className="text-lg font-bold text-txt-0">
-            <span className="text-red">//</span> 漲停雷達
+            <span className="text-red">//</span> 股文觀指 大師專區
           </span>
-          <Link
-            href="/"
-            className="rounded-lg bg-red px-4 py-1.5 text-sm font-medium text-white transition hover:brightness-110"
+          <a
+            href="/api/auth/line"
+            className="flex items-center gap-1.5 rounded-lg px-4 py-1.5 text-sm font-medium text-white transition hover:brightness-110"
+            style={{ backgroundColor: "#06C755" }}
           >
-            進入平台
-          </Link>
+            LINE 登入
+          </a>
         </div>
       </nav>
 
@@ -255,12 +255,16 @@ export default function LandingPage() {
               AI 驅動的漲停股分類、隔日表現追蹤、策略回測平台
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <Link
-                href="/"
-                className="rounded-xl bg-red px-7 py-3 text-base font-semibold text-white shadow-lg shadow-red/20 transition hover:brightness-110 hover:shadow-red/30"
+              <a
+                href="/api/auth/line"
+                className="flex items-center gap-2 rounded-xl px-7 py-3 text-base font-semibold text-white shadow-lg transition hover:brightness-110"
+                style={{ backgroundColor: "#06C755", boxShadow: "0 4px 14px rgba(6,199,85,0.25)" }}
               >
-                開始使用
-              </Link>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                  <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" />
+                </svg>
+                LINE 登入開始使用
+              </a>
               <button
                 onClick={scrollToFeatures}
                 className="rounded-xl border border-border px-7 py-3 text-base font-semibold text-txt-1 transition hover:border-border-hover hover:bg-bg-2"
@@ -390,16 +394,17 @@ export default function LandingPage() {
                     </li>
                   ))}
                 </ul>
-                <Link
-                  href="/"
+                <a
+                  href="/api/auth/line"
                   className={`mt-6 block rounded-lg py-2.5 text-center text-sm font-semibold transition ${
                     p.highlight
-                      ? "bg-red text-white hover:brightness-110"
+                      ? "text-white hover:brightness-110"
                       : "border border-border text-txt-1 hover:bg-bg-2"
                   }`}
+                  style={p.highlight ? { backgroundColor: "#06C755" } : undefined}
                 >
-                  {p.cta}
-                </Link>
+                  LINE 登入
+                </a>
               </div>
             ))}
           </div>
@@ -413,14 +418,18 @@ export default function LandingPage() {
             準備好了嗎？
           </h2>
           <p className="mt-4 text-txt-2">
-            加入已經在使用漲停雷達的交易者行列
+            加入已經在使用的交易者行列
           </p>
-          <Link
-            href="/"
-            className="mt-8 inline-block rounded-xl bg-red px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-red/20 transition hover:brightness-110 hover:shadow-red/30"
+          <a
+            href="/api/auth/line"
+            className="mt-8 inline-flex items-center gap-2 rounded-xl px-8 py-3.5 text-base font-semibold text-white transition hover:brightness-110"
+            style={{ backgroundColor: "#06C755", boxShadow: "0 4px 14px rgba(6,199,85,0.25)" }}
           >
-            立即開始使用漲停雷達
-          </Link>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+              <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" />
+            </svg>
+            LINE 登入開始使用
+          </a>
           <p className="mt-6 font-mono text-sm text-txt-4">
             limit-up-radar.vercel.app
           </p>
