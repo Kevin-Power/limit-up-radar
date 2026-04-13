@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import Footer from "@/components/Footer";
 
 /* ------------------------------------------------------------------ */
@@ -39,6 +40,61 @@ function useScrollReveal() {
   }, []);
 
   return ref;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Login Form Component                                              */
+/* ------------------------------------------------------------------ */
+function LoginForm({ className = "" }: { className?: string }) {
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+      if (res.ok) {
+        router.push("/");
+        router.refresh();
+      } else {
+        const data = await res.json();
+        setError(data.error || "登入失敗");
+      }
+    } catch {
+      setError("網路錯誤，請重試");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className={`flex items-center gap-2 ${className}`}>
+      <input
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="輸入密碼"
+        className="rounded-lg border border-border bg-bg-2 px-4 py-2.5 text-sm text-txt-0 outline-none focus:border-red placeholder:text-txt-4 w-48"
+        autoComplete="current-password"
+      />
+      <button
+        type="submit"
+        disabled={loading || !password}
+        className="rounded-lg bg-red px-5 py-2.5 text-sm font-semibold text-white transition hover:brightness-110 disabled:opacity-50"
+      >
+        {loading ? "登入中..." : "登入"}
+      </button>
+      {error && <span className="text-xs text-red">{error}</span>}
+    </form>
+  );
 }
 
 /* ------------------------------------------------------------------ */
@@ -88,47 +144,6 @@ const STATS = [
   { value: "54+", label: "漲停股追蹤" },
   { value: "14", label: "國際指數" },
   { value: "4", label: "策略回測" },
-];
-
-const PRICING = [
-  {
-    name: "免費版",
-    price: "$0",
-    period: "/月",
-    features: ["延遲 1 天資料", "基本族群分類", "國際指數總覽", "社群支援"],
-    highlight: false,
-    cta: "免費開始",
-  },
-  {
-    name: "基本版",
-    price: "$299",
-    period: "/月",
-    features: ["即時資料更新", "EMA 策略訊號", "隔日表現追蹤", "Email 支援"],
-    highlight: false,
-    cta: "選擇方案",
-  },
-  {
-    name: "專業版",
-    price: "$799",
-    period: "/月",
-    features: [
-      "全功能解鎖",
-      "策略回測系統",
-      "處置預測模型",
-      "優先客服支援",
-    ],
-    highlight: true,
-    cta: "立即升級",
-    badge: "最受歡迎",
-  },
-  {
-    name: "VIP",
-    price: "$1,499",
-    period: "/月",
-    features: ["全功能 + 專屬", "LINE 即時通知", "API 串接權限", "一對一顧問"],
-    highlight: false,
-    cta: "聯繫我們",
-  },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -219,13 +234,7 @@ export default function LandingPage() {
           <span className="text-lg font-bold text-txt-0">
             <span className="text-red">//</span> 股文觀指 大師專區
           </span>
-          <a
-            href="/api/auth/line"
-            className="flex items-center gap-1.5 rounded-lg px-4 py-1.5 text-sm font-medium text-white transition hover:brightness-110"
-            style={{ backgroundColor: "#06C755" }}
-          >
-            LINE 登入
-          </a>
+          <LoginForm />
         </div>
       </nav>
 
@@ -255,21 +264,14 @@ export default function LandingPage() {
               AI 驅動的漲停股分類、隔日表現追蹤、策略回測平台
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <a
-                href="/api/auth/line"
-                className="flex items-center gap-2 rounded-xl px-7 py-3 text-base font-semibold text-white shadow-lg transition hover:brightness-110"
-                style={{ backgroundColor: "#06C755", boxShadow: "0 4px 14px rgba(6,199,85,0.25)" }}
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-                  <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" />
-                </svg>
-                LINE 登入開始使用
-              </a>
+              <LoginForm />
+            </div>
+            <div className="mt-4">
               <button
                 onClick={scrollToFeatures}
-                className="rounded-xl border border-border px-7 py-3 text-base font-semibold text-txt-1 transition hover:border-border-hover hover:bg-bg-2"
+                className="text-sm text-txt-3 transition hover:text-txt-1 underline underline-offset-4"
               >
-                了解更多
+                了解更多 ↓
               </button>
             </div>
           </div>
@@ -353,64 +355,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ─────────────────────────── PRICING ───────────────────────────── */}
-      <section className="py-24 sm:py-32">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <h2 className="reveal text-center text-3xl font-bold text-txt-0 sm:text-4xl">
-            選擇方案
-          </h2>
-          <p className="reveal mt-3 text-center text-txt-3">
-            從免費入門到專業進階，找到適合你的方案
-          </p>
-
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {PRICING.map((p, i) => (
-              <div
-                key={p.name}
-                className={`reveal card-hover relative flex flex-col rounded-xl border p-6 ${
-                  p.highlight
-                    ? "border-red bg-bg-1 shadow-lg shadow-red/10"
-                    : "border-border bg-bg-1"
-                }`}
-                style={{ transitionDelay: `${i * 80}ms` }}
-              >
-                {p.badge && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-red px-4 py-1 text-xs font-semibold text-white">
-                    {p.badge}
-                  </span>
-                )}
-                <h3 className="text-lg font-semibold text-txt-0">{p.name}</h3>
-                <div className="mt-3 flex items-baseline gap-1">
-                  <span className="text-3xl font-extrabold text-txt-0">{p.price}</span>
-                  <span className="text-sm text-txt-3">{p.period}</span>
-                </div>
-                <ul className="mt-6 flex flex-1 flex-col gap-3">
-                  {p.features.map((feat) => (
-                    <li key={feat} className="flex items-start gap-2 text-sm text-txt-2">
-                      <span className="mt-0.5 h-4 w-4 flex-shrink-0 rounded-full bg-green/20 text-center text-[10px] leading-4 text-green">
-                        &#10003;
-                      </span>
-                      {feat}
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href="/api/auth/line"
-                  className={`mt-6 block rounded-lg py-2.5 text-center text-sm font-semibold transition ${
-                    p.highlight
-                      ? "text-white hover:brightness-110"
-                      : "border border-border text-txt-1 hover:bg-bg-2"
-                  }`}
-                  style={p.highlight ? { backgroundColor: "#06C755" } : undefined}
-                >
-                  LINE 登入
-                </a>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ───────────────────────── CTA BOTTOM ──────────────────────────── */}
       <section className="reveal py-24 sm:py-32">
         <div className="mx-auto max-w-2xl px-4 text-center sm:px-6">
@@ -418,18 +362,11 @@ export default function LandingPage() {
             準備好了嗎？
           </h2>
           <p className="mt-4 text-txt-2">
-            加入已經在使用的交易者行列
+            輸入密碼立即開始使用
           </p>
-          <a
-            href="/api/auth/line"
-            className="mt-8 inline-flex items-center gap-2 rounded-xl px-8 py-3.5 text-base font-semibold text-white transition hover:brightness-110"
-            style={{ backgroundColor: "#06C755", boxShadow: "0 4px 14px rgba(6,199,85,0.25)" }}
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-              <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" />
-            </svg>
-            LINE 登入開始使用
-          </a>
+          <div className="mt-8 flex justify-center">
+            <LoginForm />
+          </div>
           <p className="mt-6 font-mono text-sm text-txt-4">
             limit-up-radar.vercel.app
           </p>
