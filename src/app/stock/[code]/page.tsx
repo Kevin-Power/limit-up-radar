@@ -154,6 +154,13 @@ export default function StockDetailPage({ params }: PageProps) {
   const { data: peData } = useSWR<Record<string, { pe: number; pb: number }>>(
     "/api/pe", fetcher
   );
+  const { data: revData } = useSWR<{ stocks: { code: string; revMonth: number | null; revYoY: number | null; revMoM: number | null; revCum: number | null; revCumYoY: number | null }[] }>(
+    "/api/revenue", fetcher
+  );
+  const stockRev = useMemo(() => {
+    if (!revData?.stocks) return null;
+    return revData.stocks.find((s) => s.code === code) ?? null;
+  }, [revData, code]);
 
   // stock name: from daily data
   const stockName = useMemo(() => {
@@ -361,6 +368,25 @@ export default function StockDetailPage({ params }: PageProps) {
                   </div>
                 ))}
               </div>
+
+              {/* Revenue Section */}
+              {stockRev && (
+                <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6">
+                  {[
+                    { label: "月營收", sub: "百萬", value: stockRev.revMonth != null ? stockRev.revMonth.toLocaleString() : "—", positive: null },
+                    { label: "營收 YoY", sub: "年增率", value: stockRev.revYoY != null ? `${stockRev.revYoY > 0 ? "+" : ""}${stockRev.revYoY.toFixed(2)}%` : "—", positive: stockRev.revYoY != null ? (stockRev.revYoY > 0 ? true : stockRev.revYoY < 0 ? false : null) : null },
+                    { label: "營收 MoM", sub: "月增率", value: stockRev.revMoM != null ? `${stockRev.revMoM > 0 ? "+" : ""}${stockRev.revMoM.toFixed(2)}%` : "—", positive: stockRev.revMoM != null ? (stockRev.revMoM > 0 ? true : stockRev.revMoM < 0 ? false : null) : null },
+                    { label: "累計營收", sub: "百萬", value: stockRev.revCum != null ? stockRev.revCum.toLocaleString() : "—", positive: null },
+                    { label: "累計 YoY", sub: "年增率", value: stockRev.revCumYoY != null ? `${stockRev.revCumYoY > 0 ? "+" : ""}${stockRev.revCumYoY.toFixed(2)}%` : "—", positive: stockRev.revCumYoY != null ? (stockRev.revCumYoY > 0 ? true : stockRev.revCumYoY < 0 ? false : null) : null },
+                  ].map(({ label, sub, value, positive }) => (
+                    <div key={label} className={`rounded-lg px-3.5 py-3 border ${positive === true ? "bg-red-bg border-red/10" : positive === false ? "bg-green-bg border-green/10" : "bg-bg-2 border-border"}`}>
+                      <div className="text-[9px] text-txt-4 uppercase tracking-wider mb-0.5">{label}</div>
+                      <div className="text-[10px] text-txt-4 mb-1">{sub}</div>
+                      <div className={`text-sm font-bold tabular-nums ${positive === true ? "text-red" : positive === false ? "text-green" : "text-txt-1"}`}>{value}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
 
               {/* Two-column layout for Technical + Chip analysis */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-6">

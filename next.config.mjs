@@ -3,6 +3,7 @@ const nextConfig = {
   allowedDevOrigins: ["*"],
   outputFileTracingIncludes: {
     "/api/daily/*": ["./data/daily/**/*.json"],
+    "/api/revenue/*": ["./data/revenue/**/*.json"],
   },
   async headers() {
     return [

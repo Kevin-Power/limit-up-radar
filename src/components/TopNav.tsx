@@ -24,6 +24,7 @@ const NAV_ITEMS = [
   { label: "快樂小馬", href: "/pony" },
   { label: "策略回測", href: "/backtest" },
   { label: "進階選股", href: "/screener" },
+  { label: "營收速報", href: "/revenue" },
   { label: "國際市場", href: "/global" },
   { label: "市場情資", href: "/news" },
   { label: "盤後報告", href: "/report" },
