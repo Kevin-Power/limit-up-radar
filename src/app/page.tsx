@@ -127,7 +127,7 @@ export default function Home() {
         e.preventDefault();
         if (displayData) {
           const csv = buildCsvString(displayData);
-          downloadCsv(csv, `漲停雷達_${displayData.date}.csv`);
+          downloadCsv(csv, `股文觀指_${displayData.date}.csv`);
         }
       } else if (e.key >= "1" && e.key <= "9") {
         const idx = parseInt(e.key) - 1;
@@ -152,7 +152,7 @@ export default function Home() {
       <NavBar />
       <div className="flex flex-col md:flex-row flex-1 overflow-hidden animate-fade-in">
         <main className="flex-1 overflow-y-auto p-5">
-          <h1 className="sr-only">漲停雷達 — 每日漲停族群總覽</h1>
+          <h1 className="sr-only">股文觀指 — 每日漲停族群總覽</h1>
           {displayDate && (
             <DateNav
               date={displayDate}

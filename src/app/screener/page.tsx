@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     "多維度台股智慧選股工具，依價值、成長、技術面與動能篩選潛力標的。",
   alternates: { canonical: "/screener" },
   openGraph: {
-    title: "智慧選股 — 漲停雷達",
+    title: "智慧選股 — 股文觀指",
     description:
       "多維度台股智慧選股工具，依價值、成長、技術面與動能篩選潛力標的。",
     url: "/screener",

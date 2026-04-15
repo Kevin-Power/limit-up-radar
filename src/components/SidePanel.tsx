@@ -305,7 +305,7 @@ export default function SidePanel({ data, selectedCode, emaData, onCloseStock }:
       {/* Footer */}
       <div className="p-3.5 mt-auto">
         <div className="flex flex-col gap-1 text-center">
-          <span className="text-[11px] font-semibold text-txt-3 tracking-wide">漲停雷達 v1.0</span>
+          <span className="text-[11px] font-semibold text-txt-3 tracking-wide">股文觀指 v1.0</span>
           <span className="text-[10px] text-txt-4">資料來源: TWSE</span>
           <span className="text-[10px] text-txt-4">AI 分類 by Claude</span>
         </div>

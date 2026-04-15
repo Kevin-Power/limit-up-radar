@@ -40,7 +40,7 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-2">
               <span className="text-lg font-bold text-txt-0">
-                <span className="text-red">//</span> 漲停雷達
+                <span className="text-red">//</span> 股文觀指 大師專區
               </span>
               <span className="rounded bg-bg-2 px-1.5 py-0.5 text-[9px] font-medium text-txt-4">
                 v1.0
@@ -116,7 +116,7 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-8 flex flex-col items-center gap-2 border-t border-border pt-6 text-[11px] text-txt-4 sm:flex-row sm:justify-between">
-          <span>&copy; 2026 漲停雷達. Built with Next.js + Claude.</span>
+          <span>&copy; 2026 股文觀指 大師專區. Built with Next.js + Claude.</span>
           <span>資料來源: TWSE / TPEx</span>
         </div>
       </div>

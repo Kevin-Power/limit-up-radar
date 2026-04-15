@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     "台股漲停族群統計分析，呈現各族群漲停頻率、強度排名與歷史趨勢。",
   alternates: { canonical: "/stats" },
   openGraph: {
-    title: "族群統計 — 漲停雷達",
+    title: "族群統計 — 股文觀指",
     description:
       "台股漲停族群統計分析，呈現各族群漲停頻率、強度排名與歷史趨勢。",
     url: "/stats",

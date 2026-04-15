@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     "台股處置股與注意股追蹤，即時監控高風險標的處置狀態與警示資訊。",
   alternates: { canonical: "/disposal" },
   openGraph: {
-    title: "處置股追蹤 — 漲停雷達",
+    title: "處置股追蹤 — 股文觀指",
     description:
       "台股處置股與注意股追蹤，即時監控高風險標的處置狀態與警示資訊。",
     url: "/disposal",

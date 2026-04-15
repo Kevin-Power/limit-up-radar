@@ -65,7 +65,7 @@ export function downloadCsv(csv: string, filename: string) {
 
 function buildExportText(data: DailyData): string {
   const dateStr = data.date.replace(/-/g, ".");
-  const lines: string[] = [`漲停雷達 ${dateStr}`, ""];
+  const lines: string[] = [`股文觀指 ${dateStr}`, ""];
 
   for (const group of data.groups) {
     const badgeStr = group.badges.length > 0 ? " " + group.badges.join(" ") : "";
@@ -91,7 +91,7 @@ export default function DateNav({ date, limitUpCount, groupCount, onPrev, onNext
   function handleCsvExport() {
     if (!data) return;
     const csv = buildCsvString(data);
-    downloadCsv(csv, `漲停雷達_${data.date}.csv`);
+    downloadCsv(csv, `股文觀指_${data.date}.csv`);
   }
 
   async function handleExport() {

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     "回測台股漲停族群交易策略，模擬歷史績效與風險指標，驗證選股邏輯的有效性。",
   alternates: { canonical: "/backtest" },
   openGraph: {
-    title: "策略回測 — 漲停雷達",
+    title: "策略回測 — 股文觀指",
     description:
       "回測台股漲停族群交易策略，模擬歷史績效與風險指標。",
     url: "/backtest",
