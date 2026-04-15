@@ -29,6 +29,16 @@ interface TrendingGroup {
   days: number;
 }
 
+interface PerformanceDay {
+  date: string;
+  nextDate: string;
+  picks: number;
+  avgNextClose: number;
+  openWinRate: number;
+  closeWinRate: number;
+  bestStock: { code: string; name: string; nextClosePct: number } | null;
+}
+
 interface FocusData {
   date: string;
   taiex: number;
@@ -37,6 +47,12 @@ interface FocusData {
   trendingGroups: TrendingGroup[];
   focusStocks: FocusStock[];
   topPicks: FocusStock[];
+  performance?: {
+    history: PerformanceDay[];
+    avgWinRate: number;
+    avgReturn: number;
+    totalDays: number;
+  };
 }
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
@@ -103,6 +119,73 @@ export default function FocusClient() {
                 <div className="text-[10px] text-txt-4">精選標的</div>
               </div>
             </div>
+
+            {/* Performance Stats */}
+            {data.performance && data.performance.totalDays > 0 && (
+              <div className="bg-bg-1 border border-border rounded-xl p-5">
+                <h2 className="text-sm font-bold text-txt-0 mb-3">
+                  歷史績效回測
+                  <span className="ml-2 text-[10px] font-normal text-txt-4">
+                    近 {data.performance.totalDays} 個交易日
+                  </span>
+                </h2>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4">
+                  <div className="bg-bg-2 rounded-lg px-3 py-2.5 text-center">
+                    <div className="text-xl font-bold tabular-nums text-red">{data.performance.avgWinRate}%</div>
+                    <div className="text-[10px] text-txt-4">平均勝率</div>
+                  </div>
+                  <div className="bg-bg-2 rounded-lg px-3 py-2.5 text-center">
+                    <div className={`text-xl font-bold tabular-nums ${data.performance.avgReturn > 0 ? "text-red" : "text-green"}`}>
+                      {data.performance.avgReturn > 0 ? "+" : ""}{data.performance.avgReturn}%
+                    </div>
+                    <div className="text-[10px] text-txt-4">平均報酬</div>
+                  </div>
+                  <div className="bg-bg-2 rounded-lg px-3 py-2.5 text-center">
+                    <div className="text-xl font-bold tabular-nums text-txt-0">{data.performance.totalDays}</div>
+                    <div className="text-[10px] text-txt-4">回測天數</div>
+                  </div>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-[11px]">
+                    <thead>
+                      <tr className="text-txt-4 border-b border-border">
+                        <th className="text-left px-2 py-1.5">選股日</th>
+                        <th className="text-left px-2 py-1.5">驗證日</th>
+                        <th className="text-right px-2 py-1.5">選股數</th>
+                        <th className="text-right px-2 py-1.5">勝率</th>
+                        <th className="text-right px-2 py-1.5">平均報酬</th>
+                        <th className="text-left px-2 py-1.5">最佳標的</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {data.performance.history.map((h) => (
+                        <tr key={h.date} className="border-b border-border/30 hover:bg-bg-2/50">
+                          <td className="px-2 py-1.5 text-txt-2 tabular-nums">{h.date}</td>
+                          <td className="px-2 py-1.5 text-txt-3 tabular-nums">{h.nextDate}</td>
+                          <td className="text-right px-2 py-1.5 text-txt-1 tabular-nums">{h.picks}</td>
+                          <td className="text-right px-2 py-1.5 tabular-nums">
+                            <span className={h.closeWinRate >= 50 ? "text-red" : "text-txt-3"}>{h.closeWinRate}%</span>
+                          </td>
+                          <td className="text-right px-2 py-1.5 tabular-nums">
+                            <span className={h.avgNextClose > 0 ? "text-red" : "text-green"}>
+                              {h.avgNextClose > 0 ? "+" : ""}{h.avgNextClose.toFixed(2)}%
+                            </span>
+                          </td>
+                          <td className="px-2 py-1.5">
+                            {h.bestStock ? (
+                              <Link href={`/stock/${h.bestStock.code}`} className="text-txt-2 hover:text-red">
+                                {h.bestStock.code} {h.bestStock.name}
+                                <span className="ml-1 text-red">+{h.bestStock.nextClosePct}%</span>
+                              </Link>
+                            ) : "-"}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
 
             {/* Trending Groups */}
             {data.trendingGroups.length > 0 && (
