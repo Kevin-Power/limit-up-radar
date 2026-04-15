@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import useSWR from "swr";
 import Link from "next/link";
 import TopNav from "@/components/TopNav";
@@ -57,6 +58,35 @@ interface FocusData {
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
+function CopyReportButton() {
+  const [copied, setCopied] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  async function handleCopy() {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/daily-report");
+      const data = await res.json();
+      if (data.text) {
+        await navigator.clipboard.writeText(data.text);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }
+    } catch { /* ignore */ }
+    setLoading(false);
+  }
+
+  return (
+    <button
+      onClick={handleCopy}
+      disabled={loading}
+      className="flex items-center gap-1.5 px-3 py-1.5 bg-bg-2 border border-border rounded-lg text-xs font-medium text-txt-2 hover:text-red hover:border-red/30 transition-colors disabled:opacity-50"
+    >
+      {copied ? "已複製!" : loading ? "產生中..." : "一鍵複製每日分析文"}
+    </button>
+  );
+}
+
 function ScoreBadge({ score }: { score: number }) {
   if (score >= 80) return <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-red/20 text-red">極強</span>;
   if (score >= 60) return <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber/20 text-amber">強</span>;
@@ -83,14 +113,17 @@ export default function FocusClient() {
       <NavBar />
       <main className="max-w-[1200px] mx-auto px-4 md:px-6 py-6 space-y-6">
         {/* Header */}
-        <div>
-          <h1 className="text-xl font-bold text-txt-0">
-            明日焦點
-            {data && <span className="ml-2 text-sm font-normal text-txt-3">{data.date}</span>}
-          </h1>
-          <p className="text-xs text-txt-4 mt-1">
-            交叉比對族群趨勢 + 營收成長 + 法人籌碼 + 技術面，篩選明日值得追蹤標的
-          </p>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div>
+            <h1 className="text-xl font-bold text-txt-0">
+              明日焦點
+              {data && <span className="ml-2 text-sm font-normal text-txt-3">{data.date}</span>}
+            </h1>
+            <p className="text-xs text-txt-4 mt-1">
+              交叉比對族群趨勢 + 營收成長 + 法人籌碼 + 技術面，篩選明日值得追蹤標的
+            </p>
+          </div>
+          <CopyReportButton />
         </div>
 
         {isLoading && <div className="text-center py-20 text-txt-3">分析中...</div>}
