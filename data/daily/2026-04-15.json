@@ -1,0 +1,871 @@
+{
+  "date": "2026-04-15",
+  "market_summary": {
+    "taiex_close": 36722.14,
+    "taiex_change_pct": 1.17,
+    "total_volume": 8766806053,
+    "limit_up_count": 70,
+    "limit_down_count": 0,
+    "advance": 1005,
+    "decline": 774,
+    "unchanged": 171,
+    "foreign_net": 55710101810.0,
+    "trust_net": -9125690819.0,
+    "dealer_net": -5391142367.0
+  },
+  "groups": [
+    {
+      "name": "電子 / 半導體",
+      "color": "#06b6d4",
+      "badges": [],
+      "reason": "電子族群受惠終端需求回升",
+      "stocks": [
+        {
+          "code": "1528",
+          "name": "恩德",
+          "industry": "電子",
+          "close": 30.35,
+          "change_pct": 9.96,
+          "volume": 43735980,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "2360",
+          "name": "致茂",
+          "industry": "電子",
+          "close": 2020.0,
+          "change_pct": 9.78,
+          "volume": 2914050,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "2493",
+          "name": "揚博",
+          "industry": "電子",
+          "close": 152.5,
+          "change_pct": 9.71,
+          "volume": 9246376,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "2495",
+          "name": "普安",
+          "industry": "電子",
+          "close": 45.2,
+          "change_pct": 9.98,
+          "volume": 25800472,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "3092",
+          "name": "鴻碩",
+          "industry": "電子",
+          "close": 36.35,
+          "change_pct": 9.98,
+          "volume": 1281082,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "3437",
+          "name": "榮創",
+          "industry": "電子",
+          "close": 25.2,
+          "change_pct": 9.8,
+          "volume": 15773318,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "3450",
+          "name": "聯鈞",
+          "industry": "電子",
+          "close": 345.5,
+          "change_pct": 9.86,
+          "volume": 25212454,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "3673",
+          "name": "TPK-KY",
+          "industry": "電子",
+          "close": 66.5,
+          "change_pct": 9.92,
+          "volume": 14998762,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "6141",
+          "name": "柏承",
+          "industry": "電子",
+          "close": 25.85,
+          "change_pct": 10.0,
+          "volume": 2746527,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "6224",
+          "name": "聚鼎",
+          "industry": "電子",
+          "close": 57.7,
+          "change_pct": 9.7,
+          "volume": 4102755,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "6278",
+          "name": "台表科",
+          "industry": "電子",
+          "close": 137.0,
+          "change_pct": 9.6,
+          "volume": 33365776,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "3066",
+          "name": "李洲",
+          "industry": "電子",
+          "close": 21.45,
+          "change_pct": 10.0,
+          "volume": 1640000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "3093",
+          "name": "港建*",
+          "industry": "電子",
+          "close": 75.6,
+          "change_pct": 9.88,
+          "volume": 4616000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "3152",
+          "name": "璟德",
+          "industry": "電子",
+          "close": 172.5,
+          "change_pct": 9.87,
+          "volume": 3744000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "3221",
+          "name": "台嘉碩",
+          "industry": "電子",
+          "close": 41.55,
+          "change_pct": 9.92,
+          "volume": 15404000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "3339",
+          "name": "泰谷",
+          "industry": "電子",
+          "close": 57.3,
+          "change_pct": 9.98,
+          "volume": 7880000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "3388",
+          "name": "崇越電",
+          "industry": "電子",
+          "close": 82.1,
+          "change_pct": 9.91,
+          "volume": 1899000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "3434",
+          "name": "哲固",
+          "industry": "電子",
+          "close": 32.15,
+          "change_pct": 9.91,
+          "volume": 646000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "3467",
+          "name": "台灣精材",
+          "industry": "電子",
+          "close": 54.5,
+          "change_pct": 9.88,
+          "volume": 493000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "3581",
+          "name": "博磊",
+          "industry": "電子",
+          "close": 99.0,
+          "change_pct": 10.0,
+          "volume": 2489000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "6113",
+          "name": "亞矽",
+          "industry": "電子",
+          "close": 23.9,
+          "change_pct": 9.89,
+          "volume": 1931000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "6175",
+          "name": "立敦",
+          "industry": "電子",
+          "close": 62.4,
+          "change_pct": 9.86,
+          "volume": 14211000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "6187",
+          "name": "萬潤",
+          "industry": "電子",
+          "close": 1135.0,
+          "change_pct": 9.66,
+          "volume": 8869000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "6208",
+          "name": "日揚",
+          "industry": "電子",
+          "close": 68.6,
+          "change_pct": 9.94,
+          "volume": 764000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "6259",
+          "name": "百徽",
+          "industry": "電子",
+          "close": 22.35,
+          "change_pct": 9.83,
+          "volume": 1929000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "6530",
+          "name": "創威",
+          "industry": "電子",
+          "close": 104.5,
+          "change_pct": 10.0,
+          "volume": 8384000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        }
+      ]
+    },
+    {
+      "name": "個股亮點",
+      "color": "#64748b",
+      "badges": [],
+      "reason": "個別利多驅動的漲停股",
+      "stocks": [
+        {
+          "code": "2923",
+          "name": "鼎固-KY",
+          "industry": "",
+          "close": 24.6,
+          "change_pct": 9.58,
+          "volume": 299376,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "3714",
+          "name": "富采",
+          "industry": "",
+          "close": 69.1,
+          "change_pct": 9.86,
+          "volume": 7553838,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "4562",
+          "name": "穎漢",
+          "industry": "",
+          "close": 37.6,
+          "change_pct": 9.94,
+          "volume": 4790624,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "4569",
+          "name": "六方科-KY",
+          "industry": "",
+          "close": 193.5,
+          "change_pct": 9.94,
+          "volume": 524269,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "6806",
+          "name": "森崴能源",
+          "industry": "",
+          "close": 20.45,
+          "change_pct": 9.95,
+          "volume": 6655572,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "6902",
+          "name": "GOGOLOOK",
+          "industry": "",
+          "close": 85.4,
+          "change_pct": 9.91,
+          "volume": 232886,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "6909",
+          "name": "創控",
+          "industry": "",
+          "close": 58.0,
+          "change_pct": 9.85,
+          "volume": 7141257,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "6934",
+          "name": "心誠鎂",
+          "industry": "",
+          "close": 91.1,
+          "change_pct": 9.89,
+          "volume": 195527,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "7822",
+          "name": "倍利科",
+          "industry": "",
+          "close": 1710.0,
+          "change_pct": 9.97,
+          "volume": 861492,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "8374",
+          "name": "羅昇",
+          "industry": "",
+          "close": 86.3,
+          "change_pct": 9.94,
+          "volume": 4250728,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "4561",
+          "name": "健椿",
+          "industry": "",
+          "close": 38.25,
+          "change_pct": 9.91,
+          "volume": 623000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "5439",
+          "name": "高技",
+          "industry": "",
+          "close": 396.5,
+          "change_pct": 9.99,
+          "volume": 10312000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "6829",
+          "name": "千附精密",
+          "industry": "",
+          "close": 163.5,
+          "change_pct": 9.73,
+          "volume": 4845000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "7556",
+          "name": "意德士",
+          "industry": "",
+          "close": 264.0,
+          "change_pct": 10.0,
+          "volume": 182000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "8027",
+          "name": "鈦昇",
+          "industry": "",
+          "close": 156.0,
+          "change_pct": 9.86,
+          "volume": 10612000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "8040",
+          "name": "九暘",
+          "industry": "",
+          "close": 58.3,
+          "change_pct": 10.0,
+          "volume": 2021000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "8044",
+          "name": "網家",
+          "industry": "",
+          "close": 24.65,
+          "change_pct": 9.8,
+          "volume": 1440000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "8155",
+          "name": "博智",
+          "industry": "",
+          "close": 358.5,
+          "change_pct": 9.97,
+          "volume": 4383000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        }
+      ]
+    },
+    {
+      "name": "生技 / 醫療器材",
+      "color": "#22c55e",
+      "badges": [],
+      "reason": "醫材新產品認證與生技族群人氣回升",
+      "stocks": [
+        {
+          "code": "4763",
+          "name": "材料*-KY",
+          "industry": "生技",
+          "close": 46.1,
+          "change_pct": 9.89,
+          "volume": 9088010,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "6409",
+          "name": "旭隼",
+          "industry": "生技",
+          "close": 801.0,
+          "change_pct": 9.88,
+          "volume": 1540106,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "6443",
+          "name": "元晶",
+          "industry": "生技",
+          "close": 40.7,
+          "change_pct": 10.0,
+          "volume": 18964431,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "6456",
+          "name": "GIS-KY",
+          "industry": "生技",
+          "close": 70.1,
+          "change_pct": 9.87,
+          "volume": 38149141,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "6715",
+          "name": "嘉基",
+          "industry": "生技",
+          "close": 430.0,
+          "change_pct": 9.97,
+          "volume": 1709735,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "6441",
+          "name": "廣錠",
+          "industry": "生技",
+          "close": 19.05,
+          "change_pct": 9.8,
+          "volume": 408000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "6725",
+          "name": "矽科宏晟",
+          "industry": "生技",
+          "close": 366.5,
+          "change_pct": 9.9,
+          "volume": 2811000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "6739",
+          "name": "竹陞科技",
+          "industry": "生技",
+          "close": 1625.0,
+          "change_pct": 9.8,
+          "volume": 1523000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "6791",
+          "name": "虎門科技",
+          "industry": "生技",
+          "close": 123.5,
+          "change_pct": 9.78,
+          "volume": 405000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        }
+      ]
+    },
+    {
+      "name": "光通訊 / 矽光子",
+      "color": "#ec4899",
+      "badges": [
+        "NEW"
+      ],
+      "reason": "800G光模組需求提前，矽光子技術突破",
+      "stocks": [
+        {
+          "code": "4956",
+          "name": "光鋐",
+          "industry": "光通訊",
+          "close": 45.95,
+          "change_pct": 9.93,
+          "volume": 6228242,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "4960",
+          "name": "誠美材",
+          "industry": "光通訊",
+          "close": 28.05,
+          "change_pct": 10.0,
+          "volume": 32829171,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "4989",
+          "name": "榮科",
+          "industry": "光通訊",
+          "close": 98.3,
+          "change_pct": 9.96,
+          "volume": 18803101,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "3363",
+          "name": "上詮",
+          "industry": "光通訊",
+          "close": 822.0,
+          "change_pct": 9.89,
+          "volume": 5409000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "4905",
+          "name": "台聯電",
+          "industry": "光通訊",
+          "close": 84.7,
+          "change_pct": 10.0,
+          "volume": 42000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "4979",
+          "name": "華星光",
+          "industry": "光通訊",
+          "close": 533.0,
+          "change_pct": 9.9,
+          "volume": 12528000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        }
+      ]
+    },
+    {
+      "name": "IC設計 / AI邊緣運算",
+      "color": "#3b82f6",
+      "badges": [
+        "FOCUS"
+      ],
+      "reason": "Edge AI晶片需求爆發，IC設計族群受惠",
+      "stocks": [
+        {
+          "code": "2388",
+          "name": "威盛",
+          "industry": "IC設計",
+          "close": 62.4,
+          "change_pct": 9.86,
+          "volume": 22249251,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "5292",
+          "name": "華懋",
+          "industry": "IC設計",
+          "close": 238.5,
+          "change_pct": 9.91,
+          "volume": 513201,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "5211",
+          "name": "蒙恬",
+          "industry": "IC設計",
+          "close": 23.65,
+          "change_pct": 10.0,
+          "volume": 140000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "5230",
+          "name": "雷笛克光學",
+          "industry": "IC設計",
+          "close": 17.7,
+          "change_pct": 9.94,
+          "volume": 481000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "5245",
+          "name": "智晶",
+          "industry": "IC設計",
+          "close": 25.55,
+          "change_pct": 9.89,
+          "volume": 182000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        }
+      ]
+    },
+    {
+      "name": "太陽能 / 綠能",
+      "color": "#f97316",
+      "badges": [
+        "NEW"
+      ],
+      "reason": "政府加速綠能裝置目標，碳費正式上路",
+      "stocks": [
+        {
+          "code": "3576",
+          "name": "聯合再生",
+          "industry": "綠能",
+          "close": 16.9,
+          "change_pct": 9.74,
+          "volume": 48189130,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "6244",
+          "name": "茂迪",
+          "industry": "綠能",
+          "close": 29.6,
+          "change_pct": 9.83,
+          "volume": 21674000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        }
+      ]
+    },
+    {
+      "name": "油電燃氣",
+      "color": "#a3e635",
+      "badges": [],
+      "reason": "能源類股受惠價格調升與穩定配息",
+      "stocks": [
+        {
+          "code": "9933",
+          "name": "中鼎",
+          "industry": "油電燃氣",
+          "close": 38.1,
+          "change_pct": 9.96,
+          "volume": 17740788,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "9950",
+          "name": "萬國通",
+          "industry": "油電燃氣",
+          "close": 12.8,
+          "change_pct": 9.87,
+          "volume": 1256000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        }
+      ]
+    },
+    {
+      "name": "AI伺服器 / 散熱",
+      "color": "#ef4444",
+      "badges": [
+        "HOT",
+        "FOCUS"
+      ],
+      "reason": "AI伺服器散熱與機殼供應鏈訂單持續爆發",
+      "stocks": [
+        {
+          "code": "2399",
+          "name": "映泰",
+          "industry": "AI伺服器",
+          "close": 37.05,
+          "change_pct": 9.94,
+          "volume": 23953045,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        }
+      ]
+    },
+    {
+      "name": "PCB / CCL基板",
+      "color": "#8b5cf6",
+      "badges": [
+        "HOT"
+      ],
+      "reason": "AI高速傳輸帶動高頻高速PCB需求爆發",
+      "stocks": [
+        {
+          "code": "6274",
+          "name": "台燿",
+          "industry": "PCB",
+          "close": 946.0,
+          "change_pct": 10.0,
+          "volume": 8012000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        }
+      ]
+    }
+  ]
+}
