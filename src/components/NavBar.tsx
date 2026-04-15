@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 const NAV_ITEMS = [
   { label: "每日總覽", href: "/" },
   { label: "研究工作台", href: "/workspace" },
+  { label: "明日焦點", href: "/focus" },
   { label: "隔日表現", href: "/next-day" },
   { label: "快樂小馬", href: "/pony" },
   { label: "策略回測", href: "/backtest" },
