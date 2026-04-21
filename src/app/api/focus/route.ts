@@ -109,6 +109,11 @@ export async function GET() {
     revYoY: number | null;
     revMonth: number | null;
     groupDays: number;
+    entryAggressive: number;
+    entryPullback: number;
+    stopLoss: number;
+    target1: number;
+    target2: number;
   }
 
   const focusStocks: FocusStock[] = [];
@@ -160,6 +165,15 @@ export async function GET() {
         tags.push("族群龍頭");
       }
 
+      // Calculate entry/exit price suggestions based on close and momentum
+      const close = s.close;
+      // 強勢追價 vs 拉回承接
+      const entryAggressive = Math.round(close * 1.005 * 100) / 100;  // +0.5% (隔日開盤追)
+      const entryPullback = Math.round(close * 0.97 * 100) / 100;     // -3% (拉回承接)
+      const stopLoss = Math.round(close * 0.93 * 100) / 100;           // -7% 停損
+      const target1 = Math.round(close * 1.05 * 100) / 100;            // +5% 第一目標
+      const target2 = Math.round(close * 1.10 * 100) / 100;            // +10% 第二目標
+
       focusStocks.push({
         code: s.code,
         name: s.name,
@@ -175,6 +189,11 @@ export async function GET() {
         revYoY: rev?.revYoY ?? null,
         revMonth: rev?.revMonth ?? null,
         groupDays: gd,
+        entryAggressive,
+        entryPullback,
+        stopLoss,
+        target1,
+        target2,
       });
     }
   }

@@ -106,8 +106,14 @@ export async function GET() {
     for (const p of picks.slice(0, 10)) {
       const revStr = p.revYoY != null ? ` 營收YoY ${p.revYoY > 0 ? "+" : ""}${p.revYoY.toFixed(0)}%` : "";
       const netStr = p.majorNet > 0 ? ` 法人+${(p.majorNet / 1000).toFixed(0)}張` : "";
-      text += `${p.code} ${p.name} $${p.close} [${p.score}分]\n`;
-      text += `  ${p.tags.join(" / ")}${revStr}${netStr}\n`;
+      const c = p.close;
+      const entry = (c * 1.005).toFixed(2);
+      const stop = (c * 0.93).toFixed(2);
+      const t1 = (c * 1.05).toFixed(2);
+      const t2 = (c * 1.10).toFixed(2);
+      text += `\n📍 ${p.code} ${p.name} [${p.score}分]\n`;
+      text += `  收盤 $${c} | ${p.tags.join(" / ")}${revStr}${netStr}\n`;
+      text += `  追價 $${entry} | 停損 $${stop} | 目標 $${t1}~$${t2}\n`;
     }
   }
 

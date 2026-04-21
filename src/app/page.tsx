@@ -178,6 +178,29 @@ export default function Home() {
           )}
           {!showSkeleton && displayData && <Highlights data={displayData} />}
 
+          {/* Today's Star — Quick Focus Access */}
+          {!showSkeleton && displayData && (
+            <Link
+              href="/focus"
+              className="block mb-4 bg-gradient-to-r from-red/10 via-amber/10 to-red/10 border border-red/30 rounded-xl p-4 hover:from-red/15 hover:via-amber/15 hover:to-red/15 transition-all group"
+            >
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-red/20 rounded-xl flex items-center justify-center text-lg">
+                    🎯
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold text-txt-0">今日明星 · 明日焦點</div>
+                    <div className="text-xs text-txt-3 mt-0.5">
+                      AI 已分析完今日漲停股，幫你篩選明日值得追蹤標的
+                    </div>
+                  </div>
+                </div>
+                <span className="text-red text-lg font-bold group-hover:translate-x-1 transition-transform">→</span>
+              </div>
+            </Link>
+          )}
+
           {/* Watchlist / 自選股 Section */}
           {!showSkeleton && watchlistCount > 0 && (() => {
             const watchedStocks = allStocks.filter(s => isWatched(s.code));

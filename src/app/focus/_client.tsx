@@ -21,6 +21,11 @@ interface FocusStock {
   revYoY: number | null;
   revMonth: number | null;
   groupDays: number;
+  entryAggressive?: number;
+  entryPullback?: number;
+  stopLoss?: number;
+  target1?: number;
+  target2?: number;
 }
 
 interface TrendingGroup {
@@ -321,6 +326,32 @@ export default function FocusClient() {
                               </>
                             )}
                           </div>
+
+                          {/* Entry/Exit Price Suggestions */}
+                          {s.entryAggressive && (
+                            <div className="mt-2.5 grid grid-cols-2 sm:grid-cols-5 gap-1.5 text-[10px]">
+                              <div className="bg-red/10 rounded px-1.5 py-1 text-center">
+                                <div className="text-txt-4 text-[9px]">追價</div>
+                                <div className="text-red font-bold tabular-nums">{s.entryAggressive}</div>
+                              </div>
+                              <div className="bg-blue/10 rounded px-1.5 py-1 text-center">
+                                <div className="text-txt-4 text-[9px]">承接</div>
+                                <div className="text-blue font-bold tabular-nums">{s.entryPullback}</div>
+                              </div>
+                              <div className="bg-green/10 rounded px-1.5 py-1 text-center">
+                                <div className="text-txt-4 text-[9px]">停損</div>
+                                <div className="text-green font-bold tabular-nums">{s.stopLoss}</div>
+                              </div>
+                              <div className="bg-amber/10 rounded px-1.5 py-1 text-center">
+                                <div className="text-txt-4 text-[9px]">目標1</div>
+                                <div className="text-amber font-bold tabular-nums">{s.target1}</div>
+                              </div>
+                              <div className="bg-amber/15 rounded px-1.5 py-1 text-center">
+                                <div className="text-txt-4 text-[9px]">目標2</div>
+                                <div className="text-amber font-bold tabular-nums">{s.target2}</div>
+                              </div>
+                            </div>
+                          )}
                         </div>
 
                         {/* Right — score bar */}
