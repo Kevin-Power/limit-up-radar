@@ -46,6 +46,11 @@ jobs:
           EXIT_CODE=$?
           set -e
 
+          if [ $EXIT_CODE -eq 2 ]; then
+            echo "::error::Data validation failed - corrupt data detected, aborting"
+            echo "data_found=false" >> "$GITHUB_OUTPUT"
+            exit 1
+          fi
           if [ $EXIT_CODE -ne 0 ]; then
             echo "Script exited with code $EXIT_CODE"
             echo "data_found=false" >> "$GITHUB_OUTPUT"
@@ -63,6 +68,12 @@ jobs:
             echo "json_file=$LATEST_JSON" >> "$GITHUB_OUTPUT"
             echo "Data file created: $LATEST_JSON"
           fi
+
+      - name: Validate latest data file
+        if: steps.classify.outputs.data_found == 'true'
+        run: |
+          DATE_PART=$(basename "${{ steps.classify.outputs.json_file }}" .json)
+          python scripts/validate_data.py "$DATE_PART"
 
       - name: Commit and push data
         if: steps.classify.outputs.data_found == 'true'

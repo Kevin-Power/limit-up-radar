@@ -818,6 +818,37 @@ def main():
         "groups": groups,
     }
 
+    # ---- VALIDATE before save (prevent bad data from being deployed) ----
+    print(f"\n[5/5] Validating data...")
+    errors = []
+    # TAIEX must be in 5000-100000 (台股約 30000-50000，留緩衝)
+    if not (5000 <= taiex_close <= 100000):
+        errors.append(f"TAIEX out of range: {taiex_close} (expect 5000-100000)")
+    # Change pct must be -10% to +10% (Taiwan limit)
+    if abs(taiex_change_pct) > 10:
+        errors.append(f"TAIEX change% out of range: {taiex_change_pct}% (expect ±10%)")
+    # Total stocks should be 1000-3000 (TWSE+OTC combined)
+    total_stocks_count = advancing + declining + unchanged
+    if not (1000 <= total_stocks_count <= 3000):
+        errors.append(f"Total stocks out of range: {total_stocks_count} (expect 1000-3000)")
+    # Limit-up count must be 0-500
+    if not (0 <= len(limit_up) <= 500):
+        errors.append(f"Limit-up count out of range: {len(limit_up)} (expect 0-500)")
+    # Foreign net (TWD) max ±500B
+    if abs(foreign_net) > 500_000_000_000:
+        errors.append(f"Foreign net out of range: {foreign_net/1e8:.0f}億 (expect ±5000億)")
+    # Group count
+    if len(groups) > 30:
+        errors.append(f"Group count out of range: {len(groups)} (expect ≤30)")
+
+    if errors:
+        print("\n❌ DATA VALIDATION FAILED:")
+        for e in errors:
+            print(f"  - {e}")
+        print("\n  Refusing to save corrupt data. Investigate before retrying.")
+        sys.exit(2)
+    print("  ✓ All sanity checks passed")
+
     # ---- Save to data/daily/<date>.json ----
     print(f"\n[5/5] Saving data...")
     data_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "daily")
