@@ -1,16 +1,16 @@
 {
   "date": "2026-04-24",
   "market_summary": {
-    "taiex_close": 280782.88,
-    "taiex_change_pct": 0.0,
-    "total_volume": 7369290179,
+    "taiex_close": 38932.4,
+    "taiex_change_pct": 3.23,
+    "total_volume": 7391980677,
     "limit_up_count": 45,
     "limit_down_count": 15,
     "advance": 597,
     "decline": 1223,
     "unchanged": 129,
     "foreign_net": 43907871828.0,
-    "trust_net": 1800339085.0,
+    "trust_net": 2217080841.0,
     "dealer_net": 8878366186.0
   },
   "groups": [
@@ -513,7 +513,7 @@
           "industry": "IC設計",
           "close": 2435.0,
           "change_pct": 9.93,
-          "volume": 22954015,
+          "volume": 22985015,
           "major_net": 0,
           "streak": 1,
           "market": "TWSE"

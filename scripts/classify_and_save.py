@@ -148,12 +148,16 @@ def _fetch_taiex_from_mi_index(twse_date: str, headers: dict) -> dict:
     if not tables:
         return {}
 
-    # tables[0] contains index data. Find the row with the largest close value
-    # (TAIEX is the broadest index and always has the highest value, ~20000-35000)
+    # tables[0] contains index data. Find TAIEX (加權指數).
+    # IMPORTANT: TWSE has BOTH:
+    #   - 發行量加權股價指數 (TAIEX, ~30000-50000)
+    #   - 發行量加權股價報酬指數 (Total Return Index, ~250000+, includes dividends)
+    # We want TAIEX, so cap at 100000 to exclude the much-higher return index.
+    TAIEX_MIN = 5000
+    TAIEX_MAX = 100000
     best_close = 0
     best_change = 0
 
-    # Also try matching Chinese text as secondary check
     for table in tables[:2]:  # Only check first 2 tables (index tables)
         tbl_data = table.get("data", [])
         for row in tbl_data:
@@ -162,14 +166,17 @@ def _fetch_taiex_from_mi_index(twse_date: str, headers: dict) -> dict:
             try:
                 close_str = re.sub(r"[,\s]", "", str(row[1]))
                 close = float(close_str)
+                # Sanity check: TAIEX must be in reasonable range
+                if close < TAIEX_MIN or close > TAIEX_MAX:
+                    continue
                 if close > best_close:
                     best_close = close
-                    change_str = re.sub(r"[,\s]", "", str(row[2]))
+                    change_str = re.sub(r"[,\s%+]", "", str(row[2]))
                     best_change = float(change_str)
             except (ValueError, IndexError):
                 continue
 
-    if best_close > 1000:  # Sanity check: TAIEX should be well above 1000
+    if best_close >= TAIEX_MIN:
         prev_close = best_close - best_change
         change_pct = round(best_change / prev_close * 100, 2) if prev_close > 0 else 0.0
         return {
