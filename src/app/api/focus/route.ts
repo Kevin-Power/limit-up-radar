@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import { scoreStock, calculatePriceLevels } from "@/lib/scoring";
 
 const DAILY_DIR = path.join(process.cwd(), "data", "daily");
 const REV_DIR = path.join(process.cwd(), "data", "revenue");
@@ -119,60 +120,23 @@ export async function GET() {
   const focusStocks: FocusStock[] = [];
 
   for (const g of today.groups) {
+    const groupStocksSorted = [...g.stocks].sort((a, b) => b.volume - a.volume);
+    const leaderCode = groupStocksSorted[0]?.code;
+
     for (const s of g.stocks) {
       const rev = revMap[s.code];
-      const tags: string[] = [];
-      let score = 0;
-
-      // Condition 1: Trending group (2+ days)
       const gd = groupDays[g.name] || 1;
-      if (trendingGroups.has(g.name)) {
-        score += 30;
-        tags.push("趨勢族群");
-      }
 
-      // Condition 2: Revenue YoY > 20%
-      if (rev?.revYoY != null && rev.revYoY > 20) {
-        score += 25;
-        tags.push("營收成長");
-        if (rev.revYoY > 50) {
-          score += 10;
-          tags.push("高成長");
-        }
-      }
+      const { score, tags } = scoreStock({
+        stock: s,
+        group: g,
+        trendingGroups,
+        groupVolumeLeaderCode: leaderCode,
+        revYoY: rev?.revYoY,
+      });
 
-      // Condition 3: Major net buy (positive = institutions buying)
-      if (s.major_net > 0) {
-        score += 20;
-        tags.push("法人買超");
-      }
-
-      // Condition 4: Streak >= 2 (momentum)
-      if (s.streak >= 2) {
-        score += 15;
-        tags.push(`${s.streak}連板`);
-      }
-
-      // Condition 5: Volume significant (> 500 lots)
-      if (s.volume > 5000000) {
-        score += 5;
-      }
-
-      // Condition 6: Group leader (first in group by volume)
-      const groupStocksSorted = [...g.stocks].sort((a, b) => b.volume - a.volume);
-      if (groupStocksSorted[0]?.code === s.code) {
-        score += 10;
-        tags.push("族群龍頭");
-      }
-
-      // Calculate entry/exit price suggestions based on close and momentum
-      const close = s.close;
-      // 強勢追價 vs 拉回承接
-      const entryAggressive = Math.round(close * 1.005 * 100) / 100;  // +0.5% (隔日開盤追)
-      const entryPullback = Math.round(close * 0.97 * 100) / 100;     // -3% (拉回承接)
-      const stopLoss = Math.round(close * 0.93 * 100) / 100;           // -7% 停損
-      const target1 = Math.round(close * 1.05 * 100) / 100;            // +5% 第一目標
-      const target2 = Math.round(close * 1.10 * 100) / 100;            // +10% 第二目標
+      const { entryAggressive, entryPullback, stopLoss, target1, target2 } =
+        calculatePriceLevels(s.close);
 
       focusStocks.push({
         code: s.code,
@@ -241,18 +205,20 @@ export async function GET() {
 
     const trending2 = new Set(Object.entries(gd2).filter(([, d]) => d >= 2).map(([n]) => n));
 
-    // Score stocks for that day
+    // Score stocks for that day (using shared scoring lib)
     const scored: { code: string; name: string; close: number; score: number }[] = [];
     for (const g of dayData.groups) {
+      const sorted2 = [...g.stocks].sort((a, b) => b.volume - a.volume);
+      const leaderCode = sorted2[0]?.code;
       for (const s of g.stocks) {
         const rev = revMap[s.code];
-        let sc = 0;
-        if (trending2.has(g.name)) sc += 30;
-        if (rev?.revYoY != null && rev.revYoY > 20) { sc += 25; if (rev.revYoY > 50) sc += 10; }
-        if (s.major_net > 0) sc += 20;
-        if (s.streak >= 2) sc += 15;
-        const sorted2 = [...g.stocks].sort((a, b) => b.volume - a.volume);
-        if (sorted2[0]?.code === s.code) sc += 10;
+        const { score: sc } = scoreStock({
+          stock: s,
+          group: g,
+          trendingGroups: trending2,
+          groupVolumeLeaderCode: leaderCode,
+          revYoY: rev?.revYoY,
+        });
         if (sc >= 50) scored.push({ code: s.code, name: s.name, close: s.close, score: sc });
       }
     }
