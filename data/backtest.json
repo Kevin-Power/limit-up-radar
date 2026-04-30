@@ -1,13 +1,28 @@
 {
-  "updatedAt": "2026-04-29",
+  "updatedAt": "2026-04-30",
   "totalDays": 10,
-  "totalSamples": 81,
-  "avgOpenWinRate": 77,
-  "avgCloseWinRate": 58,
-  "avgOpenReturn": 3.2,
-  "avgCloseReturn": 2.25,
+  "totalSamples": 83,
+  "avgOpenWinRate": 78,
+  "avgCloseWinRate": 61,
+  "avgOpenReturn": 3.19,
+  "avgCloseReturn": 2.62,
   "methodology": "用 TWSE 真實隔日 OHLC 計算。今日收盤買，隔日開盤/收盤賣。",
   "history": [
+    {
+      "date": "2026-04-29",
+      "nextDate": "2026-04-30",
+      "picks": 16,
+      "fetched": 8,
+      "openWinRate": 62,
+      "closeWinRate": 75,
+      "avgOpenPct": 1.61,
+      "avgClosePct": 4.4,
+      "bestStock": {
+        "code": "2417",
+        "name": "圓剛",
+        "closePct": 9.91
+      }
+    },
     {
       "date": "2026-04-28",
       "nextDate": "2026-04-29",
@@ -87,11 +102,11 @@
       "date": "2026-04-21",
       "nextDate": "2026-04-22",
       "picks": 20,
-      "fetched": 7,
-      "openWinRate": 86,
+      "fetched": 8,
+      "openWinRate": 88,
       "closeWinRate": 100,
-      "avgOpenPct": 4.2,
-      "avgClosePct": 8.04,
+      "avgOpenPct": 4.58,
+      "avgClosePct": 7.94,
       "bestStock": {
         "code": "6861",
         "name": "睿生光電",
@@ -117,11 +132,11 @@
       "date": "2026-04-17",
       "nextDate": "2026-04-20",
       "picks": 20,
-      "fetched": 5,
-      "openWinRate": 80,
-      "closeWinRate": 60,
-      "avgOpenPct": 1.99,
-      "avgClosePct": 3.48,
+      "fetched": 6,
+      "openWinRate": 83,
+      "closeWinRate": 67,
+      "avgOpenPct": 2.33,
+      "avgClosePct": 3.89,
       "bestStock": {
         "code": "8271",
         "name": "宇瞻",
@@ -141,21 +156,6 @@
         "code": "3054",
         "name": "立萬利",
         "closePct": 3.42
-      }
-    },
-    {
-      "date": "2026-04-15",
-      "nextDate": "2026-04-16",
-      "picks": 20,
-      "fetched": 8,
-      "openWinRate": 62,
-      "closeWinRate": 50,
-      "avgOpenPct": 2.36,
-      "avgClosePct": 0.99,
-      "bestStock": {
-        "code": "6902",
-        "name": "GOGOLOOK",
-        "closePct": 9.95
       }
     }
   ]
