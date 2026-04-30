@@ -176,17 +176,16 @@ export async function GET() {
     }))
     .sort((a, b) => b.days - a.days || b.todayCount - a.todayCount);
 
-  // === Historical performance backtest ===
-  // For each past day pair, simulate focus picks and check next-day results
+  // === Historical hit-rate (NEXT-DAY LIMIT-UP RATE) ===
+  // ONLY uses verifiable data: did our pick reach limit-up the next day?
+  // We do NOT estimate price moves we cannot verify from data on disk.
   const history: {
     date: string;
     nextDate: string;
     picks: number;
-    avgNextOpen: number;
-    avgNextClose: number;
-    openWinRate: number;
-    closeWinRate: number;
-    bestStock: { code: string; name: string; nextClosePct: number } | null;
+    nextLimitUpCount: number;     // how many picks hit limit-up again
+    nextLimitUpRate: number;       // % of picks that hit limit-up next day
+    bestStock: { code: string; name: string } | null;
   }[] = [];
 
   for (let i = 1; i < Math.min(files.length - 1, 12); i++) {
@@ -197,7 +196,6 @@ export async function GET() {
 
     if (!dayData || !nextData) continue;
 
-    // Build group days for that day
     const gd2: Record<string, number> = {};
     for (const g of dayData.groups) gd2[g.name] = (gd2[g.name] || 0) + 1;
     if (prevData) for (const g of prevData.groups) gd2[g.name] = (gd2[g.name] || 0) + 1;
@@ -205,7 +203,6 @@ export async function GET() {
 
     const trending2 = new Set(Object.entries(gd2).filter(([, d]) => d >= 2).map(([n]) => n));
 
-    // Score stocks for that day (using shared scoring lib)
     const scored: { code: string; name: string; close: number; score: number }[] = [];
     for (const g of dayData.groups) {
       const sorted2 = [...g.stocks].sort((a, b) => b.volume - a.volume);
@@ -225,68 +222,37 @@ export async function GET() {
 
     if (scored.length === 0) continue;
 
-    // Check next-day performance: find each scored stock in next-day data
-    const nextStockMap: Record<string, { close: number; change_pct: number }> = {};
+    // Build set of next-day limit-up codes (verifiable from data files)
+    const nextLimitUpCodes = new Set<string>();
     for (const g of nextData.groups) {
-      for (const s of g.stocks) {
-        nextStockMap[s.code] = { close: s.close, change_pct: s.change_pct };
-      }
+      for (const s of g.stocks) nextLimitUpCodes.add(s.code);
     }
 
-    // Use approximate: if stock is still in next-day limit-up list, it went up
-    // For more accurate data, estimate open as close * (1 + some avg)
-    // Simplified: use change_pct from the next day's data if available
-    let openWins = 0, closeWins = 0, totalWithData = 0;
-    let sumClose = 0;
-    let best: { code: string; name: string; nextClosePct: number } | null = null;
-
+    let nextLimitUp = 0;
+    let best: { code: string; name: string } | null = null;
     for (const pick of scored) {
-      const nd = nextStockMap[pick.code];
-      if (nd) {
-        // Stock appears in next day's limit-up = very positive
-        totalWithData++;
-        closeWins++;
-        openWins++;
-        sumClose += 10; // limit-up again = +10%
-        if (!best || 10 > best.nextClosePct) {
-          best = { code: pick.code, name: pick.name, nextClosePct: 10 };
-        }
+      if (nextLimitUpCodes.has(pick.code)) {
+        nextLimitUp++;
+        if (!best) best = { code: pick.code, name: pick.name };
       }
     }
-
-    // For stocks NOT in next-day limit-up, assume market avg performance
-    const notInNextDay = scored.length - totalWithData;
-    const mktChg = nextData.market_summary?.taiex_change_pct ?? 0;
-    const estimatedAvgForRest = mktChg * 0.8; // slightly worse than market for non-repeaters
-
-    const totalPicks = scored.length;
-    const avgClose = totalPicks > 0
-      ? (sumClose + notInNextDay * estimatedAvgForRest) / totalPicks
-      : 0;
-
-    // Estimate open/close win rates
-    const estOpenWins = openWins + Math.round(notInNextDay * (mktChg > 0 ? 0.5 : 0.3));
-    const estCloseWins = closeWins + Math.round(notInNextDay * (mktChg > 0 ? 0.4 : 0.2));
 
     history.push({
       date: dayData.date,
       nextDate: nextData.date,
-      picks: totalPicks,
-      avgNextOpen: Math.round(estimatedAvgForRest * 100) / 100,
-      avgNextClose: Math.round(avgClose * 100) / 100,
-      openWinRate: Math.round((estOpenWins / totalPicks) * 100),
-      closeWinRate: Math.round((estCloseWins / totalPicks) * 100),
+      picks: scored.length,
+      nextLimitUpCount: nextLimitUp,
+      nextLimitUpRate: Math.round((nextLimitUp / scored.length) * 100),
       bestStock: best,
     });
   }
 
-  // Aggregate stats
-  const avgWinRate = history.length > 0
-    ? Math.round(history.reduce((s, h) => s + h.closeWinRate, 0) / history.length)
+  // Aggregate: average next-day limit-up rate (only counts verifiable hits)
+  const avgNextLimitUpRate = history.length > 0
+    ? Math.round(history.reduce((s, h) => s + h.nextLimitUpRate, 0) / history.length)
     : 0;
-  const avgReturn = history.length > 0
-    ? Math.round(history.reduce((s, h) => s + h.avgNextClose, 0) / history.length * 100) / 100
-    : 0;
+  const totalPicks = history.reduce((s, h) => s + h.picks, 0);
+  const totalHits = history.reduce((s, h) => s + h.nextLimitUpCount, 0);
 
   return NextResponse.json({
     date: today.date,
@@ -298,9 +264,11 @@ export async function GET() {
     topPicks: focusStocks.filter((s) => s.score >= 50).slice(0, 15),
     performance: {
       history,
-      avgWinRate,
-      avgReturn,
+      avgNextLimitUpRate,         // % of picks that hit limit-up next day
       totalDays: history.length,
+      totalPicks,
+      totalHits,
+      methodology: "次日命中率 = 推薦標的次日仍漲停的比率 (僅統計可驗證命中)",
     },
   }, {
     headers: { "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=7200" },
