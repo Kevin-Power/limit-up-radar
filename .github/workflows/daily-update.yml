@@ -75,12 +75,18 @@ jobs:
           DATE_PART=$(basename "${{ steps.classify.outputs.json_file }}" .json)
           python scripts/validate_data.py "$DATE_PART"
 
+      - name: Run real backtest (fetches TWSE next-day OHLC)
+        if: steps.classify.outputs.data_found == 'true'
+        continue-on-error: true
+        run: |
+          python scripts/run_backtest.py
+
       - name: Commit and push data
         if: steps.classify.outputs.data_found == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/daily/*.json
+          git add data/daily/*.json data/backtest.json
           DATE_PART=$(basename "${{ steps.classify.outputs.json_file }}" .json)
           git commit -m "data: add daily data for ${DATE_PART}" || echo "No changes to commit"
           git push

@@ -37,6 +37,15 @@ function loadDaily(file: string): DailyData | null {
   }
 }
 
+function loadRealBacktest(): unknown {
+  try {
+    const p = path.join(process.cwd(), "data", "backtest.json");
+    return JSON.parse(fs.readFileSync(p, "utf-8"));
+  } catch {
+    return null;
+  }
+}
+
 function loadRevenue(): Record<string, { revYoY: number | null; revCumYoY: number | null; revMonth: number | null }> {
   try {
     const files = fs.readdirSync(REV_DIR).filter((f) => f.endsWith(".json")).sort().reverse();
@@ -270,6 +279,7 @@ export async function GET() {
       totalHits,
       methodology: "次日命中率 = 推薦標的次日仍漲停的比率 (僅統計可驗證命中)",
     },
+    realBacktest: loadRealBacktest(),
   }, {
     headers: { "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=7200" },
   });

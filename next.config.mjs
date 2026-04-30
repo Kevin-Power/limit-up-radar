@@ -4,6 +4,7 @@ const nextConfig = {
   outputFileTracingIncludes: {
     "/api/daily/*": ["./data/daily/**/*.json"],
     "/api/revenue/*": ["./data/revenue/**/*.json"],
+    "/api/focus": ["./data/backtest.json"],
   },
   async headers() {
     return [

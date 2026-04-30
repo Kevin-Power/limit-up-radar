@@ -44,6 +44,28 @@ interface PerformanceDay {
   bestStock: { code: string; name: string } | null;
 }
 
+interface RealBacktest {
+  updatedAt: string;
+  totalDays: number;
+  totalSamples: number;
+  avgOpenWinRate: number;
+  avgCloseWinRate: number;
+  avgOpenReturn: number;
+  avgCloseReturn: number;
+  methodology: string;
+  history: {
+    date: string;
+    nextDate: string;
+    picks: number;
+    fetched: number;
+    openWinRate: number;
+    closeWinRate: number;
+    avgOpenPct: number;
+    avgClosePct: number;
+    bestStock: { code: string; name: string; closePct: number } | null;
+  }[];
+}
+
 interface FocusData {
   date: string;
   taiex: number;
@@ -60,6 +82,7 @@ interface FocusData {
     totalHits: number;
     methodology: string;
   };
+  realBacktest?: RealBacktest | null;
 }
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
@@ -158,6 +181,97 @@ export default function FocusClient() {
                 <div className="text-[10px] text-txt-4">精選標的</div>
               </div>
             </div>
+
+            {/* REAL Backtest — fetched from TWSE next-day OHLC */}
+            {data.realBacktest && data.realBacktest.totalSamples > 0 && (
+              <div className="bg-gradient-to-br from-red/5 via-amber/5 to-red/5 border-2 border-red/30 rounded-xl p-5">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="px-2 py-0.5 bg-red text-white text-[10px] font-bold rounded">真實回測</span>
+                  <h2 className="text-sm font-bold text-txt-0">
+                    隔日真實 OHLC 勝率
+                  </h2>
+                </div>
+                <p className="text-[10px] text-txt-3 mb-4">
+                  {data.realBacktest.methodology} · {data.realBacktest.totalDays} 天 · {data.realBacktest.totalSamples} 個樣本
+                </p>
+
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+                  <div className="bg-bg-1 border border-red/20 rounded-lg px-3 py-3 text-center">
+                    <div className="text-[10px] text-txt-4 mb-1">隔日開盤賣</div>
+                    <div className="text-2xl font-bold tabular-nums text-red">{data.realBacktest.avgOpenWinRate}%</div>
+                    <div className="text-[10px] text-txt-3">勝率</div>
+                  </div>
+                  <div className="bg-bg-1 border border-amber/20 rounded-lg px-3 py-3 text-center">
+                    <div className="text-[10px] text-txt-4 mb-1">隔日開盤賣</div>
+                    <div className={`text-2xl font-bold tabular-nums ${data.realBacktest.avgOpenReturn > 0 ? "text-red" : "text-green"}`}>
+                      {data.realBacktest.avgOpenReturn > 0 ? "+" : ""}{data.realBacktest.avgOpenReturn}%
+                    </div>
+                    <div className="text-[10px] text-txt-3">平均報酬</div>
+                  </div>
+                  <div className="bg-bg-1 border border-blue/20 rounded-lg px-3 py-3 text-center">
+                    <div className="text-[10px] text-txt-4 mb-1">隔日收盤賣</div>
+                    <div className="text-2xl font-bold tabular-nums text-blue">{data.realBacktest.avgCloseWinRate}%</div>
+                    <div className="text-[10px] text-txt-3">勝率</div>
+                  </div>
+                  <div className="bg-bg-1 border border-blue/20 rounded-lg px-3 py-3 text-center">
+                    <div className="text-[10px] text-txt-4 mb-1">隔日收盤賣</div>
+                    <div className={`text-2xl font-bold tabular-nums ${data.realBacktest.avgCloseReturn > 0 ? "text-red" : "text-green"}`}>
+                      {data.realBacktest.avgCloseReturn > 0 ? "+" : ""}{data.realBacktest.avgCloseReturn}%
+                    </div>
+                    <div className="text-[10px] text-txt-3">平均報酬</div>
+                  </div>
+                </div>
+
+                <div className="overflow-x-auto">
+                  <table className="w-full text-[11px]">
+                    <thead>
+                      <tr className="text-txt-4 border-b border-border">
+                        <th className="text-left px-2 py-1.5">選股日</th>
+                        <th className="text-left px-2 py-1.5">驗證日</th>
+                        <th className="text-right px-2 py-1.5">樣本</th>
+                        <th className="text-right px-2 py-1.5">開盤勝</th>
+                        <th className="text-right px-2 py-1.5">開盤%</th>
+                        <th className="text-right px-2 py-1.5">收盤勝</th>
+                        <th className="text-right px-2 py-1.5">收盤%</th>
+                        <th className="text-left px-2 py-1.5">最佳</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {data.realBacktest.history.map((h) => (
+                        <tr key={h.date} className="border-b border-border/30 hover:bg-bg-2/30">
+                          <td className="px-2 py-1.5 text-txt-2 tabular-nums">{h.date}</td>
+                          <td className="px-2 py-1.5 text-txt-3 tabular-nums">{h.nextDate}</td>
+                          <td className="text-right px-2 py-1.5 text-txt-1 tabular-nums">{h.fetched}</td>
+                          <td className="text-right px-2 py-1.5 tabular-nums">
+                            <span className={h.openWinRate >= 60 ? "text-red font-semibold" : h.openWinRate >= 40 ? "text-amber" : "text-green"}>{h.openWinRate}%</span>
+                          </td>
+                          <td className="text-right px-2 py-1.5 tabular-nums">
+                            <span className={h.avgOpenPct > 0 ? "text-red" : "text-green"}>
+                              {h.avgOpenPct > 0 ? "+" : ""}{h.avgOpenPct}%
+                            </span>
+                          </td>
+                          <td className="text-right px-2 py-1.5 tabular-nums">
+                            <span className={h.closeWinRate >= 60 ? "text-red font-semibold" : h.closeWinRate >= 40 ? "text-amber" : "text-green"}>{h.closeWinRate}%</span>
+                          </td>
+                          <td className="text-right px-2 py-1.5 tabular-nums">
+                            <span className={h.avgClosePct > 0 ? "text-red" : "text-green"}>
+                              {h.avgClosePct > 0 ? "+" : ""}{h.avgClosePct}%
+                            </span>
+                          </td>
+                          <td className="px-2 py-1.5">
+                            {h.bestStock ? (
+                              <Link href={`/stock/${h.bestStock.code}`} className="text-txt-2 hover:text-red">
+                                {h.bestStock.code} <span className="text-red">+{h.bestStock.closePct}%</span>
+                              </Link>
+                            ) : "-"}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
 
             {/* Performance Stats — HONEST: only verifiable next-day-still-limit-up rate */}
             {data.performance && data.performance.totalDays > 0 && (
