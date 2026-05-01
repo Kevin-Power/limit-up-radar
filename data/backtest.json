@@ -1,26 +1,26 @@
 {
   "updatedAt": "2026-04-30",
   "totalDays": 10,
-  "totalSamples": 83,
+  "totalSamples": 82,
   "avgOpenWinRate": 78,
-  "avgCloseWinRate": 61,
-  "avgOpenReturn": 3.19,
-  "avgCloseReturn": 2.62,
+  "avgCloseWinRate": 60,
+  "avgOpenReturn": 3.23,
+  "avgCloseReturn": 2.65,
   "methodology": "用 TWSE 真實隔日 OHLC 計算。今日收盤買，隔日開盤/收盤賣。",
   "history": [
     {
       "date": "2026-04-29",
       "nextDate": "2026-04-30",
       "picks": 16,
-      "fetched": 8,
-      "openWinRate": 62,
-      "closeWinRate": 75,
-      "avgOpenPct": 1.61,
-      "avgClosePct": 4.4,
+      "fetched": 7,
+      "openWinRate": 71,
+      "closeWinRate": 71,
+      "avgOpenPct": 2.0,
+      "avgClosePct": 4.62,
       "bestStock": {
-        "code": "2417",
-        "name": "圓剛",
-        "closePct": 9.91
+        "code": "3016",
+        "name": "嘉晶",
+        "closePct": 9.93
       }
     },
     {

@@ -3,14 +3,14 @@
   "market_summary": {
     "taiex_close": 38926.63,
     "taiex_change_pct": -0.96,
-    "total_volume": 7153628854,
+    "total_volume": 7159549377,
     "limit_up_count": 50,
     "limit_down_count": 4,
     "advance": 646,
     "decline": 1159,
     "unchanged": 147,
     "foreign_net": -53561725108.0,
-    "trust_net": 1183618636.0,
+    "trust_net": 1083212776.0,
     "dealer_net": -788869584.0
   },
   "groups": [
@@ -567,7 +567,7 @@
           "industry": "PCB",
           "close": 883.0,
           "change_pct": 9.96,
-          "volume": 34420546,
+          "volume": 34452546,
           "major_net": 0,
           "streak": 1,
           "market": "TWSE"
