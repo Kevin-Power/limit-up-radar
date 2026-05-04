@@ -1,22 +1,37 @@
 {
-  "updatedAt": "2026-04-30",
+  "updatedAt": "2026-05-04",
   "totalDays": 10,
-  "totalSamples": 82,
-  "avgOpenWinRate": 78,
-  "avgCloseWinRate": 60,
-  "avgOpenReturn": 3.23,
-  "avgCloseReturn": 2.65,
+  "totalSamples": 91,
+  "avgOpenWinRate": 84,
+  "avgCloseWinRate": 64,
+  "avgOpenReturn": 3.79,
+  "avgCloseReturn": 3.43,
   "methodology": "用 TWSE 真實隔日 OHLC 計算。今日收盤買，隔日開盤/收盤賣。",
   "history": [
+    {
+      "date": "2026-04-30",
+      "nextDate": "2026-05-04",
+      "picks": 20,
+      "fetched": 12,
+      "openWinRate": 100,
+      "closeWinRate": 75,
+      "avgOpenPct": 5.4,
+      "avgClosePct": 5.36,
+      "bestStock": {
+        "code": "3016",
+        "name": "嘉晶",
+        "closePct": 9.92
+      }
+    },
     {
       "date": "2026-04-29",
       "nextDate": "2026-04-30",
       "picks": 16,
-      "fetched": 7,
-      "openWinRate": 71,
-      "closeWinRate": 71,
-      "avgOpenPct": 2.0,
-      "avgClosePct": 4.62,
+      "fetched": 9,
+      "openWinRate": 67,
+      "closeWinRate": 78,
+      "avgOpenPct": 2.54,
+      "avgClosePct": 5.02,
       "bestStock": {
         "code": "3016",
         "name": "嘉晶",
@@ -141,21 +156,6 @@
         "code": "8271",
         "name": "宇瞻",
         "closePct": 9.75
-      }
-    },
-    {
-      "date": "2026-04-16",
-      "nextDate": "2026-04-17",
-      "picks": 20,
-      "fetched": 5,
-      "openWinRate": 40,
-      "closeWinRate": 40,
-      "avgOpenPct": 0.33,
-      "avgClosePct": -2.1,
-      "bestStock": {
-        "code": "3054",
-        "name": "立萬利",
-        "closePct": 3.42
       }
     }
   ]
