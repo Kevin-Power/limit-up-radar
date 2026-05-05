@@ -3,14 +3,14 @@
   "market_summary": {
     "taiex_close": 40769.29,
     "taiex_change_pct": 0.16,
-    "total_volume": 7690441988,
+    "total_volume": 7704107988,
     "limit_up_count": 97,
     "limit_down_count": 5,
     "advance": 1152,
     "decline": 643,
     "unchanged": 159,
-    "foreign_net": 3938787133.0,
-    "trust_net": 3411487354.0,
+    "foreign_net": 3990267133.0,
+    "trust_net": 3726924984.0,
     "dealer_net": -10087243816.0
   },
   "groups": [
@@ -1008,7 +1008,7 @@
           "industry": "IC設計",
           "close": 3155.0,
           "change_pct": 9.93,
-          "volume": 8818886,
+          "volume": 10091886,
           "major_net": 0,
           "streak": 1,
           "market": "TWSE"

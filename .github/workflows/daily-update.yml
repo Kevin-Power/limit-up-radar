@@ -2,8 +2,10 @@ name: Daily Update - Fetch TWSE Data
 
 on:
   schedule:
-    # Weekdays at 14:35 Taiwan time (UTC+8) = 06:35 UTC
-    - cron: '35 6 * * 1-5'
+    # Weekdays at 17:00 Taiwan time (UTC+8) = 09:00 UTC
+    # Wait 3.5 hrs after close so TWSE has finalized institutional data
+    # (14:35 initial release often gets corrected later in the afternoon)
+    - cron: '0 9 * * 1-5'
   workflow_dispatch:
     inputs:
       date:

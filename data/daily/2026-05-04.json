@@ -3,14 +3,14 @@
   "market_summary": {
     "taiex_close": 40705.14,
     "taiex_change_pct": 4.57,
-    "total_volume": 7200643518,
+    "total_volume": 7216487354,
     "limit_up_count": 99,
     "limit_down_count": 1,
     "advance": 1021,
     "decline": 793,
     "unchanged": 146,
     "foreign_net": 66975700753.0,
-    "trust_net": 2117903495.0,
+    "trust_net": 2028457546.0,
     "dealer_net": 8940601136.0
   },
   "groups": [
@@ -114,7 +114,7 @@
           "industry": "電子",
           "close": 237.0,
           "change_pct": 9.98,
-          "volume": 144113307,
+          "volume": 144354307,
           "major_net": 0,
           "streak": 1,
           "market": "TWSE"
@@ -650,7 +650,7 @@
           "industry": "",
           "close": 525.0,
           "change_pct": 9.83,
-          "volume": 27185760,
+          "volume": 27594760,
           "major_net": 0,
           "streak": 1,
           "market": "TWSE"
@@ -1052,7 +1052,7 @@
           "industry": "IC設計",
           "close": 2870.0,
           "change_pct": 9.96,
-          "volume": 3786865,
+          "volume": 4019865,
           "major_net": 0,
           "streak": 1,
           "market": "TWSE"
