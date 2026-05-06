@@ -1,13 +1,28 @@
 {
-  "updatedAt": "2026-05-05",
+  "updatedAt": "2026-05-06",
   "totalDays": 10,
-  "totalSamples": 94,
-  "avgOpenWinRate": 84,
-  "avgCloseWinRate": 66,
-  "avgOpenReturn": 3.73,
-  "avgCloseReturn": 3.52,
+  "totalSamples": 95,
+  "avgOpenWinRate": 82,
+  "avgCloseWinRate": 65,
+  "avgOpenReturn": 3.69,
+  "avgCloseReturn": 3.56,
   "methodology": "用 TWSE 真實隔日 OHLC 計算。今日收盤買，隔日開盤/收盤賣。",
   "history": [
+    {
+      "date": "2026-05-05",
+      "nextDate": "2026-05-06",
+      "picks": 20,
+      "fetched": 7,
+      "openWinRate": 86,
+      "closeWinRate": 43,
+      "avgOpenPct": 4.67,
+      "avgClosePct": 1.24,
+      "bestStock": {
+        "code": "4764",
+        "name": "雙鍵",
+        "closePct": 9.97
+      }
+    },
     {
       "date": "2026-05-04",
       "nextDate": "2026-05-05",
@@ -117,15 +132,15 @@
       "date": "2026-04-22",
       "nextDate": "2026-04-23",
       "picks": 20,
-      "fetched": 9,
+      "fetched": 8,
       "openWinRate": 100,
-      "closeWinRate": 22,
-      "avgOpenPct": 5.74,
-      "avgClosePct": -1.58,
+      "closeWinRate": 12,
+      "avgOpenPct": 5.28,
+      "avgClosePct": -3.02,
       "bestStock": {
-        "code": "6658",
-        "name": "聯策",
-        "closePct": 9.96
+        "code": "8021",
+        "name": "尖點",
+        "closePct": 5.84
       }
     },
     {
@@ -141,21 +156,6 @@
         "code": "6861",
         "name": "睿生光電",
         "closePct": 10.0
-      }
-    },
-    {
-      "date": "2026-04-20",
-      "nextDate": "2026-04-21",
-      "picks": 20,
-      "fetched": 5,
-      "openWinRate": 100,
-      "closeWinRate": 40,
-      "avgOpenPct": 4.53,
-      "avgClosePct": -0.6,
-      "bestStock": {
-        "code": "4720",
-        "name": "德淵",
-        "closePct": 4.32
       }
     }
   ]
