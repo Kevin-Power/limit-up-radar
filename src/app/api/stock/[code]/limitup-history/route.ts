@@ -48,23 +48,27 @@ async function fetchOHLC(code: string, date: string): Promise<OHLC | null> {
     }
   } catch { /* fall through */ }
 
-  // TPEx fallback
+  // TPEx (new endpoint: tradingStock returns single-day OHLC)
   try {
-    const url = new URL("https://www.tpex.org.tw/web/stock/aftertrading/daily_trading_info/st43_result.php");
-    url.searchParams.set("l", "zh-tw");
-    url.searchParams.set("d", `${parseInt(date.slice(0, 4)) - 1911}/${date.slice(5, 7)}`);
-    url.searchParams.set("stkno", code);
+    const url = new URL("https://www.tpex.org.tw/www/zh-tw/afterTrading/tradingStock");
+    url.searchParams.set("date", `${date.slice(0, 4)}/${date.slice(5, 7)}/${date.slice(8, 10)}`);
+    url.searchParams.set("code", code);
+    url.searchParams.set("response", "json");
     const res = await fetch(url.toString(), {
       headers: { "User-Agent": "Mozilla/5.0" },
       next: { revalidate: 86400 },
     });
     if (res.ok) {
       const d = await res.json();
-      for (const row of d.aaData ?? []) {
-        if (String(row[0]).trim() === targetRoc) {
-          const open = parseFloat(String(row[3]).replace(/,/g, "")) || null;
-          const close = parseFloat(String(row[6]).replace(/,/g, "")) || null;
-          return { open, close };
+      const tables = d?.tables ?? [];
+      for (const t of tables) {
+        for (const row of t?.data ?? []) {
+          if (String(row[0]).trim() === targetRoc) {
+            // Fields: ['日期', '成交張數', '成交仟元', '開盤', '最高', '最低', '收盤', '漲跌']
+            const open = parseFloat(String(row[3]).replace(/,/g, "")) || null;
+            const close = parseFloat(String(row[6]).replace(/,/g, "")) || null;
+            return { open, close };
+          }
         }
       }
     }
