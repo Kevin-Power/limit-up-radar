@@ -14,11 +14,43 @@ interface RealBacktest {
   avgCloseReturn: number;
 }
 
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
+const fetcher = async (url: string) => {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+};
 
 export default function SopClient() {
-  const { data: focusData } = useSWR<{ realBacktest?: RealBacktest }>("/api/focus", fetcher);
+  const { data: focusData, error, isLoading } = useSWR<{ realBacktest?: RealBacktest }>(
+    "/api/focus",
+    fetcher
+  );
   const bt = focusData?.realBacktest;
+
+  // Show explicit error/loading state — never show fabricated metrics
+  if (error) {
+    return (
+      <>
+        <TopNav />
+        <NavBar />
+        <main className="max-w-3xl mx-auto px-4 md:px-6 py-20 text-center">
+          <h1 className="text-xl font-bold text-red mb-2">回測資料無法載入</h1>
+          <p className="text-sm text-txt-3">請稍後再試或檢查網路連線</p>
+        </main>
+      </>
+    );
+  }
+  if (isLoading || !bt) {
+    return (
+      <>
+        <TopNav />
+        <NavBar />
+        <main className="max-w-3xl mx-auto px-4 md:px-6 py-20 text-center text-txt-3">
+          載入中...
+        </main>
+      </>
+    );
+  }
 
   return (
     <>
@@ -128,11 +160,11 @@ export default function SopClient() {
                     <div className="space-y-1 text-xs">
                       <div className="flex justify-between">
                         <span className="text-txt-2">隔日開盤賣</span>
-                        <span className="text-red font-bold">勝率 {bt?.avgOpenWinRate ?? 77}% / 報酬 +{bt?.avgOpenReturn ?? 3.2}%</span>
+                        <span className="text-red font-bold">勝率 {bt.avgOpenWinRate}% / 報酬 +{bt.avgOpenReturn}%</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-txt-2">隔日收盤賣</span>
-                        <span className="text-green font-bold">勝率 {bt?.avgCloseWinRate ?? 58}% / 報酬 +{bt?.avgCloseReturn ?? 2.25}%</span>
+                        <span className="text-green font-bold">勝率 {bt.avgCloseWinRate}% / 報酬 +{bt.avgCloseReturn}%</span>
                       </div>
                     </div>
                     <p className="text-[10px] text-amber mt-2">
@@ -219,7 +251,7 @@ export default function SopClient() {
             <div className="space-y-2 text-sm">
               <div className="flex justify-between border-b border-border pb-2">
                 <span className="text-txt-3">每日預期報酬</span>
-                <span className="text-red font-bold">10 萬 × {bt?.avgOpenReturn ?? 3.2}% ≈ +{Math.round(100000 * (bt?.avgOpenReturn ?? 3.2) / 100).toLocaleString()} 元</span>
+                <span className="text-red font-bold">10 萬 × {bt.avgOpenReturn}% ≈ +{Math.round(100000 * bt.avgOpenReturn / 100).toLocaleString()} 元</span>
               </div>
               <div className="flex justify-between border-b border-border pb-2">
                 <span className="text-txt-3">月交易日數</span>
@@ -231,12 +263,12 @@ export default function SopClient() {
               </div>
               <div className="flex justify-between pt-2">
                 <span className="text-txt-1 font-bold">預估月報酬</span>
-                <span className="text-red font-extrabold text-lg">約 +{Math.round((bt?.avgOpenReturn ?? 3.2) * 22 * (bt?.avgOpenWinRate ?? 77) / 100)}%</span>
+                <span className="text-red font-extrabold text-lg">約 +{Math.round(bt.avgOpenReturn * 22 * bt.avgOpenWinRate / 100)}%</span>
               </div>
             </div>
             <div className="mt-4 p-3 bg-amber/10 border border-amber/30 rounded-lg">
               <p className="text-[11px] text-txt-2 leading-relaxed">
-                ⚠️ <strong>注意</strong>：基於 {bt?.totalSamples ?? 81} 筆小樣本回測。
+                ⚠️ <strong>注意</strong>：基於 {bt.totalSamples} 筆小樣本回測。
                 實際操作扣除手續費、證交稅（約 0.4%）、滑價會降低報酬。
                 <strong className="text-red">過去績效不代表未來。</strong>
               </p>

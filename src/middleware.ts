@@ -10,15 +10,24 @@ const PUBLIC_PATHS = [
   "/icons/",
 ];
 
+// Static asset extensions (only these bypass auth, not arbitrary "." paths)
+const STATIC_EXT_RE = /\.(ico|png|jpg|jpeg|svg|webp|gif|css|js|map|txt|xml|woff2?|ttf|otf|json)$/i;
+
 function isPublic(pathname: string) {
   return PUBLIC_PATHS.some((p) => pathname.startsWith(p));
+}
+
+function isStaticAsset(pathname: string) {
+  // Never treat /api/* as static even if it contains a dot
+  if (pathname.startsWith("/api/")) return false;
+  return STATIC_EXT_RE.test(pathname);
 }
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // Allow public paths and static files
-  if (isPublic(pathname) || pathname.includes(".")) {
+  // Allow public paths and true static files only
+  if (isPublic(pathname) || isStaticAsset(pathname)) {
     return NextResponse.next();
   }
 
