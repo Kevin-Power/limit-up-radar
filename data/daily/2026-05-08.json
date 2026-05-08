@@ -38,7 +38,7 @@
           "close": 183.0,
           "change_pct": 9.91,
           "volume": 14140300,
-          "major_net": 0,
+          "major_net": 215452,
           "streak": 1,
           "market": "TWSE"
         },
@@ -60,7 +60,7 @@
           "close": 122.0,
           "change_pct": 9.91,
           "volume": 55247054,
-          "major_net": 0,
+          "major_net": 408787,
           "streak": 1,
           "market": "TWSE"
         },
@@ -71,7 +71,7 @@
           "close": 221.5,
           "change_pct": 9.93,
           "volume": 10762892,
-          "major_net": 0,
+          "major_net": 155682,
           "streak": 1,
           "market": "TWSE"
         },
@@ -93,7 +93,7 @@
           "close": 330.0,
           "change_pct": 10.0,
           "volume": 22732968,
-          "major_net": 0,
+          "major_net": 255101,
           "streak": 1,
           "market": "TWSE"
         },
@@ -104,7 +104,7 @@
           "close": 240.5,
           "change_pct": 9.82,
           "volume": 6029324,
-          "major_net": 0,
+          "major_net": 100470,
           "streak": 1,
           "market": "TWSE"
         },
@@ -115,7 +115,7 @@
           "close": 201.0,
           "change_pct": 9.84,
           "volume": 30433241,
-          "major_net": 0,
+          "major_net": 157658,
           "streak": 1,
           "market": "TWSE"
         },
@@ -137,7 +137,7 @@
           "close": 17.7,
           "change_pct": 9.94,
           "volume": 545000,
-          "major_net": 0,
+          "major_net": 10453,
           "streak": 1,
           "market": "OTC"
         },
@@ -148,7 +148,7 @@
           "close": 226.5,
           "change_pct": 9.95,
           "volume": 27774000,
-          "major_net": 0,
+          "major_net": 8275772,
           "streak": 1,
           "market": "OTC"
         },
@@ -159,7 +159,7 @@
           "close": 7.81,
           "change_pct": 10.0,
           "volume": 14000,
-          "major_net": 0,
+          "major_net": -1000,
           "streak": 1,
           "market": "OTC"
         },
@@ -170,7 +170,7 @@
           "close": 122.0,
           "change_pct": 9.91,
           "volume": 16356000,
-          "major_net": 0,
+          "major_net": 2862958,
           "streak": 1,
           "market": "OTC"
         },
@@ -181,7 +181,7 @@
           "close": 43.65,
           "change_pct": 9.95,
           "volume": 1194000,
-          "major_net": 0,
+          "major_net": 421826,
           "streak": 1,
           "market": "OTC"
         },
@@ -192,7 +192,7 @@
           "close": 22.55,
           "change_pct": 10.0,
           "volume": 1032000,
-          "major_net": 0,
+          "major_net": 151800,
           "streak": 1,
           "market": "OTC"
         },
@@ -203,7 +203,7 @@
           "close": 153.0,
           "change_pct": 9.68,
           "volume": 746000,
-          "major_net": 0,
+          "major_net": 1015,
           "streak": 1,
           "market": "OTC"
         },
@@ -214,7 +214,7 @@
           "close": 44.65,
           "change_pct": 9.98,
           "volume": 8981000,
-          "major_net": 0,
+          "major_net": 1799456,
           "streak": 1,
           "market": "OTC"
         },
@@ -225,7 +225,7 @@
           "close": 114.0,
           "change_pct": 9.62,
           "volume": 5207000,
-          "major_net": 0,
+          "major_net": 734275,
           "streak": 1,
           "market": "OTC"
         },
@@ -236,7 +236,7 @@
           "close": 121.5,
           "change_pct": 9.95,
           "volume": 1226000,
-          "major_net": 0,
+          "major_net": 21755,
           "streak": 1,
           "market": "OTC"
         }
@@ -266,7 +266,7 @@
           "close": 113.5,
           "change_pct": 9.66,
           "volume": 25183767,
-          "major_net": 0,
+          "major_net": 253399,
           "streak": 1,
           "market": "TWSE"
         },
@@ -299,7 +299,7 @@
           "close": 198.5,
           "change_pct": 9.97,
           "volume": 3261620,
-          "major_net": 0,
+          "major_net": 20776,
           "streak": 1,
           "market": "TWSE"
         },
@@ -310,7 +310,7 @@
           "close": 92.9,
           "change_pct": 9.94,
           "volume": 9341000,
-          "major_net": 0,
+          "major_net": 1028117,
           "streak": 1,
           "market": "OTC"
         },
@@ -332,7 +332,7 @@
           "close": 52.4,
           "change_pct": 9.97,
           "volume": 7811000,
-          "major_net": 0,
+          "major_net": 74413,
           "streak": 1,
           "market": "OTC"
         },
@@ -343,7 +343,7 @@
           "close": 21.35,
           "change_pct": 9.77,
           "volume": 827000,
-          "major_net": 0,
+          "major_net": 113000,
           "streak": 1,
           "market": "OTC"
         },
@@ -354,7 +354,7 @@
           "close": 134.5,
           "change_pct": 9.8,
           "volume": 2129000,
-          "major_net": 0,
+          "major_net": 371974,
           "streak": 1,
           "market": "OTC"
         },
@@ -365,7 +365,7 @@
           "close": 196.5,
           "change_pct": 270.75,
           "volume": 1271000,
-          "major_net": 0,
+          "major_net": 29000,
           "streak": 1,
           "market": "OTC"
         },
@@ -376,7 +376,7 @@
           "close": 76.1,
           "change_pct": 9.97,
           "volume": 91000,
-          "major_net": 0,
+          "major_net": 50000,
           "streak": 1,
           "market": "OTC"
         },
@@ -408,7 +408,7 @@
           "close": 592.0,
           "change_pct": 9.83,
           "volume": 9246415,
-          "major_net": 0,
+          "major_net": 356304,
           "streak": 1,
           "market": "TWSE"
         },
@@ -419,7 +419,7 @@
           "close": 498.0,
           "change_pct": 9.93,
           "volume": 20155564,
-          "major_net": 0,
+          "major_net": 764863,
           "streak": 1,
           "market": "TWSE"
         },
@@ -441,7 +441,7 @@
           "close": 39.95,
           "change_pct": 9.9,
           "volume": 805000,
-          "major_net": 0,
+          "major_net": 189996,
           "streak": 1,
           "market": "OTC"
         },
@@ -452,7 +452,7 @@
           "close": 70.4,
           "change_pct": 10.0,
           "volume": 6026000,
-          "major_net": 0,
+          "major_net": 625951,
           "streak": 1,
           "market": "OTC"
         }
@@ -471,7 +471,7 @@
           "close": 236.5,
           "change_pct": 10.0,
           "volume": 10764769,
-          "major_net": 0,
+          "major_net": 152421,
           "streak": 1,
           "market": "TWSE"
         },
@@ -482,7 +482,7 @@
           "close": 724.0,
           "change_pct": 9.86,
           "volume": 6129316,
-          "major_net": 0,
+          "major_net": 1089,
           "streak": 1,
           "market": "TWSE"
         },
@@ -493,7 +493,7 @@
           "close": 1085.0,
           "change_pct": 9.93,
           "volume": 6148000,
-          "major_net": 0,
+          "major_net": 1286463,
           "streak": 1,
           "market": "OTC"
         },
@@ -504,7 +504,7 @@
           "close": 94.7,
           "change_pct": 9.99,
           "volume": 1274000,
-          "major_net": 0,
+          "major_net": 124036,
           "streak": 1,
           "market": "OTC"
         }
@@ -536,7 +536,7 @@
           "close": 669.0,
           "change_pct": 9.85,
           "volume": 5563000,
-          "major_net": 0,
+          "major_net": 2193640,
           "streak": 1,
           "market": "OTC"
         }
@@ -557,7 +557,7 @@
           "close": 5320.0,
           "change_pct": 9.92,
           "volume": 1475214,
-          "major_net": 0,
+          "major_net": 46457,
           "streak": 1,
           "market": "TWSE"
         },
@@ -568,7 +568,7 @@
           "close": 504.0,
           "change_pct": 9.92,
           "volume": 4482000,
-          "major_net": 0,
+          "major_net": 690916,
           "streak": 1,
           "market": "OTC"
         }
@@ -590,7 +590,7 @@
           "close": 1415.0,
           "change_pct": 9.69,
           "volume": 6155787,
-          "major_net": 0,
+          "major_net": 220676,
           "streak": 1,
           "market": "TWSE"
         }

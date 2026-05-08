@@ -188,29 +188,49 @@ def main():
                 'name': best['name'],
                 'closePct': best['close_pct'],
             } if best else None,
+            # Internal fields for weighted aggregation, stripped before save
+            '_open_wins_raw': open_wins,
+            '_close_wins_raw': close_wins,
+            '_sum_open_pct': sum(r['open_pct'] for r in results),
+            '_sum_close_pct': sum(r['close_pct'] for r in results),
         })
 
         print(f"  Fetched {len(results)} | open win {open_wins}/{len(results)} ({open_wins/len(results)*100:.0f}%) avg {avg_open:+.2f}% | close win {close_wins}/{len(results)} ({close_wins/len(results)*100:.0f}%) avg {avg_close:+.2f}%")
 
-    # Aggregate
+    # Aggregate (SAMPLE-WEIGHTED, not day-averaged)
+    # Bug fix: previous version averaged per-day rates, so a 3-pick day
+    # counted equally to a 30-pick day. Now we sum across all samples.
     if history:
         total_fetched = sum(h['fetched'] for h in history)
-        avg_owr = sum(h['openWinRate'] for h in history) / len(history)
-        avg_cwr = sum(h['closeWinRate'] for h in history) / len(history)
-        avg_op = sum(h['avgOpenPct'] for h in history) / len(history)
-        avg_cp = sum(h['avgClosePct'] for h in history) / len(history)
+        total_open_wins = sum(h['_open_wins_raw'] for h in history)
+        total_close_wins = sum(h['_close_wins_raw'] for h in history)
+        sum_open_pct = sum(h['_sum_open_pct'] for h in history)
+        sum_close_pct = sum(h['_sum_close_pct'] for h in history)
+        avg_owr = total_open_wins / total_fetched * 100
+        avg_cwr = total_close_wins / total_fetched * 100
+        avg_op = sum_open_pct / total_fetched
+        avg_cp = sum_close_pct / total_fetched
+        # Strip internal helper fields before saving
+        for h in history:
+            h.pop('_open_wins_raw', None)
+            h.pop('_close_wins_raw', None)
+            h.pop('_sum_open_pct', None)
+            h.pop('_sum_close_pct', None)
     else:
-        total_fetched = avg_owr = avg_cwr = avg_op = avg_cp = 0
+        total_fetched = total_open_wins = total_close_wins = 0
+        avg_owr = avg_cwr = avg_op = avg_cp = 0
 
     output = {
         'updatedAt': files[-1].replace('.json', ''),
         'totalDays': len(history),
         'totalSamples': total_fetched,
+        'totalOpenWins': total_open_wins,
+        'totalCloseWins': total_close_wins,
         'avgOpenWinRate': round(avg_owr),
         'avgCloseWinRate': round(avg_cwr),
         'avgOpenReturn': round(avg_op, 2),
         'avgCloseReturn': round(avg_cp, 2),
-        'methodology': '用 TWSE 真實隔日 OHLC 計算。今日收盤買，隔日開盤/收盤賣。',
+        'methodology': '用 TWSE 真實隔日 OHLC 計算（樣本加權平均）。今日收盤買，隔日開盤/收盤賣。',
         'history': history,
     }
 

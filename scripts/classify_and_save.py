@@ -31,6 +31,8 @@ from scraper.tpex import fetch_tpex_quotes
 TWSE_INDEX_URL = "https://www.twse.com.tw/exchangeReport/MI_INDEX"
 TWSE_FMTQIK_URL = "https://www.twse.com.tw/exchangeReport/FMTQIK"
 TWSE_BFI82U_URL = "https://www.twse.com.tw/fund/BFI82U"
+TWSE_T86_URL = "https://www.twse.com.tw/fund/T86"
+TPEX_INST_URL = "https://www.tpex.org.tw/www/zh-tw/insti/dailyTrade"
 MAX_RETRIES = 3
 RETRY_DELAY = 5  # seconds
 REQUEST_TIMEOUT = 30
@@ -279,6 +281,70 @@ def fetch_institutional_data(date: str) -> dict:
     return result
 
 
+def fetch_per_stock_institutional(date: str) -> dict[str, int]:
+    """Fetch per-stock institutional net buy/sell (三大法人合計) from TWSE T86 + TPEx.
+
+    T86 fields: row[0]=code, row[1]=name, row[2]=外資買, row[3]=外資賣, row[4]=外資淨,
+                row[10]=投信淨, row[11]=自營商淨(合計), row[15]=三大法人合計買賣超
+    TPEx 3itrade_hedge: similar columns; structure varies but row[10] or last
+                        column has 三大法人買賣超合計.
+
+    Returns: {stock_code: major_net_shares} where major_net_shares is in shares.
+    """
+    twse_date = date.replace("-", "")
+    headers = {"User-Agent": "Mozilla/5.0", "Accept": "application/json"}
+    result: dict[str, int] = {}
+
+    # TWSE T86
+    try:
+        params = {"response": "json", "date": twse_date, "selectType": "ALL"}
+        resp = requests.get(TWSE_T86_URL, params=params, headers=headers, timeout=REQUEST_TIMEOUT)
+        resp.raise_for_status()
+        data = resp.json()
+        if data.get("stat") == "OK":
+            for row in data.get("data", []):
+                if not row or len(row) < 16:
+                    continue
+                code = str(row[0]).strip()
+                if not re.match(r"^\d{4,6}", code):
+                    continue
+                # row[15] is "三大法人買賣超股數 (合計)"
+                try:
+                    major = int(_parse_number(row[15]))
+                    result[code] = major
+                except (ValueError, IndexError):
+                    continue
+    except (requests.RequestException, ValueError) as exc:
+        print(f"  [warn] T86 fetch failed: {exc}")
+
+    # TPEx (new endpoint: /www/zh-tw/insti/dailyTrade)
+    # Returns 24-col table; col [23] is "三大法人買賣超股數合計"
+    try:
+        params = {"date": f"{date[:4]}/{date[5:7]}/{date[8:10]}", "type": "Daily", "response": "json"}
+        resp = requests.get(TPEX_INST_URL, params=params, headers=headers, timeout=REQUEST_TIMEOUT)
+        resp.raise_for_status()
+        data = resp.json()
+        tables = data.get("tables", [])
+        if tables and tables[0].get("data"):
+            for row in tables[0]["data"]:
+                if not row or len(row) < 24:
+                    continue
+                code = str(row[0]).strip()
+                if not re.match(r"^\d{4,6}", code):
+                    continue
+                try:
+                    major = int(_parse_number(row[23]))
+                    # Don't overwrite TWSE entries (T86 is authoritative for listed)
+                    if code not in result:
+                        result[code] = major
+                except (ValueError, IndexError):
+                    continue
+    except (requests.RequestException, ValueError) as exc:
+        print(f"  [warn] TPEx institutional fetch failed: {exc}")
+
+    return result
+
+
 # ---------------------------------------------------------------------------
 # Trading day detection
 # ---------------------------------------------------------------------------
@@ -333,14 +399,20 @@ def _fetch_with_retry(date: str, retries: int = MAX_RETRIES) -> list[dict]:
 # Classification
 # ---------------------------------------------------------------------------
 
-def classify_stocks(limit_up_stocks: list[dict]) -> list[dict]:
+def classify_stocks(limit_up_stocks: list[dict], per_stock_major: dict[str, int] | None = None) -> list[dict]:
     """Classify limit-up stocks into thematic groups.
+
+    Args:
+        limit_up_stocks: list of stock quote dicts.
+        per_stock_major: optional {code: 三大法人合計買賣超股數} from T86/TPEx.
 
     Uses a two-tier approach:
     1. Explicit stock code mappings for well-known thematic plays.
     2. Industry-based classification using TWSE stock code ranges and name heuristics.
     This ensures stocks from the same sector are grouped even if not in the explicit map.
     """
+    if per_stock_major is None:
+        per_stock_major = {}
 
     # --- Tier 1: Explicit stock-to-group mappings ---
     STOCK_GROUPS = {
@@ -693,9 +765,8 @@ def classify_stocks(limit_up_stocks: list[dict]) -> list[dict]:
                     "close": s["close"],
                     "change_pct": s["change_pct"],
                     "volume": s["volume"],
-                    # NOTE: major_net requires a separate broker data source
-                    # (e.g., 主力進出 from paid data providers). Set to 0 for now.
-                    "major_net": 0,
+                    # 三大法人合計買賣超股數 (from T86/TPEx 3insti)
+                    "major_net": per_stock_major.get(s["stock_code"], 0),
                     "streak": 1,
                     "market": s.get("market", "TWSE"),
                 }
@@ -796,8 +867,14 @@ def main():
     else:
         print("  WARNING: Could not fetch institutional data, using 0")
 
+    # ---- Per-stock institutional buy/sell (T86 + TPEx) ----
+    print("  Fetching per-stock institutional flow (T86 + TPEx)...")
+    time.sleep(3)
+    per_stock_major = fetch_per_stock_institutional(date)
+    print(f"  Got institutional data for {len(per_stock_major)} stocks")
+
     # ---- Classify ----
-    groups = classify_stocks(limit_up)
+    groups = classify_stocks(limit_up, per_stock_major)
 
     # ---- Build output JSON (matches DailyData TypeScript type) ----
     daily_data = {
