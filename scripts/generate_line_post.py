@@ -111,8 +111,9 @@ def next_trading_day(date_str):
 
 def build_text(d, picks, next_day):
     bt = d["realBacktest"]
-    n_emoji = ["1️⃣","2️⃣","3️⃣","4️⃣","5️⃣","6️⃣","7️⃣","8️⃣","9️⃣","🔟",
-               "⓫","⓬","⓭","⓮","⓯","⓰","⓱","⓲","⓳","⓴"]
+    # Use plain [N] instead of variation-selector emoji to avoid
+    # font fallback issues on phones / old text editors
+    n_emoji = [f"[{i:>2}]" for i in range(1, 21)]
 
     md = next_day[5:7].lstrip("0") + "/" + next_day[8:10].lstrip("0")
     text = f"""🔥 {md} 觀察名單 TOP {len(picks)}
@@ -185,7 +186,8 @@ def build_image(d, picks, next_day):
     draw = ImageDraw.Draw(img)
 
     def f(size, bold=True):
-        return ImageFont.truetype(FONT_BD if bold else FONT_RG, size)
+        # Explicit index=0 to load the main CJK weight in Microsoft JhengHei TTC
+        return ImageFont.truetype(FONT_BD if bold else FONT_RG, size, index=0)
 
     for y in range(0, H, 40):
         for x in range(0, W, 40):
