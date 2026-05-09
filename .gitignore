@@ -57,3 +57,6 @@ __pycache__/
 股票情資蒐集
 
 .vercel
+
+# Daily LINE post output (regenerated each day)
+line_post/

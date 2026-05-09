@@ -4,6 +4,28 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Footer from "@/components/Footer";
 
+interface PublicStats {
+  date: string | null;
+  taiex: number | null;
+  taiexChg: number | null;
+  limitUp: number | null;
+  groupCount: number | null;
+  backtest: { winRate: number; avgReturn: number; samples: number; days: number } | null;
+  revenueStocks: number | null;
+  totalTradingDays: number;
+}
+
+function useLiveStats() {
+  const [stats, setStats] = useState<PublicStats | null>(null);
+  useEffect(() => {
+    fetch("/api/public/stats")
+      .then((r) => r.ok ? r.json() : null)
+      .then((d) => setStats(d))
+      .catch(() => {});
+  }, []);
+  return stats;
+}
+
 /* ------------------------------------------------------------------ */
 /*  Intersection Observer hook for scroll-based fade-in               */
 /* ------------------------------------------------------------------ */
@@ -139,77 +161,60 @@ const STEPS = [
   { num: "03", title: "盤後做功課", desc: "驗證策略表現" },
 ];
 
-const STATS = [
-  { value: "15+", label: "功能模組" },
-  { value: "1,934", label: "營收追蹤" },
-  { value: "6", label: "免費課程" },
-  { value: "每日", label: "自動更新" },
-];
-
 /* ------------------------------------------------------------------ */
-/*  Mini Dashboard Preview (Hero decoration)                          */
+/*  Live Stats Card (real data from /api/public/stats)                */
 /* ------------------------------------------------------------------ */
-function DashboardPreview() {
+function LiveStatsCard({ stats }: { stats: PublicStats | null }) {
   return (
     <div className="relative mx-auto mt-12 w-full max-w-3xl lg:mt-0 lg:max-w-none">
-      {/* Glow behind */}
-      <div className="absolute -inset-4 rounded-2xl bg-gradient-to-br from-red/10 via-accent/10 to-blue/10 blur-2xl" />
-
-      <div className="relative overflow-hidden rounded-xl border border-border bg-bg-1 p-4 shadow-2xl sm:p-6">
-        {/* Top bar */}
-        <div className="mb-4 flex items-center gap-2">
-          <span className="h-3 w-3 rounded-full bg-red" />
-          <span className="h-3 w-3 rounded-full bg-amber" />
-          <span className="h-3 w-3 rounded-full bg-green" />
-          <span className="ml-3 text-xs text-txt-3">limit-up-radar.vercel.app</span>
+      <div className="absolute -inset-4 rounded-2xl bg-gradient-to-br from-red/15 via-amber/10 to-red/15 blur-2xl" />
+      <div className="relative overflow-hidden rounded-xl border border-red/30 bg-bg-1 p-5 shadow-2xl sm:p-7">
+        {/* Top label */}
+        <div className="flex items-center justify-between mb-4">
+          <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-red/10 text-red text-[10px] font-bold tracking-wider">
+            <span className="w-1.5 h-1.5 rounded-full bg-red animate-pulse" />
+            REAL DATA · 真實數字
+          </span>
+          <span className="text-[10px] text-txt-4 tabular-nums">
+            {stats?.date ?? "載入中..."}
+          </span>
         </div>
 
-        {/* Stats row */}
-        <div className="mb-4 grid grid-cols-4 gap-3">
+        {/* Hero stat: 79% */}
+        <div className="mb-5 text-center">
+          <div className="text-[12px] text-txt-3 mb-1">隔日開盤勝率</div>
+          <div className="text-7xl font-extrabold tabular-nums text-red leading-none">
+            {stats?.backtest?.winRate ?? "—"}<span className="text-3xl">%</span>
+          </div>
+          <div className="mt-2 text-[10px] text-txt-4">
+            {stats?.backtest
+              ? `${stats.backtest.samples} 樣本 · ${stats.backtest.days} 天 · 樣本加權`
+              : "載入中..."}
+          </div>
+        </div>
+
+        {/* 4 mini stats */}
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 mb-4">
           {[
-            { label: "漲停", val: "54", color: "text-red" },
-            { label: "跌停", val: "3", color: "text-green" },
-            { label: "族群", val: "12", color: "text-blue" },
-            { label: "勝率", val: "67%", color: "text-amber" },
+            { label: "TAIEX", val: stats?.taiex ? Math.round(stats.taiex).toLocaleString() : "—",
+              sub: stats?.taiexChg != null ? `${stats.taiexChg > 0 ? "+" : ""}${stats.taiexChg.toFixed(2)}%` : "",
+              color: stats?.taiexChg && stats.taiexChg > 0 ? "text-red" : "text-green" },
+            { label: "今日漲停", val: stats?.limitUp ?? "—", sub: `${stats?.groupCount ?? "—"} 族群`, color: "text-red" },
+            { label: "平均報酬", val: stats?.backtest ? `+${stats.backtest.avgReturn}%` : "—", sub: "單日開盤", color: "text-amber" },
+            { label: "資料涵蓋", val: stats?.totalTradingDays ?? "—", sub: "個交易日", color: "text-blue" },
           ].map((s) => (
-            <div key={s.label} className="rounded-lg bg-bg-2 p-2 text-center sm:p-3">
-              <div className={`text-lg font-bold tabular-nums ${s.color} sm:text-xl`}>{s.val}</div>
-              <div className="text-[10px] text-txt-3 sm:text-xs">{s.label}</div>
+            <div key={s.label} className="rounded-lg bg-bg-2 p-2 sm:p-3 text-center">
+              <div className={`text-base sm:text-lg font-bold tabular-nums ${s.color}`}>{s.val}</div>
+              <div className="text-[9px] sm:text-[10px] text-txt-3 mt-0.5">{s.label}</div>
+              {s.sub && <div className="text-[8px] sm:text-[9px] text-txt-4">{s.sub}</div>}
             </div>
           ))}
         </div>
 
-        {/* Fake chart */}
-        <div className="mb-4 h-24 rounded-lg bg-bg-2 p-3 sm:h-32">
-          <svg viewBox="0 0 400 100" className="h-full w-full" preserveAspectRatio="none">
-            <defs>
-              <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="var(--red)" stopOpacity="0.3" />
-                <stop offset="100%" stopColor="var(--red)" stopOpacity="0" />
-              </linearGradient>
-            </defs>
-            <path
-              d="M0,80 Q50,75 80,60 T160,45 T240,30 T320,38 T400,20"
-              fill="none"
-              stroke="var(--red)"
-              strokeWidth="2"
-            />
-            <path
-              d="M0,80 Q50,75 80,60 T160,45 T240,30 T320,38 T400,20 L400,100 L0,100 Z"
-              fill="url(#chartGrad)"
-            />
-          </svg>
-        </div>
-
-        {/* Fake group bars */}
-        <div className="flex items-end gap-2">
-          {[70, 55, 45, 38, 30, 22, 18, 12].map((h, i) => (
-            <div
-              key={i}
-              className="flex-1 rounded-t bg-gradient-to-t from-red/60 to-red/20"
-              style={{ height: `${h}px` }}
-            />
-          ))}
+        {/* Bottom row: revenue + signal */}
+        <div className="flex items-center justify-between text-[10px] text-txt-4 pt-3 border-t border-border">
+          <span>📊 月營收追蹤 {stats?.revenueStocks?.toLocaleString() ?? "—"} 檔</span>
+          <span className="text-red">→ 登入看完整分析</span>
         </div>
       </div>
     </div>
@@ -221,6 +226,7 @@ function DashboardPreview() {
 /* ------------------------------------------------------------------ */
 export default function LandingPage() {
   const wrapperRef = useScrollReveal();
+  const stats = useLiveStats();
 
   const scrollToFeatures = () => {
     document.getElementById("features")?.scrollIntoView({ behavior: "smooth" });
@@ -278,7 +284,7 @@ export default function LandingPage() {
 
           {/* Right dashboard */}
           <div className="animate-fade-in-up" style={{ animationDelay: "0.15s" }}>
-            <DashboardPreview />
+            <LiveStatsCard stats={stats} />
           </div>
         </div>
       </section>
@@ -341,17 +347,37 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ────────────────────────── STATS BAR ──────────────────────────── */}
+      {/* ────────────────────────── LIVE STATS BAR ─────────────────────── */}
       <section className="reveal border-y border-border bg-bg-1 py-16 sm:py-20">
         <div className="mx-auto grid max-w-5xl grid-cols-2 gap-8 px-4 sm:grid-cols-4 sm:px-6">
-          {STATS.map((s) => (
-            <div key={s.label} className="text-center">
-              <div className="text-4xl font-extrabold tabular-nums text-txt-0 sm:text-5xl">
-                {s.value}
-              </div>
-              <div className="mt-2 text-sm text-txt-3">{s.label}</div>
+          <div className="text-center">
+            <div className="text-4xl font-extrabold tabular-nums text-red sm:text-5xl">
+              {stats?.backtest?.winRate ?? "—"}<span className="text-2xl">%</span>
             </div>
-          ))}
+            <div className="mt-2 text-sm text-txt-3">隔日開盤勝率</div>
+            <div className="text-[10px] text-txt-4 mt-0.5">真實 OHLC</div>
+          </div>
+          <div className="text-center">
+            <div className="text-4xl font-extrabold tabular-nums text-amber sm:text-5xl">
+              +{stats?.backtest?.avgReturn ?? "—"}%
+            </div>
+            <div className="mt-2 text-sm text-txt-3">平均開盤報酬</div>
+            <div className="text-[10px] text-txt-4 mt-0.5">{stats?.backtest?.samples ?? "—"} 樣本</div>
+          </div>
+          <div className="text-center">
+            <div className="text-4xl font-extrabold tabular-nums text-blue sm:text-5xl">
+              {stats?.totalTradingDays ?? "—"}
+            </div>
+            <div className="mt-2 text-sm text-txt-3">交易日資料</div>
+            <div className="text-[10px] text-txt-4 mt-0.5">每日 17:00 更新</div>
+          </div>
+          <div className="text-center">
+            <div className="text-4xl font-extrabold tabular-nums text-green sm:text-5xl">
+              {stats?.revenueStocks?.toLocaleString() ?? "—"}
+            </div>
+            <div className="mt-2 text-sm text-txt-3">月營收追蹤</div>
+            <div className="text-[10px] text-txt-4 mt-0.5">永豐金 Sinopac</div>
+          </div>
         </div>
       </section>
 

@@ -3,6 +3,7 @@ import { jwtVerify } from "jose";
 
 const PUBLIC_PATHS = [
   "/api/auth/",
+  "/api/public/",   // public read-only headline stats
   "/landing",
   "/_next/",
   "/favicon",
