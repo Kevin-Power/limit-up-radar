@@ -1,15 +1,30 @@
 {
-  "updatedAt": "2026-05-08",
+  "updatedAt": "2026-05-11",
   "totalDays": 10,
-  "totalSamples": 99,
-  "totalOpenWins": 78,
-  "totalCloseWins": 64,
-  "avgOpenWinRate": 79,
-  "avgCloseWinRate": 65,
-  "avgOpenReturn": 3.25,
-  "avgCloseReturn": 3.27,
+  "totalSamples": 101,
+  "totalOpenWins": 77,
+  "totalCloseWins": 62,
+  "avgOpenWinRate": 76,
+  "avgCloseWinRate": 61,
+  "avgOpenReturn": 3.06,
+  "avgCloseReturn": 2.88,
   "methodology": "用 TWSE 真實隔日 OHLC 計算（樣本加權平均）。今日收盤買，隔日開盤/收盤賣。",
   "history": [
+    {
+      "date": "2026-05-08",
+      "nextDate": "2026-05-11",
+      "picks": 20,
+      "fetched": 9,
+      "openWinRate": 56,
+      "closeWinRate": 44,
+      "avgOpenPct": 1.4,
+      "avgClosePct": 1.63,
+      "bestStock": {
+        "code": "3036",
+        "name": "文曄",
+        "closePct": 9.98
+      }
+    },
     {
       "date": "2026-05-07",
       "nextDate": "2026-05-08",
@@ -44,11 +59,11 @@
       "date": "2026-05-05",
       "nextDate": "2026-05-06",
       "picks": 20,
-      "fetched": 7,
-      "openWinRate": 86,
-      "closeWinRate": 43,
-      "avgOpenPct": 5.17,
-      "avgClosePct": 0.5,
+      "fetched": 8,
+      "openWinRate": 88,
+      "closeWinRate": 38,
+      "avgOpenPct": 5.3,
+      "avgClosePct": 0.44,
       "bestStock": {
         "code": "4764",
         "name": "雙鍵",
@@ -59,11 +74,11 @@
       "date": "2026-05-04",
       "nextDate": "2026-05-05",
       "picks": 20,
-      "fetched": 10,
-      "openWinRate": 80,
-      "closeWinRate": 90,
-      "avgOpenPct": 2.52,
-      "avgClosePct": 6.56,
+      "fetched": 9,
+      "openWinRate": 78,
+      "closeWinRate": 89,
+      "avgOpenPct": 2.3,
+      "avgClosePct": 6.19,
       "bestStock": {
         "code": "6861",
         "name": "睿生光電",
@@ -77,7 +92,7 @@
       "fetched": 12,
       "openWinRate": 100,
       "closeWinRate": 75,
-      "avgOpenPct": 5.39,
+      "avgOpenPct": 5.4,
       "avgClosePct": 5.36,
       "bestStock": {
         "code": "3016",
@@ -143,21 +158,6 @@
         "code": "6658",
         "name": "聯策",
         "closePct": 9.95
-      }
-    },
-    {
-      "date": "2026-04-23",
-      "nextDate": "2026-04-24",
-      "picks": 13,
-      "fetched": 7,
-      "openWinRate": 86,
-      "closeWinRate": 71,
-      "avgOpenPct": 3.88,
-      "avgClosePct": 5.44,
-      "bestStock": {
-        "code": "6861",
-        "name": "睿生光電",
-        "closePct": 9.98
       }
     }
   ]
