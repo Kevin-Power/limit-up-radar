@@ -33,20 +33,46 @@ export interface ScoreResult {
 
 /**
  * Score a stock for "明日焦點" recommendation.
- * Max score: 100+
+ *
+ * Positive signals:
  *   - 趨勢族群 (2+ days trending): +30
- *   - 營收 YoY > 20%: +25
- *   - 營收 YoY > 50%: +10 (extra)
+ *   - 營收 YoY > 20%: +25 (>50% extra +10)
  *   - 法人買超 (major_net > 0): +20
  *   - 連板 (streak >= 2): +15
- *   - 大量 (volume > 5M shares): +5
+ *   - 大量 (volume > 5M shares = 5,000 lots): +5
  *   - 族群龍頭 (top volume in group): +10
+ *
+ * Negative signals (liquidity / risk filters):
+ *   - 流動性極低 (volume < 500 lots): -30 (essentially excluded from picks)
+ *   - 流動性偏低 (volume < 2000 lots): -15
+ *   - 連續 3 天紅 K 警示: tag only (caution flag for user)
+ *   - 處置股 (isDisposal=true): -50 (excluded; disposal stocks are illiquid)
  */
-export function scoreStock(input: ScoreInput): ScoreResult {
-  const { stock, group, trendingGroups, groupVolumeLeaderCode, revYoY } = input;
+export function scoreStock(input: ScoreInput & {
+  isDisposal?: boolean;
+  consecutiveUpDays?: number; // 連續上漲天數
+}): ScoreResult {
+  const { stock, group, trendingGroups, groupVolumeLeaderCode, revYoY, isDisposal, consecutiveUpDays } = input;
   let score = 0;
   const tags: string[] = [];
 
+  // === Disposal stock: heavily penalize (illiquid, hard to trade) ===
+  if (isDisposal) {
+    score -= 50;
+    tags.push("⚠️處置股");
+  }
+
+  // === Liquidity filter (volume in shares; 1 lot = 1000 shares) ===
+  const lots = stock.volume / 1000;
+  if (lots < 500) {
+    score -= 30;
+    tags.push("⚠️量極小");
+  } else if (lots < 2000) {
+    score -= 15;
+    tags.push("⚠️量小");
+  }
+
+  // === Positive signals ===
   if (trendingGroups.has(group.name)) {
     score += 30;
     tags.push("趨勢族群");
@@ -73,6 +99,11 @@ export function scoreStock(input: ScoreInput): ScoreResult {
   if (groupVolumeLeaderCode === stock.code) {
     score += 10;
     tags.push("族群龍頭");
+  }
+
+  // === Caution tag (no score change) ===
+  if (consecutiveUpDays != null && consecutiveUpDays >= 3) {
+    tags.push("⚠️連3紅注意回測");
   }
 
   return { score, tags };
