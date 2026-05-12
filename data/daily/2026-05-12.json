@@ -3,7 +3,7 @@
   "market_summary": {
     "taiex_close": 41898.32,
     "taiex_change_pct": 0.26,
-    "total_volume": 10145189408,
+    "total_volume": 10157558940,
     "limit_up_count": 76,
     "limit_down_count": 1,
     "advance": 641,
@@ -38,7 +38,7 @@
           "close": 104.5,
           "change_pct": 10.0,
           "volume": 383024476,
-          "major_net": 7296366,
+          "major_net": 0,
           "streak": 1,
           "market": "TWSE"
         },
@@ -49,7 +49,7 @@
           "close": 135.5,
           "change_pct": 9.72,
           "volume": 3238045,
-          "major_net": 124937,
+          "major_net": 0,
           "streak": 1,
           "market": "TWSE"
         },
@@ -60,7 +60,7 @@
           "close": 20.7,
           "change_pct": 9.81,
           "volume": 730161791,
-          "major_net": 10855182,
+          "major_net": 0,
           "streak": 1,
           "market": "TWSE"
         },
@@ -82,7 +82,7 @@
           "close": 649.0,
           "change_pct": 10.0,
           "volume": 5112057,
-          "major_net": 32886,
+          "major_net": 0,
           "streak": 1,
           "market": "TWSE"
         },
@@ -93,7 +93,7 @@
           "close": 188.5,
           "change_pct": 9.91,
           "volume": 41347149,
-          "major_net": 894831,
+          "major_net": 0,
           "streak": 1,
           "market": "TWSE"
         },
@@ -104,7 +104,7 @@
           "close": 2795.0,
           "change_pct": 9.82,
           "volume": 3209668,
-          "major_net": 293218,
+          "major_net": 0,
           "streak": 1,
           "market": "TWSE"
         },
@@ -115,7 +115,7 @@
           "close": 110.0,
           "change_pct": 10.0,
           "volume": 4419858,
-          "major_net": 113000,
+          "major_net": 0,
           "streak": 1,
           "market": "TWSE"
         },
@@ -126,7 +126,7 @@
           "close": 66.5,
           "change_pct": 9.92,
           "volume": 8106266,
-          "major_net": 22141,
+          "major_net": 0,
           "streak": 1,
           "market": "TWSE"
         },
@@ -137,7 +137,7 @@
           "close": 128.5,
           "change_pct": 9.83,
           "volume": 22543144,
-          "major_net": 558343,
+          "major_net": 0,
           "streak": 1,
           "market": "TWSE"
         },
@@ -148,7 +148,7 @@
           "close": 470.5,
           "change_pct": 9.93,
           "volume": 19389532,
-          "major_net": 114550,
+          "major_net": 0,
           "streak": 1,
           "market": "TWSE"
         },
@@ -159,7 +159,7 @@
           "close": 35.5,
           "change_pct": 9.91,
           "volume": 833426756,
-          "major_net": 4761635,
+          "major_net": 0,
           "streak": 1,
           "market": "TWSE"
         },
@@ -170,7 +170,7 @@
           "close": 952.0,
           "change_pct": 9.93,
           "volume": 5891822,
-          "major_net": 138649,
+          "major_net": 0,
           "streak": 1,
           "market": "TWSE"
         },
@@ -181,7 +181,7 @@
           "close": 10.65,
           "change_pct": 9.68,
           "volume": 134250146,
-          "major_net": 1380656,
+          "major_net": 0,
           "streak": 1,
           "market": "TWSE"
         },
@@ -192,7 +192,7 @@
           "close": 1055.0,
           "change_pct": 9.67,
           "volume": 9459691,
-          "major_net": 193798,
+          "major_net": 0,
           "streak": 1,
           "market": "TWSE"
         },
@@ -214,7 +214,7 @@
           "close": 194.0,
           "change_pct": 9.92,
           "volume": 727893,
-          "major_net": 7000,
+          "major_net": 0,
           "streak": 1,
           "market": "TWSE"
         },
@@ -464,7 +464,7 @@
           "close": 113.0,
           "change_pct": 9.71,
           "volume": 429332,
-          "major_net": 5020,
+          "major_net": 0,
           "streak": 1,
           "market": "TWSE"
         },
@@ -475,7 +475,7 @@
           "close": 179.0,
           "change_pct": 9.82,
           "volume": 593836,
-          "major_net": 145,
+          "major_net": 0,
           "streak": 1,
           "market": "TWSE"
         },
@@ -486,7 +486,7 @@
           "close": 3070.0,
           "change_pct": 9.84,
           "volume": 549196,
-          "major_net": 4110,
+          "major_net": 0,
           "streak": 1,
           "market": "TWSE"
         },
@@ -497,7 +497,7 @@
           "close": 471.5,
           "change_pct": 9.91,
           "volume": 8738386,
-          "major_net": 242996,
+          "major_net": 0,
           "streak": 1,
           "market": "TWSE"
         },
@@ -519,7 +519,7 @@
           "close": 239.5,
           "change_pct": 9.86,
           "volume": 5332818,
-          "major_net": 51310,
+          "major_net": 0,
           "streak": 1,
           "market": "TWSE"
         },
@@ -530,7 +530,7 @@
           "close": 306.5,
           "change_pct": 9.86,
           "volume": 420388,
-          "major_net": 2597,
+          "major_net": 0,
           "streak": 1,
           "market": "TWSE"
         },
@@ -681,7 +681,7 @@
           "close": 258.5,
           "change_pct": 10.0,
           "volume": 7263601,
-          "major_net": 128178,
+          "major_net": 0,
           "streak": 1,
           "market": "TWSE"
         },
@@ -692,7 +692,7 @@
           "close": 198.5,
           "change_pct": 9.97,
           "volume": 3917993,
-          "major_net": 118656,
+          "major_net": 0,
           "streak": 1,
           "market": "TWSE"
         },
@@ -768,7 +768,7 @@
           "close": 270.5,
           "change_pct": 9.96,
           "volume": 23093017,
-          "major_net": 57913,
+          "major_net": 0,
           "streak": 1,
           "market": "TWSE"
         },
@@ -779,7 +779,7 @@
           "close": 426.0,
           "change_pct": 9.51,
           "volume": 497220,
-          "major_net": 5000,
+          "major_net": 0,
           "streak": 1,
           "market": "TWSE"
         },
@@ -844,7 +844,7 @@
           "close": 1525.0,
           "change_pct": 9.71,
           "volume": 5518944,
-          "major_net": 188757,
+          "major_net": 0,
           "streak": 1,
           "market": "TWSE"
         },
