@@ -10,7 +10,7 @@
     "decline": 1222,
     "unchanged": 134,
     "foreign_net": -43429473975.0,
-    "trust_net": 25645228055.0,
+    "trust_net": 26061631805.0,
     "dealer_net": -30266247259.0
   },
   "groups": [
@@ -475,7 +475,7 @@
           "close": 4375.0,
           "change_pct": 9.92,
           "volume": 924000,
-          "major_net": 101109,
+          "major_net": 46109,
           "streak": 1,
           "market": "OTC"
         },
