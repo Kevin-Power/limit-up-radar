@@ -1,24 +1,39 @@
 {
-  "updatedAt": "2026-05-12",
+  "updatedAt": "2026-05-13",
   "totalDays": 10,
-  "totalSamples": 101,
-  "totalOpenWins": 76,
-  "totalCloseWins": 67,
-  "avgOpenWinRate": 75,
-  "avgCloseWinRate": 66,
-  "avgOpenReturn": 2.87,
-  "avgCloseReturn": 3.56,
+  "totalSamples": 100,
+  "totalOpenWins": 72,
+  "totalCloseWins": 63,
+  "avgOpenWinRate": 72,
+  "avgCloseWinRate": 63,
+  "avgOpenReturn": 2.57,
+  "avgCloseReturn": 3.13,
   "methodology": "用 TWSE 真實隔日 OHLC 計算（樣本加權平均）。今日收盤買，隔日開盤/收盤賣。",
   "history": [
+    {
+      "date": "2026-05-12",
+      "nextDate": "2026-05-13",
+      "picks": 20,
+      "fetched": 7,
+      "openWinRate": 14,
+      "closeWinRate": 29,
+      "avgOpenPct": -1.22,
+      "avgClosePct": -0.34,
+      "bestStock": {
+        "code": "6658",
+        "name": "聯策",
+        "closePct": 9.79
+      }
+    },
     {
       "date": "2026-05-11",
       "nextDate": "2026-05-12",
       "picks": 20,
-      "fetched": 13,
-      "openWinRate": 85,
-      "closeWinRate": 77,
-      "avgOpenPct": 2.94,
-      "avgClosePct": 5.01,
+      "fetched": 14,
+      "openWinRate": 86,
+      "closeWinRate": 79,
+      "avgOpenPct": 2.91,
+      "avgClosePct": 4.81,
       "bestStock": {
         "code": "2467",
         "name": "志聖",
@@ -134,30 +149,15 @@
       "date": "2026-04-28",
       "nextDate": "2026-04-29",
       "picks": 20,
-      "fetched": 10,
-      "openWinRate": 50,
-      "closeWinRate": 60,
-      "avgOpenPct": 0.56,
-      "avgClosePct": 1.59,
+      "fetched": 11,
+      "openWinRate": 55,
+      "closeWinRate": 64,
+      "avgOpenPct": 0.62,
+      "avgClosePct": 1.87,
       "bestStock": {
         "code": "6658",
         "name": "聯策",
         "closePct": 9.74
-      }
-    },
-    {
-      "date": "2026-04-27",
-      "nextDate": "2026-04-28",
-      "picks": 20,
-      "fetched": 10,
-      "openWinRate": 70,
-      "closeWinRate": 80,
-      "avgOpenPct": 2.76,
-      "avgClosePct": 5.11,
-      "bestStock": {
-        "code": "2337",
-        "name": "旺宏",
-        "closePct": 10.0
       }
     }
   ]
