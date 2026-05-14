@@ -103,6 +103,39 @@ export async function GET() {
     Object.entries(groupDays).filter(([, days]) => days >= 2).map(([name]) => name)
   );
 
+  // === Per-stock risk metrics for new scoring params ===
+  // 1. consecutiveUpDays: how many consecutive recent days has this stock been in limit-up?
+  // 2. isDisposal: TWSE rule = 3+ limit-up days within 6 trading days
+  const last6Days: DailyData[] = [];
+  for (let i = 0; i < Math.min(files.length, 6); i++) {
+    const d = loadDaily(files[i]);
+    if (d) last6Days.push(d);
+  }
+  // Map: code → array of dates (most recent first) where stock hit limit-up
+  const stockLimitUpDates = new Map<string, string[]>();
+  for (const day of last6Days) {
+    for (const g of day.groups) {
+      for (const s of g.stocks) {
+        if (!stockLimitUpDates.has(s.code)) stockLimitUpDates.set(s.code, []);
+        stockLimitUpDates.get(s.code)!.push(day.date);
+      }
+    }
+  }
+  // consecutiveUpDays for today's stocks: count consecutive presence from index 0
+  const consecutiveUpDaysMap = new Map<string, number>();
+  const disposalCodes = new Set<string>();
+  for (const [code, dates] of stockLimitUpDates) {
+    // dates are in reverse chrono order; check consecutive from most recent
+    let consec = 0;
+    for (let i = 0; i < last6Days.length; i++) {
+      if (dates.includes(last6Days[i].date)) consec++;
+      else break;
+    }
+    consecutiveUpDaysMap.set(code, consec);
+    // TWSE 處置: ≥3 limit-up days in last 6
+    if (dates.length >= 3) disposalCodes.add(code);
+  }
+
   // Score each stock
   interface FocusStock {
     code: string;
@@ -142,6 +175,8 @@ export async function GET() {
         trendingGroups,
         groupVolumeLeaderCode: leaderCode,
         revYoY: rev?.revYoY,
+        isDisposal: disposalCodes.has(s.code),
+        consecutiveUpDays: consecutiveUpDaysMap.get(s.code) ?? 1,
       });
 
       const { entryAggressive, entryPullback, stopLoss, target1, target2 } =
@@ -212,6 +247,34 @@ export async function GET() {
 
     const trending2 = new Set(Object.entries(gd2).filter(([, d]) => d >= 2).map(([n]) => n));
 
+    // Per-stock metrics for the historical day (use 6-day window ending at dayData)
+    const histLast6: DailyData[] = [];
+    const dayIdx = files.indexOf(files[i]);
+    for (let j = 0; j < 6 && (dayIdx + j) < files.length; j++) {
+      const dh = loadDaily(files[dayIdx + j]);
+      if (dh) histLast6.push(dh);
+    }
+    const histLimitUpDates = new Map<string, string[]>();
+    for (const dh of histLast6) {
+      for (const g of dh.groups) {
+        for (const s of g.stocks) {
+          if (!histLimitUpDates.has(s.code)) histLimitUpDates.set(s.code, []);
+          histLimitUpDates.get(s.code)!.push(dh.date);
+        }
+      }
+    }
+    const histConsecMap = new Map<string, number>();
+    const histDisposalCodes = new Set<string>();
+    for (const [code, dates] of histLimitUpDates) {
+      let consec = 0;
+      for (let j = 0; j < histLast6.length; j++) {
+        if (dates.includes(histLast6[j].date)) consec++;
+        else break;
+      }
+      histConsecMap.set(code, consec);
+      if (dates.length >= 3) histDisposalCodes.add(code);
+    }
+
     const scored: { code: string; name: string; close: number; score: number }[] = [];
     for (const g of dayData.groups) {
       const sorted2 = [...g.stocks].sort((a, b) => b.volume - a.volume);
@@ -224,6 +287,8 @@ export async function GET() {
           trendingGroups: trending2,
           groupVolumeLeaderCode: leaderCode,
           revYoY: rev?.revYoY,
+          isDisposal: histDisposalCodes.has(s.code),
+          consecutiveUpDays: histConsecMap.get(s.code) ?? 1,
         });
         if (sc >= 50) scored.push({ code: s.code, name: s.name, close: s.close, score: sc });
       }

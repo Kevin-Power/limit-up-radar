@@ -15,8 +15,20 @@ DAYS_TO_BACKTEST = 10
 MAX_PICKS_PER_DAY = 20
 
 
-def score_stock(s, group, trending, leader, rev_yoy):
+def score_stock(s, group, trending, leader, rev_yoy, is_disposal=False, consecutive_up_days=1):
+    """Mirror src/lib/scoring.ts scoreStock() exactly."""
     score = 0
+
+    # === Negative signals (must come first) ===
+    if is_disposal:
+        score -= 50
+    lots = s['volume'] / 1000
+    if lots < 500:
+        score -= 30
+    elif lots < 2000:
+        score -= 15
+
+    # === Positive signals ===
     if group['name'] in trending:
         score += 30
     if rev_yoy is not None and rev_yoy > 20:
@@ -31,6 +43,7 @@ def score_stock(s, group, trending, leader, rev_yoy):
         score += 5
     if leader == s['code']:
         score += 10
+    # consecutive_up_days >= 3 is a tag-only warning; no score change
     return score
 
 
@@ -61,23 +74,28 @@ def fetch_stock_ohlc(code, date):
     except Exception:
         pass
 
-    # TPEx fallback
+    # TPEx fallback (new endpoint: /www/zh-tw/afterTrading/tradingStock)
+    # Returns single-day OHLC. Fields: ['日期','成交張數','成交仟元','開盤','最高','最低','收盤','漲跌']
     try:
         r = requests.get(
-            'https://www.tpex.org.tw/web/stock/aftertrading/daily_trading_info/st43_result.php',
-            params={'l': 'zh-tw', 'd': f"{int(date[:4])-1911}/{date[5:7]}", 'stkno': code},
+            'https://www.tpex.org.tw/www/zh-tw/afterTrading/tradingStock',
+            params={'date': date.replace('-', '/'), 'code': code, 'response': 'json'},
             headers={'User-Agent': 'Mozilla/5.0'}, timeout=10,
         )
-        d = r.json()
-        for row in d.get('aaData', []):
-            if row[0].strip() == target_roc:
-                try:
-                    return {
-                        'open': float(row[3].replace(',', '')) if row[3] not in ('--', '') else None,
-                        'close': float(row[6].replace(',', '')) if row[6] not in ('--', '') else None,
-                    }
-                except (ValueError, IndexError):
-                    return None
+        if r.status_code == 200:
+            d = r.json()
+            for t in d.get('tables', []) or []:
+                for row in t.get('data', []) or []:
+                    if str(row[0]).strip() == target_roc:
+                        try:
+                            o = str(row[3]).replace(',', '').strip()
+                            c = str(row[6]).replace(',', '').strip()
+                            return {
+                                'open': float(o) if o not in ('--', '') else None,
+                                'close': float(c) if c not in ('--', '') else None,
+                            }
+                        except (ValueError, IndexError):
+                            return None
     except Exception:
         pass
 
@@ -121,6 +139,43 @@ def main():
                     group_days[g['name']] = group_days.get(g['name'], 0) + 1
         trending_groups = {n for n, d in group_days.items() if d >= 2}
 
+        # Per-stock risk metrics (6-day lookback ending at today_f)
+        # ≥3 limit-up days in 6 → TWSE 處置 threshold
+        last6_dates = []
+        last6_codes_per_day = []
+        idx_today = files.index(today_f)
+        for j in range(0, 6):
+            idx = idx_today - j
+            if idx < 0:
+                break
+            with open(f'{DAILY_DIR}/{files[idx]}', encoding='utf-8') as fp:
+                day_data = json.load(fp)
+            last6_dates.append(day_data['date'])
+            day_codes = set()
+            for g in day_data['groups']:
+                for s in g['stocks']:
+                    day_codes.add(s['code'])
+            last6_codes_per_day.append(day_codes)
+
+        consec_map = {}
+        disposal_codes = set()
+        all_codes_in_window = set()
+        for codes in last6_codes_per_day:
+            all_codes_in_window |= codes
+        for code in all_codes_in_window:
+            # consecutive from index 0 (most recent first)
+            consec = 0
+            for codes in last6_codes_per_day:
+                if code in codes:
+                    consec += 1
+                else:
+                    break
+            consec_map[code] = consec
+            # ≥3 days appearance in last 6
+            count = sum(1 for codes in last6_codes_per_day if code in codes)
+            if count >= 3:
+                disposal_codes.add(code)
+
         # Score and pick (score >= 50)
         picks = []
         for g in td['groups']:
@@ -129,7 +184,11 @@ def main():
             for s in g['stocks']:
                 r = rev_map.get(s['code'])
                 ryoy = r['revYoY'] if r else None
-                sc = score_stock(s, g, trending_groups, leader, ryoy)
+                sc = score_stock(
+                    s, g, trending_groups, leader, ryoy,
+                    is_disposal=s['code'] in disposal_codes,
+                    consecutive_up_days=consec_map.get(s['code'], 1),
+                )
                 if sc >= 50:
                     picks.append({
                         'code': s['code'],

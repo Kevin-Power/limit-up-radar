@@ -897,6 +897,7 @@ def main():
 
     # ---- VALIDATE before save (prevent bad data from being deployed) ----
     print(f"\n[5/5] Validating data...")
+    otc_total = len([q for q in quotes if q.get("market") == "OTC"])
     errors = []
     # TAIEX must be in 5000-100000 (台股約 30000-50000，留緩衝)
     if not (5000 <= taiex_close <= 100000):
@@ -908,6 +909,12 @@ def main():
     total_stocks_count = advancing + declining + unchanged
     if not (1000 <= total_stocks_count <= 3000):
         errors.append(f"Total stocks out of range: {total_stocks_count} (expect 1000-3000)")
+    # TWSE / TPEx individual minimums (catch silent partial fetch failures)
+    # Normal: TWSE ~900-1100, TPEx ~700-900
+    if twse_count < 800:
+        errors.append(f"TWSE incomplete: {twse_count} stocks (expect ≥800)")
+    if otc_total < 600:
+        errors.append(f"TPEx incomplete: {otc_total} stocks (expect ≥600)")
     # Limit-up count must be 0-500
     if not (0 <= len(limit_up) <= 500):
         errors.append(f"Limit-up count out of range: {len(limit_up)} (expect 0-500)")
@@ -937,7 +944,7 @@ def main():
     # ---- Summary ----
     twse_limit_up = len([q for q in limit_up if q.get("market", "TWSE") == "TWSE"])
     otc_limit_up = len([q for q in limit_up if q.get("market") == "OTC"])
-    otc_total = len([q for q in quotes if q.get("market") == "OTC"])
+    # otc_total already computed above for validation
 
     print("\n" + "=" * 60)
     print(f"  Date:           {date}")

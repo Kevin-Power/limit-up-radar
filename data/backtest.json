@@ -1,39 +1,39 @@
 {
   "updatedAt": "2026-05-13",
   "totalDays": 10,
-  "totalSamples": 101,
-  "totalOpenWins": 72,
-  "totalCloseWins": 64,
-  "avgOpenWinRate": 71,
-  "avgCloseWinRate": 63,
-  "avgOpenReturn": 2.54,
-  "avgCloseReturn": 3.11,
+  "totalSamples": 166,
+  "totalOpenWins": 110,
+  "totalCloseWins": 108,
+  "avgOpenWinRate": 66,
+  "avgCloseWinRate": 65,
+  "avgOpenReturn": 2.15,
+  "avgCloseReturn": 2.69,
   "methodology": "用 TWSE 真實隔日 OHLC 計算（樣本加權平均）。今日收盤買，隔日開盤/收盤賣。",
   "history": [
     {
       "date": "2026-05-12",
       "nextDate": "2026-05-13",
       "picks": 20,
-      "fetched": 8,
-      "openWinRate": 12,
-      "closeWinRate": 38,
-      "avgOpenPct": -1.12,
-      "avgClosePct": -0.1,
+      "fetched": 19,
+      "openWinRate": 26,
+      "closeWinRate": 47,
+      "avgOpenPct": -0.13,
+      "avgClosePct": 1.2,
       "bestStock": {
-        "code": "6658",
-        "name": "聯策",
-        "closePct": 9.79
+        "code": "8069",
+        "name": "元太",
+        "closePct": 9.97
       }
     },
     {
       "date": "2026-05-11",
       "nextDate": "2026-05-12",
       "picks": 20,
-      "fetched": 14,
-      "openWinRate": 86,
+      "fetched": 19,
+      "openWinRate": 95,
       "closeWinRate": 79,
-      "avgOpenPct": 2.91,
-      "avgClosePct": 4.81,
+      "avgOpenPct": 3.99,
+      "avgClosePct": 5.13,
       "bestStock": {
         "code": "2467",
         "name": "志聖",
@@ -44,11 +44,11 @@
       "date": "2026-05-08",
       "nextDate": "2026-05-11",
       "picks": 20,
-      "fetched": 9,
-      "openWinRate": 56,
-      "closeWinRate": 44,
-      "avgOpenPct": 1.4,
-      "avgClosePct": 1.63,
+      "fetched": 20,
+      "openWinRate": 65,
+      "closeWinRate": 60,
+      "avgOpenPct": 2.14,
+      "avgClosePct": 3.22,
       "bestStock": {
         "code": "3036",
         "name": "文曄",
@@ -59,26 +59,26 @@
       "date": "2026-05-07",
       "nextDate": "2026-05-08",
       "picks": 20,
-      "fetched": 9,
-      "openWinRate": 56,
-      "closeWinRate": 44,
-      "avgOpenPct": 0.86,
-      "avgClosePct": -0.27,
+      "fetched": 20,
+      "openWinRate": 50,
+      "closeWinRate": 35,
+      "avgOpenPct": 0.49,
+      "avgClosePct": -1.4,
       "bestStock": {
-        "code": "1762",
-        "name": "中化生",
-        "closePct": 9.93
+        "code": "6834",
+        "name": "天二科技",
+        "closePct": 9.94
       }
     },
     {
       "date": "2026-05-06",
       "nextDate": "2026-05-07",
-      "picks": 18,
-      "fetched": 11,
-      "openWinRate": 91,
-      "closeWinRate": 64,
-      "avgOpenPct": 3.89,
-      "avgClosePct": 3.32,
+      "picks": 12,
+      "fetched": 12,
+      "openWinRate": 92,
+      "closeWinRate": 83,
+      "avgOpenPct": 4.48,
+      "avgClosePct": 4.51,
       "bestStock": {
         "code": "6108",
         "name": "競國",
@@ -89,75 +89,75 @@
       "date": "2026-05-05",
       "nextDate": "2026-05-06",
       "picks": 20,
-      "fetched": 8,
-      "openWinRate": 88,
-      "closeWinRate": 38,
-      "avgOpenPct": 5.3,
-      "avgClosePct": 0.44,
+      "fetched": 20,
+      "openWinRate": 90,
+      "closeWinRate": 50,
+      "avgOpenPct": 5.07,
+      "avgClosePct": 1.38,
       "bestStock": {
-        "code": "4764",
-        "name": "雙鍵",
-        "closePct": 9.97
+        "code": "5464",
+        "name": "霖宏",
+        "closePct": 9.89
       }
     },
     {
       "date": "2026-05-04",
       "nextDate": "2026-05-05",
       "picks": 20,
-      "fetched": 10,
-      "openWinRate": 80,
-      "closeWinRate": 90,
-      "avgOpenPct": 2.52,
-      "avgClosePct": 6.56,
+      "fetched": 20,
+      "openWinRate": 70,
+      "closeWinRate": 85,
+      "avgOpenPct": 1.1,
+      "avgClosePct": 4.0,
       "bestStock": {
-        "code": "6861",
-        "name": "睿生光電",
-        "closePct": 9.99
+        "code": "2465",
+        "name": "麗臺",
+        "closePct": 9.95
       }
     },
     {
       "date": "2026-04-30",
       "nextDate": "2026-05-04",
-      "picks": 20,
-      "fetched": 12,
+      "picks": 13,
+      "fetched": 13,
       "openWinRate": 100,
-      "closeWinRate": 75,
-      "avgOpenPct": 5.39,
+      "closeWinRate": 85,
+      "avgOpenPct": 5.04,
       "avgClosePct": 5.36,
       "bestStock": {
-        "code": "3016",
-        "name": "嘉晶",
-        "closePct": 9.92
+        "code": "8074",
+        "name": "鉅橡",
+        "closePct": 9.96
       }
     },
     {
       "date": "2026-04-29",
       "nextDate": "2026-04-30",
-      "picks": 16,
-      "fetched": 9,
-      "openWinRate": 67,
-      "closeWinRate": 78,
-      "avgOpenPct": 2.54,
-      "avgClosePct": 5.02,
+      "picks": 3,
+      "fetched": 3,
+      "openWinRate": 33,
+      "closeWinRate": 67,
+      "avgOpenPct": 1.12,
+      "avgClosePct": 0.59,
       "bestStock": {
-        "code": "3016",
-        "name": "嘉晶",
-        "closePct": 9.93
+        "code": "3550",
+        "name": "聯穎",
+        "closePct": 2.9
       }
     },
     {
       "date": "2026-04-28",
       "nextDate": "2026-04-29",
       "picks": 20,
-      "fetched": 11,
-      "openWinRate": 55,
-      "closeWinRate": 64,
-      "avgOpenPct": 0.62,
-      "avgClosePct": 1.87,
+      "fetched": 20,
+      "openWinRate": 35,
+      "closeWinRate": 75,
+      "avgOpenPct": -0.72,
+      "avgClosePct": 2.82,
       "bestStock": {
-        "code": "6658",
-        "name": "聯策",
-        "closePct": 9.74
+        "code": "8064",
+        "name": "東捷",
+        "closePct": 9.97
       }
     }
   ]

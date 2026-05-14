@@ -44,6 +44,33 @@ export async function GET() {
   const { trending: trendingGroupNames } = calculateTrendingGroups(groups, prevDayGroups);
   const trendingGroups = groups.filter((g: { name: string }) => trendingGroupNames.has(g.name));
 
+  // Per-stock risk metrics (consistent with focus API): 6-day window
+  const last6: Array<{ date: string; groups: { stocks: { code: string }[] }[] }> = [];
+  for (let i = 0; i < Math.min(files.length, 6); i++) {
+    const d = loadJSON(path.join(DAILY_DIR, files[i]));
+    if (d) last6.push(d);
+  }
+  const stockDates = new Map<string, string[]>();
+  for (const day of last6) {
+    for (const g of day.groups ?? []) {
+      for (const s of g.stocks ?? []) {
+        if (!stockDates.has(s.code)) stockDates.set(s.code, []);
+        stockDates.get(s.code)!.push(day.date);
+      }
+    }
+  }
+  const consecMap = new Map<string, number>();
+  const disposalCodes = new Set<string>();
+  for (const [code, dates] of stockDates) {
+    let consec = 0;
+    for (let i = 0; i < last6.length; i++) {
+      if (dates.includes(last6[i].date)) consec++;
+      else break;
+    }
+    consecMap.set(code, consec);
+    if (dates.length >= 3) disposalCodes.add(code);
+  }
+
   // Score using shared logic (consistent with focus API)
   interface ScoredStock {
     code: string;
@@ -68,6 +95,8 @@ export async function GET() {
         trendingGroups: trendingGroupNames,
         groupVolumeLeaderCode: leaderCode,
         revYoY: rev?.revYoY,
+        isDisposal: disposalCodes.has(s.code),
+        consecutiveUpDays: consecMap.get(s.code) ?? 1,
       });
       if (score >= 50) {
         picks.push({

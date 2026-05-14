@@ -66,7 +66,7 @@ export default function UserMenu() {
         <div className="absolute right-0 top-full mt-1.5 w-44 bg-bg-2 border border-border rounded-lg shadow-xl z-50 overflow-hidden">
           <div className="px-3 py-2.5 border-b border-border">
             <div className="text-xs font-semibold text-txt-1 truncate">{user.displayName}</div>
-            <div className="text-[10px] text-txt-4 mt-0.5">LINE 帳號已連結</div>
+            <div className="text-[10px] text-txt-4 mt-0.5">已登入</div>
           </div>
           <button
             onClick={async () => {
