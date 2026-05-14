@@ -1,24 +1,28 @@
 {
   "updatedAt": "2026-05-13",
   "totalDays": 10,
-  "totalSamples": 166,
-  "totalOpenWins": 110,
-  "totalCloseWins": 108,
+  "totalSamples": 168,
+  "totalOpenWins": 111,
+  "totalCloseWins": 109,
   "avgOpenWinRate": 66,
   "avgCloseWinRate": 65,
-  "avgOpenReturn": 2.15,
-  "avgCloseReturn": 2.69,
-  "methodology": "用 TWSE 真實隔日 OHLC 計算（樣本加權平均）。今日收盤買，隔日開盤/收盤賣。",
+  "avgOpenReturn": 2.13,
+  "avgCloseReturn": 2.63,
+  "pickThreshold": 50,
+  "sampleCap": 20,
+  "totalQualified": 240,
+  "methodology": "用 TWSE 真實隔日 OHLC 計算（樣本加權平均）。每日取分數 ≥50 的前 20 名為樣本，今日收盤買，隔日開盤/收盤賣。",
   "history": [
     {
       "date": "2026-05-12",
       "nextDate": "2026-05-13",
+      "qualified": 26,
       "picks": 20,
-      "fetched": 19,
-      "openWinRate": 26,
-      "closeWinRate": 47,
-      "avgOpenPct": -0.13,
-      "avgClosePct": 1.2,
+      "fetched": 20,
+      "openWinRate": 25,
+      "closeWinRate": 45,
+      "avgOpenPct": -0.24,
+      "avgClosePct": 0.83,
       "bestStock": {
         "code": "8069",
         "name": "元太",
@@ -28,12 +32,13 @@
     {
       "date": "2026-05-11",
       "nextDate": "2026-05-12",
+      "qualified": 61,
       "picks": 20,
-      "fetched": 19,
+      "fetched": 20,
       "openWinRate": 95,
-      "closeWinRate": 79,
-      "avgOpenPct": 3.99,
-      "avgClosePct": 5.13,
+      "closeWinRate": 80,
+      "avgOpenPct": 3.91,
+      "avgClosePct": 4.98,
       "bestStock": {
         "code": "2467",
         "name": "志聖",
@@ -43,6 +48,7 @@
     {
       "date": "2026-05-08",
       "nextDate": "2026-05-11",
+      "qualified": 28,
       "picks": 20,
       "fetched": 20,
       "openWinRate": 65,
@@ -58,6 +64,7 @@
     {
       "date": "2026-05-07",
       "nextDate": "2026-05-08",
+      "qualified": 25,
       "picks": 20,
       "fetched": 20,
       "openWinRate": 50,
@@ -73,6 +80,7 @@
     {
       "date": "2026-05-06",
       "nextDate": "2026-05-07",
+      "qualified": 12,
       "picks": 12,
       "fetched": 12,
       "openWinRate": 92,
@@ -88,6 +96,7 @@
     {
       "date": "2026-05-05",
       "nextDate": "2026-05-06",
+      "qualified": 22,
       "picks": 20,
       "fetched": 20,
       "openWinRate": 90,
@@ -103,6 +112,7 @@
     {
       "date": "2026-05-04",
       "nextDate": "2026-05-05",
+      "qualified": 30,
       "picks": 20,
       "fetched": 20,
       "openWinRate": 70,
@@ -118,6 +128,7 @@
     {
       "date": "2026-04-30",
       "nextDate": "2026-05-04",
+      "qualified": 13,
       "picks": 13,
       "fetched": 13,
       "openWinRate": 100,
@@ -133,6 +144,7 @@
     {
       "date": "2026-04-29",
       "nextDate": "2026-04-30",
+      "qualified": 3,
       "picks": 3,
       "fetched": 3,
       "openWinRate": 33,
@@ -148,6 +160,7 @@
     {
       "date": "2026-04-28",
       "nextDate": "2026-04-29",
+      "qualified": 20,
       "picks": 20,
       "fetched": 20,
       "openWinRate": 35,

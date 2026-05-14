@@ -125,10 +125,14 @@ export default function SopClient() {
                   <h3 className="text-base font-bold text-txt-0">盤後選股（14:40 後）</h3>
                   <ul className="mt-2 space-y-1.5 text-sm text-txt-2">
                     <li>• 進入 <Link href="/focus" className="text-red hover:underline">明日焦點頁面</Link></li>
-                    <li>• 看「精選追蹤標的」清單</li>
-                    <li>• <strong className="text-red">只選評分 ≥ 60 分的</strong></li>
+                    <li>• 看「精選追蹤標的」清單（分數 ≥50 都會列出）</li>
+                    <li>• <strong className="text-red">實際下單建議只選 ≥ 60 分</strong>（保守原則）</li>
                     <li>• 一次最多挑 3-5 檔（不要全壓）</li>
                   </ul>
+                  <p className="mt-2 text-[11px] text-txt-4 leading-relaxed">
+                    💡 註：上方真實回測勝率是「分數 ≥50 全樣本」的數字，
+                    若只選 ≥60 分理論上勝率會更高（樣本較少所以更精選）。
+                  </p>
                 </div>
               </div>
             </div>

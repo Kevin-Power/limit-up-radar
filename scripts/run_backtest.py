@@ -13,6 +13,8 @@ DAILY_DIR = 'data/daily'
 OUT_FILE = 'data/backtest.json'
 DAYS_TO_BACKTEST = 10
 MAX_PICKS_PER_DAY = 20
+PICK_THRESHOLD = 50  # 演算法挑選最低分（會出現在 picks 清單）
+TRADE_THRESHOLD = 60  # 建議實際操作的最低分（保守原則）
 
 
 def score_stock(s, group, trending, leader, rev_yoy, is_disposal=False, consecutive_up_days=1):
@@ -189,7 +191,7 @@ def main():
                     is_disposal=s['code'] in disposal_codes,
                     consecutive_up_days=consec_map.get(s['code'], 1),
                 )
-                if sc >= 50:
+                if sc >= PICK_THRESHOLD:
                     picks.append({
                         'code': s['code'],
                         'name': s['name'],
@@ -198,9 +200,10 @@ def main():
                     })
 
         picks.sort(key=lambda p: -p['score'])
+        qualified_count = len(picks)  # before cap
         picks = picks[:MAX_PICKS_PER_DAY]
 
-        print(f"\n{today_date} → {next_date}: {len(picks)} picks, fetching real OHLC...")
+        print(f"\n{today_date} → {next_date}: {len(picks)} picks (top {MAX_PICKS_PER_DAY} of {qualified_count} qualified), fetching real OHLC...")
 
         results = []
         for p in picks:
@@ -236,7 +239,8 @@ def main():
         history.append({
             'date': today_date,
             'nextDate': next_date,
-            'picks': len(picks),
+            'qualified': qualified_count,  # 符合 PICK_THRESHOLD 的總數
+            'picks': len(picks),  # 實際納入回測的數量 (capped at MAX_PICKS_PER_DAY)
             'fetched': len(results),
             'openWinRate': round(open_wins / len(results) * 100),
             'closeWinRate': round(close_wins / len(results) * 100),
@@ -279,6 +283,8 @@ def main():
         total_fetched = total_open_wins = total_close_wins = 0
         avg_owr = avg_cwr = avg_op = avg_cp = 0
 
+    total_qualified = sum(h.get('qualified', h['picks']) for h in history)
+
     output = {
         'updatedAt': files[-1].replace('.json', ''),
         'totalDays': len(history),
@@ -289,7 +295,15 @@ def main():
         'avgCloseWinRate': round(avg_cwr),
         'avgOpenReturn': round(avg_op, 2),
         'avgCloseReturn': round(avg_cp, 2),
-        'methodology': '用 TWSE 真實隔日 OHLC 計算（樣本加權平均）。今日收盤買，隔日開盤/收盤賣。',
+        # Selection methodology transparency
+        'pickThreshold': PICK_THRESHOLD,
+        'sampleCap': MAX_PICKS_PER_DAY,
+        'totalQualified': total_qualified,  # 符合 ≥50 的全部標的數
+        'methodology': (
+            f'用 TWSE 真實隔日 OHLC 計算（樣本加權平均）。'
+            f'每日取分數 ≥{PICK_THRESHOLD} 的前 {MAX_PICKS_PER_DAY} 名為樣本，'
+            f'今日收盤買，隔日開盤/收盤賣。'
+        ),
         'history': history,
     }
 
