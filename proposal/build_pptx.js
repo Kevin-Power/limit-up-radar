@@ -1,4 +1,14 @@
 const pptxgen = require("pptxgenjs");
+const fs = require("fs");
+const path = require("path");
+
+// === Load latest backtest numbers (auto-refresh after run_backtest.py) ===
+const BT = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "data", "backtest.json"), "utf-8"));
+const WIN = BT.avgOpenWinRate;          // 71
+const HITS = BT.totalOpenWins;          // 118
+const SAMPLES = BT.totalSamples;        // 166
+const RETURN = BT.avgOpenReturn;        // +2.72%
+const DAYS = BT.totalDays;              // 10
 
 // === COLOR PALETTE: 股文觀指 (financial trader dark theme) ===
 const C = {
@@ -93,7 +103,7 @@ const TOTAL = 16;
     { text: "%", options: { fontSize: 36, bold: true, color: C.red } },
     { text: "  隔日開盤勝率", options: { fontSize: 16, color: C.white } },
   ], { x: 0.7, y: 3.7, w: 9, h: 0.9, fontFace: FONT, margin: 0 });
-  s.addText("99 樣本 / 10 天 / 樣本加權 · 真實 TWSE OHLC", {
+  s.addText(`${SAMPLES} 樣本 / ${DAYS} 天 / 樣本加權 · 真實 TWSE OHLC`, {
     x: 0.7, y: 4.55, w: 9, h: 0.3,
     fontSize: 11, fontFace: FONT, color: C.textDim, margin: 0,
   });
@@ -225,7 +235,7 @@ const features = [
       "統計開盤/收盤勝率、平均開盤與收盤報酬、最佳與最差案例",
       "資料來源：TWSE STOCK_DAY + TPEx tradingStock",
     ],
-    metric: { v: "99", l: "實際樣本數" },
+    metric: { v: String(SAMPLES), l: "實際樣本數" },
     color: C.amber,
   },
   {
@@ -321,7 +331,7 @@ features.forEach((f) => {
   const s = pres.addSlide();
   addDarkBg(s);
   // Top label
-  s.addText("回測結果（10 天 / 99 樣本）", {
+  s.addText(`回測結果（${DAYS} 天 / ${SAMPLES} 樣本）`, {
     x: 0.5, y: 0.5, w: 9, h: 0.4,
     fontSize: 18, fontFace: FONT, color: C.amber, bold: true, charSpacing: 6, margin: 0,
   });
@@ -331,7 +341,7 @@ features.forEach((f) => {
   });
 
   // BIG 79% in center
-  s.addText("79%", {
+  s.addText(`${WIN}%`, {
     x: 0.5, y: 1.6, w: 9, h: 2.4,
     fontSize: 220, fontFace: FONT, bold: true, color: C.red, align: "center", margin: 0,
   });
@@ -342,9 +352,9 @@ features.forEach((f) => {
 
   // Metrics row at bottom
   const m = [
-    { v: "78 / 99", l: "命中 / 總樣本" },
-    { v: "+3.25%", l: "平均開盤報酬" },
-    { v: "10 天", l: "回測區間" },
+    { v: `${HITS} / ${SAMPLES}`, l: "命中 / 總樣本" },
+    { v: `+${RETURN}%`, l: "平均開盤報酬" },
+    { v: `${DAYS} 天`, l: "回測區間" },
   ];
   m.forEach((mm, i) => {
     const x = 0.5 + i * 3.15;
@@ -373,7 +383,7 @@ features.forEach((f) => {
   const rows = [
     ["漲停股清單", "✓", "✓", "✓", "✓"],
     ["族群自動分類", "○", "△", "✗", "✓ AI"],
-    ["隔日真實 OHLC 回測", "✗", "✗", "✗", "✓ 99 樣本"],
+    ["隔日真實 OHLC 回測", "✗", "✗", "✗", `✓ ${SAMPLES} 樣本`],
     ["月營收交叉分析", "△", "✓", "△", "✓ 1934 檔"],
     ["進出場參考區間", "○", "✗", "○", "✓"],
     ["公開透明（程式碼/方法）", "✗", "✗", "✗", "✓ GitHub"],
@@ -538,7 +548,7 @@ features.forEach((f) => {
 
   const funnel = [
     { w: 8.0, color: C.blue, t: "上層流量", v: "SEO + 內容", d: "經營「漲停股」「隔日表現」「月營收」等台股長尾關鍵字" },
-    { w: 6.5, color: C.amber, t: "中層信任", v: "真實數據揭露", d: "公開 79% 勝率、99 樣本回測、開源演算法，建立差異化信任" },
+    { w: 6.5, color: C.amber, t: "中層信任", v: "真實數據揭露", d: `公開 ${WIN}% 勝率、${SAMPLES} 樣本回測、開源演算法，建立差異化信任` },
     { w: 5.0, color: C.red, t: "下層付費", v: "LINE 群轉換", d: "高互動社群每日精選推送，自然轉成月費會員" },
   ];
   funnel.forEach((f, i) => {
@@ -633,7 +643,7 @@ features.forEach((f) => {
   addHeader(s, "風險聲明：誠實揭露", "我們相信信任的基礎在於不掩蓋限制");
 
   const risks = [
-    { t: "樣本短", d: "目前回測僅 99 筆 / 10 天，未涵蓋多空頭循環。績效在不同市況下會有顯著差異。" },
+    { t: "樣本短", d: `目前回測僅 ${SAMPLES} 筆 / ${DAYS} 天，未涵蓋多空頭循環。績效在不同市況下會有顯著差異。` },
     { t: "個人開發", d: "尚無團隊、客服、客戶服務窗口。系統故障時的恢復時間取決於開發者個人時間。" },
     { t: "無金融牌照", d: "本平台不是金融顧問業者。所有內容僅供參考，不構成任何投資建議或保證。" },
     { t: "資料延遲", d: "每日資料於收盤後約 2.5 小時更新。盤中即時資訊請以券商即時報價為準。" },

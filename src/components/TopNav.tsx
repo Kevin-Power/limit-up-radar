@@ -3,11 +3,22 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useRef, useEffect, useCallback } from "react";
+import useSWR from "swr";
 import { Stock } from "@/lib/types";
 import { formatPrice, formatPct } from "@/lib/utils";
 import ThemeToggle from "./ThemeToggle";
 import MarketClock from "./MarketClock";
 import UserMenu from "./UserMenu";
+
+// Fetch the latest data date globally so every page gets a freshness indicator.
+function useLatestDate(): string | null {
+  const { data } = useSWR<{ date?: string }>(
+    "/api/daily/latest",
+    (url: string) => fetch(url).then((r) => (r.ok ? r.json() : null)),
+    { refreshInterval: 5 * 60_000, revalidateOnFocus: true }
+  );
+  return data?.date ?? null;
+}
 
 interface TopNavProps {
   currentDate?: string;
@@ -43,6 +54,9 @@ export default function TopNav({ currentDate, stocks = [] }: TopNavProps) {
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  // Auto-fetched latest data date so every page has a global freshness indicator
+  const autoLatestDate = useLatestDate();
+  const displayDate = currentDate ?? autoLatestDate;
   const inputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -194,9 +208,11 @@ export default function TopNav({ currentDate, stocks = [] }: TopNavProps) {
           <ThemeToggle />
           <UserMenu />
 
-          {currentDate && (
-            <div className="hidden sm:block text-[11px] text-txt-4 tabular-nums tracking-wider whitespace-nowrap">
-              {currentDate.replace(/-/g, "/")}
+          {displayDate && (
+            <div className="hidden sm:flex items-center gap-1.5 text-[11px] tabular-nums tracking-wider whitespace-nowrap">
+              <span className="w-1.5 h-1.5 rounded-full bg-green animate-pulse" title="資料即時更新中" />
+              <span className="text-txt-3">資料</span>
+              <span className="text-txt-1 font-semibold">{displayDate.replace(/-/g, "/")}</span>
             </div>
           )}
 

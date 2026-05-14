@@ -1,10 +1,21 @@
 const fs = require("fs");
+const path = require("path");
 const {
   Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell,
   Header, Footer, AlignmentType, LevelFormat, HeadingLevel,
   BorderStyle, WidthType, ShadingType, VerticalAlign, PageNumber,
   PageBreak, ExternalHyperlink, TabStopType, TabStopPosition,
 } = require("docx");
+
+// === Load latest backtest numbers (auto-refresh after run_backtest.py) ===
+const BT = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "data", "backtest.json"), "utf-8"));
+const WIN = BT.avgOpenWinRate;
+const HITS = BT.totalOpenWins;
+const SAMPLES = BT.totalSamples;
+const RETURN = BT.avgOpenReturn;
+const CLOSE_WIN = BT.avgCloseWinRate;
+const CLOSE_RETURN = BT.avgCloseReturn;
+const DAYS = BT.totalDays;
 
 // ============================================================
 // Style helpers
@@ -285,12 +296,12 @@ children.push(
 children.push(
   H1("1. 執行摘要"),
   P("「股文觀指 大師專區」（limit-up-radar.vercel.app）是一個聚焦台股漲停股的資訊平台。每日 17:00 由 GitHub Actions 自動抓取 TWSE 與 TPEx 公開資料，經過三層健全性驗證後才上線，目前涵蓋 16 個功能頁面、33 個交易日的歷史資料、1,934 檔上市櫃公司月營收。"),
-  P("平台最重要的差異化在於提供「可驗證的回測結果」：以 TWSE 真實隔日 OHLC 計算，10 天 99 樣本（樣本加權，非日均）的隔日開盤勝率達 79%（78/99），平均開盤報酬 +3.25%。所有計算方法、原始資料與程式碼皆公開透明。"),
+  P(`平台最重要的差異化在於提供「可驗證的回測結果」：以 TWSE 真實隔日 OHLC 計算，${DAYS} 天 ${SAMPLES} 樣本（樣本加權，非日均）的隔日開盤勝率達 ${WIN}%（${HITS}/${SAMPLES}），平均開盤報酬 +${RETURN}%。所有計算方法、原始資料與程式碼皆公開透明。`),
   P("商業模式採三階段設計：免費平台獲客 → LINE 群月費（NT$ 299-599）→ 教學課程（NT$ 3,000-5,000）。目前營運成本為 NT$ 0（Vercel 免費方案 + GitHub Actions + 公開 API）。"),
   Gap(120),
   Callout(
     "核心回測結果（TWSE 真實 OHLC，無估計值）",
-    "10 天 99 樣本回測：隔日開盤勝率 79%（78/99），平均開盤報酬 +3.25%。"
+    `${DAYS} 天 ${SAMPLES} 樣本回測：隔日開盤勝率 ${WIN}%（${HITS}/${SAMPLES}），平均開盤報酬 +${RETURN}%。`
   ),
   PageBreakP(),
 );
@@ -354,37 +365,34 @@ children.push(
 // === 5. 回測結果 ===
 children.push(
   H1("5. 回測結果"),
-  P("以下數據基於 10 個交易日、99 個實際樣本，由腳本「scripts/run_backtest.py」執行：對每個歷史「明日焦點」標的，向 TWSE/TPEx 抓取真實隔日 OHLC，計算「（隔日開盤 − 漲停日收盤）÷ 漲停日收盤」與「（隔日收盤 − 漲停日收盤）÷ 漲停日收盤」。所有數字為樣本加權平均，不含任何估算值。"),
+  P(`以下數據基於 ${DAYS} 個交易日、${SAMPLES} 個實際樣本，由腳本「scripts/run_backtest.py」執行：對每個歷史「明日焦點」標的，向 TWSE/TPEx 抓取真實隔日 OHLC，計算「（隔日開盤 − 漲停日收盤）÷ 漲停日收盤」與「（隔日收盤 − 漲停日收盤）÷ 漲停日收盤」。所有數字為樣本加權平均，不含任何估算值。`),
   Gap(160),
-  StatBox("79%", "隔日開盤勝率（78 / 99）"),
+  StatBox(`${WIN}%`, `隔日開盤勝率（${HITS} / ${SAMPLES}）`),
   Gap(200),
   StatRow([
-    { value: "+3.25%", label: "平均開盤報酬", color: C.red },
-    { value: "65%", label: "隔日收盤勝率", color: C.amber },
-    { value: "+3.27%", label: "平均收盤報酬", color: C.green },
+    { value: `+${RETURN}%`, label: "平均開盤報酬", color: C.red },
+    { value: `${CLOSE_WIN}%`, label: "隔日收盤勝率", color: C.amber },
+    { value: `+${CLOSE_RETURN}%`, label: "平均收盤報酬", color: C.green },
   ]),
   Gap(240),
-  H2("5.1 完整 10 天回測明細"),
+  H2(`5.1 完整 ${DAYS} 天回測明細`),
   Tbl(
     ["選股日", "驗證日", "樣本", "開盤勝率", "開盤報酬", "收盤勝率", "收盤報酬"],
-    [
-      ["2026-04-23", "2026-04-24", "7", "86%", "+3.88%", "71%", "+5.44%"],
-      ["2026-04-24", "2026-04-27", "13", "92%", "+4.68%", "38%", "+0.12%"],
-      ["2026-04-27", "2026-04-28", "10", "70%", "+2.76%", "80%", "+5.11%"],
-      ["2026-04-28", "2026-04-29", "11", "55%", "+0.62%", "64%", "+1.87%"],
-      ["2026-04-29", "2026-04-30", "9", "67%", "+2.54%", "78%", "+5.02%"],
-      ["2026-04-30", "2026-05-04", "12", "100%", "+5.39%", "75%", "+5.36%"],
-      ["2026-05-04", "2026-05-05", "10", "80%", "+2.52%", "90%", "+6.56%"],
-      ["2026-05-05", "2026-05-06", "7", "86%", "+5.17%", "43%", "+0.50%"],
-      ["2026-05-06", "2026-05-07", "11", "91%", "+3.89%", "64%", "+3.32%"],
-      ["2026-05-07", "2026-05-08", "9", "56%", "+0.86%", "44%", "−0.27%"],
-    ],
+    BT.history.map(h => [
+      h.date,
+      h.nextDate,
+      String(h.fetched),
+      `${h.openWinRate}%`,
+      `${h.avgOpenPct >= 0 ? "+" : ""}${h.avgOpenPct}%`,
+      `${h.closeWinRate}%`,
+      `${h.avgClosePct >= 0 ? "+" : ""}${h.avgClosePct}%`,
+    ]),
     [3, 3, 2, 3, 3, 3, 3]
   ),
   Gap(160),
   Callout(
     "誠實揭露",
-    "99 樣本 / 10 天屬於小樣本，未涵蓋多空頭循環。在不同市場狀況（如連跌段、低成交量段）下，績效會有顯著差異。過去績效不代表未來。",
+    `${SAMPLES} 樣本 / ${DAYS} 天屬於小樣本，未涵蓋多空頭循環。在不同市場狀況（如連跌段、低成交量段）下，績效會有顯著差異。過去績效不代表未來。`,
     C.amber
   ),
   PageBreakP(),
@@ -401,7 +409,7 @@ children.push(
       ["品牌與流量", "強", "強", "強", { text: "弱（早期）", color: C.muted }],
       ["漲停股清單", "✓", "✓", "✓", { text: "✓", color: C.red, bold: true }],
       ["族群自動分類", "部分", "△", "✗", { text: "✓ AI", color: C.red, bold: true }],
-      ["隔日真實 OHLC 回測", "✗", "✗", "✗", { text: "✓ 99 樣本", color: C.red, bold: true }],
+      ["隔日真實 OHLC 回測", "✗", "✗", "✗", { text: `✓ ${SAMPLES} 樣本`, color: C.red, bold: true }],
       ["月營收交叉分析", "△", "✓", "△", { text: "✓ 1,934 檔", color: C.red, bold: true }],
       ["進出場參考區間", "部分", "✗", "部分", { text: "✓", color: C.red, bold: true }],
       ["公開計算方法", "✗", "✗", "✗", { text: "✓ GitHub", color: C.red, bold: true }],
@@ -411,7 +419,7 @@ children.push(
   Gap(160),
   H2("6.1 差異化定位"),
   P("本平台不嘗試取代大型平台的全方位資訊服務，而是在「漲停股隔日追蹤」這個明確場景中做最深、最透明。具體差異："),
-  Bullet("主打公開揭露樣本加權回測結果（79% / 99 樣本）"),
+  Bullet(`主打公開揭露樣本加權回測結果（${WIN}% / ${SAMPLES} 樣本）`),
   Bullet("將「明日焦點精選 + 進出場參考區間 + 隔日真實 OHLC」串成完整工作流程"),
   Bullet("公開計算方法、評分權重與所有原始資料來源（GitHub 開源）"),
   PageBreakP(),
@@ -484,7 +492,7 @@ children.push(
   Bullet("每日自動更新的資料頁面，本身就是 SEO 內容"),
   Bullet("整理 6 堂教學課程作為內容核心，建立權威性"),
   H2("9.2 中層：真實數據揭露"),
-  Bullet("公開 79% 勝率、99 樣本回測，建立可驗證的差異化"),
+  Bullet(`公開 ${WIN}% 勝率、${SAMPLES} 樣本回測，建立可驗證的差異化`),
   Bullet("開源評分演算法與計算方法，建立技術專業形象"),
   Bullet("每月發布回測月報，記錄實際操作績效"),
   H2("9.3 下層：LINE 群轉換"),
@@ -518,7 +526,7 @@ children.push(
   Tbl(
     ["風險類別", "說明"],
     [
-      [{ text: "樣本短", bold: true, color: C.amber }, "目前回測僅 99 筆 / 10 天，未涵蓋多空頭循環。績效在不同市況下會有顯著差異。"],
+      [{ text: "樣本短", bold: true, color: C.amber }, `目前回測僅 ${SAMPLES} 筆 / ${DAYS} 天，未涵蓋多空頭循環。績效在不同市況下會有顯著差異。`],
       [{ text: "個人開發", bold: true, color: C.amber }, "尚無團隊、客服、客戶服務窗口。系統故障時的恢復時間取決於開發者個人時間。"],
       [{ text: "無金融牌照", bold: true, color: C.amber }, "本平台不是金融顧問業者。所有內容僅供參考，不構成任何投資建議或保證。"],
       [{ text: "資料延遲", bold: true, color: C.amber }, "每日資料於收盤後約 2.5 小時更新。盤中即時資訊請以券商即時報價為準。"],
