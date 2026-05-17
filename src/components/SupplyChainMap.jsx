@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react';
 import {
   X, Search, ZoomIn, ZoomOut, RotateCcw, Crosshair,

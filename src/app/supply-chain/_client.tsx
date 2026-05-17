@@ -150,9 +150,18 @@ export default function SupplyChainClient() {
               點選龍頭股 → 即時看上下游/同業表現，找出族群連動的買賣訊號
             </p>
           </div>
-          {chain?.dataDate && (
-            <div className="text-[11px] text-txt-4">資料日期: <span className="text-txt-2 font-mono">{chain.dataDate}</span></div>
-          )}
+          <div className="flex items-center gap-3">
+            <Link
+              href="/supply-chain/map"
+              className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-amber/80 to-red/80 text-white text-xs font-bold hover:brightness-110 transition-all whitespace-nowrap"
+              title="91 節點 Bloomberg SPLC 風格互動地圖"
+            >
+              🗺️ 完整供應鏈地圖
+            </Link>
+            {chain?.dataDate && (
+              <div className="text-[11px] text-txt-4">資料: <span className="text-txt-2 font-mono">{chain.dataDate}</span></div>
+            )}
+          </div>
         </div>
 
         {/* Anchor selector */}
