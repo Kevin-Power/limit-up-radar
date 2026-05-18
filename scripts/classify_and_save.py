@@ -349,6 +349,32 @@ def fetch_per_stock_institutional(date: str) -> dict[str, int]:
 # Bearish Engulfing (空吞) Detector
 # ---------------------------------------------------------------------------
 
+def load_recent_limitup_codes(current_date: str, window: int = 10) -> set[str]:
+    """讀取過去 N 個交易日 daily JSON 中所有出現過的限漲停股代號集合。
+    用作「曾在相對高點」的快速 proxy — 限漲停代表股票曾衝到日內高點，
+    且通常該日是近期高位。
+    """
+    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_dir = os.path.join(project_root, "data", "daily")
+    if not os.path.exists(data_dir):
+        return set()
+    existing = sorted([f.replace(".json", "") for f in os.listdir(data_dir) if f.endswith(".json")])
+    # Take up to N most recent days strictly before current_date
+    past = [d for d in existing if d < current_date][-window:]
+    codes: set[str] = set()
+    for d in past:
+        try:
+            with open(os.path.join(data_dir, f"{d}.json"), encoding="utf-8") as f:
+                data = json.load(f)
+            for g in data.get("groups", []):
+                for s in g.get("stocks", []):
+                    if s.get("code"):
+                        codes.add(s["code"])
+        except Exception:
+            continue
+    return codes
+
+
 def fetch_prev_day_highs_lows(prev_date: str) -> dict[str, dict]:
     """拉前一個交易日的全市場 OHLC (TWSE MI_INDEX + TPEx),
     用於今日「空吞」型態判斷。
@@ -381,18 +407,28 @@ def fetch_prev_day_highs_lows(prev_date: str) -> dict[str, dict]:
     }
 
 
-def detect_bearish_engulfing(quotes: list[dict], prev_quotes_map: dict) -> list[dict]:
-    """檢測「空吞」反轉 K 線型態。
+def detect_bearish_engulfing(
+    quotes: list[dict],
+    prev_quotes_map: dict,
+    recent_top_codes: set[str] | None = None,
+) -> list[dict]:
+    """檢測「空吞」反轉 K 線型態，且必須在相對高點 (「絕對在上角」原則)。
 
-    定義: TO > YH AND TC < YL
+    核心定義: TO > YH AND TC < YL
       - 今日開盤 > 昨日最高（跳空高開）
       - 今日收盤 < 昨日最低（收破昨低，極弱反轉）
 
-    Args:
-        quotes: 今日所有股票 [{stock_code, name, open, high, low, close, change_pct, volume, market}]
-        prev_quotes_map: {stock_code: {high, low, close}} 昨日各股 OHLC
+    「在上角」過濾: 該股必須在過去 N 天出現過限漲停 (進入 recent_top_codes)
+      - 因為限漲停意味該股當時衝到日內高點 (且通常是近期高位)
+      - 在這基礎上若今日發生空吞，才是真正的「漲勢結束、反轉下跌」訊號
+      - 過濾掉一直在低檔盤整或下跌中股票偶發的 OHLC 雜訊
 
-    Returns: list of {code, name, today_open, today_close, prev_high, prev_low, change_pct, volume, market}
+    Args:
+        quotes: 今日所有股票
+        prev_quotes_map: 昨日 OHLC
+        recent_top_codes: 過去 N 天出現在限漲停清單的代號集合 (可選；若給就過濾)
+
+    Returns: list of bearish stocks
     """
     bearish = []
     for q in quotes:
@@ -407,19 +443,25 @@ def detect_bearish_engulfing(quotes: list[dict], prev_quotes_map: dict) -> list[
         if today_open <= 0 or today_close <= 0:
             continue
         # 核心邏輯: 今開破昨高 + 今收破昨低
-        if today_open > prev["high"] and today_close < prev["low"]:
-            bearish.append({
-                "code": code,
-                "name": q.get("stock_name", ""),
-                "today_open": today_open,
-                "today_close": today_close,
-                "today_high": q.get("high", 0),
-                "today_low": q.get("low", 0),
-                "prev_high": prev["high"],
-                "prev_low": prev["low"],
-                "change_pct": q.get("change_pct", 0),
-                "volume": q.get("volume", 0),
-                "market": q.get("market", "TWSE"),
+        if not (today_open > prev["high"] and today_close < prev["low"]):
+            continue
+
+        # 「在上角」過濾: 必須是近期曾限漲停的股票 (代表曾在相對高點)
+        if recent_top_codes is not None and code not in recent_top_codes:
+            continue
+
+        bearish.append({
+            "code": code,
+            "name": q.get("stock_name", ""),
+            "today_open": today_open,
+            "today_close": today_close,
+            "today_high": q.get("high", 0),
+            "today_low": q.get("low", 0),
+            "prev_high": prev["high"],
+            "prev_low": prev["low"],
+            "change_pct": q.get("change_pct", 0),
+            "volume": q.get("volume", 0),
+            "market": q.get("market", "TWSE"),
             })
     # Sort by volume desc (大量空吞 = 強訊號)
     bearish.sort(key=lambda b: -b["volume"])
@@ -954,10 +996,10 @@ def main():
     per_stock_major = fetch_per_stock_institutional(date)
     print(f"  Got institutional data for {len(per_stock_major)} stocks")
 
-    # ---- Bearish Engulfing (空吞) detection ----
+    # ---- Bearish Engulfing (空吞) detection — 必須「在上角」 ----
     # 需要昨日全市場 OHLC, 找出今日 TO > YH and TC < YL 的反轉股
+    # 且該股必須在過去 10 個交易日曾限漲停 (代表曾在相對高點)
     print(f"\n  Detecting 空吞 (bearish engulfing) reversal pattern...")
-    # Find prev trading day
     project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     data_dir = os.path.join(project_root, "data", "daily")
     existing_dates = sorted([f.replace(".json", "") for f in os.listdir(data_dir) if f.endswith(".json")])
@@ -967,8 +1009,11 @@ def main():
         time.sleep(3)
         prev_map = fetch_prev_day_highs_lows(prev_date)
         if prev_map:
-            bearish_engulfing = detect_bearish_engulfing(quotes, prev_map)
-            print(f"  Found {len(bearish_engulfing)} 空吞 reversal stocks (vs {prev_date})")
+            # 「在上角」過濾: 抓過去 10 天限漲停股清單做為「曾在相對高點」proxy
+            recent_top = load_recent_limitup_codes(date, window=10)
+            print(f"  「在上角」過濾池: 過去 10 天有 {len(recent_top)} 檔限漲停")
+            bearish_engulfing = detect_bearish_engulfing(quotes, prev_map, recent_top_codes=recent_top)
+            print(f"  Found {len(bearish_engulfing)} 空吞反轉股 (在上角過濾後, vs {prev_date})")
         else:
             print(f"  [warn] {prev_date} 資料無法取得, 跳過空吞檢測")
     else:
