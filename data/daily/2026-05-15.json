@@ -577,22 +577,6 @@
   ],
   "bearish_engulfing": [
     {
-      "code": "6510",
-      "name": "精測",
-      "today_open": 4200.0,
-      "today_close": 3735.0,
-      "today_high": 4200.0,
-      "today_low": 3735.0,
-      "prev_high": 4150.0,
-      "prev_low": 3835.0,
-      "n_day_high": 4150.0,
-      "distance_from_top_pct": 0.0,
-      "drop_from_high_pct": 10.0,
-      "change_pct": -10.0,
-      "volume": 1071000,
-      "market": "OTC"
-    },
-    {
       "code": "3516",
       "name": "亞帝歐",
       "today_open": 25.5,
@@ -601,7 +585,8 @@
       "today_low": 22.9,
       "prev_high": 25.4,
       "prev_low": 25.4,
-      "n_day_high": 25.4,
+      "recent_high": 25.4,
+      "recent_window": "近 1 年",
       "distance_from_top_pct": 0.0,
       "drop_from_high_pct": 9.84,
       "change_pct": -9.84,
@@ -617,28 +602,13 @@
       "today_low": 323.0,
       "prev_high": 357.5,
       "prev_low": 350.0,
-      "n_day_high": 357.5,
+      "recent_high": 357.5,
+      "recent_window": "近 1 年",
       "distance_from_top_pct": 0.0,
       "drop_from_high_pct": 8.53,
       "change_pct": -8.53,
       "volume": 2665374,
       "market": "TWSE"
-    },
-    {
-      "code": "8440",
-      "name": "綠電",
-      "today_open": 25.2,
-      "today_close": 23.05,
-      "today_high": 25.35,
-      "today_low": 23.0,
-      "prev_high": 24.85,
-      "prev_low": 24.15,
-      "n_day_high": 24.85,
-      "distance_from_top_pct": 0.0,
-      "drop_from_high_pct": 7.24,
-      "change_pct": -7.24,
-      "volume": 1765000,
-      "market": "OTC"
     }
   ]
 }
