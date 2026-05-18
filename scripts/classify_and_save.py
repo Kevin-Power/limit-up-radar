@@ -349,30 +349,81 @@ def fetch_per_stock_institutional(date: str) -> dict[str, int]:
 # Bearish Engulfing (空吞) Detector
 # ---------------------------------------------------------------------------
 
-def load_recent_limitup_codes(current_date: str, window: int = 10) -> set[str]:
-    """讀取過去 N 個交易日 daily JSON 中所有出現過的限漲停股代號集合。
-    用作「曾在相對高點」的快速 proxy — 限漲停代表股票曾衝到日內高點，
-    且通常該日是近期高位。
+def fetch_stock_recent_high(code: str, current_date: str, lookback_days: int = 15) -> float:
+    """從 TWSE STOCK_DAY (含 TPEx fallback) 拉個股近 N 日高點。
+
+    一次拉整個月份的 OHLC，從中取出截至 current_date 前 lookback_days 個交易日的最高 high。
+    用於「絕對在上角」精確判定。
+
+    Returns: N 日內最高的 high 值；失敗回 0
     """
-    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    data_dir = os.path.join(project_root, "data", "daily")
-    if not os.path.exists(data_dir):
-        return set()
-    existing = sorted([f.replace(".json", "") for f in os.listdir(data_dir) if f.endswith(".json")])
-    # Take up to N most recent days strictly before current_date
-    past = [d for d in existing if d < current_date][-window:]
-    codes: set[str] = set()
-    for d in past:
+    yyyymm = current_date.replace("-", "")[:6] + "01"
+    headers = {"User-Agent": "Mozilla/5.0"}
+
+    rows = []
+    # TWSE
+    try:
+        r = requests.get(
+            "https://www.twse.com.tw/exchangeReport/STOCK_DAY",
+            params={"response": "json", "date": yyyymm, "stockNo": code},
+            headers=headers, timeout=10,
+        )
+        if r.status_code == 200:
+            d = r.json()
+            if d.get("stat") == "OK":
+                rows = d.get("data", [])
+    except Exception:
+        pass
+
+    # TPEx fallback
+    if not rows:
         try:
-            with open(os.path.join(data_dir, f"{d}.json"), encoding="utf-8") as f:
-                data = json.load(f)
-            for g in data.get("groups", []):
-                for s in g.get("stocks", []):
-                    if s.get("code"):
-                        codes.add(s["code"])
+            r = requests.get(
+                "https://www.tpex.org.tw/www/zh-tw/afterTrading/tradingStock",
+                params={"date": current_date.replace("-", "/"), "code": code, "response": "json"},
+                headers=headers, timeout=10,
+            )
+            if r.status_code == 200:
+                d = r.json()
+                for t in d.get("tables", []) or []:
+                    if t.get("data"):
+                        rows = t["data"]
+                        break
         except Exception:
+            pass
+
+    if not rows:
+        return 0
+
+    # Parse all rows: row[0]=ROC date, row[4]=high (TWSE format),
+    # for TPEx single-day: row[0]=date, row[4]=high
+    # Both use same column 4 = high
+    target_roc = f"{int(current_date[:4])-1911}/{current_date[5:7]}/{current_date[8:10]}"
+    parsed = []
+    for row in rows:
+        try:
+            date_str = str(row[0]).strip()
+            high_str = str(row[4]).replace(",", "").strip()
+            if not high_str or high_str in ("--", "---"):
+                continue
+            high = float(high_str)
+            if high > 0:
+                parsed.append((date_str, high))
+        except (ValueError, IndexError):
             continue
-    return codes
+
+    if not parsed:
+        return 0
+
+    # Filter to only rows strictly BEFORE current_date (we want history, not today)
+    # ROC date string sorts correctly: "115/05/15" < "115/05/16"
+    # Keep dates < target_roc, take last lookback_days
+    past_rows = [r for r in parsed if r[0] < target_roc]
+    past_rows.sort(key=lambda x: x[0])
+    recent = past_rows[-lookback_days:]
+    if not recent:
+        return 0
+    return max(h for _, h in recent)
 
 
 def fetch_prev_day_highs_lows(prev_date: str) -> dict[str, dict]:
@@ -410,27 +461,28 @@ def fetch_prev_day_highs_lows(prev_date: str) -> dict[str, dict]:
 def detect_bearish_engulfing(
     quotes: list[dict],
     prev_quotes_map: dict,
-    recent_top_codes: set[str] | None = None,
+    current_date: str,
+    n_day_window: int = 15,
+    top_threshold: float = 0.98,
 ) -> list[dict]:
-    """檢測「空吞」反轉 K 線型態，且必須在相對高點 (「絕對在上角」原則)。
+    """檢測「空吞」反轉 K 線型態，且必須在 N 日絕對高點。
 
-    核心定義: TO > YH AND TC < YL
-      - 今日開盤 > 昨日最高（跳空高開）
-      - 今日收盤 < 昨日最低（收破昨低，極弱反轉）
-
-    「在上角」過濾: 該股必須在過去 N 天出現過限漲停 (進入 recent_top_codes)
-      - 因為限漲停意味該股當時衝到日內高點 (且通常是近期高位)
-      - 在這基礎上若今日發生空吞，才是真正的「漲勢結束、反轉下跌」訊號
-      - 過濾掉一直在低檔盤整或下跌中股票偶發的 OHLC 雜訊
+    核心定義 (兩個都要滿足):
+      1. TO > YH AND TC < YL (今開破昨高 + 今收破昨低)
+      2. prev_high >= N 日最高 * top_threshold (98%)
+         意即昨日高點必須等於或非常接近近 N 日絕對高點
 
     Args:
         quotes: 今日所有股票
         prev_quotes_map: 昨日 OHLC
-        recent_top_codes: 過去 N 天出現在限漲停清單的代號集合 (可選；若給就過濾)
+        current_date: 今日 (YYYY-MM-DD)，用於拉個股 N 日歷史
+        n_day_window: 抓近 N 天歷史 (預設 15 交易日 ≈ 3 週)
+        top_threshold: 昨高需 >= n_day_high * threshold (預設 0.98 = 2% 內)
 
-    Returns: list of bearish stocks
+    Returns: list of bearish stocks with n_day_high field
     """
-    bearish = []
+    # Step 1: collect raw candidates
+    candidates = []
     for q in quotes:
         code = q.get("stock_code")
         if not code or code not in prev_quotes_map:
@@ -442,29 +494,56 @@ def detect_bearish_engulfing(
         today_close = q.get("close", 0)
         if today_open <= 0 or today_close <= 0:
             continue
-        # 核心邏輯: 今開破昨高 + 今收破昨低
-        if not (today_open > prev["high"] and today_close < prev["low"]):
+        if today_open > prev["high"] and today_close < prev["low"]:
+            candidates.append((q, prev))
+
+    print(f"    raw 空吞 候選: {len(candidates)} 檔，正在抓 {n_day_window} 日高點作精確過濾...")
+
+    # Step 2: fetch N-day high per candidate (TWSE/TPEx) and filter
+    bearish = []
+    for idx, (q, prev) in enumerate(candidates):
+        code = q["stock_code"]
+        n_day_high = fetch_stock_recent_high(code, current_date, n_day_window)
+        time.sleep(0.3)  # rate limit TWSE
+        if n_day_high <= 0:
+            continue  # skip if can't verify
+
+        # 「絕對在上角」: 昨高必須 >= N 日高的 98%
+        if prev["high"] < n_day_high * top_threshold:
             continue
 
-        # 「在上角」過濾: 必須是近期曾限漲停的股票 (代表曾在相對高點)
-        if recent_top_codes is not None and code not in recent_top_codes:
+        # 排除 ETF (代號 00xx 開頭): ETF 沒有「漲多後反轉」概念
+        if code.startswith("00"):
+            continue
+
+        # 排除「微跌雜訊」: 從 N 日高跌幅必須 >= 5%
+        drop_pct = (n_day_high - q.get("close", 0)) / n_day_high * 100
+        if drop_pct < 5.0:
+            continue
+
+        # 排除量太小: 至少 500 張 (500,000 股)
+        if q.get("volume", 0) < 500_000:
             continue
 
         bearish.append({
             "code": code,
             "name": q.get("stock_name", ""),
-            "today_open": today_open,
-            "today_close": today_close,
+            "today_open": q.get("open", 0),
+            "today_close": q.get("close", 0),
             "today_high": q.get("high", 0),
             "today_low": q.get("low", 0),
             "prev_high": prev["high"],
             "prev_low": prev["low"],
+            "n_day_high": n_day_high,
+            "distance_from_top_pct": round((prev["high"] - n_day_high) / n_day_high * 100, 2),
+            "drop_from_high_pct": round((n_day_high - q.get("close", 0)) / n_day_high * 100, 2),
             "change_pct": q.get("change_pct", 0),
             "volume": q.get("volume", 0),
             "market": q.get("market", "TWSE"),
             })
     # Sort by volume desc (大量空吞 = 強訊號)
-    bearish.sort(key=lambda b: -b["volume"])
+    # 排序: 從 N 日高崩幅 (drop_from_high_pct) 越大越危險，其次量大
+    bearish.sort(key=lambda b: (-b["drop_from_high_pct"], -b["volume"]))
     return bearish
 
 
@@ -996,10 +1075,10 @@ def main():
     per_stock_major = fetch_per_stock_institutional(date)
     print(f"  Got institutional data for {len(per_stock_major)} stocks")
 
-    # ---- Bearish Engulfing (空吞) detection — 必須「在上角」 ----
-    # 需要昨日全市場 OHLC, 找出今日 TO > YH and TC < YL 的反轉股
-    # 且該股必須在過去 10 個交易日曾限漲停 (代表曾在相對高點)
-    print(f"\n  Detecting 空吞 (bearish engulfing) reversal pattern...")
+    # ---- Bearish Engulfing (空吞) detection — 必須「絕對在上角」 ----
+    # 條件 1: TO > YH AND TC < YL (今開破昨高 + 今收破昨低)
+    # 條件 2: prev_high >= N 日最高 * 98% (每檔即時拉 STOCK_DAY 確認)
+    print(f"\n  Detecting 空吞 (bearish engulfing) with 絕對在上角 filter...")
     project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     data_dir = os.path.join(project_root, "data", "daily")
     existing_dates = sorted([f.replace(".json", "") for f in os.listdir(data_dir) if f.endswith(".json")])
@@ -1009,11 +1088,11 @@ def main():
         time.sleep(3)
         prev_map = fetch_prev_day_highs_lows(prev_date)
         if prev_map:
-            # 「在上角」過濾: 抓過去 10 天限漲停股清單做為「曾在相對高點」proxy
-            recent_top = load_recent_limitup_codes(date, window=10)
-            print(f"  「在上角」過濾池: 過去 10 天有 {len(recent_top)} 檔限漲停")
-            bearish_engulfing = detect_bearish_engulfing(quotes, prev_map, recent_top_codes=recent_top)
-            print(f"  Found {len(bearish_engulfing)} 空吞反轉股 (在上角過濾後, vs {prev_date})")
+            bearish_engulfing = detect_bearish_engulfing(
+                quotes, prev_map, current_date=date,
+                n_day_window=15, top_threshold=0.98,
+            )
+            print(f"  Found {len(bearish_engulfing)} 空吞反轉股 (絕對在上角過濾後)")
         else:
             print(f"  [warn] {prev_date} 資料無法取得, 跳過空吞檢測")
     else:
