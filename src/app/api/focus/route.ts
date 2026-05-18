@@ -61,6 +61,34 @@ function loadRevenue(): Record<string, { revYoY: number | null; revCumYoY: numbe
   }
 }
 
+function loadCategories(): { heavyweight: Set<string>; disposal: Set<string> } {
+  try {
+    const p = path.join(process.cwd(), "data", "categories.json");
+    const raw = JSON.parse(fs.readFileSync(p, "utf-8"));
+    return {
+      heavyweight: new Set(Object.keys(raw?.heavyweight?.codes ?? {}).filter((c) => /^\d{4}$/.test(c))),
+      disposal: new Set(raw?.disposal?.codes ?? []),
+    };
+  } catch {
+    return { heavyweight: new Set(), disposal: new Set() };
+  }
+}
+
+// Aggregate codes that triggered bearish engulfing in past N days
+function loadRecentBearishCodes(files: string[], days = 7): Set<string> {
+  const codes = new Set<string>();
+  for (let i = 0; i < Math.min(files.length, days); i++) {
+    try {
+      const raw = fs.readFileSync(path.join(DAILY_DIR, files[i]), "utf-8");
+      const d = JSON.parse(raw);
+      for (const b of d.bearish_engulfing ?? []) {
+        if (b?.code) codes.add(b.code);
+      }
+    } catch { /* skip */ }
+  }
+  return codes;
+}
+
 export async function GET() {
   // Get last 3 trading days
   const files = fs.readdirSync(DAILY_DIR)
@@ -75,6 +103,8 @@ export async function GET() {
   const today = loadDaily(files[0]);
   const yesterday = files.length > 1 ? loadDaily(files[1]) : null;
   const dayBefore = files.length > 2 ? loadDaily(files[2]) : null;
+  const { heavyweight, disposal: knownDisposal } = loadCategories();
+  const recentBearishCodes = loadRecentBearishCodes(files, 7);
 
   if (!today) {
     return NextResponse.json({ error: "no data" }, { status: 404 });
@@ -175,8 +205,10 @@ export async function GET() {
         trendingGroups,
         groupVolumeLeaderCode: leaderCode,
         revYoY: rev?.revYoY,
-        isDisposal: disposalCodes.has(s.code),
+        isDisposal: disposalCodes.has(s.code) || knownDisposal.has(s.code),
         consecutiveUpDays: consecutiveUpDaysMap.get(s.code) ?? 1,
+        isHeavyweight: heavyweight.has(s.code),
+        recentBearishEngulfing: recentBearishCodes.has(s.code),
       });
 
       const { entryAggressive, entryPullback, stopLoss, target1, target2 } =
@@ -287,8 +319,10 @@ export async function GET() {
           trendingGroups: trending2,
           groupVolumeLeaderCode: leaderCode,
           revYoY: rev?.revYoY,
-          isDisposal: histDisposalCodes.has(s.code),
+          isDisposal: histDisposalCodes.has(s.code) || knownDisposal.has(s.code),
           consecutiveUpDays: histConsecMap.get(s.code) ?? 1,
+          isHeavyweight: heavyweight.has(s.code),
+          // historical 空吞 不查 (避免 bias historical backtest)
         });
         if (sc >= 50) scored.push({ code: s.code, name: s.name, close: s.close, score: sc });
       }
@@ -345,6 +379,8 @@ export async function GET() {
       methodology: "次日命中率 = 推薦標的次日仍漲停的比率 (僅統計可驗證命中)",
     },
     realBacktest: loadRealBacktest(),
+    // 新增：今日空吞注意股 (從 daily JSON 拉)
+    bearishEngulfing: (today as DailyData & { bearish_engulfing?: unknown[] }).bearish_engulfing ?? [],
   }, {
     headers: { "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=7200" },
   });

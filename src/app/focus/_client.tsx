@@ -83,6 +83,21 @@ interface FocusData {
     methodology: string;
   };
   realBacktest?: RealBacktest | null;
+  bearishEngulfing?: BearishEngulfingStock[];
+}
+
+interface BearishEngulfingStock {
+  code: string;
+  name: string;
+  today_open: number;
+  today_close: number;
+  today_high: number;
+  today_low: number;
+  prev_high: number;
+  prev_low: number;
+  change_pct: number;
+  volume: number;
+  market: string;
 }
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
@@ -270,6 +285,72 @@ export default function FocusClient() {
                     </tbody>
                   </table>
                 </div>
+              </div>
+            )}
+
+            {/* ⚠️ 空吞注意股 (Bearish Engulfing) */}
+            {data.bearishEngulfing && data.bearishEngulfing.length > 0 && (
+              <div className="bg-gradient-to-br from-green/5 via-bg-1 to-green/5 border-2 border-green/30 rounded-xl p-5">
+                <div className="flex items-center justify-between mb-3">
+                  <h2 className="text-sm font-bold text-green">
+                    ⚠️ 空吞注意股
+                    <span className="ml-2 text-[10px] font-normal text-txt-3">
+                      今開破昨高 + 今收破昨低 (極弱反轉訊號)
+                    </span>
+                  </h2>
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-green/20 text-green">
+                    {data.bearishEngulfing.length} 檔
+                  </span>
+                </div>
+                <p className="text-[10px] text-txt-4 mb-3">
+                  以下個股今日跳空高開後爆殺收破前日低點。<strong className="text-green">已持有者強烈停損</strong>；
+                  <strong className="text-amber">追價者切勿進場</strong>。
+                </p>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-xs">
+                    <thead>
+                      <tr className="text-txt-4 border-b border-border">
+                        <th className="text-left px-2 py-1.5">代號</th>
+                        <th className="text-left px-2 py-1.5">名稱</th>
+                        <th className="text-right px-2 py-1.5">今開</th>
+                        <th className="text-right px-2 py-1.5">今收</th>
+                        <th className="text-right px-2 py-1.5">昨高</th>
+                        <th className="text-right px-2 py-1.5">昨低</th>
+                        <th className="text-right px-2 py-1.5">漲跌</th>
+                        <th className="text-right px-2 py-1.5">成交張</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {data.bearishEngulfing.slice(0, 20).map((b) => (
+                        <tr key={b.code} className="border-b border-border/30 hover:bg-bg-2/50">
+                          <td className="px-2 py-1.5">
+                            <Link href={`/stock/${b.code}`} className="font-mono font-bold text-txt-1 hover:text-green">
+                              {b.code}
+                            </Link>
+                          </td>
+                          <td className="px-2 py-1.5 text-txt-2">{b.name}</td>
+                          <td className="text-right px-2 py-1.5 tabular-nums text-txt-1">{b.today_open}</td>
+                          <td className="text-right px-2 py-1.5 tabular-nums text-green font-bold">{b.today_close}</td>
+                          <td className="text-right px-2 py-1.5 tabular-nums text-txt-3">{b.prev_high}</td>
+                          <td className="text-right px-2 py-1.5 tabular-nums text-txt-3">{b.prev_low}</td>
+                          <td className="text-right px-2 py-1.5 tabular-nums">
+                            <span className={b.change_pct < 0 ? "text-green font-bold" : "text-red"}>
+                              {b.change_pct > 0 ? "+" : ""}{b.change_pct}%
+                            </span>
+                          </td>
+                          <td className="text-right px-2 py-1.5 tabular-nums text-txt-3">
+                            {Math.round(b.volume / 1000).toLocaleString()}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                {data.bearishEngulfing.length > 20 && (
+                  <p className="text-[10px] text-txt-4 text-center mt-2">
+                    顯示前 20 檔（共 {data.bearishEngulfing.length} 檔，依成交量降序）
+                  </p>
+                )}
               </div>
             )}
 

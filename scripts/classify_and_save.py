@@ -346,6 +346,87 @@ def fetch_per_stock_institutional(date: str) -> dict[str, int]:
 
 
 # ---------------------------------------------------------------------------
+# Bearish Engulfing (空吞) Detector
+# ---------------------------------------------------------------------------
+
+def fetch_prev_day_highs_lows(prev_date: str) -> dict[str, dict]:
+    """拉前一個交易日的全市場 OHLC (TWSE MI_INDEX + TPEx),
+    用於今日「空吞」型態判斷。
+
+    Returns: {stock_code: {high, low, close}}
+    """
+    from scraper.twse import fetch_daily_quotes
+    try:
+        prev_quotes = fetch_daily_quotes(prev_date)
+    except Exception as exc:
+        print(f"  [warn] 無法取得 {prev_date} 全市場資料: {exc}")
+        return {}
+    # Also pull TPEx
+    try:
+        from scraper.tpex import fetch_tpex_quotes
+        tpex_prev = fetch_tpex_quotes(prev_date)
+        if tpex_prev:
+            prev_quotes = list(prev_quotes) + list(tpex_prev)
+    except Exception as exc:
+        print(f"  [warn] 無法取得 {prev_date} TPEx 資料: {exc}")
+
+    return {
+        q["stock_code"]: {
+            "high": q.get("high", 0),
+            "low": q.get("low", 0),
+            "close": q.get("close", 0),
+        }
+        for q in prev_quotes
+        if q.get("stock_code")
+    }
+
+
+def detect_bearish_engulfing(quotes: list[dict], prev_quotes_map: dict) -> list[dict]:
+    """檢測「空吞」反轉 K 線型態。
+
+    定義: TO > YH AND TC < YL
+      - 今日開盤 > 昨日最高（跳空高開）
+      - 今日收盤 < 昨日最低（收破昨低，極弱反轉）
+
+    Args:
+        quotes: 今日所有股票 [{stock_code, name, open, high, low, close, change_pct, volume, market}]
+        prev_quotes_map: {stock_code: {high, low, close}} 昨日各股 OHLC
+
+    Returns: list of {code, name, today_open, today_close, prev_high, prev_low, change_pct, volume, market}
+    """
+    bearish = []
+    for q in quotes:
+        code = q.get("stock_code")
+        if not code or code not in prev_quotes_map:
+            continue
+        prev = prev_quotes_map[code]
+        if not prev.get("high") or not prev.get("low"):
+            continue
+        today_open = q.get("open", 0)
+        today_close = q.get("close", 0)
+        if today_open <= 0 or today_close <= 0:
+            continue
+        # 核心邏輯: 今開破昨高 + 今收破昨低
+        if today_open > prev["high"] and today_close < prev["low"]:
+            bearish.append({
+                "code": code,
+                "name": q.get("stock_name", ""),
+                "today_open": today_open,
+                "today_close": today_close,
+                "today_high": q.get("high", 0),
+                "today_low": q.get("low", 0),
+                "prev_high": prev["high"],
+                "prev_low": prev["low"],
+                "change_pct": q.get("change_pct", 0),
+                "volume": q.get("volume", 0),
+                "market": q.get("market", "TWSE"),
+            })
+    # Sort by volume desc (大量空吞 = 強訊號)
+    bearish.sort(key=lambda b: -b["volume"])
+    return bearish
+
+
+# ---------------------------------------------------------------------------
 # Trading day detection
 # ---------------------------------------------------------------------------
 
@@ -873,6 +954,26 @@ def main():
     per_stock_major = fetch_per_stock_institutional(date)
     print(f"  Got institutional data for {len(per_stock_major)} stocks")
 
+    # ---- Bearish Engulfing (空吞) detection ----
+    # 需要昨日全市場 OHLC, 找出今日 TO > YH and TC < YL 的反轉股
+    print(f"\n  Detecting 空吞 (bearish engulfing) reversal pattern...")
+    # Find prev trading day
+    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_dir = os.path.join(project_root, "data", "daily")
+    existing_dates = sorted([f.replace(".json", "") for f in os.listdir(data_dir) if f.endswith(".json")])
+    prev_date = next((d for d in reversed(existing_dates) if d < date), None)
+    bearish_engulfing = []
+    if prev_date:
+        time.sleep(3)
+        prev_map = fetch_prev_day_highs_lows(prev_date)
+        if prev_map:
+            bearish_engulfing = detect_bearish_engulfing(quotes, prev_map)
+            print(f"  Found {len(bearish_engulfing)} 空吞 reversal stocks (vs {prev_date})")
+        else:
+            print(f"  [warn] {prev_date} 資料無法取得, 跳過空吞檢測")
+    else:
+        print(f"  [warn] 找不到前一交易日, 跳過空吞檢測")
+
     # ---- Classify ----
     groups = classify_stocks(limit_up, per_stock_major)
 
@@ -893,6 +994,7 @@ def main():
             "dealer_net": dealer_net,
         },
         "groups": groups,
+        "bearish_engulfing": bearish_engulfing,  # 空吞注意股清單 (今開破昨高+今收破昨低)
     }
 
     # ---- VALIDATE before save (prevent bad data from being deployed) ----

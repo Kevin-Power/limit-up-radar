@@ -41,18 +41,25 @@ export interface ScoreResult {
  *   - 連板 (streak >= 2): +15
  *   - 大量 (volume > 5M shares = 5,000 lots): +5
  *   - 族群龍頭 (top volume in group): +10
+ *   - 權值股漲停 (isHeavyweight=true): +25 (TWSE 50 成分股漲停為強訊號，較罕見)
  *
  * Negative signals (liquidity / risk filters):
  *   - 流動性極低 (volume < 500 lots): -30 (essentially excluded from picks)
  *   - 流動性偏低 (volume < 2000 lots): -15
  *   - 連續 3 天紅 K 警示: tag only (caution flag for user)
  *   - 處置股 (isDisposal=true): -50 (excluded; disposal stocks are illiquid)
+ *   - 近期空吞 (recentBearishEngulfing=true): -25 (反轉風險，假漲停可能)
  */
 export function scoreStock(input: ScoreInput & {
   isDisposal?: boolean;
   consecutiveUpDays?: number; // 連續上漲天數
+  isHeavyweight?: boolean;    // 權值股 (TWSE 50 成分)
+  recentBearishEngulfing?: boolean; // 近期出現空吞反轉
 }): ScoreResult {
-  const { stock, group, trendingGroups, groupVolumeLeaderCode, revYoY, isDisposal, consecutiveUpDays } = input;
+  const {
+    stock, group, trendingGroups, groupVolumeLeaderCode, revYoY,
+    isDisposal, consecutiveUpDays, isHeavyweight, recentBearishEngulfing,
+  } = input;
   let score = 0;
   const tags: string[] = [];
 
@@ -60,6 +67,12 @@ export function scoreStock(input: ScoreInput & {
   if (isDisposal) {
     score -= 50;
     tags.push("⚠️處置股");
+  }
+
+  // === Bearish engulfing recent: warn against fake breakout ===
+  if (recentBearishEngulfing) {
+    score -= 25;
+    tags.push("⚠️近期空吞");
   }
 
   // === Liquidity filter (volume in shares; 1 lot = 1000 shares) ===
@@ -99,6 +112,11 @@ export function scoreStock(input: ScoreInput & {
   if (groupVolumeLeaderCode === stock.code) {
     score += 10;
     tags.push("族群龍頭");
+  }
+  // === 權值股漲停 = 重大訊號 (TWSE 50 龍頭很少漲停，一旦發生通常帶領大盤) ===
+  if (isHeavyweight) {
+    score += 25;
+    tags.push("⭐權值股");
   }
 
   // === Caution tag (no score change) ===
