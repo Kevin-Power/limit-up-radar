@@ -1,18 +1,34 @@
 {
-  "updatedAt": "2026-05-15",
+  "updatedAt": "2026-05-18",
   "totalDays": 10,
-  "totalSamples": 185,
-  "totalOpenWins": 130,
-  "totalCloseWins": 110,
-  "avgOpenWinRate": 70,
-  "avgCloseWinRate": 59,
-  "avgOpenReturn": 2.58,
-  "avgCloseReturn": 2.09,
+  "totalSamples": 189,
+  "totalOpenWins": 125,
+  "totalCloseWins": 108,
+  "avgOpenWinRate": 66,
+  "avgCloseWinRate": 57,
+  "avgOpenReturn": 2.25,
+  "avgCloseReturn": 1.73,
   "pickThreshold": 50,
   "sampleCap": 20,
-  "totalQualified": 267,
+  "totalQualified": 275,
   "methodology": "用 TWSE 真實隔日 OHLC 計算（樣本加權平均）。每日取分數 ≥50 的前 20 名為樣本，今日收盤買，隔日開盤/收盤賣。",
   "history": [
+    {
+      "date": "2026-05-15",
+      "nextDate": "2026-05-18",
+      "qualified": 21,
+      "picks": 20,
+      "fetched": 20,
+      "openWinRate": 50,
+      "closeWinRate": 60,
+      "avgOpenPct": 0.9,
+      "avgClosePct": 1.36,
+      "bestStock": {
+        "code": "6207",
+        "name": "雷科",
+        "closePct": 9.97
+      }
+    },
     {
       "date": "2026-05-14",
       "nextDate": "2026-05-15",
@@ -37,7 +53,7 @@
       "fetched": 20,
       "openWinRate": 80,
       "closeWinRate": 50,
-      "avgOpenPct": 4.1,
+      "avgOpenPct": 4.11,
       "avgClosePct": 0.97,
       "bestStock": {
         "code": "3516",
@@ -114,11 +130,11 @@
       "nextDate": "2026-05-07",
       "qualified": 12,
       "picks": 12,
-      "fetched": 12,
-      "openWinRate": 92,
-      "closeWinRate": 83,
-      "avgOpenPct": 4.48,
-      "avgClosePct": 4.51,
+      "fetched": 10,
+      "openWinRate": 90,
+      "closeWinRate": 80,
+      "avgOpenPct": 4.91,
+      "avgClosePct": 4.76,
       "bestStock": {
         "code": "6108",
         "name": "競國",
@@ -146,31 +162,15 @@
       "nextDate": "2026-05-05",
       "qualified": 30,
       "picks": 20,
-      "fetched": 20,
-      "openWinRate": 70,
-      "closeWinRate": 85,
-      "avgOpenPct": 1.1,
-      "avgClosePct": 4.0,
+      "fetched": 19,
+      "openWinRate": 74,
+      "closeWinRate": 84,
+      "avgOpenPct": 1.16,
+      "avgClosePct": 3.69,
       "bestStock": {
-        "code": "2465",
-        "name": "麗臺",
-        "closePct": 9.95
-      }
-    },
-    {
-      "date": "2026-04-30",
-      "nextDate": "2026-05-04",
-      "qualified": 13,
-      "picks": 13,
-      "fetched": 13,
-      "openWinRate": 100,
-      "closeWinRate": 85,
-      "avgOpenPct": 5.04,
-      "avgClosePct": 5.36,
-      "bestStock": {
-        "code": "8074",
-        "name": "鉅橡",
-        "closePct": 9.96
+        "code": "8150",
+        "name": "南茂",
+        "closePct": 9.93
       }
     }
   ]
