@@ -63,3 +63,4 @@ line_post/
 
 # splc/ — standalone Vite project, integrated as src/components/SupplyChainMap
 splc/
+.claude/worktrees/
