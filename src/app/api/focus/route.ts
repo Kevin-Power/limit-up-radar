@@ -187,9 +187,17 @@ export async function GET() {
     stopLoss: number;
     target1: number;
     target2: number;
+    isBearish: boolean;
   }
 
   const focusStocks: FocusStock[] = [];
+
+  // Today's bearish-engulfing codes (for UI filter flag)
+  const todayBearishCodes = new Set<string>(
+    ((today as DailyData & { bearish_engulfing?: { code: string }[] }).bearish_engulfing ?? [])
+      .map((b) => b.code)
+      .filter((c): c is string => typeof c === "string")
+  );
 
   for (const g of today.groups) {
     const groupStocksSorted = [...g.stocks].sort((a, b) => b.volume - a.volume);
@@ -234,6 +242,7 @@ export async function GET() {
         stopLoss,
         target1,
         target2,
+        isBearish: todayBearishCodes.has(s.code),
       });
     }
   }
