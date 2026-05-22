@@ -93,13 +93,14 @@ function Segment<T extends string | number>(props: {
   return (
     <div className="flex items-center gap-2">
       <span className="text-[11px] text-txt-4 w-10">{props.label}</span>
-      <div className="inline-flex bg-bg-2 border border-border rounded-md p-0.5">
+      <div role="group" aria-label={props.label} className="inline-flex bg-bg-2 border border-border rounded-md p-0.5">
         {props.options.map((opt) => {
           const active = opt.value === props.value;
           return (
             <button
               key={String(opt.value)}
               onClick={() => props.onChange(opt.value)}
+              aria-pressed={active}
               className={
                 "px-2.5 py-1 text-[11px] rounded transition-colors " +
                 (active
@@ -132,6 +133,15 @@ function GroupPicker(props: {
     return () => document.removeEventListener("mousedown", onDoc);
   }, []);
 
+  useEffect(() => {
+    if (!open) return;
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setOpen(false);
+    }
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open]);
+
   const remaining = props.available.filter((g) => !props.selected.includes(g));
 
   return (
@@ -156,15 +166,19 @@ function GroupPicker(props: {
         <button
           onClick={() => setOpen((o) => !o)}
           disabled={remaining.length === 0}
+          aria-expanded={open}
+          aria-haspopup="listbox"
           className="px-2.5 py-1 text-[11px] bg-bg-2 border border-border rounded text-txt-3 hover:text-txt-1 disabled:opacity-40"
         >
           {remaining.length === 0 ? "已全選" : "+ 選擇族群 ▾"}
         </button>
         {open && remaining.length > 0 && (
-          <div className="absolute top-full left-0 mt-1 z-20 min-w-[180px] max-h-[300px] overflow-y-auto bg-bg-1 border border-border rounded-md shadow-lg py-1">
+          <div role="listbox" className="absolute top-full left-0 mt-1 z-20 min-w-[180px] max-h-[300px] overflow-y-auto bg-bg-1 border border-border rounded-md shadow-lg py-1">
             {remaining.map((g) => (
               <button
                 key={g}
+                role="option"
+                aria-selected={false}
                 onClick={() => {
                   props.onChange([...props.selected, g]);
                   setOpen(false);
