@@ -11,7 +11,6 @@ import {
   passesFilter,
   paramsToFilter,
   filterToParams,
-  DEFAULT_FILTER,
   type FilterState,
 } from "./_filter-bar";
 
@@ -170,13 +169,11 @@ export default function FocusClient() {
   );
 
   // Push filter changes back to URL (replace, no history entry)
+  // Filter state is the source of truth; we write one-way to URL.
   useEffect(() => {
     const next = filterToParams(filter).toString();
-    const current = searchParams?.toString() ?? "";
-    if (next !== current) {
-      router.replace(next ? `/focus?${next}` : "/focus", { scroll: false });
-    }
-  }, [filter, router, searchParams]);
+    router.replace(next ? `/focus?${next}` : "/focus", { scroll: false });
+  }, [filter, router]);
 
   // Derive available groups from today's stocks (unique, sorted by appearance order)
   const availableGroups = useMemo(() => {
@@ -445,8 +442,8 @@ export default function FocusClient() {
                   state={filter}
                   onChange={setFilter}
                   availableGroups={availableGroups}
-                  visibleCount={filteredTopPicks.length + filteredFocusStocks.length}
-                  totalCount={data.topPicks.length + data.focusStocks.length}
+                  visibleCount={filteredFocusStocks.length}
+                  totalCount={data.focusStocks.length}
                 />
               </div>
 
