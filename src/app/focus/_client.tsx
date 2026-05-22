@@ -1,10 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo, useEffect } from "react";
 import useSWR from "swr";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
+import {
+  FilterBar,
+  passesFilter,
+  paramsToFilter,
+  filterToParams,
+  DEFAULT_FILTER,
+  type FilterState,
+} from "./_filter-bar";
 
 interface FocusStock {
   code: string;
@@ -26,6 +35,7 @@ interface FocusStock {
   stopLoss?: number;
   target1?: number;
   target2?: number;
+  isBearish?: boolean;
 }
 
 interface TrendingGroup {
@@ -150,6 +160,47 @@ function ScoreBar({ score }: { score: number }) {
 
 export default function FocusClient() {
   const { data, isLoading } = useSWR<FocusData>("/api/focus", fetcher);
+
+  // === Filter state synced with URL query params ===
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const [filter, setFilter] = useState<FilterState>(() =>
+    paramsToFilter(new URLSearchParams(searchParams?.toString() ?? ""))
+  );
+
+  // Push filter changes back to URL (replace, no history entry)
+  useEffect(() => {
+    const next = filterToParams(filter).toString();
+    const current = searchParams?.toString() ?? "";
+    if (next !== current) {
+      router.replace(next ? `/focus?${next}` : "/focus", { scroll: false });
+    }
+  }, [filter, router, searchParams]);
+
+  // Derive available groups from today's stocks (unique, sorted by appearance order)
+  const availableGroups = useMemo(() => {
+    if (!data) return [];
+    const seen = new Set<string>();
+    const ordered: string[] = [];
+    for (const s of data.focusStocks) {
+      if (!seen.has(s.group)) {
+        seen.add(s.group);
+        ordered.push(s.group);
+      }
+    }
+    return ordered;
+  }, [data]);
+
+  // Apply filter to both lists
+  const filteredTopPicks = useMemo(
+    () => (data?.topPicks ?? []).filter((s) => passesFilter(s, filter)),
+    [data?.topPicks, filter]
+  );
+  const filteredFocusStocks = useMemo(
+    () => (data?.focusStocks ?? []).filter((s) => passesFilter(s, filter)),
+    [data?.focusStocks, filter]
+  );
 
   return (
     <>
@@ -389,11 +440,25 @@ export default function FocusClient() {
                 評分依據：趨勢族群(30) + 營收成長(25-35) + 法人買超(20) + 連板(15) + 龍頭(10)
               </p>
 
-              {data.topPicks.length === 0 ? (
-                <div className="text-center py-8 text-txt-3 text-sm">今日無符合條件標的</div>
+              <div className="mb-4">
+                <FilterBar
+                  state={filter}
+                  onChange={setFilter}
+                  availableGroups={availableGroups}
+                  visibleCount={filteredTopPicks.length + filteredFocusStocks.length}
+                  totalCount={data.topPicks.length + data.focusStocks.length}
+                />
+              </div>
+
+              {filteredTopPicks.length === 0 ? (
+                <div className="text-center py-8 text-txt-3 text-sm">
+                  {data.topPicks.length === 0
+                    ? "今日無符合條件標的"
+                    : "目前篩選條件下無符合標的"}
+                </div>
               ) : (
                 <div className="space-y-3">
-                  {data.topPicks.map((s) => (
+                  {filteredTopPicks.map((s) => (
                     <Link
                       key={s.code}
                       href={`/stock/${s.code}`}
@@ -501,7 +566,9 @@ export default function FocusClient() {
               <div className="px-5 py-3 border-b border-border">
                 <h2 className="text-sm font-bold text-txt-0">
                   全部漲停股評分
-                  <span className="ml-2 text-[10px] font-normal text-txt-4">{data.focusStocks.length} 檔</span>
+                  <span className="ml-2 text-[10px] font-normal text-txt-4">
+                    {filteredFocusStocks.length}/{data.focusStocks.length} 檔
+                  </span>
                 </h2>
               </div>
               <div className="overflow-x-auto">
@@ -518,7 +585,14 @@ export default function FocusClient() {
                     </tr>
                   </thead>
                   <tbody>
-                    {data.focusStocks.map((s) => (
+                    {filteredFocusStocks.length === 0 && (
+                      <tr>
+                        <td colSpan={7} className="text-center py-8 text-txt-3 text-sm">
+                          目前篩選條件下無符合標的
+                        </td>
+                      </tr>
+                    )}
+                    {filteredFocusStocks.map((s) => (
                       <tr key={s.code} className="border-b border-border/50 hover:bg-bg-2/50 transition-colors">
                         <td className="px-3 py-1.5">
                           <Link href={`/stock/${s.code}`} className="hover:underline">
