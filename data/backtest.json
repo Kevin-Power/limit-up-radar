@@ -1,18 +1,34 @@
 {
-  "updatedAt": "2026-05-20",
+  "updatedAt": "2026-05-22",
   "totalDays": 10,
-  "totalSamples": 192,
-  "totalOpenWins": 128,
-  "totalCloseWins": 106,
-  "avgOpenWinRate": 67,
-  "avgCloseWinRate": 55,
-  "avgOpenReturn": 2.42,
-  "avgCloseReturn": 1.59,
+  "totalSamples": 189,
+  "totalOpenWins": 125,
+  "totalCloseWins": 108,
+  "avgOpenWinRate": 66,
+  "avgCloseWinRate": 57,
+  "avgOpenReturn": 2.84,
+  "avgCloseReturn": 2.33,
   "pickThreshold": 50,
   "sampleCap": 20,
-  "totalQualified": 277,
+  "totalQualified": 289,
   "methodology": "用 TWSE 真實隔日 OHLC 計算（樣本加權平均）。每日取分數 ≥50 的前 20 名為樣本，今日收盤買，隔日開盤/收盤賣。",
   "history": [
+    {
+      "date": "2026-05-20",
+      "nextDate": "2026-05-22",
+      "qualified": 34,
+      "picks": 20,
+      "fetched": 20,
+      "openWinRate": 85,
+      "closeWinRate": 75,
+      "avgOpenPct": 8.88,
+      "avgClosePct": 9.0,
+      "bestStock": {
+        "code": "4919",
+        "name": "新唐",
+        "closePct": 20.91
+      }
+    },
     {
       "date": "2026-05-18",
       "nextDate": "2026-05-20",
@@ -82,11 +98,11 @@
       "nextDate": "2026-05-13",
       "qualified": 26,
       "picks": 20,
-      "fetched": 20,
-      "openWinRate": 25,
-      "closeWinRate": 45,
-      "avgOpenPct": -0.24,
-      "avgClosePct": 0.83,
+      "fetched": 19,
+      "openWinRate": 26,
+      "closeWinRate": 42,
+      "avgOpenPct": -0.25,
+      "avgClosePct": 0.35,
       "bestStock": {
         "code": "8069",
         "name": "元太",
@@ -146,31 +162,15 @@
       "nextDate": "2026-05-07",
       "qualified": 12,
       "picks": 12,
-      "fetched": 12,
-      "openWinRate": 92,
-      "closeWinRate": 83,
-      "avgOpenPct": 4.48,
-      "avgClosePct": 4.51,
+      "fetched": 10,
+      "openWinRate": 90,
+      "closeWinRate": 80,
+      "avgOpenPct": 4.91,
+      "avgClosePct": 4.76,
       "bestStock": {
         "code": "6108",
         "name": "競國",
         "closePct": 10.0
-      }
-    },
-    {
-      "date": "2026-05-05",
-      "nextDate": "2026-05-06",
-      "qualified": 22,
-      "picks": 20,
-      "fetched": 20,
-      "openWinRate": 90,
-      "closeWinRate": 50,
-      "avgOpenPct": 5.07,
-      "avgClosePct": 1.38,
-      "bestStock": {
-        "code": "5464",
-        "name": "霖宏",
-        "closePct": 9.89
       }
     }
   ]
