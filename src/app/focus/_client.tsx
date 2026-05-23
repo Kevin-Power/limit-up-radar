@@ -13,6 +13,7 @@ import {
   filterToParams,
   type FilterState,
 } from "./_filter-bar";
+import { NarrativeCard, type Narrative } from "./_narrative";
 
 interface FocusStock {
   code: string;
@@ -159,6 +160,10 @@ function ScoreBar({ score }: { score: number }) {
 
 export default function FocusClient() {
   const { data, isLoading } = useSWR<FocusData>("/api/focus", fetcher);
+  const { data: narrative } = useSWR<Narrative>("/api/narrative/latest", fetcher, {
+    revalidateOnFocus: false,
+    shouldRetryOnError: false,
+  });
 
   // === Filter state synced with URL query params ===
   const router = useRouter();
@@ -244,6 +249,11 @@ export default function FocusClient() {
                 <div className="text-[10px] text-txt-4">精選標的</div>
               </div>
             </div>
+
+            {/* AI Narrative — produced by Claude Code session */}
+            {narrative && (
+              <NarrativeCard narrative={narrative} />
+            )}
 
             {/* REAL Backtest — fetched from TWSE next-day OHLC */}
             {data.realBacktest && data.realBacktest.totalSamples > 0 && (
@@ -481,6 +491,12 @@ export default function FocusClient() {
                               </span>
                             ))}
                           </div>
+                          {/* AI per-stock comment */}
+                          {narrative?.stocks?.[s.code] && (
+                            <div className="mb-2 px-2 py-1.5 bg-amber/5 border-l-2 border-amber/40 rounded-r italic text-[11px] text-txt-2 leading-relaxed">
+                              💬 {narrative.stocks[s.code]}
+                            </div>
+                          )}
 
                           {/* Metrics row */}
                           <div className="flex flex-wrap items-center gap-3 text-[11px]">
