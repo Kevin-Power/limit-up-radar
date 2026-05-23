@@ -14,6 +14,7 @@ import {
   type FilterState,
 } from "./_filter-bar";
 import { NarrativeCard, type Narrative } from "./_narrative";
+import { IndustryFlowHeatmap, type IndustryFlow } from "./_heatmap";
 
 interface FocusStock {
   code: string;
@@ -94,6 +95,7 @@ interface FocusData {
   };
   realBacktest?: RealBacktest | null;
   bearishEngulfing?: BearishEngulfingStock[];
+  industryFlow?: IndustryFlow;
 }
 
 interface BearishEngulfingStock {
@@ -435,6 +437,11 @@ export default function FocusClient() {
                   ))}
                 </div>
               </div>
+            )}
+
+            {/* Industry flow heatmap */}
+            {data.industryFlow && data.industryFlow.dates.length > 0 && (
+              <IndustryFlowHeatmap flow={data.industryFlow} />
             )}
 
             {/* Top Picks */}
