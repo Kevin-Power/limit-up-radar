@@ -15,9 +15,23 @@ import json
 import os
 import sys
 from datetime import datetime, timedelta
+from pathlib import Path
 from urllib import request
 
 from PIL import Image, ImageDraw, ImageFont
+
+NARRATIVE_DIR = Path(__file__).resolve().parent.parent / "data" / "narrative"
+
+
+def load_narrative_for(date_str: str):
+    """Return narrative dict for given YYYY-MM-DD, or None if missing/invalid."""
+    f = NARRATIVE_DIR / f"{date_str}.json"
+    if not f.exists():
+        return None
+    try:
+        return json.loads(f.read_text(encoding="utf-8"))
+    except Exception:
+        return None
 
 # ─── Config ───────────────────────────────────────────────
 SITE = "https://limit-up-radar.vercel.app"
@@ -115,6 +129,21 @@ def build_text(d, picks, next_day):
     # font fallback issues on phones / old text editors
     n_emoji = [f"[{i:>2}]" for i in range(1, 21)]
 
+    date_str = d["date"]
+    narrative = load_narrative_for(date_str)
+    if narrative:
+        narrative_block = (
+            "\n📊 AI 盤後分析\n"
+            f"{narrative.get('summary', '').strip()}\n\n"
+            "🎯 明日關注\n"
+            f"{narrative.get('tomorrow_watch', '').strip()}\n\n"
+            "⚠️ 風險提醒\n"
+            f"{narrative.get('risk', '').strip()}\n\n"
+            "──────────────\n"
+        )
+    else:
+        narrative_block = ""
+
     md = next_day[5:7].lstrip("0") + "/" + next_day[8:10].lstrip("0")
     text = f"""🔥 {md} 觀察名單 TOP {len(picks)}
 ━━━━━━━━━━━━━━━━━━
@@ -176,7 +205,7 @@ def build_text(d, picks, next_day):
 
 📱 完整分析 → limit-up-radar.vercel.app
 """
-    return text
+    return narrative_block + text
 
 
 def build_image(d, picks, next_day):
