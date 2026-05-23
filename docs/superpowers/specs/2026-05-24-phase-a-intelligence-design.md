@@ -43,9 +43,12 @@
 
 ```json
 {
+  "schema_version": 1,
   "date": "2026-05-24",
+  "source_daily_date": "2026-05-24",
   "generated_at": "2026-05-24T17:30:00+08:00",
   "generated_by": "claude-code-session",
+  "provider": "anthropic-claude",
   "summary": "今日加權收 40,020 點 +0.20%，外資賣超 466 億，投信加碼 102 億。電子權值整理，光通訊與生技續強，市場資金往中小型輪動。",
   "leading_groups": ["電子/半導體", "光通訊/矽光子", "生技/醫療器材"],
   "tomorrow_watch": "聚焦 4916 事欣科（光通訊龍頭，營收 YoY +50%）、3090 日電貿（半導體連 3 日強勢）。族群延續性以 IC 設計觀察是否擴散。",
@@ -56,6 +59,12 @@
   }
 }
 ```
+
+**Schema 版本說明：**
+- `schema_version: 1` — 為未來增加外部 LLM fallback 預留遷移欄位
+- `source_daily_date` — 此 narrative 引用哪一天的 daily JSON；用於 staleness 判斷
+- `provider` — 產出來源；目前固定 `"anthropic-claude"`，未來可能 `"openai"`、`"local"` 等
+- `stocks[code]` 若缺，前端視為「該檔無 AI 簡評」（正常情況，前 10 名以外可缺）
 
 **規則：**
 - `summary`：100–150 字繁體中文，含 TAIEX 數據 + 法人三大 + 主流族群判讀
@@ -96,25 +105,36 @@
 - 與 `/api/daily/[date]` 結構鏡像
 
 `src/app/api/narrative/latest/route.ts`：
-- GET → 取 `data/narrative/` 內最新檔，回傳內容 + 檔名 date
-- 不存在時回 404
+- GET → 取 `data/narrative/` 內最新檔
+- 同時讀 `data/daily/` 取最新交易日 date
+- 比對 `narrative.source_daily_date` vs latest daily date：
+  - 相同 → 回傳 `{ ...narrative, stale: false }`
+  - 不同（narrative 比 daily 舊）→ 回傳 `{ ...narrative, stale: true, latest_daily_date: "..." }`
+- narrative 完全不存在時回 404
 
 ### 3.4 前端整合
 
 **新元件 `src/app/focus/_narrative.tsx`：**
 ```tsx
 export interface Narrative {
+  schema_version: number;
   date: string;
+  source_daily_date: string;
   generated_at: string;
+  generated_by: string;
+  provider: string;
   summary: string;
   leading_groups: string[];
   tomorrow_watch: string;
   risk: string;
   stocks: Record<string, string>;
+  stale?: boolean;                   // API 注入
+  latest_daily_date?: string;        // API 注入，stale=true 時帶
 }
 
 export function NarrativeCard({ narrative }: { narrative: Narrative }) {
   // 顯示：summary / leading_groups (chip) / tomorrow_watch / risk
+  // stale=true 時頂部顯示黃色橫條：「⚠️ 此分析基於 {source_daily_date}，最新交易日為 {latest_daily_date}，建議重新產出」
   // 樣式：top of /focus 主視覺，漸層 background，AI icon
 }
 ```
@@ -141,13 +161,22 @@ export function NarrativeCard({ narrative }: { narrative: Narrative }) {
 `src/app/api/focus/route.ts` 回傳新欄位 `industryFlow`：
 ```ts
 industryFlow: {
-  dates: ["05-14", "05-15", "05-18", "05-20", "05-21", "05-22", "05-23"],
+  dates: ["05-14", "05-15", "05-18", "05-20", "05-21", "05-22", "05-23"],  // 實際可取得的交易日，最多 7 天
   industries: ["電子/半導體", "光通訊/矽光子", ...],
-  matrix: number[][]   // industries.length × dates.length，每格 = 該產業當日 major_net 加總（張）
+  matrix: (number | null)[][]   // industries.length × dates.length；null = 該產業當日無資料；0 = 有資料但淨額為 0
 }
 ```
 
-**算法：** 過去 7 個交易日 daily JSON → 每天遍歷 `groups[].stocks[].major_net` 按 `groups[].name` 加總 → 累積到二維陣列。
+**算法：**
+- 取 `data/daily/` 內最新 N 個檔（N = min(7, 可取得檔數)）
+- 每天遍歷 `groups[].stocks[].major_net` 按 `groups[].name` 加總
+- 該產業當日完全沒在 daily 出現 → matrix 值 `null`
+- 出現但 `major_net` 全為 0 或缺失 → matrix 值 `0`
+- `null` vs `0` 區分讓 UI 能顯示「無資料」灰色 vs「有資料淨額為 0」中性色
+
+**部分覆蓋處理：**
+- 即使僅 3 天可用也要 render（標題顯示「主力資金 {N} 日流向」而非寫死 7）
+- 完全 0 天可用（從未跑過 classify）→ 隱藏整個區塊
 
 **UI 渲染：**
 - 7×N 矩陣（N = 出現過的產業數，最多 12）
@@ -163,9 +192,14 @@ industryFlow: {
 
 ### 3.7 錯誤處理 / Fallback
 
-- `data/narrative/{date}.json` 不存在 → `_narrative.tsx` 不渲染（既有頁面完全不受影響）
-- API 路由 404 → SWR error 處理；卡片區塊隱藏
-- `industryFlow` 算錯（資料缺失）→ heatmap 區塊隱藏
+| 情境 | 處理 |
+|------|------|
+| `data/narrative/` 完全沒檔 | API `/latest` 回 404；UI NarrativeCard 整段隱藏（既有頁面不受影響） |
+| narrative 存在但 stale（`source_daily_date < latest_daily_date`）| API 回 200 + `stale: true`；UI 渲染內容 + 頂部黃色警示橫條 |
+| `industryFlow.matrix` 全為 null（從未跑過 classify）| heatmap 整段隱藏 |
+| `industryFlow.matrix` 部分有資料 | 正常渲染，標題寫實際天數，缺資料格用灰色 |
+| `narrative.stocks[code]` 缺某檔 | 該檔卡片不顯示 AI 簡評（正常情況，前 10 名以外可缺） |
+| `major_net` 欄位為 `undefined` | 視為 0 處理；`null` 則保留 null 語義 |
 
 ### 3.8 隱私 / 安全
 
