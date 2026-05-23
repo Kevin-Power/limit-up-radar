@@ -371,6 +371,44 @@ export async function GET() {
   const totalPicks = history.reduce((s, h) => s + h.picks, 0);
   const totalHits = history.reduce((s, h) => s + h.nextLimitUpCount, 0);
 
+  // === Industry flow heatmap (last up to 7 days × industries × major_net sum) ===
+  const flowFiles = files.slice(0, Math.min(7, files.length));
+  const flowDays: { date: string; perIndustry: Map<string, number | null> }[] = [];
+  for (const f of flowFiles) {
+    const d = loadDaily(f);
+    if (!d) continue;
+    const perIndustry = new Map<string, number | null>();
+    for (const g of d.groups) {
+      let sum = 0;
+      let hasData = false;
+      for (const s of g.stocks) {
+        const mn = (s as { major_net?: number }).major_net;
+        if (typeof mn === "number" && !Number.isNaN(mn)) {
+          sum += mn;
+          hasData = true;
+        }
+      }
+      perIndustry.set(g.name, hasData ? sum : 0);
+    }
+    flowDays.push({ date: d.date, perIndustry });
+  }
+  // Reverse so oldest is leftmost
+  flowDays.reverse();
+  // Union of all industries appearing in any of the days
+  const industriesSet = new Set<string>();
+  for (const day of flowDays) {
+    for (const ind of day.perIndustry.keys()) industriesSet.add(ind);
+  }
+  const industries = Array.from(industriesSet);
+  const matrix: (number | null)[][] = industries.map((ind) =>
+    flowDays.map((day) => (day.perIndustry.has(ind) ? day.perIndustry.get(ind)! : null))
+  );
+  const industryFlow = {
+    dates: flowDays.map((d) => d.date.slice(5)), // MM-DD
+    industries,
+    matrix,
+  };
+
   return NextResponse.json({
     date: today.date,
     taiex: today.market_summary.taiex_close,
@@ -390,6 +428,7 @@ export async function GET() {
     realBacktest: loadRealBacktest(),
     // 新增：今日空吞注意股 (從 daily JSON 拉)
     bearishEngulfing: (today as DailyData & { bearish_engulfing?: unknown[] }).bearish_engulfing ?? [],
+    industryFlow,
   }, {
     headers: { "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=7200" },
   });
