@@ -1,18 +1,34 @@
 {
-  "updatedAt": "2026-05-27",
+  "updatedAt": "2026-05-28",
   "totalDays": 10,
-  "totalSamples": 198,
-  "totalOpenWins": 138,
-  "totalCloseWins": 121,
-  "avgOpenWinRate": 70,
-  "avgCloseWinRate": 61,
-  "avgOpenReturn": 3.43,
-  "avgCloseReturn": 2.99,
+  "totalSamples": 199,
+  "totalOpenWins": 141,
+  "totalCloseWins": 124,
+  "avgOpenWinRate": 71,
+  "avgCloseWinRate": 62,
+  "avgOpenReturn": 3.52,
+  "avgCloseReturn": 2.92,
   "pickThreshold": 50,
   "sampleCap": 20,
-  "totalQualified": 381,
+  "totalQualified": 372,
   "methodology": "用 TWSE 真實隔日 OHLC 計算（樣本加權平均）。每日取分數 ≥50 的前 20 名為樣本，今日收盤買，隔日開盤/收盤賣。",
   "history": [
+    {
+      "date": "2026-05-27",
+      "nextDate": "2026-05-28",
+      "qualified": 19,
+      "picks": 19,
+      "fetched": 19,
+      "openWinRate": 79,
+      "closeWinRate": 74,
+      "avgOpenPct": 2.99,
+      "avgClosePct": 2.33,
+      "bestStock": {
+        "code": "2472",
+        "name": "立隆電",
+        "closePct": 9.93
+      }
+    },
     {
       "date": "2026-05-25",
       "nextDate": "2026-05-27",
@@ -146,31 +162,15 @@
       "nextDate": "2026-05-12",
       "qualified": 61,
       "picks": 20,
-      "fetched": 19,
+      "fetched": 20,
       "openWinRate": 95,
-      "closeWinRate": 79,
-      "avgOpenPct": 3.61,
-      "avgClosePct": 4.72,
+      "closeWinRate": 80,
+      "avgOpenPct": 3.91,
+      "avgClosePct": 4.98,
       "bestStock": {
         "code": "2467",
         "name": "志聖",
         "closePct": 10.0
-      }
-    },
-    {
-      "date": "2026-05-08",
-      "nextDate": "2026-05-11",
-      "qualified": 28,
-      "picks": 20,
-      "fetched": 19,
-      "openWinRate": 68,
-      "closeWinRate": 63,
-      "avgOpenPct": 2.35,
-      "avgClosePct": 3.47,
-      "bestStock": {
-        "code": "3036",
-        "name": "文曄",
-        "closePct": 9.98
       }
     }
   ]
