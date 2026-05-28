@@ -15,6 +15,7 @@ import {
 } from "./_filter-bar";
 import { NarrativeCard, type Narrative } from "./_narrative";
 import { IndustryFlowHeatmap, type IndustryFlow } from "./_heatmap";
+import { TrackedStockLink } from "./_tracked-link";
 
 interface FocusStock {
   code: string;
@@ -473,9 +474,11 @@ export default function FocusClient() {
               ) : (
                 <div className="space-y-3">
                   {filteredTopPicks.map((s) => (
-                    <Link
+                    <TrackedStockLink
                       key={s.code}
-                      href={`/stock/${s.code}`}
+                      code={s.code}
+                      name={s.name}
+                      source="top_pick"
                       className="block bg-bg-2/50 border border-border/50 rounded-lg p-4 hover:border-border-hover hover:bg-bg-2 transition-all"
                     >
                       <div className="flex items-start justify-between gap-3">
@@ -575,7 +578,7 @@ export default function FocusClient() {
                           <div className="text-[9px] text-txt-4 mt-1">評分</div>
                         </div>
                       </div>
-                    </Link>
+                    </TrackedStockLink>
                   ))}
                 </div>
               )}
@@ -615,10 +618,10 @@ export default function FocusClient() {
                     {filteredFocusStocks.map((s) => (
                       <tr key={s.code} className="border-b border-border/50 hover:bg-bg-2/50 transition-colors">
                         <td className="px-3 py-1.5">
-                          <Link href={`/stock/${s.code}`} className="hover:underline">
+                          <TrackedStockLink code={s.code} name={s.name} source="full_list" className="hover:underline">
                             <span className="font-mono text-txt-2">{s.code}</span>
                             <span className="ml-1.5 text-txt-1">{s.name}</span>
-                          </Link>
+                          </TrackedStockLink>
                         </td>
                         <td className="text-center px-2 py-1.5">
                           <ScoreBadge score={s.score} />
