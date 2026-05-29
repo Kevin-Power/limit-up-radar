@@ -1,18 +1,34 @@
 {
-  "updatedAt": "2026-05-28",
+  "updatedAt": "2026-05-29",
   "totalDays": 10,
-  "totalSamples": 199,
-  "totalOpenWins": 141,
-  "totalCloseWins": 124,
+  "totalSamples": 198,
+  "totalOpenWins": 140,
+  "totalCloseWins": 119,
   "avgOpenWinRate": 71,
-  "avgCloseWinRate": 62,
-  "avgOpenReturn": 3.52,
-  "avgCloseReturn": 2.92,
+  "avgCloseWinRate": 60,
+  "avgOpenReturn": 3.75,
+  "avgCloseReturn": 2.59,
   "pickThreshold": 50,
   "sampleCap": 20,
-  "totalQualified": 372,
+  "totalQualified": 333,
   "methodology": "用 TWSE 真實隔日 OHLC 計算（樣本加權平均）。每日取分數 ≥50 的前 20 名為樣本，今日收盤買，隔日開盤/收盤賣。",
   "history": [
+    {
+      "date": "2026-05-28",
+      "nextDate": "2026-05-29",
+      "qualified": 22,
+      "picks": 20,
+      "fetched": 20,
+      "openWinRate": 90,
+      "closeWinRate": 55,
+      "avgOpenPct": 5.8,
+      "avgClosePct": 1.35,
+      "bestStock": {
+        "code": "1409",
+        "name": "新纖",
+        "closePct": 9.88
+      }
+    },
     {
       "date": "2026-05-27",
       "nextDate": "2026-05-28",
@@ -130,11 +146,11 @@
       "nextDate": "2026-05-14",
       "qualified": 20,
       "picks": 20,
-      "fetched": 20,
-      "openWinRate": 80,
-      "closeWinRate": 50,
-      "avgOpenPct": 4.11,
-      "avgClosePct": 0.97,
+      "fetched": 19,
+      "openWinRate": 84,
+      "closeWinRate": 53,
+      "avgOpenPct": 4.49,
+      "avgClosePct": 1.26,
       "bestStock": {
         "code": "3516",
         "name": "亞帝歐",
@@ -155,22 +171,6 @@
         "code": "8069",
         "name": "元太",
         "closePct": 9.97
-      }
-    },
-    {
-      "date": "2026-05-11",
-      "nextDate": "2026-05-12",
-      "qualified": 61,
-      "picks": 20,
-      "fetched": 20,
-      "openWinRate": 95,
-      "closeWinRate": 80,
-      "avgOpenPct": 3.91,
-      "avgClosePct": 4.98,
-      "bestStock": {
-        "code": "2467",
-        "name": "志聖",
-        "closePct": 10.0
       }
     }
   ]

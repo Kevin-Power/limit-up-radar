@@ -1,0 +1,1107 @@
+{
+  "date": "2026-05-29",
+  "market_summary": {
+    "taiex_close": 44732.94,
+    "taiex_change_pct": 2.51,
+    "total_volume": 14690727430,
+    "limit_up_count": 89,
+    "limit_down_count": 3,
+    "advance": 1382,
+    "decline": 451,
+    "unchanged": 139,
+    "foreign_net": 80145461140.0,
+    "trust_net": 7018067618.0,
+    "dealer_net": 15607209549.0
+  },
+  "groups": [
+    {
+      "name": "電子 / 半導體",
+      "color": "#06b6d4",
+      "badges": [],
+      "reason": "電子族群受惠終端需求回升",
+      "stocks": [
+        {
+          "code": "1521",
+          "name": "大億",
+          "industry": "電子",
+          "close": 29.6,
+          "change_pct": 9.83,
+          "volume": 417246,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "1522",
+          "name": "堤維西",
+          "industry": "電子",
+          "close": 34.55,
+          "change_pct": 9.86,
+          "volume": 13169308,
+          "major_net": 75515,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "1568",
+          "name": "倉佑",
+          "industry": "電子",
+          "close": 45.35,
+          "change_pct": 9.94,
+          "volume": 13595230,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "1617",
+          "name": "榮星",
+          "industry": "電子",
+          "close": 15.95,
+          "change_pct": 9.62,
+          "volume": 753307,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "2313",
+          "name": "華通",
+          "industry": "電子",
+          "close": 284.5,
+          "change_pct": 9.85,
+          "volume": 84156366,
+          "major_net": 1178934,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "2317",
+          "name": "鴻海",
+          "industry": "電子",
+          "close": 289.0,
+          "change_pct": 9.89,
+          "volume": 289511198,
+          "major_net": 7509435,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "2324",
+          "name": "仁寶",
+          "industry": "電子",
+          "close": 36.7,
+          "change_pct": 9.55,
+          "volume": 709500533,
+          "major_net": 5200958,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "2331",
+          "name": "精英",
+          "industry": "電子",
+          "close": 22.2,
+          "change_pct": 9.9,
+          "volume": 11905864,
+          "major_net": 60000,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "2344",
+          "name": "華邦電",
+          "industry": "電子",
+          "close": 158.0,
+          "change_pct": 9.72,
+          "volume": 249880280,
+          "major_net": 1994325,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "2353",
+          "name": "宏碁",
+          "industry": "電子",
+          "close": 35.2,
+          "change_pct": 10.0,
+          "volume": 75474874,
+          "major_net": 1306971,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "2356",
+          "name": "英業達",
+          "industry": "電子",
+          "close": 70.2,
+          "change_pct": 9.86,
+          "volume": 220828986,
+          "major_net": 1941129,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "2357",
+          "name": "華碩",
+          "industry": "電子",
+          "close": 761.0,
+          "change_pct": 9.97,
+          "volume": 13953540,
+          "major_net": 417955,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "2382",
+          "name": "廣達",
+          "industry": "電子",
+          "close": 339.0,
+          "change_pct": 9.89,
+          "volume": 87792646,
+          "major_net": 264000,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "2464",
+          "name": "盟立",
+          "industry": "電子",
+          "close": 184.5,
+          "change_pct": 9.82,
+          "volume": 14603817,
+          "major_net": 56051,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "2481",
+          "name": "強茂",
+          "industry": "電子",
+          "close": 162.5,
+          "change_pct": 9.8,
+          "volume": 40975255,
+          "major_net": 176888,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "3021",
+          "name": "鴻名",
+          "industry": "電子",
+          "close": 30.1,
+          "change_pct": 9.85,
+          "volume": 923348,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "3090",
+          "name": "日電貿",
+          "industry": "電子",
+          "close": 229.0,
+          "change_pct": 9.83,
+          "volume": 2746634,
+          "major_net": 90999,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "3231",
+          "name": "緯創",
+          "industry": "電子",
+          "close": 158.5,
+          "change_pct": 9.69,
+          "volume": 114139019,
+          "major_net": 2320653,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "3346",
+          "name": "麗清",
+          "industry": "電子",
+          "close": 21.45,
+          "change_pct": 10.0,
+          "volume": 924121,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "3481",
+          "name": "群創",
+          "industry": "電子",
+          "close": 51.0,
+          "change_pct": 9.91,
+          "volume": 897327645,
+          "major_net": 3672286,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "3532",
+          "name": "台勝科",
+          "industry": "電子",
+          "close": 319.0,
+          "change_pct": 10.0,
+          "volume": 1580500,
+          "major_net": 22000,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "6116",
+          "name": "彩晶",
+          "industry": "電子",
+          "close": 17.1,
+          "change_pct": 9.97,
+          "volume": 289351189,
+          "major_net": 1068954,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "6573",
+          "name": "虹揚-KY",
+          "industry": "電子",
+          "close": 16.3,
+          "change_pct": 9.76,
+          "volume": 1776618,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "6669",
+          "name": "緯穎",
+          "industry": "電子",
+          "close": 5445.0,
+          "change_pct": 10.0,
+          "volume": 3282663,
+          "major_net": 185385,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "3114",
+          "name": "好德",
+          "industry": "電子",
+          "close": 31.25,
+          "change_pct": 9.84,
+          "volume": 1442000,
+          "major_net": 160855,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "3191",
+          "name": "雲嘉南",
+          "industry": "電子",
+          "close": 26.45,
+          "change_pct": 9.98,
+          "volume": 695000,
+          "major_net": -40900,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "3234",
+          "name": "光環",
+          "industry": "電子",
+          "close": 108.0,
+          "change_pct": 9.53,
+          "volume": 5010000,
+          "major_net": 334315,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "3272",
+          "name": "東碩",
+          "industry": "電子",
+          "close": 17.9,
+          "change_pct": 9.82,
+          "volume": 379000,
+          "major_net": 273983,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "3288",
+          "name": "點晶",
+          "industry": "電子",
+          "close": 16.6,
+          "change_pct": 9.93,
+          "volume": 157000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "3491",
+          "name": "昇達科",
+          "industry": "電子",
+          "close": 2200.0,
+          "change_pct": 10.0,
+          "volume": 1246000,
+          "major_net": 220886,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "3523",
+          "name": "迎輝",
+          "industry": "電子",
+          "close": 15.95,
+          "change_pct": 10.0,
+          "volume": 741000,
+          "major_net": 111000,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "3556",
+          "name": "禾瑞亞",
+          "industry": "電子",
+          "close": 67.2,
+          "change_pct": 9.98,
+          "volume": 1922000,
+          "major_net": 60056,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "3624",
+          "name": "光頡",
+          "industry": "電子",
+          "close": 110.0,
+          "change_pct": 10.0,
+          "volume": 5200000,
+          "major_net": 113920,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "6127",
+          "name": "九豪",
+          "industry": "電子",
+          "close": 67.3,
+          "change_pct": 9.97,
+          "volume": 37906000,
+          "major_net": -4507237,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "6129",
+          "name": "普誠",
+          "industry": "電子",
+          "close": 16.6,
+          "change_pct": 9.93,
+          "volume": 1326000,
+          "major_net": 199490,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "6134",
+          "name": "萬旭",
+          "industry": "電子",
+          "close": 36.2,
+          "change_pct": 9.86,
+          "volume": 7800000,
+          "major_net": 1103624,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "6147",
+          "name": "頎邦",
+          "industry": "電子",
+          "close": 305.5,
+          "change_pct": 9.89,
+          "volume": 39018000,
+          "major_net": -10236710,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "6163",
+          "name": "華電網",
+          "industry": "電子",
+          "close": 53.0,
+          "change_pct": 9.96,
+          "volume": 4616000,
+          "major_net": 453557,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "6182",
+          "name": "合晶",
+          "industry": "電子",
+          "close": 99.5,
+          "change_pct": 9.7,
+          "volume": 14395000,
+          "major_net": 2258630,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "6538",
+          "name": "倉和",
+          "industry": "電子",
+          "close": 123.5,
+          "change_pct": 9.78,
+          "volume": 543000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "6654",
+          "name": "天正國際",
+          "industry": "電子",
+          "close": 154.0,
+          "change_pct": 10.0,
+          "volume": 159000,
+          "major_net": 2485,
+          "streak": 1,
+          "market": "OTC"
+        }
+      ]
+    },
+    {
+      "name": "個股亮點",
+      "color": "#64748b",
+      "badges": [],
+      "reason": "個別利多驅動的漲停股",
+      "stocks": [
+        {
+          "code": "1409",
+          "name": "新纖",
+          "industry": "",
+          "close": 22.8,
+          "change_pct": 9.88,
+          "volume": 18564858,
+          "major_net": 163386,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "2243",
+          "name": "宏旭-KY",
+          "industry": "",
+          "close": 27.3,
+          "change_pct": 9.86,
+          "volume": 2447888,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "3229",
+          "name": "晟鈦",
+          "industry": "",
+          "close": 49.5,
+          "change_pct": 10.0,
+          "volume": 1166361,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "3712",
+          "name": "永崴投控",
+          "industry": "",
+          "close": 18.25,
+          "change_pct": 9.94,
+          "volume": 2025386,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "4807",
+          "name": "日成-KY",
+          "industry": "",
+          "close": 27.9,
+          "change_pct": 9.84,
+          "volume": 1076122,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "6806",
+          "name": "森崴能源",
+          "industry": "",
+          "close": 6.71,
+          "change_pct": 10.0,
+          "volume": 17317026,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "6862",
+          "name": "三集瑞-KY",
+          "industry": "",
+          "close": 224.5,
+          "change_pct": 9.78,
+          "volume": 1577735,
+          "major_net": 53146,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "6933",
+          "name": "AMAX-KY",
+          "industry": "",
+          "close": 172.5,
+          "change_pct": 9.87,
+          "volume": 466925,
+          "major_net": 362,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "8103",
+          "name": "瀚荃",
+          "industry": "",
+          "close": 111.5,
+          "change_pct": 9.85,
+          "volume": 3333458,
+          "major_net": 135283,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "8150",
+          "name": "南茂",
+          "industry": "",
+          "close": 113.0,
+          "change_pct": 9.71,
+          "volume": 13898178,
+          "major_net": 97938,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "8454",
+          "name": "富邦媒",
+          "industry": "",
+          "close": 231.0,
+          "change_pct": 10.0,
+          "volume": 3691482,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "8473",
+          "name": "山林水",
+          "industry": "",
+          "close": 50.4,
+          "change_pct": 9.68,
+          "volume": 6820723,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "4534",
+          "name": "慶騰",
+          "industry": "",
+          "close": 28.2,
+          "change_pct": 9.94,
+          "volume": 4291000,
+          "major_net": 616961,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "4549",
+          "name": "桓達",
+          "industry": "",
+          "close": 124.5,
+          "change_pct": 9.69,
+          "volume": 1506000,
+          "major_net": -128172,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "4561",
+          "name": "健椿",
+          "industry": "",
+          "close": 51.7,
+          "change_pct": 10.0,
+          "volume": 1893000,
+          "major_net": 245567,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "5328",
+          "name": "華容",
+          "industry": "",
+          "close": 39.6,
+          "change_pct": 10.0,
+          "volume": 29821000,
+          "major_net": 982869,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "5345",
+          "name": "馥鴻",
+          "industry": "",
+          "close": 22.45,
+          "change_pct": 9.78,
+          "volume": 82000,
+          "major_net": 0,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "5353",
+          "name": "台林",
+          "industry": "",
+          "close": 29.6,
+          "change_pct": 9.83,
+          "volume": 858000,
+          "major_net": 96165,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "5392",
+          "name": "能率",
+          "industry": "",
+          "close": 44.55,
+          "change_pct": 10.0,
+          "volume": 12327000,
+          "major_net": 3136286,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "5464",
+          "name": "霖宏",
+          "industry": "",
+          "close": 83.0,
+          "change_pct": 9.93,
+          "volume": 2301000,
+          "major_net": 317753,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "5474",
+          "name": "聰泰",
+          "industry": "",
+          "close": 180.0,
+          "change_pct": 9.76,
+          "volume": 2147000,
+          "major_net": 278500,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "5701",
+          "name": "劍湖山",
+          "industry": "",
+          "close": 4.0,
+          "change_pct": 9.89,
+          "volume": 255000,
+          "major_net": 92000,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "6016",
+          "name": "康和證",
+          "industry": "",
+          "close": 29.6,
+          "change_pct": 9.83,
+          "volume": 20847000,
+          "major_net": -661727,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "7709",
+          "name": "榮田",
+          "industry": "",
+          "close": 110.5,
+          "change_pct": 9.95,
+          "volume": 174000,
+          "major_net": 56996,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "7777",
+          "name": "能率亞洲",
+          "industry": "",
+          "close": 41.65,
+          "change_pct": 9.89,
+          "volume": 9921000,
+          "major_net": -2798,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "7792",
+          "name": "安葆",
+          "industry": "",
+          "close": 281.5,
+          "change_pct": 9.96,
+          "volume": 207000,
+          "major_net": 35585,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "8043",
+          "name": "蜜望實",
+          "industry": "",
+          "close": 141.0,
+          "change_pct": 9.73,
+          "volume": 22804000,
+          "major_net": 2602993,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "8277",
+          "name": "商丞",
+          "industry": "",
+          "close": 8.61,
+          "change_pct": 9.96,
+          "volume": 1710000,
+          "major_net": -78302,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "8358",
+          "name": "金居",
+          "industry": "",
+          "close": 608.0,
+          "change_pct": 9.95,
+          "volume": 19923000,
+          "major_net": -81732,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "8472",
+          "name": "夠麻吉",
+          "industry": "",
+          "close": 78.1,
+          "change_pct": 10.0,
+          "volume": 146000,
+          "major_net": 8000,
+          "streak": 1,
+          "market": "OTC"
+        }
+      ]
+    },
+    {
+      "name": "光通訊 / 矽光子",
+      "color": "#ec4899",
+      "badges": [
+        "NEW"
+      ],
+      "reason": "800G光模組需求提前，矽光子技術突破",
+      "stocks": [
+        {
+          "code": "4916",
+          "name": "事欣科",
+          "industry": "光通訊",
+          "close": 112.5,
+          "change_pct": 9.76,
+          "volume": 6667076,
+          "major_net": 68062,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "4935",
+          "name": "茂林-KY",
+          "industry": "光通訊",
+          "close": 40.9,
+          "change_pct": 9.95,
+          "volume": 493306,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "4931",
+          "name": "新盛力",
+          "industry": "光通訊",
+          "close": 229.5,
+          "change_pct": 9.81,
+          "volume": 10882000,
+          "major_net": 1922480,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "4939",
+          "name": "亞電",
+          "industry": "光通訊",
+          "close": 50.5,
+          "change_pct": 9.9,
+          "volume": 31020000,
+          "major_net": 2742130,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "7717",
+          "name": "萊德光電-KY",
+          "industry": "光通訊",
+          "close": 690.0,
+          "change_pct": 9.87,
+          "volume": 503000,
+          "major_net": 57227,
+          "streak": 1,
+          "market": "OTC"
+        }
+      ]
+    },
+    {
+      "name": "AI伺服器 / 散熱",
+      "color": "#ef4444",
+      "badges": [
+        "HOT",
+        "FOCUS"
+      ],
+      "reason": "AI伺服器散熱與機殼供應鏈訂單持續爆發",
+      "stocks": [
+        {
+          "code": "1471",
+          "name": "首利",
+          "industry": "AI伺服器",
+          "close": 11.15,
+          "change_pct": 9.85,
+          "volume": 1897505,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "2376",
+          "name": "技嘉",
+          "industry": "AI伺服器",
+          "close": 370.0,
+          "change_pct": 9.63,
+          "volume": 33434927,
+          "major_net": 556824,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "7711",
+          "name": "永擎",
+          "industry": "AI伺服器",
+          "close": 402.5,
+          "change_pct": 9.97,
+          "volume": 1213577,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        }
+      ]
+    },
+    {
+      "name": "生技 / 醫療器材",
+      "color": "#22c55e",
+      "badges": [],
+      "reason": "醫材新產品認證與生技族群人氣回升",
+      "stocks": [
+        {
+          "code": "4739",
+          "name": "康普",
+          "industry": "生技",
+          "close": 108.0,
+          "change_pct": 9.98,
+          "volume": 6774903,
+          "major_net": 28910,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "4707",
+          "name": "磐亞",
+          "industry": "生技",
+          "close": 16.3,
+          "change_pct": 9.76,
+          "volume": 4708000,
+          "major_net": 1567384,
+          "streak": 1,
+          "market": "OTC"
+        },
+        {
+          "code": "4760",
+          "name": "勤凱",
+          "industry": "生技",
+          "close": 468.0,
+          "change_pct": 9.99,
+          "volume": 411000,
+          "major_net": -64965,
+          "streak": 1,
+          "market": "OTC"
+        }
+      ]
+    },
+    {
+      "name": "塑化 / 化工",
+      "color": "#f97316",
+      "badges": [],
+      "reason": "原物料價格回升帶動塑化類股表現",
+      "stocks": [
+        {
+          "code": "1319",
+          "name": "東陽",
+          "industry": "塑化",
+          "close": 95.1,
+          "change_pct": 9.94,
+          "volume": 11135579,
+          "major_net": 113000,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "1326",
+          "name": "台化",
+          "industry": "塑化",
+          "close": 49.9,
+          "change_pct": 9.91,
+          "volume": 67387982,
+          "major_net": 1278812,
+          "streak": 1,
+          "market": "TWSE"
+        }
+      ]
+    },
+    {
+      "name": "鋼鐵 / 金屬",
+      "color": "#ef4444",
+      "badges": [
+        "HOT"
+      ],
+      "reason": "鋼價調漲帶動鋼鐵族群全面攻頂",
+      "stocks": [
+        {
+          "code": "7610",
+          "name": "聯友金屬-創",
+          "industry": "鋼鐵",
+          "close": 1475.0,
+          "change_pct": 9.67,
+          "volume": 338129,
+          "major_net": 0,
+          "streak": 1,
+          "market": "TWSE"
+        },
+        {
+          "code": "2061",
+          "name": "風青",
+          "industry": "鋼鐵",
+          "close": 36.3,
+          "change_pct": 10.0,
+          "volume": 1800000,
+          "major_net": 129000,
+          "streak": 1,
+          "market": "OTC"
+        }
+      ]
+    },
+    {
+      "name": "IC設計 / AI邊緣運算",
+      "color": "#3b82f6",
+      "badges": [
+        "FOCUS"
+      ],
+      "reason": "Edge AI晶片需求爆發，IC設計族群受惠",
+      "stocks": [
+        {
+          "code": "6770",
+          "name": "力積電",
+          "industry": "IC設計",
+          "close": 88.7,
+          "change_pct": 9.91,
+          "volume": 829646406,
+          "major_net": 8292359,
+          "streak": 1,
+          "market": "TWSE"
+        }
+      ]
+    },
+    {
+      "name": "PCB / CCL基板",
+      "color": "#8b5cf6",
+      "badges": [
+        "HOT"
+      ],
+      "reason": "AI高速傳輸帶動高頻高速PCB需求爆發",
+      "stocks": [
+        {
+          "code": "6274",
+          "name": "台燿",
+          "industry": "PCB",
+          "close": 1690.0,
+          "change_pct": 9.74,
+          "volume": 9322000,
+          "major_net": 1026806,
+          "streak": 1,
+          "market": "OTC"
+        }
+      ]
+    },
+    {
+      "name": "營建 / 資產",
+      "color": "#84cc16",
+      "badges": [],
+      "reason": "利率政策與土地標售帶動資產股補漲",
+      "stocks": [
+        {
+          "code": "2543",
+          "name": "皇昌",
+          "industry": "營建",
+          "close": 45.9,
+          "change_pct": 9.81,
+          "volume": 5022725,
+          "major_net": 61233,
+          "streak": 1,
+          "market": "TWSE"
+        }
+      ]
+    }
+  ],
+  "bearish_engulfing": [
+    {
+      "code": "3131",
+      "name": "弘塑",
+      "today_open": 3820.0,
+      "today_close": 3450.0,
+      "today_high": 3865.0,
+      "today_low": 3450.0,
+      "prev_high": 3765.0,
+      "prev_low": 3510.0,
+      "recent_high": 3765.0,
+      "recent_window": "近 1 年",
+      "distance_from_top_pct": 0.0,
+      "drop_from_high_pct": 8.37,
+      "change_pct": -5.09,
+      "volume": 1204000,
+      "market": "OTC"
+    }
+  ]
+}
