@@ -1,18 +1,34 @@
 {
-  "updatedAt": "2026-05-29",
+  "updatedAt": "2026-06-01",
   "totalDays": 10,
   "totalSamples": 198,
-  "totalOpenWins": 140,
-  "totalCloseWins": 119,
-  "avgOpenWinRate": 71,
-  "avgCloseWinRate": 60,
-  "avgOpenReturn": 3.75,
-  "avgCloseReturn": 2.59,
+  "totalOpenWins": 154,
+  "totalCloseWins": 127,
+  "avgOpenWinRate": 78,
+  "avgCloseWinRate": 64,
+  "avgOpenReturn": 4.31,
+  "avgCloseReturn": 2.94,
   "pickThreshold": 50,
   "sampleCap": 20,
-  "totalQualified": 333,
+  "totalQualified": 348,
   "methodology": "用 TWSE 真實隔日 OHLC 計算（樣本加權平均）。每日取分數 ≥50 的前 20 名為樣本，今日收盤買，隔日開盤/收盤賣。",
   "history": [
+    {
+      "date": "2026-05-29",
+      "nextDate": "2026-06-01",
+      "qualified": 41,
+      "picks": 20,
+      "fetched": 20,
+      "openWinRate": 95,
+      "closeWinRate": 85,
+      "avgOpenPct": 5.23,
+      "avgClosePct": 4.16,
+      "bestStock": {
+        "code": "2357",
+        "name": "華碩",
+        "closePct": 9.99
+      }
+    },
     {
       "date": "2026-05-28",
       "nextDate": "2026-05-29",
@@ -98,11 +114,11 @@
       "nextDate": "2026-05-20",
       "qualified": 32,
       "picks": 20,
-      "fetched": 20,
-      "openWinRate": 75,
-      "closeWinRate": 60,
-      "avgOpenPct": 2.86,
-      "avgClosePct": 2.06,
+      "fetched": 19,
+      "openWinRate": 79,
+      "closeWinRate": 63,
+      "avgOpenPct": 3.35,
+      "avgClosePct": 2.57,
       "bestStock": {
         "code": "4916",
         "name": "事欣科",
@@ -146,31 +162,15 @@
       "nextDate": "2026-05-14",
       "qualified": 20,
       "picks": 20,
-      "fetched": 19,
-      "openWinRate": 84,
-      "closeWinRate": 53,
-      "avgOpenPct": 4.49,
-      "avgClosePct": 1.26,
+      "fetched": 20,
+      "openWinRate": 80,
+      "closeWinRate": 50,
+      "avgOpenPct": 4.11,
+      "avgClosePct": 0.97,
       "bestStock": {
         "code": "3516",
         "name": "亞帝歐",
         "closePct": 9.96
-      }
-    },
-    {
-      "date": "2026-05-12",
-      "nextDate": "2026-05-13",
-      "qualified": 26,
-      "picks": 20,
-      "fetched": 20,
-      "openWinRate": 25,
-      "closeWinRate": 45,
-      "avgOpenPct": -0.24,
-      "avgClosePct": 0.83,
-      "bestStock": {
-        "code": "8069",
-        "name": "元太",
-        "closePct": 9.97
       }
     }
   ]
