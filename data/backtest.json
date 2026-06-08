@@ -1,18 +1,34 @@
 {
-  "updatedAt": "2026-06-05",
+  "updatedAt": "2026-06-08",
   "totalDays": 10,
-  "totalSamples": 198,
-  "totalOpenWins": 145,
-  "totalCloseWins": 129,
-  "avgOpenWinRate": 73,
-  "avgCloseWinRate": 65,
-  "avgOpenReturn": 3.87,
-  "avgCloseReturn": 2.75,
+  "totalSamples": 199,
+  "totalOpenWins": 137,
+  "totalCloseWins": 125,
+  "avgOpenWinRate": 69,
+  "avgCloseWinRate": 63,
+  "avgOpenReturn": 3.12,
+  "avgCloseReturn": 2.6,
   "pickThreshold": 50,
   "sampleCap": 20,
-  "totalQualified": 383,
+  "totalQualified": 384,
   "methodology": "用 TWSE 真實隔日 OHLC 計算（樣本加權平均）。每日取分數 ≥50 的前 20 名為樣本，今日收盤買，隔日開盤/收盤賣。",
   "history": [
+    {
+      "date": "2026-06-05",
+      "nextDate": "2026-06-08",
+      "qualified": 22,
+      "picks": 20,
+      "fetched": 20,
+      "openWinRate": 10,
+      "closeWinRate": 40,
+      "avgOpenPct": -6.04,
+      "avgClosePct": 0.02,
+      "bestStock": {
+        "code": "4542",
+        "name": "科嶠",
+        "closePct": 9.97
+      }
+    },
     {
       "date": "2026-06-04",
       "nextDate": "2026-06-05",
@@ -34,11 +50,11 @@
       "nextDate": "2026-06-04",
       "qualified": 53,
       "picks": 20,
-      "fetched": 19,
-      "openWinRate": 58,
-      "closeWinRate": 58,
-      "avgOpenPct": 1.94,
-      "avgClosePct": -0.04,
+      "fetched": 20,
+      "openWinRate": 55,
+      "closeWinRate": 55,
+      "avgOpenPct": 1.52,
+      "avgClosePct": -0.09,
       "bestStock": {
         "code": "6548",
         "name": "長科*",
@@ -155,22 +171,6 @@
         "code": "4916",
         "name": "事欣科",
         "closePct": 20.83
-      }
-    },
-    {
-      "date": "2026-05-15",
-      "nextDate": "2026-05-18",
-      "qualified": 21,
-      "picks": 20,
-      "fetched": 20,
-      "openWinRate": 50,
-      "closeWinRate": 60,
-      "avgOpenPct": 0.9,
-      "avgClosePct": 1.36,
-      "bestStock": {
-        "code": "6207",
-        "name": "雷科",
-        "closePct": 9.97
       }
     }
   ]
