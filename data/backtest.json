@@ -1,18 +1,34 @@
 {
-  "updatedAt": "2026-06-09",
+  "updatedAt": "2026-06-10",
   "totalDays": 10,
-  "totalSamples": 188,
-  "totalOpenWins": 130,
-  "totalCloseWins": 120,
-  "avgOpenWinRate": 69,
-  "avgCloseWinRate": 64,
-  "avgOpenReturn": 3.19,
-  "avgCloseReturn": 2.76,
+  "totalSamples": 184,
+  "totalOpenWins": 117,
+  "totalCloseWins": 108,
+  "avgOpenWinRate": 64,
+  "avgCloseWinRate": 59,
+  "avgOpenReturn": 2.21,
+  "avgCloseReturn": 1.51,
   "pickThreshold": 50,
   "sampleCap": 20,
-  "totalQualified": 361,
+  "totalQualified": 367,
   "methodology": "用 TWSE 真實隔日 OHLC 計算（樣本加權平均）。每日取分數 ≥50 的前 20 名為樣本，今日收盤買，隔日開盤/收盤賣。",
   "history": [
+    {
+      "date": "2026-06-09",
+      "nextDate": "2026-06-10",
+      "qualified": 40,
+      "picks": 20,
+      "fetched": 20,
+      "openWinRate": 40,
+      "closeWinRate": 35,
+      "avgOpenPct": 0.33,
+      "avgClosePct": -1.94,
+      "bestStock": {
+        "code": "8021",
+        "name": "尖點",
+        "closePct": 9.88
+      }
+    },
     {
       "date": "2026-06-08",
       "nextDate": "2026-06-09",
@@ -114,11 +130,11 @@
       "nextDate": "2026-05-28",
       "qualified": 19,
       "picks": 19,
-      "fetched": 19,
-      "openWinRate": 79,
-      "closeWinRate": 74,
-      "avgOpenPct": 2.99,
-      "avgClosePct": 2.33,
+      "fetched": 17,
+      "openWinRate": 76,
+      "closeWinRate": 71,
+      "avgOpenPct": 2.65,
+      "avgClosePct": 2.0,
       "bestStock": {
         "code": "2472",
         "name": "立隆電",
@@ -146,31 +162,15 @@
       "nextDate": "2026-05-25",
       "qualified": 71,
       "picks": 20,
-      "fetched": 20,
-      "openWinRate": 95,
-      "closeWinRate": 90,
-      "avgOpenPct": 5.75,
-      "avgClosePct": 6.47,
+      "fetched": 18,
+      "openWinRate": 94,
+      "closeWinRate": 89,
+      "avgOpenPct": 5.79,
+      "avgClosePct": 6.51,
       "bestStock": {
         "code": "6265",
         "name": "方土昶",
         "closePct": 9.98
-      }
-    },
-    {
-      "date": "2026-05-20",
-      "nextDate": "2026-05-22",
-      "qualified": 34,
-      "picks": 20,
-      "fetched": 20,
-      "openWinRate": 85,
-      "closeWinRate": 75,
-      "avgOpenPct": 8.88,
-      "avgClosePct": 9.0,
-      "bestStock": {
-        "code": "4919",
-        "name": "新唐",
-        "closePct": 20.91
       }
     }
   ]
