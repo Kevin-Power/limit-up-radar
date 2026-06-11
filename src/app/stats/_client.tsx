@@ -5,7 +5,7 @@ import useSWR from "swr";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import { getTodayString } from "@/lib/utils";
-import type { StatsData } from "@/app/api/stats/route";
+import type { StatsData, HonestStats, HonestScenario } from "@/app/api/stats/route";
 
 /* ================================================================
    CONSTANTS
@@ -129,6 +129,105 @@ function Card({ children, className = "" }: { children: React.ReactNode; classNa
   );
 }
 
+function DemoBadge() {
+  return (
+    <span className="ml-1 px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber/15 text-amber">
+      示範數據
+    </span>
+  );
+}
+
+/* ================================================================
+   0. HONEST STATS — 唯一含成本的真實統計（data/analysis/honest_stats.json）
+   ================================================================ */
+
+const fmtSigned = (v: number | null | undefined) =>
+  v == null ? "—" : `${v > 0 ? "+" : ""}${v}%`;
+
+function ScenarioBox({ title, sub, s, highlight }: {
+  title: string; sub: string; s: HonestScenario; highlight?: boolean;
+}) {
+  return (
+    <div className={`rounded-lg p-4 text-center border ${
+      highlight ? "bg-bg-2 border-amber/50" : "bg-bg-2 border-border"
+    }`}>
+      <div className="text-[10px] text-txt-4 mb-0.5">{title}</div>
+      <div className="text-[9px] text-txt-4 mb-2">{sub}</div>
+      <div className={`text-2xl font-extrabold tabular-nums ${
+        (s.median ?? 0) > 0 ? "text-red" : "text-green"
+      }`}>
+        {fmtSigned(s.median)}
+      </div>
+      <div className="text-[9px] text-txt-4 mb-2">中位數</div>
+      <div className="grid grid-cols-3 gap-1 text-[10px] tabular-nums">
+        <div>
+          <div className={`font-bold ${(s.mean ?? 0) > 0 ? "text-txt-1" : "text-green"}`}>{fmtSigned(s.mean)}</div>
+          <div className="text-txt-4 text-[8px]">平均</div>
+        </div>
+        <div>
+          <div className={`font-bold ${(s.trimmedMeanTop3 ?? 0) > 0 ? "text-txt-1" : "text-green"}`}>{fmtSigned(s.trimmedMeanTop3)}</div>
+          <div className="text-txt-4 text-[8px]">去前3強</div>
+        </div>
+        <div>
+          <div className="font-bold text-txt-1">{s.winRate ?? "—"}%</div>
+          <div className="text-txt-4 text-[8px]">勝率</div>
+        </div>
+      </div>
+      {s.ciLow != null && (
+        <div className="mt-1.5 text-[8px] text-txt-4">勝率 95% CI [{s.ciLow}%, {s.ciHigh}%]</div>
+      )}
+    </div>
+  );
+}
+
+function HonestStatsCard({ hs }: { hs: HonestStats }) {
+  const hc = hs.cohorts.highConviction;
+  const up = hc.regime.taiexUp;
+  const down = hc.regime.taiexDown;
+  return (
+    <div className="bg-gradient-to-br from-amber/5 via-bg-1 to-amber/5 border-2 border-amber/40 rounded-lg p-5">
+      <div className="flex flex-wrap items-center gap-2 mb-1">
+        <span className="px-2 py-0.5 bg-amber text-bg-0 text-[10px] font-bold rounded">誠實統計</span>
+        <h2 className="text-sm font-bold text-txt-0">
+          高分群（評分 ≥{hs.params.hcThreshold}）隔日開盤 — 含成本的真實分布
+        </h2>
+      </div>
+      <p className="text-[10px] text-txt-3 mb-4 leading-relaxed">
+        {hs.window.from} ~ {hs.window.to} · {hs.window.pickDays} 個選股日 · {hc.samples} 樣本 ·
+        真實 TWSE/TPEx 隔日開盤價 · {hs.method}
+      </p>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+        <ScenarioBox title="毛報酬" sub="未含任何成本（回測頁慣用口徑）" s={hc.scenarios.gross} />
+        <ScenarioBox title="扣費稅" sub={`手續費×2＋當沖稅＝${hs.params.costFeesPct}%`} s={hc.scenarios.netFees} />
+        <ScenarioBox title="含保守滑價" sub={`費稅＋滑價合計 ${hs.params.costConservativePct}%`} s={hc.scenarios.netConservative} highlight />
+      </div>
+
+      <div className="grid grid-cols-2 gap-3 mb-3">
+        <div className="bg-bg-2 border border-red/20 rounded-lg p-3 text-center">
+          <div className="text-[10px] text-txt-4 mb-1">大盤紅盤日（{up.days} 天 / {up.netConservative.samples} 樣本）</div>
+          <div className="text-sm font-bold tabular-nums text-txt-0">
+            含滑價中位 {fmtSigned(up.netConservative.median)} · 勝率 {up.netConservative.winRate ?? "—"}%
+          </div>
+        </div>
+        <div className="bg-bg-2 border border-green/20 rounded-lg p-3 text-center">
+          <div className="text-[10px] text-txt-4 mb-1">大盤綠盤日（{down.days} 天 / {down.netConservative.samples} 樣本）</div>
+          <div className="text-sm font-bold tabular-nums text-txt-0">
+            含滑價中位 {fmtSigned(down.netConservative.median)} · 勝率 {down.netConservative.winRate ?? "—"}%
+          </div>
+        </div>
+      </div>
+
+      <p className="text-[10px] text-txt-4 leading-relaxed">
+        判讀提示：「平均」會被少數暴衝樣本拉高，先看<strong className="text-txt-2">中位數</strong>與
+        <strong className="text-txt-2">去前3強</strong>的落差；小型股跳空時統計用的開盤價未必成交得到，
+        實際滑價可能更大。本統計為模擬重建（以現行邏輯回算歷史，含未來函數風險），
+        偏多頭樣本、樣本數有限，僅供研究學習，不構成投資建議。
+      </p>
+    </div>
+  );
+}
+
 /* ================================================================
    1. KPI SUMMARY ROW
    ================================================================ */
@@ -185,7 +284,7 @@ function SectorRotationHeatmap() {
 
   return (
     <Card className="col-span-1 xl:col-span-2">
-      <SectionTitle>族群輪動分析（近 10 日）</SectionTitle>
+      <SectionTitle>族群輪動分析（近 10 日）<DemoBadge /></SectionTitle>
       <div className="overflow-x-auto">
         <table className="w-full text-[10px]">
           <thead>
@@ -258,7 +357,7 @@ function GroupHeatChart() {
 
   return (
     <Card>
-      <SectionTitle>族群熱度排行（近 30 日）</SectionTitle>
+      <SectionTitle>族群熱度排行（近 30 日）<DemoBadge /></SectionTitle>
       <div className="space-y-2">
         {GROUP_HEAT.map((g, idx) => {
           const pct = Math.round((g.count / maxCount) * 100);
@@ -313,7 +412,7 @@ function NextDayPerformance() {
 
   return (
     <Card>
-      <SectionTitle>漲停後隔日表現統計</SectionTitle>
+      <SectionTitle>漲停後隔日表現統計<DemoBadge /></SectionTitle>
       <div className="flex flex-col md:flex-row items-start gap-4 md:gap-6">
         {/* Three donuts */}
         <div className="flex gap-4">
@@ -428,7 +527,7 @@ function MonthlyTrendChart() {
 
   return (
     <Card className="col-span-1 xl:col-span-2">
-      <SectionTitle>月度漲停趨勢（2026 年 3 月）</SectionTitle>
+      <SectionTitle>月度漲停趨勢（2026 年 3 月）<DemoBadge /></SectionTitle>
 
       {/* Stats row */}
       <div className="flex gap-6 mb-4 text-[10px]">
@@ -568,7 +667,7 @@ function MonthlyTrendChart() {
 function StreakSuccessTable() {
   return (
     <Card>
-      <SectionTitle>連板成功率統計</SectionTitle>
+      <SectionTitle>連板成功率統計<DemoBadge /></SectionTitle>
       <div className="overflow-x-auto">
       <table className="w-full text-xs">
         <thead>
@@ -637,7 +736,7 @@ function VolumeAnalysis() {
 
   return (
     <Card>
-      <SectionTitle>量能分析 -- 爆量分布</SectionTitle>
+      <SectionTitle>量能分析 -- 爆量分布<DemoBadge /></SectionTitle>
       <div className="text-[10px] text-txt-4 mb-4">漲停日相對 20 日均量之倍數分布</div>
       <div className="space-y-3">
         {VOLUME_DIST.map((v, idx) => {
@@ -680,7 +779,7 @@ function VolumeAnalysis() {
 function TimePeriodWinRate() {
   return (
     <Card>
-      <SectionTitle>時段勝率分析</SectionTitle>
+      <SectionTitle>時段勝率分析<DemoBadge /></SectionTitle>
       <div className="text-[10px] text-txt-4 mb-4">漲停買進後不同持有期間之勝率與報酬</div>
       <div className="overflow-x-auto">
       <table className="w-full text-xs">
@@ -778,7 +877,7 @@ export default function StatsPage() {
         }`}>
           <span className="font-bold">{hasRealData ? "LIVE" : "DEMO"}</span>
           <span>{hasRealData
-            ? `── 真實資料，統計 ${realStats.totalDays} 個交易日（${realStats.dailyTrend[0]?.fullDate} ~ ${realStats.dailyTrend[realStats.dailyTrend.length - 1]?.fullDate}）`
+            ? `── KPI 與「誠實統計」為真實資料（${realStats.totalDays} 個交易日，${realStats.dailyTrend[0]?.fullDate} ~ ${realStats.dailyTrend[realStats.dailyTrend.length - 1]?.fullDate}）；標示「示範數據」的圖卡為版面展示，非真實統計`
             : "── 示範資料，以下統計均為模擬數據，非實際歷史資料"}</span>
         </div>
 
@@ -788,6 +887,13 @@ export default function StatsPage() {
         <div className="mb-4">
           <KpiRow realStats={realStats} />
         </div>
+
+        {/* Honest stats — the only cost-aware real statistics on this page */}
+        {realStats?.honestStats && (
+          <div className="mb-4">
+            <HonestStatsCard hs={realStats.honestStats} />
+          </div>
+        )}
 
         {/* Main grid */}
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">

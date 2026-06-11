@@ -58,6 +58,50 @@ export interface GroupStat {
   trend: "up" | "down" | "flat";
 }
 
+export interface HonestScenario {
+  samples: number;
+  winRate: number | null;
+  ciLow: number | null;
+  ciHigh: number | null;
+  mean: number | null;
+  median: number | null;
+  trimmedMeanTop3: number | null;
+  p10: number | null;
+  p25: number | null;
+  p75: number | null;
+  p90: number | null;
+}
+
+export interface HonestCohort {
+  samples: number;
+  scenarios: {
+    gross: HonestScenario;
+    netFees: HonestScenario;
+    netConservative: HonestScenario;
+  };
+  regime: {
+    taiexUp: { days: number; gross: HonestScenario; netConservative: HonestScenario };
+    taiexDown: { days: number; gross: HonestScenario; netConservative: HonestScenario };
+  };
+}
+
+// 誠實期望值體檢輸出（scripts/honest_stats.py → data/analysis/honest_stats.json）
+export interface HonestStats {
+  generatedOn: string;
+  method: string;
+  window: { from: string; to: string; pickDays: number };
+  params: {
+    pickThreshold: number;
+    hcThreshold: number;
+    cap: number;
+    costFeesPct: number;
+    costConservativePct: number;
+  };
+  missing: number;
+  cohorts: { all: HonestCohort; highConviction: HonestCohort };
+  topOutliers: { date: string; code: string; name: string; grossPct: number }[];
+}
+
 export interface StatsData {
   dailyTrend: DailyTrend[];
   groupStats: GroupStat[];
@@ -68,6 +112,7 @@ export interface StatsData {
   worstDay: { date: string; count: number };
   // Heatmap: group -> per-day counts (aligned to dailyTrend dates)
   heatmap: Record<string, number[]>;
+  honestStats: HonestStats | null;
 }
 
 export async function GET() {
@@ -159,6 +204,17 @@ export async function GET() {
   const totalLimitUps = dailyTrend.reduce((s, d) => s + d.count, 0);
   const sortedByCount = [...dailyTrend].sort((a, b) => b.count - a.count);
 
+  let honestStats: HonestStats | null = null;
+  try {
+    const raw = await fs.readFile(
+      path.join(process.cwd(), "data", "analysis", "honest_stats.json"),
+      "utf8"
+    );
+    honestStats = JSON.parse(raw);
+  } catch {
+    // file absent until first honest_stats.py run — render nothing client-side
+  }
+
   return NextResponse.json({
     dailyTrend,
     groupStats,
@@ -168,6 +224,7 @@ export async function GET() {
     bestDay: { date: sortedByCount[0]?.date ?? "-", count: sortedByCount[0]?.count ?? 0 },
     worstDay: { date: sortedByCount[sortedByCount.length - 1]?.date ?? "-", count: sortedByCount[sortedByCount.length - 1]?.count ?? 0 },
     heatmap,
+    honestStats,
     // dates array for heatmap x-axis
     dates: dailyTrend.map((d) => d.date),
   } as StatsData & { dates: string[] });

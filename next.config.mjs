@@ -6,6 +6,7 @@ const nextConfig = {
     "/api/revenue/*": ["./data/revenue/**/*.json"],
     "/api/supply-chain/**": ["./data/supply-chain/**/*.json"],
     "/api/focus": ["./data/backtest.json"],
+    "/api/stats": ["./data/daily/**/*.json", "./data/analysis/**/*.json"],
   },
   async headers() {
     return [

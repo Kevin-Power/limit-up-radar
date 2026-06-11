@@ -1,0 +1,691 @@
+{
+  "generatedOn": "2026-06-10",
+  "method": "模擬重建（以現行 scoring 邏輯回算歷史，含未來函數風險）。今日收盤買、隔日開盤賣；毛報酬以真實 TWSE/TPEx 隔日開盤計算。",
+  "window": {
+    "from": "2026-03-20",
+    "to": "2026-06-09",
+    "pickDays": 43
+  },
+  "params": {
+    "pickThreshold": 50,
+    "hcThreshold": 60,
+    "cap": 20,
+    "costFeesPct": 0.435,
+    "costConservativePct": 1.0
+  },
+  "missing": 10,
+  "cohorts": {
+    "all": {
+      "samples": 658,
+      "scenarios": {
+        "gross": {
+          "samples": 658,
+          "winRate": 71.6,
+          "ciLow": 68.0,
+          "ciHigh": 74.9,
+          "mean": 2.82,
+          "median": 2.6,
+          "trimmedMeanTop3": 2.74,
+          "p10": -2.33,
+          "p25": 0.0,
+          "p75": 5.43,
+          "p90": 9.71
+        },
+        "netFees": {
+          "samples": 658,
+          "winRate": 69.0,
+          "ciLow": 65.4,
+          "ciHigh": 72.4,
+          "mean": 2.39,
+          "median": 2.17,
+          "trimmedMeanTop3": 2.3,
+          "p10": -2.76,
+          "p25": -0.43,
+          "p75": 4.99,
+          "p90": 9.28
+        },
+        "netConservative": {
+          "samples": 658,
+          "winRate": 64.1,
+          "ciLow": 60.4,
+          "ciHigh": 67.7,
+          "mean": 1.82,
+          "median": 1.6,
+          "trimmedMeanTop3": 1.74,
+          "p10": -3.33,
+          "p25": -1.0,
+          "p75": 4.43,
+          "p90": 8.71
+        }
+      },
+      "regime": {
+        "taiexUp": {
+          "days": 25,
+          "gross": {
+            "samples": 382,
+            "winRate": 84.3,
+            "ciLow": 80.3,
+            "ciHigh": 87.6,
+            "mean": 4.06,
+            "median": 3.6,
+            "trimmedMeanTop3": 3.94,
+            "p10": -0.26,
+            "p25": 1.2,
+            "p75": 6.5,
+            "p90": 9.89
+          },
+          "netConservative": {
+            "samples": 382,
+            "winRate": 77.0,
+            "ciLow": 72.5,
+            "ciHigh": 80.9,
+            "mean": 3.06,
+            "median": 2.6,
+            "trimmedMeanTop3": 2.94,
+            "p10": -1.26,
+            "p25": 0.2,
+            "p75": 5.5,
+            "p90": 8.89
+          }
+        },
+        "taiexDown": {
+          "days": 18,
+          "gross": {
+            "samples": 276,
+            "winRate": 54.0,
+            "ciLow": 48.1,
+            "ciHigh": 59.8,
+            "mean": 1.11,
+            "median": 0.6,
+            "trimmedMeanTop3": 0.9,
+            "p10": -4.06,
+            "p25": -1.42,
+            "p75": 3.73,
+            "p90": 7.49
+          },
+          "netConservative": {
+            "samples": 276,
+            "winRate": 46.4,
+            "ciLow": 40.6,
+            "ciHigh": 52.3,
+            "mean": 0.11,
+            "median": -0.4,
+            "trimmedMeanTop3": -0.1,
+            "p10": -5.06,
+            "p25": -2.42,
+            "p75": 2.73,
+            "p90": 6.49
+          }
+        }
+      }
+    },
+    "highConviction": {
+      "samples": 528,
+      "scenarios": {
+        "gross": {
+          "samples": 528,
+          "winRate": 71.4,
+          "ciLow": 67.4,
+          "ciHigh": 75.1,
+          "mean": 2.98,
+          "median": 2.67,
+          "trimmedMeanTop3": 2.87,
+          "p10": -2.02,
+          "p25": 0.0,
+          "p75": 5.46,
+          "p90": 9.78
+        },
+        "netFees": {
+          "samples": 528,
+          "winRate": 69.1,
+          "ciLow": 65.1,
+          "ciHigh": 72.9,
+          "mean": 2.54,
+          "median": 2.24,
+          "trimmedMeanTop3": 2.44,
+          "p10": -2.46,
+          "p25": -0.43,
+          "p75": 5.02,
+          "p90": 9.35
+        },
+        "netConservative": {
+          "samples": 528,
+          "winRate": 65.0,
+          "ciLow": 60.8,
+          "ciHigh": 68.9,
+          "mean": 1.98,
+          "median": 1.67,
+          "trimmedMeanTop3": 1.87,
+          "p10": -3.02,
+          "p25": -1.0,
+          "p75": 4.46,
+          "p90": 8.78
+        }
+      },
+      "regime": {
+        "taiexUp": {
+          "days": 25,
+          "gross": {
+            "samples": 313,
+            "winRate": 83.7,
+            "ciLow": 79.2,
+            "ciHigh": 87.4,
+            "mean": 4.05,
+            "median": 3.56,
+            "trimmedMeanTop3": 3.91,
+            "p10": -0.28,
+            "p25": 1.2,
+            "p75": 6.54,
+            "p90": 9.89
+          },
+          "netConservative": {
+            "samples": 313,
+            "winRate": 77.0,
+            "ciLow": 72.0,
+            "ciHigh": 81.3,
+            "mean": 3.05,
+            "median": 2.56,
+            "trimmedMeanTop3": 2.91,
+            "p10": -1.28,
+            "p25": 0.2,
+            "p75": 5.54,
+            "p90": 8.89
+          }
+        },
+        "taiexDown": {
+          "days": 18,
+          "gross": {
+            "samples": 215,
+            "winRate": 53.5,
+            "ciLow": 46.8,
+            "ciHigh": 60.0,
+            "mean": 1.41,
+            "median": 0.61,
+            "trimmedMeanTop3": 1.14,
+            "p10": -3.2,
+            "p25": -1.38,
+            "p75": 3.77,
+            "p90": 7.59
+          },
+          "netConservative": {
+            "samples": 215,
+            "winRate": 47.4,
+            "ciLow": 40.9,
+            "ciHigh": 54.1,
+            "mean": 0.41,
+            "median": -0.39,
+            "trimmedMeanTop3": 0.14,
+            "p10": -4.2,
+            "p25": -2.38,
+            "p75": 2.77,
+            "p90": 6.59
+          }
+        }
+      }
+    }
+  },
+  "topOutliers": [
+    {
+      "date": "2026-06-01",
+      "code": "3147",
+      "name": "大綜",
+      "grossPct": 22.19
+    },
+    {
+      "date": "2026-05-20",
+      "code": "6834",
+      "name": "天二科技",
+      "grossPct": 20.79
+    },
+    {
+      "date": "2026-05-20",
+      "code": "8040",
+      "name": "九暘",
+      "grossPct": 20.57
+    },
+    {
+      "date": "2026-05-18",
+      "code": "7709",
+      "name": "榮田",
+      "grossPct": 20.53
+    },
+    {
+      "date": "2026-06-01",
+      "code": "6548",
+      "name": "長科*",
+      "grossPct": 18.93
+    }
+  ],
+  "perDay": [
+    {
+      "date": "2026-03-25",
+      "next": "2026-03-26",
+      "taiexNextChg": -0.3,
+      "picks": 2,
+      "fetched": 2,
+      "grossMeanAll": -0.33,
+      "hcSamples": 2,
+      "grossMeanHC": -0.33
+    },
+    {
+      "date": "2026-03-30",
+      "next": "2026-03-31",
+      "taiexNextChg": -2.45,
+      "picks": 2,
+      "fetched": 2,
+      "grossMeanAll": 0.12,
+      "hcSamples": 2,
+      "grossMeanHC": 0.12
+    },
+    {
+      "date": "2026-04-01",
+      "next": "2026-04-02",
+      "taiexNextChg": -1.82,
+      "picks": 4,
+      "fetched": 4,
+      "grossMeanAll": 2.47,
+      "hcSamples": 3,
+      "grossMeanHC": 3.1
+    },
+    {
+      "date": "2026-04-07",
+      "next": "2026-04-08",
+      "taiexNextChg": 4.61,
+      "picks": 1,
+      "fetched": 1,
+      "grossMeanAll": 5.45,
+      "hcSamples": 1,
+      "grossMeanHC": 5.45
+    },
+    {
+      "date": "2026-04-08",
+      "next": "2026-04-09",
+      "taiexNextChg": 0.29,
+      "picks": 4,
+      "fetched": 4,
+      "grossMeanAll": 0.46,
+      "hcSamples": 4,
+      "grossMeanHC": 0.46
+    },
+    {
+      "date": "2026-04-09",
+      "next": "2026-04-10",
+      "taiexNextChg": 1.6,
+      "picks": 1,
+      "fetched": 1,
+      "grossMeanAll": 3.47,
+      "hcSamples": 1,
+      "grossMeanHC": 3.47
+    },
+    {
+      "date": "2026-04-10",
+      "next": "2026-04-13",
+      "taiexNextChg": 0.11,
+      "picks": 20,
+      "fetched": 20,
+      "grossMeanAll": 3.29,
+      "hcSamples": 15,
+      "grossMeanHC": 3.09
+    },
+    {
+      "date": "2026-04-13",
+      "next": "2026-04-14",
+      "taiexNextChg": 2.37,
+      "picks": 20,
+      "fetched": 18,
+      "grossMeanAll": 3.58,
+      "hcSamples": 12,
+      "grossMeanHC": 4.75
+    },
+    {
+      "date": "2026-04-14",
+      "next": "2026-04-15",
+      "taiexNextChg": 1.17,
+      "picks": 15,
+      "fetched": 11,
+      "grossMeanAll": 2.53,
+      "hcSamples": 7,
+      "grossMeanHC": 0.99
+    },
+    {
+      "date": "2026-04-15",
+      "next": "2026-04-16",
+      "taiexNextChg": 1.12,
+      "picks": 13,
+      "fetched": 12,
+      "grossMeanAll": 1.08,
+      "hcSamples": 6,
+      "grossMeanHC": 1.54
+    },
+    {
+      "date": "2026-04-16",
+      "next": "2026-04-17",
+      "taiexNextChg": -0.88,
+      "picks": 16,
+      "fetched": 16,
+      "grossMeanAll": 1.86,
+      "hcSamples": 12,
+      "grossMeanHC": 1.47
+    },
+    {
+      "date": "2026-04-17",
+      "next": "2026-04-20",
+      "taiexNextChg": 0.42,
+      "picks": 19,
+      "fetched": 19,
+      "grossMeanAll": 3.76,
+      "hcSamples": 13,
+      "grossMeanHC": 3.49
+    },
+    {
+      "date": "2026-04-20",
+      "next": "2026-04-21",
+      "taiexNextChg": 1.75,
+      "picks": 20,
+      "fetched": 20,
+      "grossMeanAll": 3.56,
+      "hcSamples": 18,
+      "grossMeanHC": 3.58
+    },
+    {
+      "date": "2026-04-21",
+      "next": "2026-04-22",
+      "taiexNextChg": 0.73,
+      "picks": 20,
+      "fetched": 19,
+      "grossMeanAll": 2.74,
+      "hcSamples": 19,
+      "grossMeanHC": 2.74
+    },
+    {
+      "date": "2026-04-22",
+      "next": "2026-04-23",
+      "taiexNextChg": -0.43,
+      "picks": 20,
+      "fetched": 19,
+      "grossMeanAll": 4.99,
+      "hcSamples": 17,
+      "grossMeanHC": 5.11
+    },
+    {
+      "date": "2026-04-23",
+      "next": "2026-04-24",
+      "taiexNextChg": 3.23,
+      "picks": 7,
+      "fetched": 7,
+      "grossMeanAll": 3.01,
+      "hcSamples": 6,
+      "grossMeanHC": 3.33
+    },
+    {
+      "date": "2026-04-24",
+      "next": "2026-04-27",
+      "taiexNextChg": 1.76,
+      "picks": 11,
+      "fetched": 11,
+      "grossMeanAll": 5.66,
+      "hcSamples": 9,
+      "grossMeanHC": 5.31
+    },
+    {
+      "date": "2026-04-27",
+      "next": "2026-04-28",
+      "taiexNextChg": -0.24,
+      "picks": 13,
+      "fetched": 13,
+      "grossMeanAll": 1.77,
+      "hcSamples": 10,
+      "grossMeanHC": 2.66
+    },
+    {
+      "date": "2026-04-28",
+      "next": "2026-04-29",
+      "taiexNextChg": -0.55,
+      "picks": 20,
+      "fetched": 20,
+      "grossMeanAll": -0.72,
+      "hcSamples": 11,
+      "grossMeanHC": -1.08
+    },
+    {
+      "date": "2026-04-29",
+      "next": "2026-04-30",
+      "taiexNextChg": -0.96,
+      "picks": 3,
+      "fetched": 3,
+      "grossMeanAll": 1.12,
+      "hcSamples": 1,
+      "grossMeanHC": 0.0
+    },
+    {
+      "date": "2026-04-30",
+      "next": "2026-05-04",
+      "taiexNextChg": 4.57,
+      "picks": 15,
+      "fetched": 15,
+      "grossMeanAll": 4.68,
+      "hcSamples": 10,
+      "grossMeanHC": 5.36
+    },
+    {
+      "date": "2026-05-04",
+      "next": "2026-05-05",
+      "taiexNextChg": 0.16,
+      "picks": 20,
+      "fetched": 20,
+      "grossMeanAll": 1.25,
+      "hcSamples": 20,
+      "grossMeanHC": 1.25
+    },
+    {
+      "date": "2026-05-05",
+      "next": "2026-05-06",
+      "taiexNextChg": 0.91,
+      "picks": 20,
+      "fetched": 20,
+      "grossMeanAll": 5.26,
+      "hcSamples": 16,
+      "grossMeanHC": 5.67
+    },
+    {
+      "date": "2026-05-06",
+      "next": "2026-05-07",
+      "taiexNextChg": 1.93,
+      "picks": 14,
+      "fetched": 14,
+      "grossMeanAll": 4.36,
+      "hcSamples": 9,
+      "grossMeanHC": 4.08
+    },
+    {
+      "date": "2026-05-07",
+      "next": "2026-05-08",
+      "taiexNextChg": -0.79,
+      "picks": 20,
+      "fetched": 20,
+      "grossMeanAll": 0.49,
+      "hcSamples": 14,
+      "grossMeanHC": 0.15
+    },
+    {
+      "date": "2026-05-08",
+      "next": "2026-05-11",
+      "taiexNextChg": 0.45,
+      "picks": 20,
+      "fetched": 20,
+      "grossMeanAll": 2.39,
+      "hcSamples": 19,
+      "grossMeanHC": 2.46
+    },
+    {
+      "date": "2026-05-11",
+      "next": "2026-05-12",
+      "taiexNextChg": 0.26,
+      "picks": 20,
+      "fetched": 20,
+      "grossMeanAll": 3.68,
+      "hcSamples": 20,
+      "grossMeanHC": 3.68
+    },
+    {
+      "date": "2026-05-12",
+      "next": "2026-05-13",
+      "taiexNextChg": -1.25,
+      "picks": 20,
+      "fetched": 20,
+      "grossMeanAll": 0.54,
+      "hcSamples": 20,
+      "grossMeanHC": 0.54
+    },
+    {
+      "date": "2026-05-13",
+      "next": "2026-05-14",
+      "taiexNextChg": 0.91,
+      "picks": 20,
+      "fetched": 20,
+      "grossMeanAll": 3.94,
+      "hcSamples": 16,
+      "grossMeanHC": 3.73
+    },
+    {
+      "date": "2026-05-14",
+      "next": "2026-05-15",
+      "taiexNextChg": -1.39,
+      "picks": 20,
+      "fetched": 20,
+      "grossMeanAll": 1.99,
+      "hcSamples": 20,
+      "grossMeanHC": 1.99
+    },
+    {
+      "date": "2026-05-15",
+      "next": "2026-05-18",
+      "taiexNextChg": -0.68,
+      "picks": 20,
+      "fetched": 20,
+      "grossMeanAll": 0.84,
+      "hcSamples": 15,
+      "grossMeanHC": 0.46
+    },
+    {
+      "date": "2026-05-18",
+      "next": "2026-05-20",
+      "taiexNextChg": -0.39,
+      "picks": 20,
+      "fetched": 20,
+      "grossMeanAll": 2.13,
+      "hcSamples": 17,
+      "grossMeanHC": 1.17
+    },
+    {
+      "date": "2026-05-20",
+      "next": "2026-05-22",
+      "taiexNextChg": 2.18,
+      "picks": 20,
+      "fetched": 20,
+      "grossMeanAll": 8.7,
+      "hcSamples": 19,
+      "grossMeanHC": 8.22
+    },
+    {
+      "date": "2026-05-22",
+      "next": "2026-05-25",
+      "taiexNextChg": 3.26,
+      "picks": 20,
+      "fetched": 19,
+      "grossMeanAll": 6.31,
+      "hcSamples": 19,
+      "grossMeanHC": 6.31
+    },
+    {
+      "date": "2026-05-25",
+      "next": "2026-05-27",
+      "taiexNextChg": 1.68,
+      "picks": 20,
+      "fetched": 20,
+      "grossMeanAll": 3.1,
+      "hcSamples": 20,
+      "grossMeanHC": 3.1
+    },
+    {
+      "date": "2026-05-27",
+      "next": "2026-05-28",
+      "taiexNextChg": -1.4,
+      "picks": 20,
+      "fetched": 20,
+      "grossMeanAll": 3.08,
+      "hcSamples": 10,
+      "grossMeanHC": 4.46
+    },
+    {
+      "date": "2026-05-28",
+      "next": "2026-05-29",
+      "taiexNextChg": 2.51,
+      "picks": 20,
+      "fetched": 20,
+      "grossMeanAll": 5.4,
+      "hcSamples": 7,
+      "grossMeanHC": 6.0
+    },
+    {
+      "date": "2026-05-29",
+      "next": "2026-06-01",
+      "taiexNextChg": 1.35,
+      "picks": 20,
+      "fetched": 20,
+      "grossMeanAll": 6.05,
+      "hcSamples": 20,
+      "grossMeanHC": 6.05
+    },
+    {
+      "date": "2026-06-01",
+      "next": "2026-06-04",
+      "taiexNextChg": -1.68,
+      "picks": 20,
+      "fetched": 20,
+      "grossMeanAll": 3.34,
+      "hcSamples": 20,
+      "grossMeanHC": 3.34
+    },
+    {
+      "date": "2026-06-04",
+      "next": "2026-06-05",
+      "taiexNextChg": -1.33,
+      "picks": 20,
+      "fetched": 20,
+      "grossMeanAll": 0.11,
+      "hcSamples": 15,
+      "grossMeanHC": 0.06
+    },
+    {
+      "date": "2026-06-05",
+      "next": "2026-06-08",
+      "taiexNextChg": -3.48,
+      "picks": 17,
+      "fetched": 17,
+      "grossMeanAll": -6.15,
+      "hcSamples": 6,
+      "grossMeanHC": -5.07
+    },
+    {
+      "date": "2026-06-08",
+      "next": "2026-06-09",
+      "taiexNextChg": 2.76,
+      "picks": 11,
+      "fetched": 11,
+      "grossMeanAll": 4.09,
+      "hcSamples": 7,
+      "grossMeanHC": 2.97
+    },
+    {
+      "date": "2026-06-09",
+      "next": "2026-06-10",
+      "taiexNextChg": -3.31,
+      "picks": 20,
+      "fetched": 20,
+      "grossMeanAll": 0.7,
+      "hcSamples": 20,
+      "grossMeanHC": 0.7
+    }
+  ]
+}
