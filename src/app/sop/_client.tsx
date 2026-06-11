@@ -60,14 +60,14 @@ export default function SopClient() {
         {/* Hero */}
         <div className="text-center">
           <div className="inline-block px-3 py-1 rounded-full bg-red/10 text-red text-xs font-bold mb-3">
-            操作手冊
+            個人紀律紀錄
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-txt-0 tracking-tight">
             明日焦點 · 實戰 SOP
           </h1>
           <p className="mt-3 text-sm text-txt-2 max-w-xl mx-auto">
-            從盤後選股到隔日開盤賣出的完整操作流程<br/>
-            基於真實 TWSE 隔日 OHLC 回測數據設計
+            個人從盤後研究到隔日出場的流程紀錄分享（非操作指示）<br/>
+            統計基於真實 TWSE 隔日 OHLC，未含交易成本與滑價
           </p>
         </div>
 
@@ -89,7 +89,7 @@ export default function SopClient() {
               </div>
             </div>
             <p className="text-[10px] text-txt-4 mt-3 text-center">
-              {bt.totalDays} 天 · {bt.totalSamples} 個樣本 · 用 TWSE 真實隔日成交價計算
+              {bt.totalDays} 天 · {bt.totalSamples} 個樣本 · 用 TWSE 真實隔日成交價計算 · 毛報酬（未含成本與滑價）
             </p>
           </div>
         )}
@@ -99,10 +99,10 @@ export default function SopClient() {
           <h2 className="text-lg font-bold text-txt-0 mb-4">⏰ 每日時間表</h2>
           <div className="space-y-2">
             {[
-              { time: "14:30 - 14:35", action: "台股收盤，TWSE 公布資料", color: "bg-bg-2" },
-              { time: "14:35 - 14:40", action: "平台自動更新（GitHub Actions）", color: "bg-bg-2" },
-              { time: "14:40 - 21:00", action: "看明日焦點 → 下單", color: "bg-amber/10 border-amber/30" },
-              { time: "隔日 09:00 - 09:05", action: "開盤後 5 分鐘內賣出（最關鍵！）", color: "bg-red/10 border-red/30" },
+              { time: "14:30", action: "台股收盤，TWSE 陸續公布資料", color: "bg-bg-2" },
+              { time: "約 17:00", action: "平台自動更新（GitHub Actions，等法人資料定版後抓取）", color: "bg-bg-2" },
+              { time: "17:00 - 21:00", action: "看明日焦點 → 做隔日功課", color: "bg-amber/10 border-amber/30" },
+              { time: "隔日 09:00 - 09:05", action: "（個人紀律）開盤 5 分鐘內出場", color: "bg-red/10 border-red/30" },
             ].map((item, i) => (
               <div key={i} className={`flex gap-4 p-3 rounded-lg border border-border ${item.color}`}>
                 <div className="text-xs font-mono text-txt-3 w-32 flex-shrink-0">{item.time}</div>
@@ -130,8 +130,9 @@ export default function SopClient() {
                     <li>• 一次最多挑 3-5 檔（不要全壓）</li>
                   </ul>
                   <p className="mt-2 text-[11px] text-txt-4 leading-relaxed">
-                    💡 註：上方真實回測勝率是「分數 ≥50 全樣本」的數字，
-                    若只選 ≥60 分理論上勝率會更高（樣本較少所以更精選）。
+                    💡 註：上方回測勝率是「分數 ≥50 全樣本、未含成本」的毛數字。
+                    ≥60 高分群與含成本後的實際分布，
+                    見<Link href="/stats" className="text-red hover:underline">統計頁「誠實統計」</Link>，以實算為準。
                   </p>
                 </div>
               </div>
@@ -245,36 +246,35 @@ export default function SopClient() {
           </div>
         </section>
 
-        {/* Expected Performance */}
+        {/* Cost Reality — education, replaces the old monthly-return projection */}
         <section>
-          <h2 className="text-lg font-bold text-txt-0 mb-4">📊 預期績效範例</h2>
+          <h2 className="text-lg font-bold text-txt-0 mb-4">📊 成本的真實影響（教育示例）</h2>
           <div className="bg-bg-1 border border-border rounded-xl p-5">
             <p className="text-sm text-txt-2 mb-4">
-              假設你每天買 5 檔、每檔 2 萬元（總 10 萬）：
+              回測的「平均 +{bt.avgOpenReturn}%」是<strong className="text-amber">毛報酬</strong>。
+              現股當沖每一筆來回都有固定成本，疊上滑價後長這樣：
             </p>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between border-b border-border pb-2">
-                <span className="text-txt-3">每日預期報酬</span>
-                <span className="text-red font-bold">10 萬 × {bt.avgOpenReturn}% ≈ +{Math.round(100000 * bt.avgOpenReturn / 100).toLocaleString()} 元</span>
+                <span className="text-txt-3">回測平均毛報酬</span>
+                <span className="text-txt-1 font-bold tabular-nums">+{bt.avgOpenReturn}%</span>
               </div>
               <div className="flex justify-between border-b border-border pb-2">
-                <span className="text-txt-3">月交易日數</span>
-                <span className="text-txt-1">22 天</span>
-              </div>
-              <div className="flex justify-between border-b border-border pb-2">
-                <span className="text-txt-3">勝率分布</span>
-                <span className="text-txt-1">約 17 天賺、5 天賠</span>
+                <span className="text-txt-3">－ 手續費×2 + 當沖稅（0.435%）</span>
+                <span className="text-amber font-bold tabular-nums">≈ +{(bt.avgOpenReturn - 0.435).toFixed(2)}%</span>
               </div>
               <div className="flex justify-between pt-2">
-                <span className="text-txt-1 font-bold">預估月報酬</span>
-                <span className="text-red font-extrabold text-lg">約 +{Math.round(bt.avgOpenReturn * 22 * bt.avgOpenWinRate / 100)}%</span>
+                <span className="text-txt-3">－ 保守滑價情境（合計 1%）</span>
+                <span className="text-amber font-bold tabular-nums">≈ +{(bt.avgOpenReturn - 1.0).toFixed(2)}%</span>
               </div>
             </div>
             <div className="mt-4 p-3 bg-amber/10 border border-amber/30 rounded-lg">
               <p className="text-[11px] text-txt-2 leading-relaxed">
-                ⚠️ <strong>注意</strong>：基於 {bt.totalSamples} 筆小樣本回測。
-                實際操作扣除手續費、證交稅（約 0.4%）、滑價會降低報酬。
-                <strong className="text-red">過去績效不代表未來。</strong>
+                ⚠️ 而且「平均」常被少數暴衝樣本拉高——<strong>中位數通常更低</strong>；
+                小型股跳空開盤的「開盤價」也未必是你成交得到的價格。
+                完整的「中位數 / 截尾平均 / 多空分段 / 信賴區間」
+                見<Link href="/stats" className="text-red hover:underline">統計頁「誠實統計」</Link>。
+                <strong className="text-red">過去統計不代表未來，不構成投資建議。</strong>
               </p>
             </div>
           </div>
@@ -320,7 +320,7 @@ export default function SopClient() {
 
         {/* Disclaimer */}
         <div className="text-[10px] text-txt-4 text-center pb-4">
-          以上為基於歷史數據的操作建議，不構成投資建議。投資有風險，請自行判斷。
+          以上為個人操作紀律之紀錄分享，非投顧服務，不構成投資建議。投資有風險，請自行判斷。
         </div>
       </main>
     </>

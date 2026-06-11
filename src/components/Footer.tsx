@@ -116,9 +116,15 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-8 flex flex-col items-center gap-2 border-t border-border pt-6 text-[11px] text-txt-4 sm:flex-row sm:justify-between">
-          <span>&copy; 2026 股文觀指 大師專區. Built with Next.js + Claude.</span>
-          <span>資料來源: TWSE / TPEx</span>
+        <div className="mt-8 border-t border-border pt-6">
+          <p className="mb-3 text-center text-[11px] leading-relaxed text-txt-4">
+            本站為個人研究紀錄與資料整理分享，非證券投資顧問服務，未收取任何費用；
+            所有統計與內容僅供研究學習，不構成投資建議。
+          </p>
+          <div className="flex flex-col items-center gap-2 text-[11px] text-txt-4 sm:flex-row sm:justify-between">
+            <span>&copy; 2026 股文觀指 大師專區. Built with Next.js + Claude.</span>
+            <span>資料來源: TWSE / TPEx</span>
+          </div>
         </div>
       </div>
     </footer>

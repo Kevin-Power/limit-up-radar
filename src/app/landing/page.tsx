@@ -131,7 +131,7 @@ const FEATURES = [
   {
     color: "bg-green/20 text-green",
     title: "隔日表現",
-    desc: "追蹤漲停股隔日開盤與收盤表現，驗證追漲策略的實際勝率。",
+    desc: "用真實隔日 OHLC 統計漲停股翌日行為，理解市場規律而非報明牌。",
   },
   {
     color: "bg-blue/20 text-blue",
@@ -173,22 +173,22 @@ function LiveStatsCard({ stats }: { stats: PublicStats | null }) {
         <div className="flex items-center justify-between mb-4">
           <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-red/10 text-red text-[10px] font-bold tracking-wider">
             <span className="w-1.5 h-1.5 rounded-full bg-red animate-pulse" />
-            REAL DATA · 真實數字
+            REAL DATA · 真實統計
           </span>
           <span className="text-[10px] text-txt-4 tabular-nums">
             {stats?.date ?? "載入中..."}
           </span>
         </div>
 
-        {/* Hero stat: 79% */}
+        {/* Hero stat: backtest open win rate (gross) */}
         <div className="mb-5 text-center">
-          <div className="text-[12px] text-txt-3 mb-1">隔日開盤勝率</div>
+          <div className="text-[12px] text-txt-3 mb-1">回測開盤勝率（毛・未含成本）</div>
           <div className="text-7xl font-extrabold tabular-nums text-red leading-none">
             {stats?.backtest?.winRate ?? "—"}<span className="text-3xl">%</span>
           </div>
           <div className="mt-2 text-[10px] text-txt-4">
             {stats?.backtest
-              ? `${stats.backtest.samples} 樣本 · ${stats.backtest.days} 天 · 樣本加權`
+              ? `${stats.backtest.samples} 樣本 · ${stats.backtest.days} 天 · 偏多頭區間 · 統計供研究`
               : "載入中..."}
           </div>
         </div>
@@ -200,7 +200,7 @@ function LiveStatsCard({ stats }: { stats: PublicStats | null }) {
               sub: stats?.taiexChg != null ? `${stats.taiexChg > 0 ? "+" : ""}${stats.taiexChg.toFixed(2)}%` : "",
               color: stats?.taiexChg && stats.taiexChg > 0 ? "text-red" : "text-green" },
             { label: "今日漲停", val: stats?.limitUp ?? "—", sub: `${stats?.groupCount ?? "—"} 族群`, color: "text-red" },
-            { label: "平均報酬", val: stats?.backtest ? `+${stats.backtest.avgReturn}%` : "—", sub: "單日開盤", color: "text-amber" },
+            { label: "平均報酬（毛）", val: stats?.backtest ? `+${stats.backtest.avgReturn}%` : "—", sub: "單日開盤", color: "text-amber" },
             { label: "資料涵蓋", val: stats?.totalTradingDays ?? "—", sub: "個交易日", color: "text-blue" },
           ].map((s) => (
             <div key={s.label} className="rounded-lg bg-bg-2 p-2 sm:p-3 text-center">
@@ -267,7 +267,10 @@ export default function LandingPage() {
               <span className="gradient-text">一眼掌握</span>
             </h1>
             <p className="mt-5 max-w-lg text-base leading-relaxed text-txt-2 sm:text-lg">
-              AI 驅動的漲停股分類、隔日表現追蹤、策略回測平台
+              公開、可稽核的漲停族群資料庫 — 族群分類、隔日行為統計、判讀筆記，研究與學習用
+            </p>
+            <p className="mt-2 text-xs text-txt-4">
+              個人研究紀錄分享 · 非投顧 · 未收費 · 不構成投資建議
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <LoginForm />
@@ -354,15 +357,15 @@ export default function LandingPage() {
             <div className="text-4xl font-extrabold tabular-nums text-red sm:text-5xl">
               {stats?.backtest?.winRate ?? "—"}<span className="text-2xl">%</span>
             </div>
-            <div className="mt-2 text-sm text-txt-3">隔日開盤勝率</div>
-            <div className="text-[10px] text-txt-4 mt-0.5">真實 OHLC</div>
+            <div className="mt-2 text-sm text-txt-3">回測勝率（毛）</div>
+            <div className="text-[10px] text-txt-4 mt-0.5">真實 OHLC · 未含成本</div>
           </div>
           <div className="text-center">
             <div className="text-4xl font-extrabold tabular-nums text-amber sm:text-5xl">
               +{stats?.backtest?.avgReturn ?? "—"}%
             </div>
-            <div className="mt-2 text-sm text-txt-3">平均開盤報酬</div>
-            <div className="text-[10px] text-txt-4 mt-0.5">{stats?.backtest?.samples ?? "—"} 樣本</div>
+            <div className="mt-2 text-sm text-txt-3">平均開盤報酬（毛）</div>
+            <div className="text-[10px] text-txt-4 mt-0.5">{stats?.backtest?.samples ?? "—"} 樣本 · 偏多頭區間</div>
           </div>
           <div className="text-center">
             <div className="text-4xl font-extrabold tabular-nums text-blue sm:text-5xl">
@@ -379,6 +382,10 @@ export default function LandingPage() {
             <div className="text-[10px] text-txt-4 mt-0.5">永豐金 Sinopac</div>
           </div>
         </div>
+        <p className="mt-8 px-4 text-center text-[11px] leading-relaxed text-txt-4">
+          回測統計僅供研究與學習：未含交易成本與滑價、樣本屬偏多頭區間，平均值可能被少數大漲樣本拉高。
+          過去表現不代表未來，不構成投資建議。
+        </p>
       </section>
 
       {/* ───────────────────────── CTA BOTTOM ──────────────────────────── */}

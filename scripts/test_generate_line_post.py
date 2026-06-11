@@ -58,3 +58,23 @@ def test_build_text_omits_days_when_missing():
     text = g.build_text(d, [], "2099-01-02")
     assert "⚠️ 198 樣本偏多頭區間" in text
     assert "10 天" not in text
+
+
+# ── 公開版：分析/教育定位（誠實信任錨）─────────────────────
+def test_public_text_anchor_is_honest_and_dynamic():
+    d = _make_d({"totalSamples": 199, "totalDays": 10,
+                 "avgOpenWinRate": 75, "avgOpenReturn": 4.0})
+    d["focusStocks"] = []
+    text = g.build_public_text(d, [], "2099-01-02")
+    # 信任錨必須標明「未含交易成本」且樣本數動態
+    assert "199 樣本" in text
+    assert "未含交易成本" in text
+    # 不得出現舊的「平台真實回測」績效式措辭
+    assert "平台真實回測" not in text
+
+
+def test_public_text_disclaimer_mentions_costs():
+    d = _make_d({"totalSamples": 199, "totalDays": 10,
+                 "avgOpenWinRate": 75, "avgOpenReturn": 4.0})
+    text = g.build_public_text(d, [], "2099-01-02")
+    assert "未含交易成本與滑價" in text

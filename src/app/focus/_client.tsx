@@ -220,7 +220,7 @@ export default function FocusClient() {
               {data && <span className="ml-2 text-sm font-normal text-txt-3">{data.date}</span>}
             </h1>
             <p className="text-xs text-txt-4 mt-1">
-              交叉比對族群趨勢 + 營收成長 + 法人籌碼 + 技術面，篩選明日值得追蹤標的
+              交叉比對族群趨勢 + 營收成長 + 法人籌碼 + 技術面，整理隔日觀察名單與評分依據（研究紀錄，非建議）
             </p>
           </div>
           <CopyReportButton />
@@ -269,6 +269,7 @@ export default function FocusClient() {
                 </div>
                 <p className="text-[10px] text-txt-3 mb-4">
                   {data.realBacktest.methodology} · {data.realBacktest.totalDays} 天 · {data.realBacktest.totalSamples} 個樣本
+                  · <span className="text-amber">未含交易成本與滑價，統計供研究；含成本分布見統計頁「誠實統計」</span>
                 </p>
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
@@ -544,9 +545,14 @@ export default function FocusClient() {
                             )}
                           </div>
 
-                          {/* Entry/Exit Price Suggestions */}
+                          {/* Entry/Exit reference levels (rule-based, personal record) */}
                           {s.entryAggressive && (
-                            <div className="mt-2.5 grid grid-cols-2 sm:grid-cols-5 gap-1.5 text-[10px]">
+                            <p className="mt-2.5 text-[9px] text-txt-4">
+                              參考價位為固定規則（收盤 +0.5%／−3%／−7%／+5%／+10%），屬個人紀錄參考區間，非預測或建議
+                            </p>
+                          )}
+                          {s.entryAggressive && (
+                            <div className="mt-1 grid grid-cols-2 sm:grid-cols-5 gap-1.5 text-[10px]">
                               <div className="bg-red/10 rounded px-1.5 py-1 text-center">
                                 <div className="text-txt-4 text-[9px]">追價</div>
                                 <div className="text-red font-bold tabular-nums">{s.entryAggressive}</div>
@@ -660,7 +666,7 @@ export default function FocusClient() {
 
             {/* Disclaimer */}
             <div className="text-[10px] text-txt-4 text-center py-2">
-              以上分析僅供參考，不構成投資建議。投資有風險，請自行判斷。
+              以上為個人研究紀錄與統計整理，非投顧服務，不構成投資建議。投資有風險，請自行判斷。
             </div>
           </>
         )}
