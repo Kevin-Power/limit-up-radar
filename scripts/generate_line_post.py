@@ -114,6 +114,19 @@ def short_g(name):
     return name.replace(" / ", "・").replace("AI邊緣運算", "AI邊緣").replace("醫療器材", "醫材")
 
 
+def _sample_days(bt, sep):
+    """回測樣本/天數描述，全部從 realBacktest 動態帶入。
+
+    回傳 '{totalSamples} 樣本'，若有 totalDays 欄位再以 sep 接上 '{totalDays} 天'。
+    沒有（或為 0）totalDays 時不顯示天數。
+    """
+    s = f"{bt['totalSamples']} 樣本"
+    days = bt.get("totalDays")
+    if days:
+        s += f"{sep}{days} 天"
+    return s
+
+
 def next_trading_day(date_str):
     """Skip Sat/Sun. Returns YYYY-MM-DD."""
     d = datetime.strptime(date_str, "%Y-%m-%d")
@@ -190,7 +203,7 @@ def build_text(d, picks, next_day):
             text += f"   {tag_str}\n"
         text += f"   追${p['entryAggressive']}／停${p['stopLoss']}／標${p['target1']}-${p['target2']}\n"
 
-    text += """
+    text += f"""
 ━━━━━━━━━━━━━━━━━━
 📌 操作建議
 ━━━━━━━━━━━━━━━━━━
@@ -200,12 +213,111 @@ def build_text(d, picks, next_day):
 ✓ 總部位：不超過 50%
 
 ⚠️ 過去績效不代表未來
-⚠️ 99 樣本 / 10 天偏多頭區間
+⚠️ {_sample_days(bt, ' / ')}偏多頭區間
 ⚠️ 本訊息僅供參考，不構成投資建議
 
 📱 完整分析 → limit-up-radar.vercel.app
 """
     return narrative_block + text
+
+
+def build_public_text(d, picks, next_day):
+    """公開發佈版（手動轉貼用），與私房版 build_text 並存。
+
+    差異見 docs/superpowers/specs/2026-06-01-public-line-post-design.md：
+    開頭價值主張 + 個人紀錄聲明、回測信任錨前移、CTA 導 /landing（含 UTM）、
+    價位措辭中性化、結尾強免責。私房版 build_text 不受影響。
+    """
+    bt = d["realBacktest"]
+    n_emoji = [f"[{i:>2}]" for i in range(1, 21)]
+    narrative = load_narrative_for(d["date"])
+    md = next_day[5:7].lstrip("0") + "/" + next_day[8:10].lstrip("0")
+
+    # 開頭：價值主張 + 個人紀錄聲明（陌生讀者入口）+ 回測信任錨
+    text = (
+        "📡 漲停雷達\n"
+        "每天盤後，幫你把今天漲停的股票分好族群、抓出明天值得關注的，免費。\n"
+        "（個人交易紀錄與資料整理分享，非投顧、未收費，不構成個股推薦）\n"
+        "━━━━━━━━━━━━━━━━━━\n"
+        f"📊 平台真實回測 {bt['totalSamples']} 樣本（偏多頭區間）\n"
+        f"   隔日開盤勝率 {bt['avgOpenWinRate']}%・平均報酬 +{bt['avgOpenReturn']}%\n"
+        "━━━━━━━━━━━━━━━━━━\n"
+    )
+
+    # AI 盤後分析（展現分析價值）
+    if narrative and narrative.get("summary"):
+        text += f"\n🤖 AI 盤後分析\n{narrative['summary'].strip()}\n"
+
+    # 標題 + 大盤 + 漲停數
+    text += (
+        f"\n🔥 {md} 觀察名單 TOP {len(picks)}\n"
+        f"📅 資料日期：{d['date']}\n"
+        f"📈 大盤 {d['taiex']:,.0f}（{d['taiexChg']:+.2f}%）\n"
+        f"🔴 今日漲停 {d['totalLimitUp']} 檔／{len(d.get('trendingGroups', []))} 個延續族群\n"
+    )
+
+    if d.get("trendingGroups"):
+        text += "\n🎯 延續強勢族群（連 ≥2 天）\n"
+        for g in d["trendingGroups"]:
+            text += f"  ・{short_g(g['name'])}（連{g['days']}天 / {g['todayCount']}檔）\n"
+
+    if narrative and narrative.get("tomorrow_watch"):
+        text += f"\n🎯 明日關注\n{narrative['tomorrow_watch'].strip()}\n"
+
+    # 個股清單（價位中性化：保留數字，措辭改為「參考區間」）
+    text += "\n（以下價位為個人紀錄之參考區間，非進出建議）\n"
+    tiers = [(90, "🔴 90 分組"),
+             (85, "🟠 85 分組"),
+             (80, "🟡 80 分組"),
+             (75, "🔵 75 分組"),
+             (65, "⚪ 65-70 分組"),
+             (50, "⚫ 50-60 分組")]
+    last_tier = None
+    for i, p in enumerate(picks, 1):
+        tier_label = None
+        for thr, lbl in tiers:
+            if p["score"] >= thr:
+                tier_label = lbl
+                break
+        if tier_label != last_tier:
+            text += f"\n━━━━━━━━━━━━━━━━━━\n{tier_label}\n━━━━━━━━━━━━━━━━━━\n"
+            last_tier = tier_label
+
+        rev = f"營收+{int(p['revYoY'])}%" if p.get("revYoY") and p["revYoY"] > 0 else ""
+        net = f"法人+{int(p['majorNet']/1000)}張" if p.get("majorNet", 0) > 0 else ""
+        tag_str = "／".join([t for t in [rev, net] if t])
+
+        text += f"\n{n_emoji[i-1]} {p['code']} {p['name']} ${p['close']}\n"
+        text += f"   {short_g(p['group'])}"
+        if p.get("groupDays", 0) >= 2:
+            text += f"（連{p['groupDays']}天）"
+        text += "\n"
+        if tag_str:
+            text += f"   {tag_str}\n"
+        text += f"   參考區間 追{p['entryAggressive']}／停{p['stopLoss']}／標{p['target1']}-{p['target2']}\n"
+
+    # AI 風險提醒
+    if narrative and narrative.get("risk"):
+        text += f"\n⚠️ 風險提醒\n{narrative['risk'].strip()}\n"
+
+    # 紀律參考（中性化的風控原則）+ 強免責 + CTA
+    text += f"""
+━━━━━━━━━━━━━━━━━━
+📌 紀律參考（個人風控原則，非操作指示）
+・單檔部位不超過總資金 10%、總部位不超過 50%
+・跌破個人停損價即離場，不凹單
+
+━━━━━━━━━━━━━━━━━━
+⚠️ 重要聲明
+本內容為個人交易紀錄與資料整理之分享，非證券投資顧問服務，
+未收取任何費用，不構成任何個股之買賣推薦或要約。
+過去回測（{bt['totalSamples']} 樣本、偏多頭區間）不代表未來績效。
+投資有風險，依此資訊操作之盈虧請自行負責。
+
+📡 每天盤後更新，完整版 →
+{SITE}/landing?utm_source=social&utm_medium=post
+"""
+    return text
 
 
 def build_image(d, picks, next_day):
@@ -234,7 +346,7 @@ def build_image(d, picks, next_day):
     draw.rectangle([(40, y), (W - 40, y + box_h)], fill=CARD, outline=RED, width=3)
     draw.text((W // 2, y + 25), "平台真實回測勝率", font=f(28, False), fill=MUTE, anchor="ma")
     draw.text((W // 2, y + 60), f"{bt['avgOpenWinRate']}%", font=f(110, True), fill=RED, anchor="ma")
-    draw.text((W // 2, y + 155), f"{bt['totalSamples']} 樣本 · 10 天 · 平均 +{bt['avgOpenReturn']}%",
+    draw.text((W // 2, y + 155), f"{_sample_days(bt, ' · ')} · 平均 +{bt['avgOpenReturn']}%",
               font=f(22, False), fill=MUTE, anchor="ma")
     y += box_h + 30
 
@@ -306,6 +418,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--local", action="store_true", help="Use local data instead of online API")
     ap.add_argument("--top", type=int, default=20, help="Number of picks (default 20)")
+    ap.add_argument("--public", action="store_true",
+                    help="產生公開發佈版（手動轉貼用），輸出 {date}_公開版.txt（不產 PNG）")
     args = ap.parse_args()
 
     print("Fetching focus data...")
@@ -329,18 +443,25 @@ def main():
     out_dir = os.path.join(project_root, "line_post")
     os.makedirs(out_dir, exist_ok=True)
 
-    md = next_day[5:7] + next_day[8:10]
-    txt_path = os.path.join(out_dir, f"{next_day}_觀察名單.txt")
-    png_path = os.path.join(out_dir, f"{next_day}_觀察名單.png")
+    if args.public:
+        pub_path = os.path.join(out_dir, f"{next_day}_公開版.txt")
+        pub_text = build_public_text(d, picks, next_day)
+        with open(pub_path, "w", encoding="utf-8") as fp:
+            fp.write(pub_text)
+        print(f"Saved: {pub_path} ({len(pub_text):,} 字) [公開版]")
+    else:
+        md = next_day[5:7] + next_day[8:10]
+        txt_path = os.path.join(out_dir, f"{next_day}_觀察名單.txt")
+        png_path = os.path.join(out_dir, f"{next_day}_觀察名單.png")
 
-    text = build_text(d, picks, next_day)
-    with open(txt_path, "w", encoding="utf-8") as fp:
-        fp.write(text)
-    print(f"Saved: {txt_path} ({len(text):,} 字)")
+        text = build_text(d, picks, next_day)
+        with open(txt_path, "w", encoding="utf-8") as fp:
+            fp.write(text)
+        print(f"Saved: {txt_path} ({len(text):,} 字)")
 
-    img = build_image(d, picks, next_day)
-    img.save(png_path, "PNG", quality=95)
-    print(f"Saved: {png_path} ({os.path.getsize(png_path)/1024:.0f} KB)")
+        img = build_image(d, picks, next_day)
+        img.save(png_path, "PNG", quality=95)
+        print(f"Saved: {png_path} ({os.path.getsize(png_path)/1024:.0f} KB)")
 
     print(f"\n下次交易日: {next_day}")
     print(f"TOP {len(picks)} 檔已產出（資料日期 {d['date']}）")
