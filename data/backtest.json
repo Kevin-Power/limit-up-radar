@@ -1,18 +1,34 @@
 {
-  "updatedAt": "2026-06-11",
+  "updatedAt": "2026-06-12",
   "totalDays": 10,
-  "totalSamples": 181,
-  "totalOpenWins": 109,
-  "totalCloseWins": 98,
-  "avgOpenWinRate": 60,
+  "totalSamples": 180,
+  "totalOpenWins": 113,
+  "totalCloseWins": 97,
+  "avgOpenWinRate": 63,
   "avgCloseWinRate": 54,
-  "avgOpenReturn": 1.78,
-  "avgCloseReturn": 0.82,
+  "avgOpenReturn": 1.75,
+  "avgCloseReturn": 0.86,
   "pickThreshold": 50,
   "sampleCap": 20,
-  "totalQualified": 309,
+  "totalQualified": 278,
   "methodology": "用 TWSE 真實隔日 OHLC 計算（樣本加權平均）。每日取分數 ≥50 的前 20 名為樣本，今日收盤買，隔日開盤/收盤賣。",
   "history": [
+    {
+      "date": "2026-06-11",
+      "nextDate": "2026-06-12",
+      "qualified": 27,
+      "picks": 20,
+      "fetched": 20,
+      "openWinRate": 95,
+      "closeWinRate": 50,
+      "avgOpenPct": 4.8,
+      "avgClosePct": 2.59,
+      "bestStock": {
+        "code": "8042",
+        "name": "金山電",
+        "closePct": 10.0
+      }
+    },
     {
       "date": "2026-06-10",
       "nextDate": "2026-06-11",
@@ -98,11 +114,11 @@
       "nextDate": "2026-06-04",
       "qualified": 53,
       "picks": 20,
-      "fetched": 20,
-      "openWinRate": 55,
-      "closeWinRate": 55,
-      "avgOpenPct": 1.52,
-      "avgClosePct": -0.09,
+      "fetched": 19,
+      "openWinRate": 53,
+      "closeWinRate": 53,
+      "avgOpenPct": 1.14,
+      "avgClosePct": -0.31,
       "bestStock": {
         "code": "6548",
         "name": "長科*",
@@ -155,22 +171,6 @@
         "code": "2472",
         "name": "立隆電",
         "closePct": 9.93
-      }
-    },
-    {
-      "date": "2026-05-25",
-      "nextDate": "2026-05-27",
-      "qualified": 58,
-      "picks": 20,
-      "fetched": 20,
-      "openWinRate": 70,
-      "closeWinRate": 50,
-      "avgOpenPct": 4.69,
-      "avgClosePct": 2.01,
-      "bestStock": {
-        "code": "2303",
-        "name": "聯電",
-        "closePct": 14.8
       }
     }
   ]
