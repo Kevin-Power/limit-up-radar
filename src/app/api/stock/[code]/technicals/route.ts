@@ -47,8 +47,10 @@ export async function GET(
       else if (price < ma20 && rsi < 50) overall = "bearish";
     }
 
+    const n2n = (v: number) => (isNaN(v) ? null : Math.round(v * 100) / 100);
     return NextResponse.json(
-      { ma5, ma10, ma20, ma60, rsi, macdSignal, kd_k, kd_d, overall, isReal: true },
+      { ma5: n2n(ma5), ma10: n2n(ma10), ma20: n2n(ma20), ma60: n2n(ma60),
+        rsi: n2n(rsi), macdSignal, kd_k: n2n(kd_k), kd_d: n2n(kd_d), overall, isReal: true },
       { headers: { "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=7200" } }
     );
   } catch {

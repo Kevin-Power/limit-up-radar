@@ -100,7 +100,7 @@ async function fetchTPExPrices(
     if (!Array.isArray(json.aaData)) return map;
     for (const row of json.aaData) {
       if (row.length < 7) continue;
-      const [mm, dd] = row[0].split("/");
+      const [, mm, dd] = row[0].split("/"); // row[0] = "114/05/29" (ROC/月/日)
       const dateStr = `${year}-${mm.padStart(2, "0")}-${dd.padStart(2, "0")}`;
       const open = parseFloat(row[3].replace(/,/g, ""));
       const close = parseFloat(row[6].replace(/,/g, ""));

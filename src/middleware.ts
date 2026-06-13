@@ -33,10 +33,18 @@ export async function middleware(req: NextRequest) {
   }
 
   // Check session cookie
+  const jwtSecret = process.env.JWT_SECRET;
+  if (!jwtSecret) {
+    if (pathname.startsWith("/api/")) {
+      return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+    }
+    return NextResponse.redirect(new URL("/landing", req.url));
+  }
+
   const token = req.cookies.get("session")?.value;
   if (token) {
     try {
-      const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+      const secret = new TextEncoder().encode(jwtSecret);
       await jwtVerify(token, secret);
       return NextResponse.next();
     } catch {

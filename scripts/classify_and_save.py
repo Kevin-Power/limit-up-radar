@@ -588,12 +588,18 @@ def _fetch_with_retry(date: str, retries: int = MAX_RETRIES) -> list[dict]:
 # Classification
 # ---------------------------------------------------------------------------
 
-def classify_stocks(limit_up_stocks: list[dict], per_stock_major: dict[str, int] | None = None) -> list[dict]:
+def classify_stocks(
+    limit_up_stocks: list[dict],
+    per_stock_major: dict[str, int] | None = None,
+    prev_streaks: dict[str, int] | None = None,
+) -> list[dict]:
     """Classify limit-up stocks into thematic groups.
 
     Args:
         limit_up_stocks: list of stock quote dicts.
         per_stock_major: optional {code: 三大法人合計買賣超股數} from T86/TPEx.
+        prev_streaks: optional {code: streak} from previous trading day's JSON,
+                      used to compute consecutive limit-up streak for each stock.
 
     Uses a two-tier approach:
     1. Explicit stock code mappings for well-known thematic plays.
@@ -602,6 +608,8 @@ def classify_stocks(limit_up_stocks: list[dict], per_stock_major: dict[str, int]
     """
     if per_stock_major is None:
         per_stock_major = {}
+    if prev_streaks is None:
+        prev_streaks = {}
 
     # --- Tier 1: Explicit stock-to-group mappings ---
     STOCK_GROUPS = {
@@ -728,7 +736,7 @@ def classify_stocks(limit_up_stocks: list[dict], per_stock_major: dict[str, int]
         if 2001 <= c <= 2099:
             return "steel"
         if 2101 <= c <= 2199:
-            return "precision"       # Rubber
+            return "plastic"         # Rubber（橡膠歸塑化族群）
         if 2201 <= c <= 2299:
             return "auto"
         if 2301 <= c <= 2499:
@@ -736,7 +744,7 @@ def classify_stocks(limit_up_stocks: list[dict], per_stock_major: dict[str, int]
         if 2501 <= c <= 2599:
             return "construction"
         if 2601 <= c <= 2699:
-            return "precision"       # Shipping/transport
+            return "shipping"        # Shipping/transport（航運）
         if 2701 <= c <= 2799:
             return "others"          # Tourism
         if 2801 <= c <= 2899:
@@ -806,6 +814,12 @@ def classify_stocks(limit_up_stocks: list[dict], per_stock_major: dict[str, int]
             "color": "#f59e0b",
             "badges": [],
             "reason": "航太與半導體設備零組件需求帶動精密加工族群",
+        },
+        "shipping": {
+            "name": "航運 / 海運",
+            "color": "#0ea5e9",
+            "badges": [],
+            "reason": "國際航運運費指數上揚帶動海運族群",
         },
         "ai_server": {
             "name": "AI伺服器 / 散熱",
@@ -933,6 +947,7 @@ def classify_stocks(limit_up_stocks: list[dict], per_stock_major: dict[str, int]
             "aerospace": "航太", "pcb": "PCB", "optical_comm": "光通訊",
             "green": "綠能", "construction": "營建", "food": "食品",
             "finance": "金融", "textile": "紡織", "electronics": "電子",
+            "shipping": "航運",
             "gas": "油電燃氣", "auto": "汽車零組件",
         }
         return label_map.get(group_key, "")
@@ -956,7 +971,7 @@ def classify_stocks(limit_up_stocks: list[dict], per_stock_major: dict[str, int]
                     "volume": s["volume"],
                     # 三大法人合計買賣超股數 (from T86/TPEx 3insti)
                     "major_net": per_stock_major.get(s["stock_code"], 0),
-                    "streak": 1,
+                    "streak": prev_streaks.get(s["stock_code"], 0) + 1,
                     "market": s.get("market", "TWSE"),
                 }
                 for s in stocks
@@ -1085,8 +1100,21 @@ def main():
     else:
         print(f"  [warn] 找不到前一交易日, 跳過空吞檢測")
 
+    # ---- Build prev_streaks from previous trading day JSON ----
+    prev_streaks: dict[str, int] = {}
+    if prev_date:
+        prev_json_path = os.path.join(data_dir, f"{prev_date}.json")
+        try:
+            with open(prev_json_path, "r", encoding="utf-8") as _f:
+                prev_data = json.load(_f)
+            for grp in prev_data.get("groups", []):
+                for st in grp.get("stocks", []):
+                    prev_streaks[st["code"]] = st.get("streak", 1)
+        except Exception:
+            pass  # no previous data, streaks start at 1
+
     # ---- Classify ----
-    groups = classify_stocks(limit_up, per_stock_major)
+    groups = classify_stocks(limit_up, per_stock_major, prev_streaks)
 
     # ---- Build output JSON (matches DailyData TypeScript type) ----
     daily_data = {
