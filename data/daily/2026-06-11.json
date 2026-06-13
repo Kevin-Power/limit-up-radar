@@ -127,7 +127,7 @@
           "change_pct": 9.84,
           "volume": 283348,
           "major_net": 0,
-          "streak": 1,
+          "streak": 2,
           "market": "TWSE"
         },
         {
@@ -171,7 +171,7 @@
           "change_pct": 9.93,
           "volume": 316000,
           "major_net": 210790,
-          "streak": 1,
+          "streak": 2,
           "market": "OTC"
         },
         {
@@ -193,7 +193,7 @@
           "change_pct": 10.0,
           "volume": 21788000,
           "major_net": 984218,
-          "streak": 1,
+          "streak": 2,
           "market": "OTC"
         },
         {
@@ -344,7 +344,7 @@
           "change_pct": 9.95,
           "volume": 951000,
           "major_net": 36996,
-          "streak": 1,
+          "streak": 3,
           "market": "OTC"
         },
         {
@@ -366,7 +366,7 @@
           "change_pct": 9.95,
           "volume": 694000,
           "major_net": -143609,
-          "streak": 1,
+          "streak": 5,
           "market": "OTC"
         },
         {
@@ -567,7 +567,7 @@
           "change_pct": 9.82,
           "volume": 608482,
           "major_net": 0,
-          "streak": 1,
+          "streak": 2,
           "market": "TWSE"
         }
       ]
