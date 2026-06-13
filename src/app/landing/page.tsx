@@ -200,7 +200,7 @@ function LiveStatsCard({ stats }: { stats: PublicStats | null }) {
               sub: stats?.taiexChg != null ? `${stats.taiexChg > 0 ? "+" : ""}${stats.taiexChg.toFixed(2)}%` : "",
               color: stats?.taiexChg && stats.taiexChg > 0 ? "text-red" : "text-green" },
             { label: "今日漲停", val: stats?.limitUp ?? "—", sub: `${stats?.groupCount ?? "—"} 族群`, color: "text-red" },
-            { label: "平均報酬（毛）", val: stats?.backtest ? `+${stats.backtest.avgReturn}%` : "—", sub: "單日開盤", color: "text-amber" },
+            { label: "平均報酬（毛）", val: stats?.backtest ? `${stats.backtest.avgReturn >= 0 ? "+" : ""}${stats.backtest.avgReturn}%` : "—", sub: "單日開盤", color: "text-amber" },
             { label: "資料涵蓋", val: stats?.totalTradingDays ?? "—", sub: "個交易日", color: "text-blue" },
           ].map((s) => (
             <div key={s.label} className="rounded-lg bg-bg-2 p-2 sm:p-3 text-center">
@@ -362,7 +362,9 @@ export default function LandingPage() {
           </div>
           <div className="text-center">
             <div className="text-4xl font-extrabold tabular-nums text-amber sm:text-5xl">
-              +{stats?.backtest?.avgReturn ?? "—"}%
+              {stats?.backtest?.avgReturn != null
+                ? `${stats.backtest.avgReturn >= 0 ? "+" : ""}${stats.backtest.avgReturn}%`
+                : "—"}
             </div>
             <div className="mt-2 text-sm text-txt-3">平均開盤報酬（毛）</div>
             <div className="text-[10px] text-txt-4 mt-0.5">{stats?.backtest?.samples ?? "—"} 樣本 · 偏多頭區間</div>

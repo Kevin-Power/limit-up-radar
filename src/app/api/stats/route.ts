@@ -143,7 +143,9 @@ export async function GET() {
 
   // Build daily trend
   const dailyTrend: DailyTrend[] = dailyFiles.map((d) => {
-    const [, mm, dd] = d.date.split("-");
+    const parts = d.date.split("-");
+    const mm = parts[1] ?? "01";
+    const dd = parts[2] ?? "01";
     return {
       date: `${parseInt(mm)}/${parseInt(dd)}`,
       fullDate: d.date,

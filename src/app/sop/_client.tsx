@@ -20,6 +20,8 @@ const fetcher = async (url: string) => {
   return res.json();
 };
 
+const fmtRtn = (v: number) => `${v >= 0 ? "+" : ""}${v.toFixed(2)}`;
+
 export default function SopClient() {
   const { data: focusData, error, isLoading } = useSWR<{ realBacktest?: RealBacktest }>(
     "/api/focus",
@@ -84,7 +86,7 @@ export default function SopClient() {
                 <div className="text-xs text-txt-3 mt-1">隔日開盤賣勝率</div>
               </div>
               <div className="bg-bg-1 border border-amber/30 rounded-lg p-4 text-center">
-                <div className="text-3xl font-extrabold text-amber tabular-nums">+{bt.avgOpenReturn}%</div>
+                <div className="text-3xl font-extrabold text-amber tabular-nums">{fmtRtn(bt.avgOpenReturn)}%</div>
                 <div className="text-xs text-txt-3 mt-1">平均報酬</div>
               </div>
             </div>
@@ -165,7 +167,7 @@ export default function SopClient() {
                     <div className="space-y-1 text-xs">
                       <div className="flex justify-between">
                         <span className="text-txt-2">隔日開盤賣</span>
-                        <span className="text-red font-bold">勝率 {bt.avgOpenWinRate}% / 報酬 +{bt.avgOpenReturn}%</span>
+                        <span className="text-red font-bold">勝率 {bt.avgOpenWinRate}% / 報酬 {fmtRtn(bt.avgOpenReturn)}%</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-txt-2">隔日收盤賣</span>
@@ -173,7 +175,10 @@ export default function SopClient() {
                       </div>
                     </div>
                     <p className="text-[10px] text-amber mt-2">
-                      ⚠️ 拖到收盤勝率掉約 19%，獲利減少約 30%
+                      ⚠️ 拖到收盤勝率掉約 {Math.round(bt.avgOpenWinRate - bt.avgCloseWinRate)}%，
+                      獲利{bt.avgOpenReturn > 0
+                        ? `減少約 ${Math.round((bt.avgOpenReturn - bt.avgCloseReturn) / bt.avgOpenReturn * 100)}%`
+                        : `差距 ${fmtRtn(bt.avgOpenReturn - bt.avgCloseReturn)}%`}
                     </p>
                   </div>
                   <p className="mt-3 text-sm font-bold text-red">紀律 &gt; 判斷</p>
@@ -251,21 +256,21 @@ export default function SopClient() {
           <h2 className="text-lg font-bold text-txt-0 mb-4">📊 成本的真實影響（教育示例）</h2>
           <div className="bg-bg-1 border border-border rounded-xl p-5">
             <p className="text-sm text-txt-2 mb-4">
-              回測的「平均 +{bt.avgOpenReturn}%」是<strong className="text-amber">毛報酬</strong>。
-              現股當沖每一筆來回都有固定成本，疊上滑價後長這樣：
+              回測的「平均 {fmtRtn(bt.avgOpenReturn)}%」是<strong className="text-amber">毛報酬</strong>。
+              現股來回都有固定成本，以下兩個情境各自從毛報酬獨立計算：
             </p>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between border-b border-border pb-2">
                 <span className="text-txt-3">回測平均毛報酬</span>
-                <span className="text-txt-1 font-bold tabular-nums">+{bt.avgOpenReturn}%</span>
+                <span className="text-txt-1 font-bold tabular-nums">{fmtRtn(bt.avgOpenReturn)}%</span>
               </div>
               <div className="flex justify-between border-b border-border pb-2">
-                <span className="text-txt-3">－ 手續費×2 + 當沖稅（0.435%）</span>
-                <span className="text-amber font-bold tabular-nums">≈ +{(bt.avgOpenReturn - 0.435).toFixed(2)}%</span>
+                <span className="text-txt-3">情境 A：扣費稅（手續費×2 ＋ 當沖稅 合計 0.435%）</span>
+                <span className="text-amber font-bold tabular-nums">≈ {fmtRtn(bt.avgOpenReturn - 0.435)}%</span>
               </div>
               <div className="flex justify-between pt-2">
-                <span className="text-txt-3">－ 保守滑價情境（合計 1%）</span>
-                <span className="text-amber font-bold tabular-nums">≈ +{(bt.avgOpenReturn - 1.0).toFixed(2)}%</span>
+                <span className="text-txt-3">情境 B：保守含滑價（費稅＋滑價合計 1%）</span>
+                <span className="text-amber font-bold tabular-nums">≈ {fmtRtn(bt.avgOpenReturn - 1.0)}%</span>
               </div>
             </div>
             <div className="mt-4 p-3 bg-amber/10 border border-amber/30 rounded-lg">

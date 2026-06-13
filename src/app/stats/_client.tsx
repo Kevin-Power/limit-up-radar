@@ -235,14 +235,18 @@ function HonestStatsCard({ hs }: { hs: HonestStats }) {
 function KpiRow({ realStats }: { realStats?: StatsData & { dates: string[] } }) {
   const totalLimitUp = realStats?.totalLimitUps ?? MONTHLY_TREND.reduce((s, d) => s + d.count, 0);
   const avgDaily = realStats?.avgLimitUpsPerDay?.toFixed(1) ?? (totalLimitUp / MONTHLY_TREND.length).toFixed(1);
-  const positiveRate = "55.2";
   const strongestGroup = realStats?.groupStats?.[0]?.name ?? "AI伺服器";
   const strongestCount = realStats?.groupStats?.[0]?.total ?? 43;
+
+  // 優先用誠實統計的真實開盤毛勝率；否則顯示示範數字
+  const hsWinRate = realStats?.honestStats?.cohorts?.all?.scenarios?.gross?.winRate;
+  const positiveRate = hsWinRate != null ? String(hsWinRate) : "55.2";
+  const positiveRateSub = hsWinRate != null ? "隔日開盤・毛報酬" : "隔日收盤（示範）";
 
   const kpis = [
     { label: "統計漲停總數",  value: String(totalLimitUp), sub: `${realStats?.totalDays ?? MONTHLY_TREND.length} 交易日`, color: "#ef4444" },
     { label: "平均每日漲停",  value: avgDaily, sub: "家 / 日", color: "#3b82f6" },
-    { label: "正報酬率",      value: `${positiveRate}%`, sub: "隔日收盤", color: "#22c55e" },
+    { label: "正報酬率",      value: `${positiveRate}%`, sub: positiveRateSub, color: "#22c55e" },
     { label: "最強族群",      value: strongestGroup.slice(0, 6), sub: `${strongestCount} 次漲停`, color: "#f59e0b" },
   ];
 

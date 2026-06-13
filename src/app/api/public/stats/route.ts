@@ -55,10 +55,10 @@ export async function GET() {
   const bt = readJSON(BACKTEST_FILE);
   if (bt) {
     out.backtest = {
-      winRate: bt.avgOpenWinRate,
-      avgReturn: bt.avgOpenReturn,
-      samples: bt.totalSamples,
-      days: bt.totalDays,
+      winRate: bt.avgOpenWinRate ?? null,
+      avgReturn: bt.avgOpenReturn ?? null,
+      samples: bt.totalSamples ?? null,
+      days: bt.totalDays ?? null,
     };
   }
 

@@ -91,10 +91,15 @@ function loadRecentBearishCodes(files: string[], days = 7): Set<string> {
 
 export async function GET() {
   // Get last 3 trading days
-  const files = fs.readdirSync(DAILY_DIR)
-    .filter((f) => f.endsWith(".json"))
-    .sort()
-    .reverse();
+  let files: string[];
+  try {
+    files = fs.readdirSync(DAILY_DIR)
+      .filter((f) => f.endsWith(".json"))
+      .sort()
+      .reverse();
+  } catch {
+    return NextResponse.json({ error: "no data" }, { status: 404 });
+  }
 
   if (files.length === 0) {
     return NextResponse.json({ error: "no data" }, { status: 404 });

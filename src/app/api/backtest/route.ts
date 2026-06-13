@@ -81,7 +81,11 @@ export interface BacktestResult {
 
 interface OHLCVBar { date: string; open: number; high: number; low: number; close: number; volume: number; }
 
-function simulateTrades(bars: OHLCVBar[], signals: Signal[], fee = 0.003): Trade[] {
+// Taiwan stock transaction costs (buy: 0.1425% commission; sell: 0.1425% + 0.3% tax)
+const BUY_FEE = 0.001425;
+const SELL_FEE = 0.001425 + 0.003;
+
+function simulateTrades(bars: OHLCVBar[], signals: Signal[]): Trade[] {
   const trades: Trade[] = [];
   let inPosition = false;
   let entryIdx = 0;
@@ -93,7 +97,7 @@ function simulateTrades(bars: OHLCVBar[], signals: Signal[], fee = 0.003): Trade
     } else if (inPosition && signals[i] === "sell") {
       const entry = bars[entryIdx];
       const exit = bars[i];
-      const returnPct = ((exit.close / entry.close) - 1) * 100 - fee * 200;
+      const returnPct = ((exit.close * (1 - SELL_FEE)) / (entry.close * (1 + BUY_FEE)) - 1) * 100;
       const holdDays = i - entryIdx;
       trades.push({
         entryDate: entry.date,
@@ -112,7 +116,7 @@ function simulateTrades(bars: OHLCVBar[], signals: Signal[], fee = 0.003): Trade
   if (inPosition && entryIdx < bars.length - 1) {
     const entry = bars[entryIdx];
     const exit = bars[bars.length - 1];
-    const returnPct = ((exit.close / entry.close) - 1) * 100 - fee * 200;
+    const returnPct = ((exit.close * (1 - SELL_FEE)) / (entry.close * (1 + BUY_FEE)) - 1) * 100;
     trades.push({
       entryDate: entry.date, entryPrice: entry.close,
       exitDate: exit.date, exitPrice: exit.close,
