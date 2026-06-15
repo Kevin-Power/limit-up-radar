@@ -1,18 +1,34 @@
 {
-  "updatedAt": "2026-06-12",
+  "updatedAt": "2026-06-15",
   "totalDays": 10,
-  "totalSamples": 186,
-  "totalOpenWins": 116,
-  "totalCloseWins": 103,
-  "avgOpenWinRate": 62,
-  "avgCloseWinRate": 55,
-  "avgOpenReturn": 1.8,
-  "avgCloseReturn": 0.91,
+  "totalSamples": 184,
+  "totalOpenWins": 121,
+  "totalCloseWins": 108,
+  "avgOpenWinRate": 66,
+  "avgCloseWinRate": 59,
+  "avgOpenReturn": 2.23,
+  "avgCloseReturn": 1.62,
   "pickThreshold": 50,
   "sampleCap": 20,
-  "totalQualified": 300,
+  "totalQualified": 321,
   "methodology": "用 TWSE 真實隔日 OHLC 計算（樣本加權平均）。每日取分數 ≥50 的前 20 名為樣本，今日收盤買，隔日開盤/收盤賣。",
   "history": [
+    {
+      "date": "2026-06-12",
+      "nextDate": "2026-06-15",
+      "qualified": 41,
+      "picks": 20,
+      "fetched": 20,
+      "openWinRate": 100,
+      "closeWinRate": 100,
+      "avgOpenPct": 5.98,
+      "avgClosePct": 8.23,
+      "bestStock": {
+        "code": "3236",
+        "name": "千如",
+        "closePct": 9.97
+      }
+    },
     {
       "date": "2026-06-11",
       "nextDate": "2026-06-12",
@@ -82,11 +98,11 @@
       "nextDate": "2026-06-08",
       "qualified": 24,
       "picks": 20,
-      "fetched": 20,
-      "openWinRate": 15,
-      "closeWinRate": 40,
-      "avgOpenPct": -5.64,
-      "avgClosePct": -0.33,
+      "fetched": 19,
+      "openWinRate": 16,
+      "closeWinRate": 37,
+      "avgOpenPct": -5.43,
+      "avgClosePct": -0.59,
       "bestStock": {
         "code": "4542",
         "name": "科嶠",
@@ -98,11 +114,11 @@
       "nextDate": "2026-06-05",
       "qualified": 36,
       "picks": 20,
-      "fetched": 20,
-      "openWinRate": 35,
-      "closeWinRate": 50,
-      "avgOpenPct": -0.41,
-      "avgClosePct": -1.11,
+      "fetched": 19,
+      "openWinRate": 37,
+      "closeWinRate": 53,
+      "avgOpenPct": -0.3,
+      "avgClosePct": -0.86,
       "bestStock": {
         "code": "4542",
         "name": "科嶠",
@@ -155,22 +171,6 @@
         "code": "1409",
         "name": "新纖",
         "closePct": 9.88
-      }
-    },
-    {
-      "date": "2026-05-27",
-      "nextDate": "2026-05-28",
-      "qualified": 20,
-      "picks": 20,
-      "fetched": 20,
-      "openWinRate": 75,
-      "closeWinRate": 70,
-      "avgOpenPct": 2.84,
-      "avgClosePct": 1.83,
-      "bestStock": {
-        "code": "2472",
-        "name": "立隆電",
-        "closePct": 9.93
       }
     }
   ]
