@@ -1,28 +1,44 @@
 {
-  "updatedAt": "2026-06-18",
+  "updatedAt": "2026-06-22",
   "totalDays": 10,
-  "totalSamples": 176,
-  "totalOpenWins": 117,
+  "totalSamples": 168,
+  "totalOpenWins": 124,
   "totalCloseWins": 105,
-  "avgOpenWinRate": 66,
-  "avgCloseWinRate": 60,
-  "avgOpenReturn": 1.88,
-  "avgCloseReturn": 1.95,
+  "avgOpenWinRate": 74,
+  "avgCloseWinRate": 62,
+  "avgOpenReturn": 2.56,
+  "avgCloseReturn": 2.52,
   "pickThreshold": 50,
   "sampleCap": 20,
-  "totalQualified": 291,
+  "totalQualified": 298,
   "methodology": "用 TWSE 真實隔日 OHLC 計算（樣本加權平均）。每日取分數 ≥50 的前 20 名為樣本，今日收盤買，隔日開盤/收盤賣。",
   "history": [
+    {
+      "date": "2026-06-18",
+      "nextDate": "2026-06-22",
+      "qualified": 43,
+      "picks": 20,
+      "fetched": 19,
+      "openWinRate": 95,
+      "closeWinRate": 84,
+      "avgOpenPct": 4.15,
+      "avgClosePct": 4.49,
+      "bestStock": {
+        "code": "5475",
+        "name": "德宏",
+        "closePct": 9.92
+      }
+    },
     {
       "date": "2026-06-17",
       "nextDate": "2026-06-18",
       "qualified": 29,
       "picks": 20,
-      "fetched": 20,
+      "fetched": 18,
       "openWinRate": 100,
-      "closeWinRate": 95,
-      "avgOpenPct": 4.94,
-      "avgClosePct": 6.69,
+      "closeWinRate": 94,
+      "avgOpenPct": 4.9,
+      "avgClosePct": 6.78,
       "bestStock": {
         "code": "6693",
         "name": "廣閎科",
@@ -98,15 +114,15 @@
       "nextDate": "2026-06-11",
       "qualified": 13,
       "picks": 13,
-      "fetched": 12,
-      "openWinRate": 50,
-      "closeWinRate": 33,
-      "avgOpenPct": 0.29,
-      "avgClosePct": -1.65,
+      "fetched": 9,
+      "openWinRate": 44,
+      "closeWinRate": 22,
+      "avgOpenPct": 0.79,
+      "avgClosePct": -2.76,
       "bestStock": {
-        "code": "3441",
-        "name": "聯一光",
-        "closePct": 10.0
+        "code": "8021",
+        "name": "尖點",
+        "closePct": 2.52
       }
     },
     {
@@ -114,11 +130,11 @@
       "nextDate": "2026-06-10",
       "qualified": 40,
       "picks": 20,
-      "fetched": 20,
-      "openWinRate": 40,
-      "closeWinRate": 35,
-      "avgOpenPct": 0.34,
-      "avgClosePct": -2.02,
+      "fetched": 19,
+      "openWinRate": 37,
+      "closeWinRate": 32,
+      "avgOpenPct": 0.35,
+      "avgClosePct": -2.51,
       "bestStock": {
         "code": "8021",
         "name": "尖點",
@@ -146,31 +162,15 @@
       "nextDate": "2026-06-08",
       "qualified": 24,
       "picks": 20,
-      "fetched": 19,
-      "openWinRate": 11,
-      "closeWinRate": 42,
-      "avgOpenPct": -5.95,
-      "avgClosePct": 0.09,
+      "fetched": 18,
+      "openWinRate": 17,
+      "closeWinRate": 39,
+      "avgOpenPct": -5.19,
+      "avgClosePct": -0.09,
       "bestStock": {
         "code": "4542",
         "name": "科嶠",
         "closePct": 9.97
-      }
-    },
-    {
-      "date": "2026-06-04",
-      "nextDate": "2026-06-05",
-      "qualified": 36,
-      "picks": 20,
-      "fetched": 20,
-      "openWinRate": 35,
-      "closeWinRate": 50,
-      "avgOpenPct": -0.41,
-      "avgClosePct": -1.11,
-      "bestStock": {
-        "code": "4542",
-        "name": "科嶠",
-        "closePct": 10.0
       }
     }
   ]
