@@ -24,6 +24,7 @@ export interface ScoreInput {
   trendingGroups: Set<string>;          // groups appearing 2+ days
   groupVolumeLeaderCode?: string;        // top-volume stock in this group
   revYoY?: number | null;
+  volumeRatio?: number | null;           // today's volume / recent-avg (from past limit-up days)
 }
 
 export interface ScoreResult {
@@ -120,7 +121,14 @@ export function scoreStock(input: ScoreInput & {
       tags.push(`⚠️${stock.streak}連板高追風險`);
     }
   }
-  if (stock.volume > 5_000_000) {
+  // Volume scoring: ratio vs recent avg preferred; fallback to absolute threshold
+  const vr = (input as ScoreInput).volumeRatio;
+  if (vr != null) {
+    if (vr >= 3)        { score += 12; tags.push("爆量3倍"); }
+    else if (vr >= 1.5) { score += 8;  tags.push("量放大1.5x"); }
+    else if (vr >= 1.0) { score += 4; }
+    // below avg: no bonus (fading momentum warning implicit)
+  } else if (stock.volume > 5_000_000) {
     score += 5;
   }
   if (groupVolumeLeaderCode === stock.code) {

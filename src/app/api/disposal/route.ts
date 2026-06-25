@@ -35,6 +35,7 @@ export interface DisposalCandidate {
   code: string;
   name: string;
   industry: string;
+  market: string;            // "上市" | "上櫃" | "興櫃"
   latestClose: number;
   firstClose: number;
   daysLimitUp: number;       // how many days hit limit-up in rolling 10-day window
@@ -76,6 +77,7 @@ export async function GET() {
     {
       name: string;
       industry: string;
+      market: string;
       firstClose: number;
       latestClose: number;
       maxStreak: number;
@@ -93,6 +95,7 @@ export async function GET() {
           stockAppearances.set(s.code, {
             name: s.name,
             industry: s.industry,
+            market: s.market ?? "上市",
             firstClose: s.close,
             latestClose: s.close,
             maxStreak: s.streak,
@@ -136,6 +139,7 @@ export async function GET() {
       code,
       name: data.name,
       industry: data.industry,
+      market: data.market,
       latestClose: data.latestClose,
       firstClose: data.firstClose,
       daysLimitUp: data.daysLimitUp,

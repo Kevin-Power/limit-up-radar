@@ -17,6 +17,7 @@ interface DisposalStock {
   code: string;
   name: string;
   industry: string;
+  market: string;
   streak: number;
   gain10d: number;
   daysHit: number;
@@ -200,6 +201,7 @@ export default function DisposalPage() {
         code: c.code,
         name: c.name,
         industry: c.industry,
+        market: c.market ?? "上市",
         streak: c.streak,
         gain10d: c.gain,
         daysHit: c.daysLimitUp,
@@ -273,7 +275,7 @@ export default function DisposalPage() {
               <div className="cursor-pointer hover:text-txt-2 select-none" onClick={() => handleSort("streak")}>
                 連板天數{sortIndicator("streak")}
               </div>
-              <div className="cursor-pointer hover:text-txt-2 select-none" onClick={() => handleSort("gain10d")}>
+              <div className="cursor-pointer hover:text-txt-2 select-none" onClick={() => handleSort("gain10d")} title="自10日窗口首次出現日起算，非漲停前基準價">
                 10日漲幅%{sortIndicator("gain10d")}
               </div>
               <div title="10日內漲停次數（≥5次=高危，≥3次=注意）">10日漲停次</div>
@@ -303,7 +305,12 @@ export default function DisposalPage() {
                       {s.name}
                     </Link>
                   </div>
-                  <div className="text-[11px] text-txt-4">{s.industry}</div>
+                  <div className="text-[11px] text-txt-4">
+                    {s.industry}
+                    {s.market !== "上市" && (
+                      <span className="ml-1 text-[9px] bg-blue/10 text-blue rounded px-1">{s.market}</span>
+                    )}
+                  </div>
                   <div><StreakDots count={s.streak} /></div>
                   <div className={`text-xs tabular-nums font-semibold ${s.gain10d >= 50 ? "text-red" : s.gain10d >= 30 ? "text-amber" : "text-txt-2"}`}>
                     +{s.gain10d.toFixed(1)}%

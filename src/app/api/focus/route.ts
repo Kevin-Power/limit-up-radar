@@ -156,6 +156,21 @@ export async function GET() {
       }
     }
   }
+  // Build avg volume from prev days (last6Days[1:]) for volume-ratio scoring
+  const prevAvgVolMap = new Map<string, number>();
+  for (const [code] of stockLimitUpDates) {
+    const vols: number[] = [];
+    for (let i = 1; i < last6Days.length; i++) {
+      for (const g of last6Days[i].groups) {
+        const found = g.stocks.find((s) => s.code === code);
+        if (found) vols.push(found.volume);
+      }
+    }
+    if (vols.length > 0) {
+      prevAvgVolMap.set(code, vols.reduce((a, b) => a + b, 0) / vols.length);
+    }
+  }
+
   // consecutiveUpDays for today's stocks: count consecutive presence from index 0
   const consecutiveUpDaysMap = new Map<string, number>();
   const disposalCodes = new Set<string>();
@@ -217,12 +232,14 @@ export async function GET() {
       const rev = revMap[s.code];
       const gd = groupDays[g.name] || 1;
 
+      const avgVol = prevAvgVolMap.get(s.code);
       const { score, tags } = scoreStock({
         stock: s,
         group: g,
         trendingGroups,
         groupVolumeLeaderCode: leaderCode,
         revYoY: rev?.revYoY,
+        volumeRatio: avgVol ? s.volume / avgVol : null,
         isDisposal: disposalCodes.has(s.code) || knownDisposal.has(s.code),
         consecutiveUpDays: consecutiveUpDaysMap.get(s.code) ?? 1,
         isHeavyweight: heavyweight.has(s.code),
