@@ -1,17 +1,17 @@
 {
   "date": "2026-06-25",
   "market_summary": {
-    "taiex_close": 46255.26,
-    "taiex_change_pct": 0.46,
-    "total_volume": 9218089235,
+    "taiex_close": 90231.39,
+    "taiex_change_pct": 0.0,
+    "total_volume": 9234974976,
     "limit_up_count": 41,
     "limit_down_count": 3,
     "advance": 695,
     "decline": 1070,
     "unchanged": 201,
-    "foreign_net": -40510043503.0,
-    "trust_net": 16141479292.0,
-    "dealer_net": -7001006444.0
+    "foreign_net": 0,
+    "trust_net": 0,
+    "dealer_net": 0
   },
   "groups": [
     {
@@ -115,7 +115,7 @@
           "close": 57.7,
           "change_pct": 9.9,
           "volume": 5386000,
-          "major_net": -320773,
+          "major_net": 0,
           "streak": 2,
           "market": "OTC"
         },
@@ -126,7 +126,7 @@
           "close": 70.1,
           "change_pct": 9.87,
           "volume": 21461000,
-          "major_net": 1122881,
+          "major_net": 0,
           "streak": 1,
           "market": "OTC"
         },
@@ -137,7 +137,7 @@
           "close": 29.15,
           "change_pct": 10.0,
           "volume": 2538000,
-          "major_net": 488245,
+          "major_net": 0,
           "streak": 1,
           "market": "OTC"
         },
@@ -148,7 +148,7 @@
           "close": 211.0,
           "change_pct": 9.9,
           "volume": 14728000,
-          "major_net": 956353,
+          "major_net": 0,
           "streak": 1,
           "market": "OTC"
         },
@@ -159,7 +159,7 @@
           "close": 93.6,
           "change_pct": 9.99,
           "volume": 11255000,
-          "major_net": 59220,
+          "major_net": 0,
           "streak": 1,
           "market": "OTC"
         },
@@ -170,7 +170,7 @@
           "close": 38.15,
           "change_pct": 9.94,
           "volume": 849000,
-          "major_net": -50021,
+          "major_net": 0,
           "streak": 1,
           "market": "OTC"
         },
@@ -181,7 +181,7 @@
           "close": 42.5,
           "change_pct": 9.96,
           "volume": 5834000,
-          "major_net": 708433,
+          "major_net": 0,
           "streak": 1,
           "market": "OTC"
         },
@@ -192,7 +192,7 @@
           "close": 728.0,
           "change_pct": 9.97,
           "volume": 2073000,
-          "major_net": 1112931,
+          "major_net": 0,
           "streak": 1,
           "market": "OTC"
         }
@@ -266,7 +266,7 @@
           "close": 12.2,
           "change_pct": 9.91,
           "volume": 950000,
-          "major_net": -254000,
+          "major_net": 0,
           "streak": 2,
           "market": "OTC"
         },
@@ -288,7 +288,7 @@
           "close": 63.9,
           "change_pct": 9.98,
           "volume": 30203000,
-          "major_net": 2889938,
+          "major_net": 0,
           "streak": 2,
           "market": "OTC"
         },
@@ -299,7 +299,7 @@
           "close": 107.5,
           "change_pct": 9.69,
           "volume": 1464000,
-          "major_net": 253994,
+          "major_net": 0,
           "streak": 4,
           "market": "OTC"
         },
@@ -310,7 +310,7 @@
           "close": 67.8,
           "change_pct": 9.53,
           "volume": 3504000,
-          "major_net": -58000,
+          "major_net": 0,
           "streak": 5,
           "market": "OTC"
         },
@@ -321,7 +321,7 @@
           "close": 16.6,
           "change_pct": 9.93,
           "volume": 633000,
-          "major_net": -120148,
+          "major_net": 0,
           "streak": 3,
           "market": "OTC"
         },
@@ -332,7 +332,7 @@
           "close": 30.8,
           "change_pct": 10.0,
           "volume": 12411000,
-          "major_net": 152532,
+          "major_net": 0,
           "streak": 1,
           "market": "OTC"
         },
@@ -354,7 +354,7 @@
           "close": 114.5,
           "change_pct": 9.57,
           "volume": 11167000,
-          "major_net": 580087,
+          "major_net": 0,
           "streak": 1,
           "market": "OTC"
         },
@@ -395,7 +395,7 @@
           "close": 25.5,
           "change_pct": 9.91,
           "volume": 10294000,
-          "major_net": 148012,
+          "major_net": 0,
           "streak": 2,
           "market": "OTC"
         },
@@ -406,7 +406,7 @@
           "close": 24.2,
           "change_pct": 10.0,
           "volume": 5317000,
-          "major_net": 389953,
+          "major_net": 0,
           "streak": 1,
           "market": "OTC"
         },
@@ -417,7 +417,7 @@
           "close": 82.3,
           "change_pct": 9.88,
           "volume": 4885000,
-          "major_net": -141588,
+          "major_net": 0,
           "streak": 1,
           "market": "OTC"
         }
@@ -449,7 +449,7 @@
           "close": 33.25,
           "change_pct": 9.92,
           "volume": 2648000,
-          "major_net": 630181,
+          "major_net": 0,
           "streak": 1,
           "market": "OTC"
         },
@@ -460,7 +460,7 @@
           "close": 21.85,
           "change_pct": 9.8,
           "volume": 1552000,
-          "major_net": 509941,
+          "major_net": 0,
           "streak": 1,
           "market": "OTC"
         }
@@ -513,7 +513,7 @@
           "close": 220.0,
           "change_pct": 10.0,
           "volume": 73115000,
-          "major_net": -1881537,
+          "major_net": 0,
           "streak": 1,
           "market": "OTC"
         }
