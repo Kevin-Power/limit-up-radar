@@ -625,8 +625,10 @@ def classify_stocks(
         "3131": "semi_test", "3413": "semi_test", "6223": "semi_test",
         "6438": "semi_test", "6510": "semi_test", "6515": "semi_test",
         "6683": "semi_test",
-        # Connector / Passive Components
+        # Connector
         "3023": "connector", "3321": "connector", "6672": "connector",
+        # Passive Components (MLCC / resistors / chokes)
+        "2327": "passive", "3026": "passive", "2492": "passive",
         # Optical Storage / Legacy Tech
         "2323": "optical", "2349": "optical", "3050": "optical",
         # Precision Machining / Metal
@@ -807,10 +809,16 @@ def classify_stocks(
             "reason": "先進封裝需求帶動測試設備族群",
         },
         "connector": {
-            "name": "連接器 / 被動元件",
+            "name": "連接器",
             "color": "#06b6d4",
             "badges": [],
             "reason": "5G/AI伺服器帶動高速連接器需求",
+        },
+        "passive": {
+            "name": "被動元件 / MLCC",
+            "color": "#0d9488",
+            "badges": [],
+            "reason": "AI伺服器與電動車帶動MLCC/電感需求",
         },
         "optical": {
             "name": "光儲存 / 記憶媒體",
@@ -963,7 +971,7 @@ def classify_stocks(
     KEEP_SINGLE = {"steel", "ai_server", "semi_test", "ic_design", "pcb",
                    "optical_comm", "medical", "aerospace", "plastic", "gas",
                    "construction", "finance", "food",
-                   "memory", "networking", "foundry", "power"}
+                   "memory", "networking", "foundry", "power", "passive"}
     merged_groups: dict[str, list] = {}
     for key, stocks in groups.items():
         if len(stocks) == 1 and key not in KEEP_SINGLE:
@@ -985,6 +993,7 @@ def classify_stocks(
             "gas": "油電燃氣", "auto": "汽車零組件",
             "memory": "記憶體", "networking": "網通",
             "foundry": "晶圓代工", "power": "電池儲能",
+            "passive": "被動元件",
         }
         return label_map.get(group_key, "")
 

@@ -276,7 +276,7 @@ export default function DisposalPage() {
               <div className="cursor-pointer hover:text-txt-2 select-none" onClick={() => handleSort("gain10d")}>
                 10日漲幅%{sortIndicator("gain10d")}
               </div>
-              <div>距離處置</div>
+              <div title="10日內漲停次數（≥5次=高危，≥3次=注意）">10日漲停次</div>
               <div className="cursor-pointer hover:text-txt-2 select-none" onClick={() => handleSort("risk")}>
                 風險等級{sortIndicator("risk")}
               </div>
@@ -324,7 +324,7 @@ export default function DisposalPage() {
           </div>
           </div>
           <div className="mt-2 text-[10px] text-txt-4 text-right">
-            {ACTIVE_STOCKS.length} stocks monitored / updated after market close
+            {ACTIVE_STOCKS.length} 檔監控中 · 基於最近 10 個交易日滾動窗口 · 盤後更新
           </div>
         </div>
 

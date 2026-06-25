@@ -37,7 +37,7 @@ export interface ScoreResult {
  * Positive signals:
  *   - 趨勢族群 (2+ days trending): +30
  *   - 營收 YoY > 20%: +25 (>50% extra +10)
- *   - 法人買超 (major_net > 0): +20
+ *   - 法人買超分三級: 大買(>=1M股)+25 / 中買(>=200K)+15 / 小買+5 / 大賣超(<=-500K)-20
  *   - 連板 (streak >= 1): +streak*6 (cap 30); streak >= 5: -10 高追風險
  *   - 大量 (volume > 5M shares = 5,000 lots): +5
  *   - 族群龍頭 (top volume in group): +10
@@ -98,9 +98,18 @@ export function scoreStock(input: ScoreInput & {
       tags.push("高成長");
     }
   }
-  if (stock.major_net > 0) {
-    score += 20;
+  if (stock.major_net >= 1_000_000) {
+    score += 25;
+    tags.push("法人大買超");
+  } else if (stock.major_net >= 200_000) {
+    score += 15;
     tags.push("法人買超");
+  } else if (stock.major_net > 0) {
+    score += 5;
+    tags.push("法人小買超");
+  } else if (stock.major_net <= -500_000) {
+    score -= 20;
+    tags.push("⚠️主力大賣超");
   }
   if (stock.streak >= 1) {
     const streakBonus = Math.min(stock.streak * 6, 30);

@@ -136,7 +136,7 @@ export default function SopClient() {
                   </ul>
                   <div className="mt-3 p-3 bg-amber/10 border border-amber/30 rounded-lg">
                     <p className="text-xs text-amber font-bold mb-1">⚠️ 看到「連3紅注意回測」標記時：</p>
-                    <p className="text-xs text-txt-2">連漲 3 日以上標的，次日續板率隨連板數下降，建議<strong>倉位減半</strong>・開盤前 5 分鐘<strong>必須出場</strong>・<strong>不留隔夜</strong></p>
+                    <p className="text-xs text-txt-2">連漲 3 日以上標的：次日續板率下降，建議倉位減半・開盤前 5 分鐘必須出場・不留隔夜</p>
                   </div>
                   <p className="mt-2 text-[11px] text-txt-4 leading-relaxed">
                     💡 註：上方回測勝率是「分數 ≥50 全樣本、未含成本」的毛數字。
@@ -147,6 +147,28 @@ export default function SopClient() {
               </div>
             </div>
 
+            {/* Step 1.5 — 盤前複核清單（08:30-09:00） */}
+            <details className="bg-bg-1 border border-amber/30 rounded-xl overflow-hidden group">
+              <summary className="flex items-center justify-between px-5 py-4 cursor-pointer list-none">
+                <div className="flex items-center gap-2">
+                  <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber/15 text-amber">盤前</span>
+                  <span className="text-sm font-bold text-txt-0">隔日 08:30–09:00 複核清單</span>
+                </div>
+                <span className="text-txt-3 text-xs group-open:rotate-180 transition-transform">▼</span>
+              </summary>
+              <div className="px-5 pb-4">
+                <p className="text-xs text-txt-3 mb-3">開盤前確認以下項目，任一「不符」考慮縮量或取消</p>
+                <ul className="space-y-2 text-xs text-txt-2">
+                  <li className="flex items-start gap-2"><span className="text-amber mt-0.5">□</span><span>美股昨收 / 期指方向（台指期開盤方向）</span></li>
+                  <li className="flex items-start gap-2"><span className="text-amber mt-0.5">□</span><span>族群今日盤前是否仍熱門（個股相關新聞無重大利空）</span></li>
+                  <li className="flex items-start gap-2"><span className="text-amber mt-0.5">□</span><span>個股昨晚有無重大公告（財報、增資、除息、警示）</span></li>
+                  <li className="flex items-start gap-2"><span className="text-amber mt-0.5">□</span><span>揭示價 / 試撮價在收盤 ±3% 內（未被砸盤）</span></li>
+                  <li className="flex items-start gap-2"><span className="text-amber mt-0.5">□</span><span>股本夠大、流動性足夠（漲停板可以出場）</span></li>
+                </ul>
+                <p className="text-[10px] text-txt-4 mt-3">盤前氣勢不強 → 不買。觀望也是策略。</p>
+              </div>
+            </details>
+
             {/* Step 2 */}
             <div className="bg-bg-1 border border-border rounded-xl p-5">
               <div className="flex items-start gap-3">
@@ -154,7 +176,7 @@ export default function SopClient() {
                 <div className="flex-1">
                   <h3 className="text-base font-bold text-txt-0">盤後或隔日開盤前下單</h3>
                   <ul className="mt-2 space-y-1.5 text-sm text-txt-2">
-                    <li>• <strong>盤後零股</strong>（14:30-16:30）：用今日收盤價買零股</li>
+                    <li>• <strong>盤後零股</strong>（14:30–16:30）：於盤後集合競價買零股（以 16:30 集競定價成交，非收盤價；小型股可能未能全額成交）</li>
                     <li>• <strong>隔日 09:00 開盤前</strong>：掛漲停價限價單（會以開盤價成交）</li>
                     <li className="text-red">• ⚠️ 不要用市價單，可能高接</li>
                   </ul>
@@ -211,12 +233,11 @@ export default function SopClient() {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-border">
-                      <tr><td className="px-3 py-2 font-mono text-red font-bold">+9.5%↑</td><td className="px-3 py-2 text-txt-1">續漲停</td><td className="px-3 py-2 text-txt-2">繼續持有，明日再評估</td></tr>
-                      <tr><td className="px-3 py-2 font-mono text-red">+7% ~ +9.5%</td><td className="px-3 py-2 text-txt-1">超強拉抬</td><td className="px-3 py-2 text-txt-2">持有，破 VP（VWAP）才出場</td></tr>
-                      <tr><td className="px-3 py-2 font-mono text-amber">+5% ~ +7%</td><td className="px-3 py-2 text-txt-1">強勢追價</td><td className="px-3 py-2 text-txt-2">量能配合則守，觀察 2 個 5 分 K</td></tr>
-                      <tr><td className="px-3 py-2 font-mono text-amber">+3% ~ +5%</td><td className="px-3 py-2 text-txt-1">低開觀察</td><td className="px-3 py-2 text-txt-2">易被刷洗，需量推升，觀察 1 個 5 分 K</td></tr>
+                      <tr><td className="px-3 py-2 font-mono text-red">+7% 以上</td><td className="px-3 py-2 text-txt-1">超強拉抬</td><td className="px-3 py-2 text-txt-2">持有，破 VP 才出場</td></tr>
+                      <tr><td className="px-3 py-2 font-mono text-amber">+5% ~ +7%</td><td className="px-3 py-2 text-txt-1">強勢追價</td><td className="px-3 py-2 text-txt-2">量能配合則守，看 2 個 5 分 K</td></tr>
+                      <tr><td className="px-3 py-2 font-mono text-amber">+3% ~ +5%</td><td className="px-3 py-2 text-txt-1">低開觀察</td><td className="px-3 py-2 text-txt-2">容易刷洗，需量推升，觀察 1 個 5 分 K</td></tr>
                       <tr><td className="px-3 py-2 font-mono text-txt-2">0% ~ +3%</td><td className="px-3 py-2 text-txt-1">平開弱勢</td><td className="px-3 py-2 text-txt-2">謹慎，開盤不回升考慮出場</td></tr>
-                      <tr><td className="px-3 py-2 font-mono text-green">低於 0%</td><td className="px-3 py-2 text-txt-1">開低</td><td className="px-3 py-2 text-txt-2 font-bold text-red">開盤即出場，不戀戰</td></tr>
+                      <tr><td className="px-3 py-2 font-mono text-green">低於 0%</td><td className="px-3 py-2 text-txt-1">直接跌</td><td className="px-3 py-2 text-txt-2 font-bold text-red">開盤即出場，不戀戰</td></tr>
                     </tbody>
                   </table>
                 </div>
@@ -287,6 +308,42 @@ export default function SopClient() {
               </ul>
             </div>
           </div>
+        </section>
+
+        {/* 波段 358 法則 — collapsible */}
+        <section>
+          <details className="bg-bg-1 border border-border rounded-xl overflow-hidden group">
+            <summary className="flex items-center justify-between px-5 py-4 cursor-pointer list-none">
+              <div className="flex items-center gap-2">
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-blue/15 text-blue">進階</span>
+                <span className="text-sm font-bold text-txt-0">波段操作 358 法則</span>
+              </div>
+              <span className="text-txt-3 text-xs group-open:rotate-180 transition-transform">▼</span>
+            </summary>
+            <div className="px-5 pb-5">
+              <p className="text-xs text-txt-3 mb-3">漲停後不賣、想做波段時的判斷框架（高風險，僅供研究）</p>
+              <div className="space-y-3">
+                <div className="p-3 bg-blue/5 border border-blue/20 rounded-lg">
+                  <p className="text-xs font-bold text-blue mb-1">三個觀察週期</p>
+                  <p className="text-xs text-txt-2">漲停後連續 3 天 → 延伸 5 天 → 延伸 8 天。每個節點重新評估出場時機。</p>
+                </div>
+                <div className="p-3 bg-green/5 border border-green/20 rounded-lg">
+                  <p className="text-xs font-bold text-green mb-2">持倉口訣</p>
+                  <ul className="space-y-1 text-xs text-txt-2">
+                    <li>• 高有過高（今高 &gt; 前高）</li>
+                    <li>• 低不過低（今低 &gt; 前低）</li>
+                    <li>• 收盤比前一天高</li>
+                  </ul>
+                  <p className="text-[11px] text-txt-3 mt-2">三條件同時成立 → 可繼續持有</p>
+                </div>
+                <div className="p-3 bg-red/5 border border-red/30 rounded-lg">
+                  <p className="text-xs font-bold text-red mb-1">出場訊號</p>
+                  <p className="text-xs text-txt-2">第一次跌破 5 日均線收盤 → 無條件出場，不等反彈</p>
+                </div>
+                <p className="text-[10px] text-txt-4">波段操作需要盤中即時監控，不適合僅做盤後分析的策略，風險遠高於隔日開盤賣</p>
+              </div>
+            </div>
+          </details>
         </section>
 
         {/* Cost Reality — education, replaces the old monthly-return projection */}

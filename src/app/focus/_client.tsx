@@ -25,6 +25,8 @@ interface FocusStock {
   volume: number;
   majorNet: number;
   streak: number;
+  consecutiveUpDays?: number;
+  streakRisk?: 'low' | 'medium' | 'high';
   group: string;
   groupColor: string;
   score: number;
@@ -37,6 +39,9 @@ interface FocusStock {
   stopLoss?: number;
   target1?: number;
   target2?: number;
+  open357Low?: number;
+  open357Mid?: number;
+  open357High?: number;
   isBearish?: boolean;
 }
 
@@ -149,6 +154,20 @@ function ScoreBadge({ score }: { score: number }) {
   if (score >= 60) return <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber/20 text-amber">強</span>;
   if (score >= 40) return <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue/20 text-blue">中</span>;
   return <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-bg-3 text-txt-4">弱</span>;
+}
+
+function StreakRiskBadge({ risk, streak }: { risk?: 'low' | 'medium' | 'high'; streak: number }) {
+  if (!risk || risk === 'low') return null;
+  if (risk === 'medium') return (
+    <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber/20 text-amber border border-amber/30">
+      ⚠️{streak}連板
+    </span>
+  );
+  return (
+    <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-red/20 text-red border border-red/30">
+      🔥{streak}連板高追
+    </span>
+  );
 }
 
 function ScoreBar({ score }: { score: number }) {
@@ -485,10 +504,11 @@ export default function FocusClient() {
                       <div className="flex items-start justify-between gap-3">
                         {/* Left */}
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 mb-1.5">
+                          <div className="flex items-center gap-2 mb-1.5 flex-wrap">
                             <span className="font-mono text-sm font-bold text-txt-0">{s.code}</span>
                             <span className="text-sm text-txt-1">{s.name}</span>
                             <ScoreBadge score={s.score} />
+                            <StreakRiskBadge risk={s.streakRisk} streak={s.streak} />
                           </div>
 
                           {/* Tags */}
@@ -572,6 +592,26 @@ export default function FocusClient() {
                               <div className="bg-amber/15 rounded px-1.5 py-1 text-center">
                                 <div className="text-txt-4 text-[9px]">目標2</div>
                                 <div className="text-amber font-bold tabular-nums">{s.target2}</div>
+                              </div>
+                            </div>
+                          )}
+                          {/* 357 次日開盤觀察價位 */}
+                          {s.open357Low && (
+                            <div className="mt-2">
+                              <p className="text-[9px] text-txt-4 mb-1">次日開盤 357 觀察價（+3%/+5%/+7%）</p>
+                              <div className="grid grid-cols-3 gap-1 text-[10px]">
+                                <div className="bg-bg-3 rounded px-1.5 py-1 text-center">
+                                  <div className="text-txt-4 text-[9px]">低開觀察</div>
+                                  <div className="text-txt-2 font-bold tabular-nums">{s.open357Low}</div>
+                                </div>
+                                <div className="bg-amber/10 rounded px-1.5 py-1 text-center">
+                                  <div className="text-txt-4 text-[9px]">強勢追價</div>
+                                  <div className="text-amber font-bold tabular-nums">{s.open357Mid}</div>
+                                </div>
+                                <div className="bg-red/10 rounded px-1.5 py-1 text-center">
+                                  <div className="text-txt-4 text-[9px]">超強拉抬</div>
+                                  <div className="text-red font-bold tabular-nums">{s.open357High}</div>
+                                </div>
                               </div>
                             </div>
                           )}
