@@ -382,7 +382,7 @@ export default function NextDayPage() {
         case "nextAvgPct": va = a.nextAvgPct; vb = b.nextAvgPct; break;
         case "nextClosePct": va = a.nextClosePct; vb = b.nextClosePct; break;
         case "weightedReturn": va = a.weightedReturn; vb = b.weightedReturn; break;
-        case "volumeRatio": va = a.volumeWan; vb = b.volumeWan; break;
+        case "volumeWan": va = a.volumeWan; vb = b.volumeWan; break;
         case "code": va = a.code; vb = b.code; break;
         default: va = a.weightedReturn; vb = b.weightedReturn;
       }
@@ -613,9 +613,9 @@ export default function NextDayPage() {
                     </th>
                     <th className="text-left px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase">名稱</th>
                     <th className="text-right px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase">漲停價</th>
-                    <th onClick={() => handleSort("volumeRatio")}
+                    <th onClick={() => handleSort("volumeWan")}
                       className="text-center px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase cursor-pointer hover:text-txt-2">
-                      量比<SortIcon k="volumeRatio" />
+                      量比<SortIcon k="volumeWan" />
                     </th>
                     <th onClick={() => handleSort("nextOpenPct")}
                       className="text-right px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase cursor-pointer hover:text-txt-2">
