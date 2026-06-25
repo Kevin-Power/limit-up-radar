@@ -122,7 +122,7 @@ export function scoreStock(input: ScoreInput & {
     }
   }
   // Volume scoring: ratio vs recent avg preferred; fallback to absolute threshold
-  const vr = (input as ScoreInput).volumeRatio;
+  const vr = input.volumeRatio;
   if (vr != null) {
     if (vr >= 3)        { score += 12; tags.push("爆量3倍"); }
     else if (vr >= 1.5) { score += 8;  tags.push("量放大1.5x"); }

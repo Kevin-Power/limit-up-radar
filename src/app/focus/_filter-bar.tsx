@@ -33,7 +33,7 @@ export interface FilterableStock {
 export function passesFilter(s: FilterableStock, f: FilterState): boolean {
   if (f.scoreMin > 0 && s.score < f.scoreMin) return false;
 
-  const isHeavy = s.tags.includes("權值");
+  const isHeavy = s.tags.includes("⭐權值股");
   if (f.heavy === "only" && !isHeavy) return false;
   if (f.heavy === "exclude" && isHeavy) return false;
 

@@ -239,7 +239,7 @@ export async function GET() {
         trendingGroups,
         groupVolumeLeaderCode: leaderCode,
         revYoY: rev?.revYoY,
-        volumeRatio: avgVol ? s.volume / avgVol : null,
+        volumeRatio: avgVol != null && avgVol > 0 ? s.volume / avgVol : null,
         isDisposal: disposalCodes.has(s.code) || knownDisposal.has(s.code),
         consecutiveUpDays: consecutiveUpDaysMap.get(s.code) ?? 1,
         isHeavyweight: heavyweight.has(s.code),
@@ -250,8 +250,6 @@ export async function GET() {
               open357Low, open357Mid, open357High } =
         calculatePriceLevels(s.close);
 
-      const consec = consecutiveUpDaysMap.get(s.code) ?? 1;
-
       focusStocks.push({
         code: s.code,
         name: s.name,
@@ -261,7 +259,7 @@ export async function GET() {
         majorNet: s.major_net,
         streak: s.streak,
         consecutiveUpDays: consecutiveUpDaysMap.get(s.code) ?? 1,
-        streakRisk: (s.streak ?? 1) <= 2 ? 'low' : (s.streak ?? 1) === 3 ? 'medium' : 'high',
+        streakRisk: (s.streak ?? 1) <= 2 ? 'low' : (s.streak ?? 1) <= 4 ? 'medium' : 'high',
         group: g.name,
         groupColor: g.color,
         score,

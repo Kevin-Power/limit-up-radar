@@ -200,7 +200,7 @@ export default function SopClient() {
                       </div>
                       <div className="flex justify-between">
                         <span className="text-txt-2">隔日收盤賣</span>
-                        <span className="text-green font-bold">勝率 {bt.avgCloseWinRate}% / 報酬 +{bt.avgCloseReturn}%</span>
+                        <span className="text-green font-bold">勝率 {bt.avgCloseWinRate}% / 報酬 {fmtRtn(bt.avgCloseReturn)}%</span>
                       </div>
                     </div>
                     <p className="text-[10px] text-amber mt-2">
@@ -233,9 +233,10 @@ export default function SopClient() {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-border">
-                      <tr><td className="px-3 py-2 font-mono text-red">+7% 以上</td><td className="px-3 py-2 text-txt-1">超強拉抬</td><td className="px-3 py-2 text-txt-2">持有，破 VP 才出場</td></tr>
+                      <tr><td className="px-3 py-2 font-mono text-red font-bold">≥ +9.5%</td><td className="px-3 py-2 text-txt-1">續漲停</td><td className="px-3 py-2 text-txt-2">強力護板，續抱，停損設昨漲停價</td></tr>
+                      <tr><td className="px-3 py-2 font-mono text-red">+7% ~ +9.5%</td><td className="px-3 py-2 text-txt-1">超強拉抬</td><td className="px-3 py-2 text-txt-2">持有，破 VP 才出場</td></tr>
                       <tr><td className="px-3 py-2 font-mono text-amber">+5% ~ +7%</td><td className="px-3 py-2 text-txt-1">強勢追價</td><td className="px-3 py-2 text-txt-2">量能配合則守，看 2 個 5 分 K</td></tr>
-                      <tr><td className="px-3 py-2 font-mono text-amber">+3% ~ +5%</td><td className="px-3 py-2 text-txt-1">低開觀察</td><td className="px-3 py-2 text-txt-2">容易刷洗，需量推升，觀察 1 個 5 分 K</td></tr>
+                      <tr><td className="px-3 py-2 font-mono text-amber">+3% ~ +5%</td><td className="px-3 py-2 text-txt-1">中低開（相對漲停）</td><td className="px-3 py-2 text-txt-2">容易刷洗，需量推升，觀察 1 個 5 分 K</td></tr>
                       <tr><td className="px-3 py-2 font-mono text-txt-2">0% ~ +3%</td><td className="px-3 py-2 text-txt-1">平開弱勢</td><td className="px-3 py-2 text-txt-2">謹慎，開盤不回升考慮出場</td></tr>
                       <tr><td className="px-3 py-2 font-mono text-green">低於 0%</td><td className="px-3 py-2 text-txt-1">直接跌</td><td className="px-3 py-2 text-txt-2 font-bold text-red">開盤即出場，不戀戰</td></tr>
                     </tbody>

@@ -32,7 +32,7 @@ export interface NextDayStock {
   group: string;
   groupColor: string;
   limitPrice: number;
-  volumeRatio: number;
+  volumeWan: number;
   streak: number;
   nextOpen: number | null;
   nextOpenPct: number | null;
@@ -229,7 +229,7 @@ export async function GET() {
           group: g.name,
           groupColor: g.color,
           limitPrice: s.close,
-          volumeRatio: s.volume > 0 ? +(s.volume / 10000).toFixed(1) : 0,
+          volumeWan: s.volume > 0 ? +(s.volume / 10000).toFixed(1) : 0,
           streak: s.streak,
           nextOpen,
           nextOpenPct: roundedOpenPct,

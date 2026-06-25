@@ -626,7 +626,7 @@ def classify_stocks(
         "6438": "semi_test", "6510": "semi_test", "6515": "semi_test",
         "6683": "semi_test",
         # Connector
-        "3023": "connector", "3321": "connector", "6672": "connector",
+        "3023": "connector", "6672": "connector",
         # Passive Components (MLCC / resistors / chokes)
         "2327": "passive", "3026": "passive", "2492": "passive",
         # Optical Storage / Legacy Tech
@@ -650,8 +650,8 @@ def classify_stocks(
         # Aerospace / Defense
         "3135": "aerospace", "6831": "aerospace",
         # PCB / CCL
-        "2368": "pcb", "3037": "pcb", "6213": "pcb", "6274": "pcb",
-        "8046": "pcb",
+        "2368": "pcb", "3037": "pcb", "3321": "pcb", "6213": "pcb",
+        "6274": "pcb", "8046": "pcb",
         # Optical Communication
         "3081": "optical_comm", "3363": "optical_comm", "4904": "optical_comm",
         "4908": "optical_comm", "4977": "optical_comm", "4979": "optical_comm",
@@ -712,7 +712,9 @@ def classify_stocks(
         # Foundry / Wafer Fab
         "2303": "foundry", "2330": "foundry",
         # Battery / Energy Storage Module
-        "6121": "power", "6803": "power", "5347": "power",
+        "6121": "power",
+        # Foundry / Wafer Fab (continued)
+        "5347": "foundry",
     }
 
     # --- Tier 2: Code-range-based industry classification ---

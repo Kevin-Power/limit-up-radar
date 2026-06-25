@@ -201,11 +201,11 @@ export default function DisposalPage() {
         code: c.code,
         name: c.name,
         industry: c.industry,
-        market: c.market ?? "上市",
+        market: c.market ?? "TWSE",
         streak: c.streak,
         gain10d: c.gain,
         daysHit: c.daysLimitUp,
-        daysRequired: 5,
+        daysRequired: 3,
         risk: c.risk,
         status: c.status,
         volumeAnomaly: c.daysLimitUp >= 3,
@@ -257,7 +257,7 @@ export default function DisposalPage() {
 
         {/* ─── 1. KPI Cards ─────────────────────────────────────────────── */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <KPICard label="處置警告股" value={countWarning} color="red" />
+          <KPICard label="高危預測股" value={countWarning} color="red" />
           <KPICard label="預警中" value={countAlert} color="amber" />
           <KPICard label="正常交易" value={countNormal} color="blue" />
         </div>
@@ -272,8 +272,8 @@ export default function DisposalPage() {
               <div>代號</div>
               <div>名稱</div>
               <div>產業</div>
-              <div className="cursor-pointer hover:text-txt-2 select-none" onClick={() => handleSort("streak")}>
-                連板天數{sortIndicator("streak")}
+              <div className="cursor-pointer hover:text-txt-2 select-none" onClick={() => handleSort("streak")} title="10日窗口內最高峰值連板數">
+                峰值連板{sortIndicator("streak")}
               </div>
               <div className="cursor-pointer hover:text-txt-2 select-none" onClick={() => handleSort("gain10d")} title="自10日窗口首次出現日起算，非漲停前基準價">
                 10日漲幅%{sortIndicator("gain10d")}
@@ -283,7 +283,7 @@ export default function DisposalPage() {
                 風險等級{sortIndicator("risk")}
               </div>
               <div>狀態</div>
-              <div>量能異常</div>
+              <div title="10日窗口內漲停≥3次">連板≥3</div>
             </div>
 
             {/* Rows */}
@@ -307,8 +307,8 @@ export default function DisposalPage() {
                   </div>
                   <div className="text-[11px] text-txt-4">
                     {s.industry}
-                    {s.market !== "上市" && (
-                      <span className="ml-1 text-[9px] bg-blue/10 text-blue rounded px-1">{s.market}</span>
+                    {s.market !== "TWSE" && (
+                      <span className="ml-1 text-[9px] bg-blue/10 text-blue rounded px-1">上櫃</span>
                     )}
                   </div>
                   <div><StreakDots count={s.streak} /></div>

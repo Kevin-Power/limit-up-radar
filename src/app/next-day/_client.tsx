@@ -22,7 +22,7 @@ interface NextDayStock {
   groupColor: string;
   market: Market;
   limitPrice: number;    // 漲停價
-  volumeRatio: number;   // 量比
+  volumeWan: number;     // 成交量（萬張）
   nextOpen: number;      // 隔日開盤價
   nextOpenPct: number;   // 隔日開盤報酬%
   nextAvg: number;       // 隔日均價
@@ -318,7 +318,7 @@ function mapRealToDay(r: NextDayData): DayData {
       groupColor: s.groupColor,
       market: "上" as Market,
       limitPrice: s.limitPrice,
-      volumeRatio: s.volumeRatio,
+      volumeWan: s.volumeWan,
       nextOpen: s.nextOpen ?? s.limitPrice,
       nextOpenPct: op,
       nextAvg: s.nextOpen != null && s.nextClose != null ? (s.nextOpen + s.nextClose) / 2 : s.limitPrice,
@@ -382,7 +382,7 @@ export default function NextDayPage() {
         case "nextAvgPct": va = a.nextAvgPct; vb = b.nextAvgPct; break;
         case "nextClosePct": va = a.nextClosePct; vb = b.nextClosePct; break;
         case "weightedReturn": va = a.weightedReturn; vb = b.weightedReturn; break;
-        case "volumeRatio": va = a.volumeRatio; vb = b.volumeRatio; break;
+        case "volumeRatio": va = a.volumeWan; vb = b.volumeWan; break;
         case "code": va = a.code; vb = b.code; break;
         default: va = a.weightedReturn; vb = b.weightedReturn;
       }
@@ -650,7 +650,7 @@ export default function NextDayPage() {
                         <Link href={`/stock/${s.code}`} className="hover:text-txt-0 transition-colors">{s.name}</Link>
                       </td>
                       <td className="px-3 py-2.5 text-right text-txt-2 tabular-nums">{formatPrice(s.limitPrice)}</td>
-                      <td className="px-3 py-2.5 text-center"><VolumeRatio ratio={s.volumeRatio} /></td>
+                      <td className="px-3 py-2.5 text-center"><VolumeRatio ratio={s.volumeWan} /></td>
                       <td className="px-3 py-2.5 text-right"><PriceCell price={s.nextOpen} pct={s.nextOpenPct} /></td>
                       <td className="px-3 py-2.5 text-right"><PriceCell price={s.nextAvg} pct={s.nextAvgPct} /></td>
                       <td className="px-3 py-2.5 text-right"><PriceCell price={s.nextClose} pct={s.nextClosePct} /></td>

@@ -35,12 +35,13 @@ export interface DisposalCandidate {
   code: string;
   name: string;
   industry: string;
-  market: string;            // "上市" | "上櫃" | "興櫃"
+  market: string;            // "TWSE" | "OTC"
   latestClose: number;
   firstClose: number;
   daysLimitUp: number;       // how many days hit limit-up in rolling 10-day window
   totalDaysInWindow: number; // total trading days in data window (max 10)
-  streak: number;            // current streak from latest day's data
+  streak: number;            // peak streak across the 10-day window
+  currentStreak: number;     // streak from the most recent appearance
   gain: number;              // % gain from first to latest within the window
   risk: "高危" | "注意" | "觀察";
   status: "正常交易" | "預警中";
@@ -81,6 +82,7 @@ export async function GET() {
       firstClose: number;
       latestClose: number;
       maxStreak: number;
+      lastStreak: number;
       daysLimitUp: number;
       lastSeen: string;
       changePcts: number[];
@@ -95,10 +97,11 @@ export async function GET() {
           stockAppearances.set(s.code, {
             name: s.name,
             industry: s.industry,
-            market: s.market ?? "上市",
+            market: s.market ?? "TWSE",
             firstClose: s.close,
             latestClose: s.close,
             maxStreak: s.streak,
+            lastStreak: s.streak,
             daysLimitUp: 1,
             lastSeen: day.date,
             changePcts: [s.change_pct],
@@ -107,6 +110,7 @@ export async function GET() {
           existing.latestClose = s.close;
           existing.daysLimitUp += 1;
           existing.maxStreak = Math.max(existing.maxStreak, s.streak);
+          existing.lastStreak = s.streak;
           existing.lastSeen = day.date;
           existing.changePcts.push(s.change_pct);
         }
@@ -145,6 +149,7 @@ export async function GET() {
       daysLimitUp: data.daysLimitUp,
       totalDaysInWindow: totalDays,
       streak: data.maxStreak,
+      currentStreak: data.lastStreak,
       gain: +gain.toFixed(1),
       risk,
       status,
@@ -162,7 +167,7 @@ export async function GET() {
 
   return NextResponse.json(candidates, {
     headers: {
-      "Cache-Control": "public, s-maxage=1800, stale-while-revalidate=3600",
+      "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=7200",
     },
   });
 }

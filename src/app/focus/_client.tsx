@@ -171,7 +171,7 @@ function StreakRiskBadge({ risk, streak }: { risk?: 'low' | 'medium' | 'high'; s
 }
 
 function ScoreBar({ score }: { score: number }) {
-  const pct = Math.min(score, 100);
+  const pct = Math.max(0, Math.min(score, 100));
   const color = score >= 80 ? "bg-red" : score >= 60 ? "bg-amber" : score >= 40 ? "bg-blue" : "bg-txt-4";
   return (
     <div className="w-full h-1.5 bg-bg-3 rounded-full overflow-hidden">
@@ -472,7 +472,7 @@ export default function FocusClient() {
                 <span className="ml-2 text-[10px] font-normal text-txt-4">綜合評分 ≥ 50</span>
               </h2>
               <p className="text-[10px] text-txt-4 mb-4">
-                評分依據：趨勢族群(30) + 營收成長(25-35) + 法人買超(20) + 連板(15) + 龍頭(10)
+                評分依據：趨勢族群(30) + 營收成長(25-35) + 法人買超(25) + 連板(6-30) + 龍頭(10)
               </p>
 
               <div className="mb-4">
@@ -566,12 +566,12 @@ export default function FocusClient() {
                           </div>
 
                           {/* Entry/Exit reference levels (rule-based, personal record) */}
-                          {s.entryAggressive && (
+                          {s.entryAggressive != null && (
                             <p className="mt-2.5 text-[9px] text-txt-4">
                               參考價位為固定規則（收盤 +0.5%／−3%／−7%／+5%／+10%），屬個人紀錄參考區間，非預測或建議
                             </p>
                           )}
-                          {s.entryAggressive && (
+                          {s.entryAggressive != null && (
                             <div className="mt-1 grid grid-cols-2 sm:grid-cols-5 gap-1.5 text-[10px]">
                               <div className="bg-red/10 rounded px-1.5 py-1 text-center">
                                 <div className="text-txt-4 text-[9px]">追價</div>
@@ -596,7 +596,7 @@ export default function FocusClient() {
                             </div>
                           )}
                           {/* 357 次日開盤觀察價位 */}
-                          {s.open357Low && (
+                          {s.open357Low != null && s.open357Mid != null && s.open357High != null && (
                             <div className="mt-2">
                               <p className="text-[9px] text-txt-4 mb-1">次日開盤 357 觀察價（+3%/+5%/+7%）</p>
                               <div className="grid grid-cols-3 gap-1 text-[10px]">
