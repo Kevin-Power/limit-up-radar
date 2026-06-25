@@ -39,6 +39,8 @@ export interface NextDayStock {
   nextClose: number | null;
   nextClosePct: number | null;
   label: string;
+  open357Level: string;
+  closeLabel: string | null;
 }
 
 export interface NextDayData {
@@ -109,6 +111,23 @@ async function fetchTPExPrices(
     }
   } catch { /* ignore */ }
   return map;
+}
+
+function get357Level(openPct: number | null): string {
+  if (openPct === null) return "無資料";
+  if (openPct >= 9.5) return "續漲停";
+  if (openPct >= 7)   return "超強拉抬";
+  if (openPct >= 5)   return "強勢追價";
+  if (openPct >= 3)   return "低開觀察";
+  if (openPct >= 0)   return "平開";
+  return "開低";
+}
+
+function getCloseLabel(closePct: number | null): string | null {
+  if (closePct === null) return null;
+  if (closePct >= 5)  return "強漲收盤";
+  if (closePct >= 0)  return "正收盤";
+  return "負收盤";
 }
 
 function classifyLabel(openPct: number | null, closePct: number | null): string {
@@ -202,6 +221,8 @@ export async function GET() {
         const nextOpenPct = nextOpen !== null ? ((nextOpen - s.close) / s.close) * 100 : null;
         const nextClosePct = nextClose !== null ? ((nextClose - s.close) / s.close) * 100 : null;
 
+        const roundedOpenPct = nextOpenPct !== null ? +nextOpenPct.toFixed(2) : null;
+        const roundedClosePct = nextClosePct !== null ? +nextClosePct.toFixed(2) : null;
         stocks.push({
           code: s.code,
           name: s.name,
@@ -211,10 +232,12 @@ export async function GET() {
           volumeRatio: s.volume > 0 ? +(s.volume / 10000).toFixed(1) : 0,
           streak: s.streak,
           nextOpen,
-          nextOpenPct: nextOpenPct !== null ? +nextOpenPct.toFixed(2) : null,
+          nextOpenPct: roundedOpenPct,
           nextClose,
-          nextClosePct: nextClosePct !== null ? +nextClosePct.toFixed(2) : null,
+          nextClosePct: roundedClosePct,
           label: classifyLabel(nextOpenPct, nextClosePct),
+          open357Level: get357Level(nextOpenPct),
+          closeLabel: getCloseLabel(nextClosePct),
         });
       }
     }

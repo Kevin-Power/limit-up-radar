@@ -702,6 +702,15 @@ def classify_stocks(
         "2201": "auto", "2204": "auto", "2206": "auto", "2207": "auto",
         "2208": "auto", "2211": "auto", "2227": "auto", "2228": "auto",
         "2231": "auto", "2233": "auto", "2236": "auto",
+        # Memory / DRAM
+        "2344": "memory", "2408": "memory",
+        # Networking
+        "2345": "networking", "3617": "networking", "4526": "networking",
+        "6285": "networking",
+        # Foundry / Wafer Fab
+        "2303": "foundry", "2330": "foundry",
+        # Battery / Energy Storage Module
+        "6121": "power", "6803": "power", "5347": "power",
     }
 
     # --- Tier 2: Code-range-based industry classification ---
@@ -905,6 +914,30 @@ def classify_stocks(
             "badges": [],
             "reason": "電動車與車用電子需求帶動汽車零組件族群",
         },
+        "memory": {
+            "name": "記憶體 / DRAM",
+            "color": "#6366f1",
+            "badges": [],
+            "reason": "AI訓練與伺服器記憶體需求帶動DRAM族群",
+        },
+        "networking": {
+            "name": "網通 / 交換器",
+            "color": "#0891b2",
+            "badges": [],
+            "reason": "AI資料中心網路升級帶動網通族群",
+        },
+        "foundry": {
+            "name": "晶圓代工",
+            "color": "#7c3aed",
+            "badges": ["FOCUS"],
+            "reason": "先進製程需求旺盛，晶圓代工產能利用率回升",
+        },
+        "power": {
+            "name": "電池 / 儲能模組",
+            "color": "#16a34a",
+            "badges": [],
+            "reason": "儲能電站訂單增溫帶動電池模組族群",
+        },
         "others": {
             "name": "個股亮點",
             "color": "#64748b",
@@ -929,7 +962,8 @@ def classify_stocks(
     # (Keep single-stock groups for well-known themes, merge truly orphan ones)
     KEEP_SINGLE = {"steel", "ai_server", "semi_test", "ic_design", "pcb",
                    "optical_comm", "medical", "aerospace", "plastic", "gas",
-                   "construction", "finance", "food"}
+                   "construction", "finance", "food",
+                   "memory", "networking", "foundry", "power"}
     merged_groups: dict[str, list] = {}
     for key, stocks in groups.items():
         if len(stocks) == 1 and key not in KEEP_SINGLE:
@@ -949,6 +983,8 @@ def classify_stocks(
             "finance": "金融", "textile": "紡織", "electronics": "電子",
             "shipping": "航運",
             "gas": "油電燃氣", "auto": "汽車零組件",
+            "memory": "記憶體", "networking": "網通",
+            "foundry": "晶圓代工", "power": "電池儲能",
         }
         return label_map.get(group_key, "")
 

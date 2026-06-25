@@ -180,6 +180,8 @@ export async function GET() {
     volume: number;
     majorNet: number;
     streak: number;
+    consecutiveUpDays: number;
+    streakRisk: 'low' | 'medium' | 'high';
     group: string;
     groupColor: string;
     score: number;
@@ -192,6 +194,9 @@ export async function GET() {
     stopLoss: number;
     target1: number;
     target2: number;
+    open357Low: number;
+    open357Mid: number;
+    open357High: number;
     isBearish: boolean;
   }
 
@@ -224,8 +229,11 @@ export async function GET() {
         recentBearishEngulfing: recentBearishCodes.has(s.code),
       });
 
-      const { entryAggressive, entryPullback, stopLoss, target1, target2 } =
+      const { entryAggressive, entryPullback, stopLoss, target1, target2,
+              open357Low, open357Mid, open357High } =
         calculatePriceLevels(s.close);
+
+      const consec = consecutiveUpDaysMap.get(s.code) ?? 1;
 
       focusStocks.push({
         code: s.code,
@@ -235,6 +243,8 @@ export async function GET() {
         volume: s.volume,
         majorNet: s.major_net,
         streak: s.streak,
+        consecutiveUpDays: consecutiveUpDaysMap.get(s.code) ?? 1,
+        streakRisk: (s.streak ?? 1) <= 2 ? 'low' : (s.streak ?? 1) === 3 ? 'medium' : 'high',
         group: g.name,
         groupColor: g.color,
         score,
@@ -247,6 +257,9 @@ export async function GET() {
         stopLoss,
         target1,
         target2,
+        open357Low,
+        open357Mid,
+        open357High,
         isBearish: todayBearishCodes.has(s.code),
       });
     }

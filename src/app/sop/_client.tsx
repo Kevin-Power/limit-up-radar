@@ -93,6 +93,9 @@ export default function SopClient() {
             <p className="text-[10px] text-txt-4 mt-3 text-center">
               {bt.totalDays} 天 · {bt.totalSamples} 個樣本 · 用 TWSE 真實隔日成交價計算 · 毛報酬（未含成本與滑價）
             </p>
+            <p className="text-[10px] text-txt-4 mt-1 text-center">
+              勝率為隔日開盤報酬 &gt; 0 的比例，非漲停板繼續率
+            </p>
           </div>
         )}
 
@@ -131,6 +134,10 @@ export default function SopClient() {
                     <li>• <strong className="text-red">實際下單建議只選 ≥ 60 分</strong>（保守原則）</li>
                     <li>• 一次最多挑 3-5 檔（不要全壓）</li>
                   </ul>
+                  <div className="mt-3 p-3 bg-amber/10 border border-amber/30 rounded-lg">
+                    <p className="text-xs text-amber font-bold mb-1">⚠️ 看到「連3紅注意回測」標記時：</p>
+                    <p className="text-xs text-txt-2">連漲 3 日以上標的，次日續板率隨連板數下降，建議<strong>倉位減半</strong>・開盤前 5 分鐘<strong>必須出場</strong>・<strong>不留隔夜</strong></p>
+                  </div>
                   <p className="mt-2 text-[11px] text-txt-4 leading-relaxed">
                     💡 註：上方回測勝率是「分數 ≥50 全樣本、未含成本」的毛數字。
                     ≥60 高分群與含成本後的實際分布，
@@ -185,6 +192,37 @@ export default function SopClient() {
                 </div>
               </div>
             </div>
+
+            {/* 357 Advanced — collapsible */}
+            <details className="bg-bg-1 border border-border rounded-xl overflow-hidden group">
+              <summary className="flex items-center justify-between px-5 py-4 cursor-pointer list-none">
+                <span className="text-sm font-bold text-txt-0">進階：開盤 5 分鐘觀察（357 法則）</span>
+                <span className="text-txt-3 text-xs group-open:rotate-180 transition-transform">▼</span>
+              </summary>
+              <div className="px-5 pb-5">
+                <p className="text-xs text-txt-3 mb-3">漲停次日開盤幅度是關鍵訊號，根據 PDF 357 法則分三個節點判斷：</p>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-xs">
+                    <thead>
+                      <tr className="bg-bg-2 text-txt-3">
+                        <th className="text-left px-3 py-2">開盤幅度</th>
+                        <th className="text-left px-3 py-2">訊號解讀</th>
+                        <th className="text-left px-3 py-2">建議動作</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-border">
+                      <tr><td className="px-3 py-2 font-mono text-red font-bold">+9.5%↑</td><td className="px-3 py-2 text-txt-1">續漲停</td><td className="px-3 py-2 text-txt-2">繼續持有，明日再評估</td></tr>
+                      <tr><td className="px-3 py-2 font-mono text-red">+7% ~ +9.5%</td><td className="px-3 py-2 text-txt-1">超強拉抬</td><td className="px-3 py-2 text-txt-2">持有，破 VP（VWAP）才出場</td></tr>
+                      <tr><td className="px-3 py-2 font-mono text-amber">+5% ~ +7%</td><td className="px-3 py-2 text-txt-1">強勢追價</td><td className="px-3 py-2 text-txt-2">量能配合則守，觀察 2 個 5 分 K</td></tr>
+                      <tr><td className="px-3 py-2 font-mono text-amber">+3% ~ +5%</td><td className="px-3 py-2 text-txt-1">低開觀察</td><td className="px-3 py-2 text-txt-2">易被刷洗，需量推升，觀察 1 個 5 分 K</td></tr>
+                      <tr><td className="px-3 py-2 font-mono text-txt-2">0% ~ +3%</td><td className="px-3 py-2 text-txt-1">平開弱勢</td><td className="px-3 py-2 text-txt-2">謹慎，開盤不回升考慮出場</td></tr>
+                      <tr><td className="px-3 py-2 font-mono text-green">低於 0%</td><td className="px-3 py-2 text-txt-1">開低</td><td className="px-3 py-2 text-txt-2 font-bold text-red">開盤即出場，不戀戰</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p className="text-[10px] text-txt-4 mt-3">VP = VWAP 成交量加權平均價，需盤中看實時行情，本平台不提供即時資料</p>
+              </div>
+            </details>
 
           </div>
         </section>

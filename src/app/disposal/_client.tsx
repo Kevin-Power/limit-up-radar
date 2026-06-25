@@ -11,7 +11,7 @@ import type { DisposalCandidate } from "@/app/api/disposal/route";
 // ── Types ────────────────────────────────────────────────────────────────────
 
 type RiskLevel = "高危" | "注意" | "觀察";
-type Status = "正常交易" | "預警中" | "已處置";
+type Status = "正常交易" | "預警中";
 
 interface DisposalStock {
   code: string;
@@ -60,7 +60,6 @@ function StatusBadge({ status }: { status: Status }) {
   const cls: Record<Status, string> = {
     "正常交易": "bg-bg-3 text-txt-3 border border-border",
     "預警中":   "bg-amber/10 text-amber border border-amber/30",
-    "已處置":   "bg-red/10 text-red border border-red/30",
   };
   return (
     <span className={`px-2 py-0.5 rounded text-[11px] font-semibold ${cls[status]}`}>
@@ -217,7 +216,7 @@ export default function DisposalPage() {
 
   const countWarning = ACTIVE_STOCKS.filter(s => s.risk === "高危").length;
   const countAlert = ACTIVE_STOCKS.filter(s => s.status === "預警中").length;
-  const countDisposed = ACTIVE_STOCKS.filter(s => s.status === "已處置").length;
+  const countNormal = ACTIVE_STOCKS.filter(s => s.status === "正常交易").length;
 
   function handleSort(key: SortKey) {
     if (sortKey === key) setSortAsc(!sortAsc);
@@ -258,7 +257,7 @@ export default function DisposalPage() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <KPICard label="處置警告股" value={countWarning} color="red" />
           <KPICard label="預警中" value={countAlert} color="amber" />
-          <KPICard label="已處置" value={countDisposed} color="blue" />
+          <KPICard label="正常交易" value={countNormal} color="blue" />
         </div>
 
         {/* ─── 2. Risk Monitoring Table ─────────────────────────────────── */}
@@ -288,7 +287,6 @@ export default function DisposalPage() {
             {/* Rows */}
             {sorted.map((s) => {
               const rowBg =
-                s.status === "已處置" ? "bg-red/[0.04]" :
                 s.risk === "高危" ? "bg-amber/[0.03]" : "";
               return (
                 <div

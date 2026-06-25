@@ -37,12 +37,12 @@ export interface DisposalCandidate {
   industry: string;
   latestClose: number;
   firstClose: number;
-  daysLimitUp: number;       // how many days hit limit-up in our data window
-  totalDaysInWindow: number; // total trading days in data window
+  daysLimitUp: number;       // how many days hit limit-up in rolling 10-day window
+  totalDaysInWindow: number; // total trading days in data window (max 10)
   streak: number;            // current streak from latest day's data
-  gain: number;              // % gain from first appearance to latest
+  gain: number;              // % gain from first to latest within the window
   risk: "高危" | "注意" | "觀察";
-  status: "正常交易" | "預警中" | "已處置";
+  status: "正常交易" | "預警中";
   lastSeen: string;          // date of last limit-up
 }
 
@@ -50,7 +50,10 @@ export async function GET() {
   const dataDir = path.join(process.cwd(), "data", "daily");
   let files: string[] = [];
   try {
-    files = (await fs.readdir(dataDir)).filter((f) => f.endsWith(".json")).sort();
+    files = (await fs.readdir(dataDir))
+      .filter((f) => f.endsWith(".json"))
+      .sort()
+      .slice(-10); // rolling 10-day window per TWSE disposal rule
   } catch {
     return NextResponse.json([], { status: 200 });
   }
@@ -67,7 +70,7 @@ export async function GET() {
     return NextResponse.json([], { status: 200 });
   }
 
-  // Track each stock's appearances across days
+  // Track each stock across the 10-day window
   const stockAppearances = new Map<
     string,
     {
@@ -78,6 +81,7 @@ export async function GET() {
       maxStreak: number;
       daysLimitUp: number;
       lastSeen: string;
+      changePcts: number[];
     }
   >();
 
@@ -94,12 +98,14 @@ export async function GET() {
             maxStreak: s.streak,
             daysLimitUp: 1,
             lastSeen: day.date,
+            changePcts: [s.change_pct],
           });
         } else {
           existing.latestClose = s.close;
           existing.daysLimitUp += 1;
           existing.maxStreak = Math.max(existing.maxStreak, s.streak);
           existing.lastSeen = day.date;
+          existing.changePcts.push(s.change_pct);
         }
       }
     }
@@ -113,19 +119,17 @@ export async function GET() {
       ? ((data.latestClose - data.firstClose) / data.firstClose) * 100
       : 0;
 
-    // TWSE disposal criteria: streak ≥ 3 limit-up days in ≤ 6 trading days
-    let risk: "高危" | "注意" | "觀察";
-    let status: "正常交易" | "預警中" | "已處置";
+    const abnormalDays = data.changePcts.filter((p) => Math.abs(p) >= 3.5).length;
+    const status: "正常交易" | "預警中" = abnormalDays >= 6 ? "預警中" : "正常交易";
 
-    if (data.maxStreak >= 5 || gain >= 30 || data.daysLimitUp >= 5) {
+    let risk: "高危" | "注意" | "觀察";
+
+    if (data.daysLimitUp >= 5 || data.maxStreak >= 5 || gain >= 30) {
       risk = "高危";
-      status = data.maxStreak >= 5 ? "預警中" : "正常交易";
-    } else if (data.maxStreak >= 3 || gain >= 20 || data.daysLimitUp >= 3) {
+    } else if (data.daysLimitUp >= 3 || data.maxStreak >= 3 || gain >= 20) {
       risk = "注意";
-      status = "正常交易";
     } else {
       risk = "觀察";
-      status = "正常交易";
     }
 
     candidates.push({

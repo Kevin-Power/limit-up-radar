@@ -38,7 +38,7 @@ export interface ScoreResult {
  *   - 趨勢族群 (2+ days trending): +30
  *   - 營收 YoY > 20%: +25 (>50% extra +10)
  *   - 法人買超 (major_net > 0): +20
- *   - 連板 (streak >= 2): +15
+ *   - 連板 (streak >= 1): +streak*6 (cap 30); streak >= 5: -10 高追風險
  *   - 大量 (volume > 5M shares = 5,000 lots): +5
  *   - 族群龍頭 (top volume in group): +10
  *   - 權值股漲停 (isHeavyweight=true): +25 (TWSE 50 成分股漲停為強訊號，較罕見)
@@ -102,9 +102,14 @@ export function scoreStock(input: ScoreInput & {
     score += 20;
     tags.push("法人買超");
   }
-  if (stock.streak >= 2) {
-    score += 15;
-    tags.push(`${stock.streak}連板`);
+  if (stock.streak >= 1) {
+    const streakBonus = Math.min(stock.streak * 6, 30);
+    score += streakBonus;
+    tags.push(`${stock.streak}連板動能`);
+    if (stock.streak >= 5) {
+      score -= 10;
+      tags.push(`⚠️${stock.streak}連板高追風險`);
+    }
   }
   if (stock.volume > 5_000_000) {
     score += 5;
@@ -162,5 +167,8 @@ export function calculatePriceLevels(close: number) {
     stopLoss: Math.round(close * 0.93 * 100) / 100,
     target1: Math.round(close * 1.05 * 100) / 100,
     target2: Math.round(close * 1.10 * 100) / 100,
+    open357Low:  parseFloat((close * 1.03).toFixed(2)),
+    open357Mid:  parseFloat((close * 1.05).toFixed(2)),
+    open357High: parseFloat((close * 1.07).toFixed(2)),
   };
 }
