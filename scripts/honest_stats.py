@@ -178,8 +178,8 @@ def load_categories():
         return set(), set()
 
 
-def reconstruct_picks(days, i, rev_maps, heavyweight, known_disposal):
-    """重建第 i 天的 top-20（≥50）選股，回傳 [{code,name,close,score}]。"""
+def reconstruct_picks(days, i, rev_maps, heavyweight, known_disposal, cap=MAX_PICKS):
+    """重建第 i 天的選股（≥50），依分數降冪。cap=None → 不設上限。"""
     td = days[i]
     # 趨勢族群：i, i-1, i-2 出現 ≥2 天
     group_days = {}
@@ -222,7 +222,7 @@ def reconstruct_picks(days, i, rev_maps, heavyweight, known_disposal):
                 picks.append({"code": s["code"], "name": s["name"],
                               "close": s["close"], "score": sc})
     picks.sort(key=lambda p: -p["score"])
-    return picks[:MAX_PICKS]
+    return picks if cap is None else picks[:cap]
 
 
 # ════════════════════════════════════════════════════════════
