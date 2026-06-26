@@ -64,3 +64,9 @@ line_post/
 # splc/ — standalone Vite project, integrated as src/components/SupplyChainMap
 splc/
 .claude/worktrees/
+
+# 09:03 回測 1 分 K 快取（可重建）
+data/intraday_cache/
+
+# Shioaji runtime log (寫於 import 時)
+shioaji.log

@@ -132,3 +132,22 @@ def test_score_full_heavyweight_and_bearish_are_wired():
                                is_heavyweight=True, **base) == s0 + 25
     assert hs.score_stock_full(_stock(streak=1, major_net=0), recent_bearish=True,
                                is_heavyweight=False, **base) == s0 - 25
+
+
+# ── reconstruct_picks cap 參數（09:03 回測需全部 ≥50）──────────
+def test_reconstruct_picks_cap_none_returns_all():
+    days = [{
+        "date": "2026-06-10",
+        "groups": [{"name": "G", "stocks": [
+            {"code": f"{1000+i}", "name": f"s{i}", "close": 10.0,
+             "volume": 6_000_000, "major_net": 1, "streak": 2}
+            for i in range(25)
+        ]}],
+    }]
+    # 趨勢族群需 2 天才成立；單日 → 不加 30，但量+5/法人+20/連板+15=40 < 50
+    # 為了讓全部 ≥50，補一天讓 G 變趨勢族群（+30 → 70）
+    days = [{"date": "2026-06-09", "groups": days[0]["groups"]}, days[0]]
+    picks_capped = hs.reconstruct_picks(days, 1, [], set(), set())          # 預設 cap=20
+    picks_all = hs.reconstruct_picks(days, 1, [], set(), set(), cap=None)   # 無上限
+    assert len(picks_capped) == 20
+    assert len(picks_all) == 25
