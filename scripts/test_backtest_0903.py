@@ -55,3 +55,67 @@ def test_entry_signal_not_red_k_locked_limit_up():
 def test_entry_signal_none_when_no_0903():
     bars = _bars([("09:08", 100, 100, 100, 100)])
     assert bt.entry_signal(bars, prev_close=99.0) is None
+
+
+# ── simple_return ───────────────────────────────────────────
+def test_simple_return_daytrade():
+    # 進100 出105 毛+5%，扣當沖0.435 → 4.57（四捨五入兩位）
+    assert bt.simple_return(100, 105, bt.COST_DAYTRADE) == pytest.approx(4.57, abs=0.01)
+
+
+def test_simple_return_loss_overnight():
+    assert bt.simple_return(100, 98, bt.COST_OVERNIGHT) == pytest.approx(-2.585, abs=0.01)
+
+
+# ── simulate_tp_sl（逐K路徑）────────────────────────────────
+def _after(seq):
+    return [{"time": t, "high": h, "low": l, "close": c} for (t, h, l, c) in seq]
+
+
+def test_tp_sl_take_profit_hit_first():
+    bars = _after([("09:04", 103, 101, 102), ("09:05", 106, 104, 105)])  # 第2根觸 +5%
+    # tp5 → 毛+5 扣0.435 = 4.57
+    assert bt.simulate_tp_sl(100, bars, tp_pct=5, sl_pct=3, day_close=104,
+                             cost=bt.COST_DAYTRADE) == pytest.approx(4.57, abs=0.01)
+
+
+def test_tp_sl_stop_loss_hit_first():
+    bars = _after([("09:04", 101, 96, 97)])   # low96 ≤ 97(sl3) 觸停損
+    assert bt.simulate_tp_sl(100, bars, tp_pct=5, sl_pct=3, day_close=104,
+                             cost=bt.COST_DAYTRADE) == pytest.approx(-3.435, abs=0.01)
+
+
+def test_tp_sl_same_bar_both_assumes_stop_loss():
+    bars = _after([("09:04", 106, 96, 100)])  # 同根同觸停利停損 → 保守取停損
+    assert bt.simulate_tp_sl(100, bars, tp_pct=5, sl_pct=3, day_close=104,
+                             cost=bt.COST_DAYTRADE) == pytest.approx(-3.435, abs=0.01)
+
+
+def test_tp_sl_none_triggered_exits_at_close():
+    bars = _after([("09:04", 102, 99, 101), ("13:30", 103, 100, 102)])  # 都沒觸發
+    # 收盤102 毛+2 扣0.435 = 1.565
+    assert bt.simulate_tp_sl(100, bars, tp_pct=5, sl_pct=3, day_close=102,
+                             cost=bt.COST_DAYTRADE) == pytest.approx(1.565, abs=0.01)
+
+
+# ── simulate_exit 分派 ──────────────────────────────────────
+def _trade(**kw):
+    base = {"entry": 100, "dayClose": 105, "nextOpen": 106, "nextClose": 104,
+            "barsAfter": _after([("13:30", 105, 100, 105)])}
+    base.update(kw)
+    return base
+
+
+def test_simulate_exit_daytrade_close():
+    r = bt.simulate_exit(_trade(), {"key": "daytrade_close", "kind": "daytrade_close"})
+    assert r == pytest.approx(4.57, abs=0.01)
+
+
+def test_simulate_exit_next_open():
+    r = bt.simulate_exit(_trade(), {"key": "next_open", "kind": "next_open"})
+    assert r == pytest.approx(5.415, abs=0.01)   # 進100 出106 毛+6 扣0.585
+
+
+def test_simulate_exit_next_open_missing_data_returns_none():
+    r = bt.simulate_exit(_trade(nextOpen=None), {"key": "next_open", "kind": "next_open"})
+    assert r is None
