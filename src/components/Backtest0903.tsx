@@ -15,7 +15,7 @@ interface TradeRow {
 interface Report {
   updatedAt: string; dateRange: { start: string | null; end: string | null };
   tradingDays: number;
-  funnel: { totalPicks: number; noData: number; passedFilter: number; traded: number };
+  funnel: { totalPicks: number; noData: number; notEntered?: number; passedFilter: number; traded?: number };
   rules: RuleAgg[];
   best: (RuleAgg & { lowConfidence: boolean; caveat: string }) | null;
   robustness: { firstHalfBest: string | null; secondHalfBest: string | null; consistent: boolean | null };
@@ -86,7 +86,7 @@ export default function Backtest0903() {
           {b.caveat && <p className="text-[10px] text-amber mt-2">⚠️ {b.caveat}</p>}
           <p className="text-[10px] text-txt-4 mt-1">
             穩健性：前半最佳「{data.robustness.firstHalfBest ?? "—"}」/ 後半「{data.robustness.secondHalfBest ?? "—"}」·
-            {data.robustness.consistent ? " 一致 ✓" : " 不一致（最佳規則不穩，保守看待）"}
+            {data.robustness.consistent === true ? " 一致 ✓" : data.robustness.consistent === false ? " 不一致（最佳規則不穩，保守看待）" : " 資料不足"}
           </p>
         </div>
       )}
@@ -97,8 +97,8 @@ export default function Backtest0903() {
         <div className="grid grid-cols-4 gap-2 text-center">
           <Funnel label="精選標的" value={f.totalPicks} />
           <Funnel label="無 1 分 K" value={f.noData} muted />
-          <Funnel label="通過濾網" value={f.passedFilter} />
-          <Funnel label="實際成交" value={f.traded} />
+          <Funnel label="未觸條件" value={f.notEntered ?? (f.totalPicks - f.noData - f.passedFilter)} muted />
+          <Funnel label="進場" value={f.passedFilter} />
         </div>
       </div>
 

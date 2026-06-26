@@ -15,7 +15,7 @@ COST_OVERNIGHT = 0.585   # 0.1425%×2 + 隔日稅 0.30%
 
 _OPEN = "09:00"
 _T0903 = "09:03"
-_CUTOFF = "09:06"   # 09:06 前都無成交 → 視為無 09:03 價
+_CUTOFF = "09:06"   # 09:06（含）前都無成交 → 視為無 09:03 價
 
 
 def bar_at_0903(bars):
@@ -181,7 +181,7 @@ def build_report(pick_days, bars_provider, rules=EXIT_RULES, min_trades=30):
     funnel：totalPicks（有 D+1 的精選）→ noData → passedFilter → traded。
     每筆成交存進 trades；各規則彙總後挑最佳；前後半穩健性檢查。
     """
-    total_picks = no_data = passed = 0
+    total_picks = no_data = not_entered = passed = 0
     entry_dates = []
     trades = []          # 含 barsAfter（記憶體用，寫檔前移除）
 
@@ -195,6 +195,7 @@ def build_report(pick_days, bars_provider, rules=EXIT_RULES, min_trades=30):
                 no_data += 1
                 continue
             if not sig["entered"]:
+                not_entered += 1
                 continue
             passed += 1
             day_open, day_close = _day_open_close(day_bars)
@@ -254,7 +255,7 @@ def build_report(pick_days, bars_provider, rules=EXIT_RULES, min_trades=30):
         "pickCap": None,
         "fees": {"daytradeCostPct": COST_DAYTRADE, "overnightCostPct": COST_OVERNIGHT},
         "funnel": {"totalPicks": total_picks, "noData": no_data,
-                   "passedFilter": passed, "traded": len(trades)},
+                   "notEntered": not_entered, "passedFilter": passed},
         "rules": rule_results,
         "best": best,
         "robustness": robustness,

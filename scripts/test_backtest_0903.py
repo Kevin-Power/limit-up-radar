@@ -208,8 +208,8 @@ def test_build_report_funnel_and_rules():
                     {"time": "13:30", "open": 107, "high": 108, "low": 106, "close": 106}]
         return []   # CCC 無資料
 
-    rep = build_report(pick_days, provider, min_trades=0)
-    assert rep["funnel"] == {"totalPicks": 3, "noData": 1, "passedFilter": 1, "traded": 1}
+    rep = bt.build_report(pick_days, provider, min_trades=0)
+    assert rep["funnel"] == {"totalPicks": 3, "noData": 1, "notEntered": 1, "passedFilter": 1}
     assert rep["dateRange"] == {"start": "2026-06-24", "end": "2026-06-24"}
     daytrade = next(r for r in rep["rules"] if r["key"] == "daytrade_close")
     assert daytrade["trades"] == 1
@@ -219,6 +219,3 @@ def test_build_report_funnel_and_rules():
     assert len(rep["trades"]) == 1
     assert rep["trades"][0]["code"] == "AAA"
     assert "bestReturnNet" in rep["trades"][0]
-
-
-from backtest_0903 import build_report  # noqa: E402  (放檔尾避免循環)

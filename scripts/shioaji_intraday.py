@@ -32,7 +32,8 @@ def _cache_path(code, date):
 def _load_cache(code, date):
     try:
         with open(_cache_path(code, date), encoding="utf-8") as fp:
-            return json.load(fp)
+            data = json.load(fp)
+            return data if data else None   # [] 視同快取失效，允許重試
     except Exception:
         return None
 
