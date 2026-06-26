@@ -159,3 +159,108 @@ def pick_best(rule_results, min_trades=30):
     best = max(pool, key=sort_key)
     caveat = "TP/SL 為樣本內最佳化，有過擬合風險" if best["key"].startswith("tp") else ""
     return {**best, "lowConfidence": not eligible, "caveat": caveat}
+
+
+def _bars_after_0903(bars):
+    """09:03 之後（不含 09:03 那根）的 K，供停利停損掃描與盤中高低。
+    排除 09:03 本身：進場在 09:03 收盤，該根 09:00–09:03 的高低發生在買進前，
+    若納入會虛構出停利/停損觸發。"""
+    return [b for b in bars if b["time"] > _T0903]
+
+
+def _day_open_close(bars):
+    """(第一根 open, 最後一根 close)；無 bars → (None, None)。"""
+    if not bars:
+        return None, None
+    return bars[0]["open"], bars[-1]["close"]
+
+
+def build_report(pick_days, bars_provider, rules=EXIT_RULES, min_trades=30):
+    """核心回測：pick_days + bars_provider(code,date)->bars → 報告 dict。
+
+    funnel：totalPicks（有 D+1 的精選）→ noData → passedFilter → traded。
+    每筆成交存進 trades；各規則彙總後挑最佳；前後半穩健性檢查。
+    """
+    total_picks = no_data = passed = 0
+    entry_dates = []
+    trades = []          # 含 barsAfter（記憶體用，寫檔前移除）
+
+    for d in pick_days:
+        entry_date = d["entryDate"]
+        for p in d["picks"]:
+            total_picks += 1
+            day_bars = bars_provider(p["code"], entry_date)
+            sig = entry_signal(day_bars, p["prevClose"])
+            if sig is None:
+                no_data += 1
+                continue
+            if not sig["entered"]:
+                continue
+            passed += 1
+            day_open, day_close = _day_open_close(day_bars)
+            next_bars = bars_provider(p["code"], d["nextDate"]) if d.get("nextDate") else []
+            next_open, next_close = _day_open_close(next_bars)
+            after = _bars_after_0903(day_bars)
+            day_high_after = max((b["high"] for b in after), default=sig["p0903"])
+            day_low_after = min((b["low"] for b in after), default=sig["p0903"])
+            trades.append({
+                "pickDate": d["pickDate"], "dEntry": entry_date,
+                "code": p["code"], "name": p["name"], "score": p["score"],
+                "prevClose": p["prevClose"], "open": sig["open"], "p0903": sig["p0903"],
+                "entry": sig["p0903"],
+                "dayHighAfter": round(day_high_after, 2), "dayLowAfter": round(day_low_after, 2),
+                "dayClose": day_close, "nextOpen": next_open, "nextClose": next_close,
+                "barsAfter": after,
+            })
+            entry_dates.append(entry_date)
+
+    # 各規則彙總
+    rule_results = []
+    for rule in rules:
+        rets = [simulate_exit(t, rule) for t in trades]
+        rule_results.append({"key": rule["key"], "label": rule["label"],
+                             **aggregate_rule(rets)})
+
+    best = pick_best(rule_results, min_trades=min_trades)
+
+    # 穩健性：依進場日排序切前後半，各自挑最佳 key
+    ordered = sorted(trades, key=lambda t: (t["dEntry"], t["code"]))
+    half = len(ordered) // 2
+    robustness = {"firstHalfBest": None, "secondHalfBest": None, "consistent": None}
+    if half >= 1:
+        def best_key(subset):
+            rr = [{"key": r["key"], "label": r["label"],
+                   **aggregate_rule([simulate_exit(t, r) for t in subset])}
+                  for r in rules]
+            b = pick_best(rr, min_trades=0)
+            return b["key"] if b else None
+        fh, sh = best_key(ordered[:half]), best_key(ordered[half:])
+        robustness = {"firstHalfBest": fh, "secondHalfBest": sh, "consistent": fh == sh}
+
+    # 為 trades 加上「最佳規則」的出場價與報酬，並移除 barsAfter
+    best_rule = next((r for r in rules if r["key"] == best["key"]), None) if best else None
+    out_trades = []
+    for t in trades:
+        ret = simulate_exit(t, best_rule) if best_rule else None
+        slim = {k: v for k, v in t.items() if k != "barsAfter"}
+        slim["bestReturnNet"] = ret
+        out_trades.append(slim)
+
+    return {
+        "dateRange": {"start": min(entry_dates), "end": max(entry_dates)} if entry_dates
+                     else {"start": None, "end": None},
+        "tradingDays": len(pick_days),
+        "pickThreshold": 50,
+        "pickCap": None,
+        "fees": {"daytradeCostPct": COST_DAYTRADE, "overnightCostPct": COST_OVERNIGHT},
+        "funnel": {"totalPicks": total_picks, "noData": no_data,
+                   "passedFilter": passed, "traded": len(trades)},
+        "rules": rule_results,
+        "best": best,
+        "robustness": robustness,
+        "trades": out_trades,
+        "methodology": (
+            "永豐 Shioaji 真實 1 分 K。選股池=當日 score≥50 全部；隔日 09:03 "
+            "紅K(現價>開盤)且高於昨收才進場；多種出場規則回測，依淨期望值挑最佳。"
+            "成本：當沖0.435%、隔日0.585%（扣百分點）。"),
+    }

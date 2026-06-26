@@ -182,3 +182,43 @@ def test_pick_best_falls_back_when_none_eligible():
     assert best["key"] == "tp5_sl3"
     assert best["lowConfidence"] is True
     assert "過擬合" in best["caveat"]     # tp 規則帶過擬合提醒
+
+
+# ── build_report（注入假 bars_provider）──────────────────────
+def test_build_report_funnel_and_rules():
+    pick_days = [{
+        "pickDate": "2026-06-23", "entryDate": "2026-06-24", "nextDate": "2026-06-25",
+        "picks": [
+            {"code": "AAA", "name": "進場檔", "score": 80, "prevClose": 100.0},
+            {"code": "BBB", "name": "不符檔", "score": 70, "prevClose": 100.0},
+            {"code": "CCC", "name": "無資料", "score": 65, "prevClose": 100.0},
+        ],
+    }]
+
+    def provider(code, date):
+        if code == "AAA" and date == "2026-06-24":   # 紅K且高於昨收 → 進場
+            return [{"time": "09:01", "open": 100, "high": 101, "low": 100, "close": 100.5},
+                    {"time": "09:03", "open": 100.5, "high": 105, "low": 100.5, "close": 104},
+                    {"time": "13:30", "open": 104, "high": 106, "low": 103, "close": 105}]
+        if code == "BBB" and date == "2026-06-24":   # 紅K但低於昨收 → 不進場
+            return [{"time": "09:01", "open": 98, "high": 99, "low": 98, "close": 98.5},
+                    {"time": "09:03", "open": 98.5, "high": 99, "low": 98.5, "close": 99}]
+        if code == "AAA" and date == "2026-06-25":   # D+2（隔日出場用）
+            return [{"time": "09:01", "open": 107, "high": 108, "low": 106, "close": 107.5},
+                    {"time": "13:30", "open": 107, "high": 108, "low": 106, "close": 106}]
+        return []   # CCC 無資料
+
+    rep = build_report(pick_days, provider, min_trades=0)
+    assert rep["funnel"] == {"totalPicks": 3, "noData": 1, "passedFilter": 1, "traded": 1}
+    assert rep["dateRange"] == {"start": "2026-06-24", "end": "2026-06-24"}
+    daytrade = next(r for r in rep["rules"] if r["key"] == "daytrade_close")
+    assert daytrade["trades"] == 1
+    # 進104 收105 毛+0.96% 扣0.435 ≈ 0.527
+    assert daytrade["meanNet"] == pytest.approx(0.53, abs=0.05)
+    assert rep["best"] is not None
+    assert len(rep["trades"]) == 1
+    assert rep["trades"][0]["code"] == "AAA"
+    assert "bestReturnNet" in rep["trades"][0]
+
+
+from backtest_0903 import build_report  # noqa: E402  (放檔尾避免循環)
