@@ -85,3 +85,41 @@ def simulate_exit(trade, rule):
         return simulate_tp_sl(trade["entry"], trade["barsAfter"],
                               rule["tp"], rule["sl"], trade["dayClose"], COST_DAYTRADE)
     raise ValueError(f"unknown rule kind: {kind}")
+
+
+def profit_factor(rets):
+    """總獲利 / 總虧損；無虧損且有獲利 → None（前端顯示 ∞）。"""
+    gains = sum(r for r in rets if r > 0)
+    losses = -sum(r for r in rets if r < 0)
+    if losses == 0:
+        return None if gains > 0 else 0.0
+    return round(gains / losses, 2)
+
+
+def max_drawdown(rets):
+    """依序複利建權益曲線，回最大回檔%（正數）。"""
+    eq = 100.0
+    peak = 100.0
+    mdd = 0.0
+    for r in rets:
+        eq *= (1 + r / 100)
+        peak = max(peak, eq)
+        mdd = max(mdd, (peak - eq) / peak * 100)
+    return round(mdd, 2)
+
+
+def aggregate_rule(rets):
+    """淨報酬序列（可含 None）→ 規則級指標 dict。"""
+    rets = [r for r in rets if r is not None]
+    s = summarize(rets)
+    return {
+        "trades": s["samples"],
+        "winRate": s["winRate"],
+        "meanNet": s["mean"],
+        "medianNet": s["median"],
+        "totalNet": round(sum(rets), 2) if rets else 0,
+        "profitFactor": profit_factor(rets),
+        "maxDrawdown": max_drawdown(rets),
+        "maxWin": round(max(rets), 2) if rets else None,
+        "maxLoss": round(min(rets), 2) if rets else None,
+    }

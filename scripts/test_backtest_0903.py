@@ -119,3 +119,36 @@ def test_simulate_exit_next_open():
 def test_simulate_exit_next_open_missing_data_returns_none():
     r = bt.simulate_exit(_trade(nextOpen=None), {"key": "next_open", "kind": "next_open"})
     assert r is None
+
+
+# ── profit_factor / max_drawdown ────────────────────────────
+def test_profit_factor():
+    assert bt.profit_factor([2, -1, 3, -2]) == pytest.approx(5 / 3, abs=0.01)
+
+
+def test_profit_factor_no_losses_returns_none():
+    assert bt.profit_factor([1, 2, 3]) is None
+
+
+def test_max_drawdown_simple():
+    # +10% 後 -20% → 從 110 跌到 88，回檔 (110-88)/110=20%
+    assert bt.max_drawdown([10, -20]) == pytest.approx(20.0, abs=0.1)
+
+
+def test_max_drawdown_all_up_zero():
+    assert bt.max_drawdown([1, 2, 3]) == 0.0
+
+
+# ── aggregate_rule ──────────────────────────────────────────
+def test_aggregate_rule_basic():
+    agg = bt.aggregate_rule([2.0, -1.0, 3.0, -2.0])
+    assert agg["trades"] == 4
+    assert agg["winRate"] == pytest.approx(50.0)
+    assert agg["meanNet"] == pytest.approx(0.5)
+    assert agg["totalNet"] == pytest.approx(2.0)
+    assert agg["maxWin"] == 3.0 and agg["maxLoss"] == -2.0
+
+
+def test_aggregate_rule_drops_none():
+    agg = bt.aggregate_rule([1.0, None, -1.0])
+    assert agg["trades"] == 2
