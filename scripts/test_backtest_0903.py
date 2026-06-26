@@ -152,3 +152,33 @@ def test_aggregate_rule_basic():
 def test_aggregate_rule_drops_none():
     agg = bt.aggregate_rule([1.0, None, -1.0])
     assert agg["trades"] == 2
+
+
+# ── EXIT_RULES ──────────────────────────────────────────────
+def test_exit_rules_registry():
+    keys = {r["key"] for r in bt.EXIT_RULES}
+    assert {"daytrade_close", "next_open", "next_close"} <= keys
+    # 12 組停利停損 (4 TP × 3 SL)
+    assert sum(1 for r in bt.EXIT_RULES if r["kind"] == "tp_sl") == 12
+    assert len(bt.EXIT_RULES) == 15
+
+
+# ── pick_best ───────────────────────────────────────────────
+def test_pick_best_by_expectancy_with_min_trades():
+    rules = [
+        {"key": "a", "label": "A", "trades": 40, "meanNet": 1.0, "profitFactor": 1.5, "winRate": 55},
+        {"key": "b", "label": "B", "trades": 40, "meanNet": 2.0, "profitFactor": 1.8, "winRate": 60},
+        {"key": "c", "label": "C", "trades": 5,  "meanNet": 9.0, "profitFactor": 9.9, "winRate": 99},
+    ]
+    best = bt.pick_best(rules, min_trades=30)
+    assert best["key"] == "b"            # c 樣本不足被排除
+    assert best["lowConfidence"] is False
+
+
+def test_pick_best_falls_back_when_none_eligible():
+    rules = [{"key": "tp5_sl3", "label": "x", "trades": 5, "meanNet": 3.0,
+              "profitFactor": 2.0, "winRate": 70}]
+    best = bt.pick_best(rules, min_trades=30)
+    assert best["key"] == "tp5_sl3"
+    assert best["lowConfidence"] is True
+    assert "過擬合" in best["caveat"]     # tp 規則帶過擬合提醒

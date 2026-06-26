@@ -123,3 +123,39 @@ def aggregate_rule(rets):
         "maxWin": round(max(rets), 2) if rets else None,
         "maxLoss": round(min(rets), 2) if rets else None,
     }
+
+
+# ── 出場規則註冊表 ──────────────────────────────────────────
+_TP_GRID = [3, 5, 7, 10]
+_SL_GRID = [2, 3, 5]
+
+EXIT_RULES = (
+    [
+        {"key": "daytrade_close", "label": "當沖收盤", "kind": "daytrade_close"},
+        {"key": "next_open", "label": "隔日開盤", "kind": "next_open"},
+        {"key": "next_close", "label": "隔日收盤", "kind": "next_close"},
+    ]
+    + [
+        {"key": f"tp{tp}_sl{sl}", "label": f"停利{tp}%/停損{sl}%(當沖)",
+         "kind": "tp_sl", "tp": tp, "sl": sl}
+        for tp in _TP_GRID for sl in _SL_GRID
+    ]
+)
+
+
+def pick_best(rule_results, min_trades=30):
+    """rule_results=[{key,label,trades,meanNet,profitFactor,winRate,...}]。
+    依淨期望值挑最佳（樣本≥min_trades 優先），同分比獲利因子→勝率。
+    回最佳 dict + lowConfidence + caveat；無可用 → None。"""
+    valid = [r for r in rule_results if r.get("meanNet") is not None]
+    if not valid:
+        return None
+    eligible = [r for r in valid if (r.get("trades") or 0) >= min_trades]
+    pool = eligible or valid
+
+    def sort_key(r):
+        return (r["meanNet"], r.get("profitFactor") or 0, r.get("winRate") or 0)
+
+    best = max(pool, key=sort_key)
+    caveat = "TP/SL 為樣本內最佳化，有過擬合風險" if best["key"].startswith("tp") else ""
+    return {**best, "lowConfidence": not eligible, "caveat": caveat}
