@@ -21,7 +21,11 @@ export async function GET() {
     }
 
     const raw = fs.readFileSync(path.join(DATA_DIR, files[0]), "utf-8");
-    return NextResponse.json(JSON.parse(raw));
+    return NextResponse.json(JSON.parse(raw), {
+      headers: {
+        "Cache-Control": "public, s-maxage=300, stale-while-revalidate=86400",
+      },
+    });
   } catch (e) {
     console.error("daily/latest read failed:", e);
     return NextResponse.json({ error: "dataUnavailable" }, { status: 503 });

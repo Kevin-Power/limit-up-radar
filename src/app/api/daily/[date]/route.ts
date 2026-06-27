@@ -21,7 +21,11 @@ export async function GET(
 
   try {
     const raw = fs.readFileSync(jsonPath, "utf-8");
-    return NextResponse.json(JSON.parse(raw));
+    return NextResponse.json(JSON.parse(raw), {
+      headers: {
+        "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",
+      },
+    });
   } catch (e) {
     console.error(`daily/${date} read failed:`, e);
     return NextResponse.json({ error: "dataReadError" }, { status: 503 });
