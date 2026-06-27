@@ -16,10 +16,16 @@
     "marketYesterdayChg": -1.6
   },
   "warnings": [
-    "rollingEv10 ≤ -0.5%：策略短期失效，考慮降倉",
+    {"severity": "warn", "message": "rollingEv10 ≤ -0.5%：策略短期失效，考慮降倉"},
+    {"severity": "critical", "message": "rollingEv10 ≤ -1.0%：策略嚴重失效"},
     ...
   ]
 }
+
+警示嚴重度（與 src/app/strategy-monitor/_client.tsx WARNING_SEVERITY 對應）：
+- "warn"     → 黃燈（注意）：訊息以 ⚠️ 前綴
+- "critical" → 紅燈（高警戒）：訊息以 ⛔ 前綴
+UI 端優先讀 severity 結構欄位，若資料源是舊版字串則 fallback 解析 emoji 前綴。
 
 threshold 依 June 診斷實證（不是直覺）：
 - rollingEv10 ≤ -0.5%  → amber
@@ -34,6 +40,11 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 BACKTEST_FILE = "data/backtest_0903.json"
 OUT_FILE = "data/kill_switch.json"
+
+# 警示嚴重度 — 與 UI 端 src/app/strategy-monitor/_client.tsx 對應
+# 若這裡改動（新增等級/改字串），必須同步更新 UI WARNING_SEVERITY 常數
+SEVERITY_WARN = "warn"          # 黃燈：訊息前綴 ⚠️
+SEVERITY_CRITICAL = "critical"  # 紅燈：訊息前綴 ⛔
 
 def rolling_ev(rets, window=10):
     """每個 index 的 trailing window EV；< window 的位置回 None。"""
@@ -119,16 +130,19 @@ def build_kill_switch_data(trades, taiex, window=10):
     last_market = timeline[-1]["marketYesterdayChg"] if timeline else None
 
     warnings = []
+    def _warn(severity, message):
+        warnings.append({"severity": severity, "message": message})
+
     if latest_ev10 is not None and latest_ev10 <= -1.0:
-        warnings.append(f"⛔ rollingEv10 = {latest_ev10}% (≤ -1.0%) — 策略嚴重失效，建議停手觀望")
+        _warn(SEVERITY_CRITICAL, f"⛔ rollingEv10 = {latest_ev10}% (≤ -1.0%) — 策略嚴重失效，建議停手觀望")
     elif latest_ev10 is not None and latest_ev10 <= -0.5:
-        warnings.append(f"⚠️ rollingEv10 = {latest_ev10}% (≤ -0.5%) — 短期失效，考慮降倉")
+        _warn(SEVERITY_WARN, f"⚠️ rollingEv10 = {latest_ev10}% (≤ -0.5%) — 短期失效，考慮降倉")
     if streak >= 8:
-        warnings.append(f"⛔ 連續虧損 {streak} 筆 — 立即停手")
+        _warn(SEVERITY_CRITICAL, f"⛔ 連續虧損 {streak} 筆 — 立即停手")
     elif streak >= 5:
-        warnings.append(f"⚠️ 連續虧損 {streak} 筆 — 觀察是否進入連敗期")
+        _warn(SEVERITY_WARN, f"⚠️ 連續虧損 {streak} 筆 — 觀察是否進入連敗期")
     if last_market is not None and last_market <= -1.5:
-        warnings.append(f"⛔ 大盤前一日 {last_market}% — 隔日 skip 新進場（June 實證 +0.29% 救贖）")
+        _warn(SEVERITY_CRITICAL, f"⛔ 大盤前一日 {last_market}% — 隔日 skip 新進場（June 實證 +0.29% 救贖）")
 
     return {
         "window": window,
@@ -168,7 +182,11 @@ def main():
           f"streak={data['latest']['streakLosses']} "
           f"market={data['latest']['marketStatus']}")
     for w in data["warnings"]:
-        print(" ", w)
+        # w 可能是 dict（新格式）或 str（理論不會出現，但保險起見）
+        if isinstance(w, dict):
+            print(f"  [{w.get('severity', '?')}] {w.get('message', '')}")
+        else:
+            print(" ", w)
 
 if __name__ == "__main__":
     main()

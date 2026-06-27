@@ -1,6 +1,18 @@
 "use client";
 import { useEffect, useState } from "react";
 
+// 警示嚴重度 — 與 scripts/run_kill_switch.py SEVERITY_* 常數對應
+// 若 Python 端改動（新增等級/改字串），必須同步更新這裡
+const WARNING_SEVERITY = {
+  WARN: "warn" as const,
+  CRITICAL: "critical" as const,
+};
+// 舊版相容用：若資料源還是字串（pre-2026-06-27），用 emoji 前綴推斷嚴重度
+const LEGACY_CRITICAL_PREFIX = "⛔";
+
+type Severity = "warn" | "critical";
+type WarningItem = string | { severity: Severity; message: string };
+
 interface KillData {
   updatedAt: string;
   window: number;
@@ -19,7 +31,7 @@ interface KillData {
     marketStatus: "green" | "amber" | "red";
     marketYesterdayChg: number | null;
   };
-  warnings: string[];
+  warnings: WarningItem[];
 }
 
 const STATUS_COLOR: Record<"green" | "amber" | "red", string> = {
@@ -28,27 +40,71 @@ const STATUS_COLOR: Record<"green" | "amber" | "red", string> = {
   red: "bg-red/20 text-red border-red/30",
 };
 
+type ErrState = null | "not_available" | "fetch_failed";
+
+function warningSeverity(w: WarningItem): Severity {
+  if (typeof w === "object" && w && "severity" in w) return w.severity;
+  // 字串 fallback：依 emoji 前綴判定
+  return (w as string).startsWith(LEGACY_CRITICAL_PREFIX)
+    ? WARNING_SEVERITY.CRITICAL
+    : WARNING_SEVERITY.WARN;
+}
+
+function warningMessage(w: WarningItem): string {
+  return typeof w === "string" ? w : w.message;
+}
+
 export default function StrategyMonitorClient() {
   const [data, setData] = useState<KillData | null>(null);
-  const [err, setErr] = useState(false);
+  const [err, setErr] = useState<ErrState>(null);
 
   useEffect(() => {
+    let cancelled = false;
     fetch("/api/kill-switch")
-      .then((r) => (r.ok ? r.json() : Promise.reject()))
-      .then(setData)
-      .catch(() => setErr(true));
+      .then(async (r) => {
+        if (cancelled) return;
+        if (r.status === 404) {
+          setErr("not_available");
+          return;
+        }
+        if (!r.ok) {
+          setErr("fetch_failed");
+          return;
+        }
+        try {
+          const json = await r.json();
+          if (!cancelled) setData(json);
+        } catch {
+          if (!cancelled) setErr("fetch_failed");
+        }
+      })
+      .catch(() => {
+        // 網路錯誤（CORS / offline / DNS）
+        if (!cancelled) setErr("fetch_failed");
+      });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
-  if (err)
+  if (err === "not_available")
     return (
       <p className="text-xs text-txt-3">
         kill_switch.json 尚未產生，請先跑 scripts/run_kill_switch.py
       </p>
     );
+  if (err === "fetch_failed")
+    return (
+      <p className="text-xs text-red">
+        讀取失敗，請稍後重試或檢查 /api/kill-switch 的伺服器日誌
+      </p>
+    );
   if (!data) return <p className="text-xs text-txt-3">載入中...</p>;
 
   const { latest, warnings, timeline } = data;
-  const overall: "green" | "amber" | "red" = warnings.some((w) => w.startsWith("⛔"))
+  const overall: "green" | "amber" | "red" = warnings.some(
+    (w) => warningSeverity(w) === WARNING_SEVERITY.CRITICAL,
+  )
     ? "red"
     : warnings.length > 0
     ? "amber"
@@ -69,7 +125,7 @@ export default function StrategyMonitorClient() {
         {warnings.length === 0 && <p className="text-xs">無警示</p>}
         <ul className="text-xs space-y-1">
           {warnings.map((w, i) => (
-            <li key={i}>{w}</li>
+            <li key={i}>{warningMessage(w)}</li>
           ))}
         </ul>
       </div>
@@ -98,7 +154,9 @@ export default function StrategyMonitorClient() {
       {/* Rolling EV 折線 */}
       <Section title={`Rolling ${data.window}-trade EV 時間軸`}>
         <Sparkline
-          points={timeline.map((t) => t.rollingEv10 ?? 0)}
+          points={timeline
+            .map((t) => t.rollingEv10)
+            .filter((v): v is number => v != null)}
           threshold={-0.5}
           dangerThreshold={-1.0}
         />
@@ -194,9 +252,12 @@ function Sparkline({
   const h = 120;
   const pad = 20;
   const min = Math.min(...points, dangerThreshold - 0.5);
-  const max = Math.max(...points, 1);
+  const maxRaw = Math.max(...points, 1);
+  // 保險：若所有點同值且恰等於 threshold，max-min 可能為 0 → 除零變 NaN/Infinity
+  const max = maxRaw === min ? min + 1 : maxRaw;
+  const range = max - min; // 此時必 > 0
   const x = (i: number) => pad + (i / Math.max(points.length - 1, 1)) * (w - 2 * pad);
-  const y = (v: number) => h - pad - ((v - min) / (max - min)) * (h - 2 * pad);
+  const y = (v: number) => h - pad - ((v - min) / range) * (h - 2 * pad);
   const path = points.map((v, i) => `${i === 0 ? "M" : "L"}${x(i)} ${y(v)}`).join(" ");
   return (
     <svg viewBox={`0 0 ${w} ${h}`} className="w-full">
