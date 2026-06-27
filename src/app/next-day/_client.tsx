@@ -59,7 +59,7 @@ interface GroupPerf {
 const LABEL_CONFIG: Record<StockLabel, { bg: string; text: string; border: string }> = {
   "續漲停": { bg: "bg-red/20", text: "text-red", border: "border-red/30" },
   "強漲":   { bg: "bg-[rgba(249,115,22,0.15)]", text: "text-[#f97316]", border: "border-[#f97316]/30" },
-  "強勢漲": { bg: "bg-green/15", text: "text-green", border: "border-green/30" },
+  "強勢漲": { bg: "bg-red/12", text: "text-red", border: "border-red/25" },
   "銘碼漲": { bg: "bg-amber/15", text: "text-amber", border: "border-amber/30" },
   "開高走低": { bg: "bg-[rgba(234,179,8,0.12)]", text: "text-[#eab308]", border: "border-[#eab308]/25" },
   "直接跌": { bg: "bg-blue/12", text: "text-blue", border: "border-blue/25" },
@@ -270,7 +270,7 @@ function MarketBadge({ market }: { market: Market }) {
    ═══════════════════════════════════════════════════════════════ */
 
 function PriceCell({ price, pct }: { price: number; pct: number }) {
-  const color = pct > 0 ? "text-green" : pct < 0 ? "text-red" : "text-txt-3";
+  const color = pct > 0 ? "text-red" : pct < 0 ? "text-green" : "text-txt-3";
   return (
     <div className="flex items-baseline justify-end gap-1.5">
       <span className="text-txt-2 tabular-nums">{formatPrice(price)}</span>
@@ -547,13 +547,13 @@ export default function NextDayPage() {
                           </div>
                         </div>
                       </td>
-                      <td className={`px-3 py-3 text-right font-semibold tabular-nums ${g.openAvg > 0 ? "text-green" : "text-red"}`}>
+                      <td className={`px-3 py-3 text-right font-semibold tabular-nums ${g.openAvg > 0 ? "text-red" : g.openAvg < 0 ? "text-green" : "text-txt-3"}`}>
                         {formatPct(g.openAvg)}
                       </td>
-                      <td className={`px-3 py-3 text-right font-semibold tabular-nums ${g.avgAvg > 0 ? "text-green" : "text-red"}`}>
+                      <td className={`px-3 py-3 text-right font-semibold tabular-nums ${g.avgAvg > 0 ? "text-red" : g.avgAvg < 0 ? "text-green" : "text-txt-3"}`}>
                         {formatPct(g.avgAvg)}
                       </td>
-                      <td className={`px-3 py-3 text-right font-semibold tabular-nums ${g.closeAvg > 0 ? "text-green" : "text-red"}`}>
+                      <td className={`px-3 py-3 text-right font-semibold tabular-nums ${g.closeAvg > 0 ? "text-red" : g.closeAvg < 0 ? "text-green" : "text-txt-3"}`}>
                         {formatPct(g.closeAvg)}
                       </td>
                     </tr>
