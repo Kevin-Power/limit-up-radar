@@ -365,8 +365,11 @@ export default function GlobalPage() {
 
             {/* Fear & Greed */}
             <Card>
-              <div className="text-[10px] text-txt-4 uppercase tracking-wider mb-3">Fear & Greed Index</div>
+              <div className="text-[10px] text-txt-4 uppercase tracking-wider mb-3">市場情緒推估（依 VIX）</div>
               <FearGreedGauge value={riskData.fearGreed} />
+              <div className="text-[10px] text-txt-4 mt-2 leading-relaxed">
+                非 CNN 官方 Fear &amp; Greed，係依當日 VIX 數值推算之市場情緒參考值。
+              </div>
             </Card>
           </div>
           ) : (
