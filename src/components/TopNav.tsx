@@ -191,13 +191,26 @@ export default function TopNav({ currentDate, stocks = [] }: TopNavProps) {
           <ThemeToggle />
           <UserMenu />
 
-          {displayDate && (
-            <div className="hidden sm:flex items-center gap-1.5 text-[11px] tabular-nums tracking-wider whitespace-nowrap">
-              <span className="w-1.5 h-1.5 rounded-full bg-green animate-pulse" title="資料即時更新中" />
-              <span className="text-txt-3">資料</span>
-              <span className="text-txt-1 font-semibold">{displayDate.replace(/-/g, "/")}</span>
-            </div>
-          )}
+          {displayDate && (() => {
+            // Data is a once-daily post-close static snapshot, not live.
+            // Flag amber only when the snapshot clearly lags (beyond a normal
+            // weekend/holiday gap) to avoid a false "stale" warning on closures.
+            const parsed = Date.parse(displayDate);
+            const ageDays = Number.isNaN(parsed)
+              ? 0
+              : Math.floor((Date.now() - parsed) / 86_400_000);
+            const isStale = ageDays > 4;
+            return (
+              <div className="hidden sm:flex items-center gap-1.5 text-[11px] tabular-nums tracking-wider whitespace-nowrap">
+                <span
+                  className={`w-1.5 h-1.5 rounded-full ${isStale ? "bg-amber" : "bg-txt-4"}`}
+                  title={isStale ? "資料較舊（盤後每日更新）" : "資料截至最近交易日（盤後每日更新）"}
+                />
+                <span className="text-txt-3">{isStale ? "資料較舊" : "資料截至"}</span>
+                <span className="text-txt-1 font-semibold">{displayDate.replace(/-/g, "/")}</span>
+              </div>
+            );
+          })()}
 
           <button
             className="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-[5px] text-txt-3 hover:text-txt-1 transition-colors"
