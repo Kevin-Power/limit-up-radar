@@ -4,7 +4,6 @@ import { useState } from "react";
 import useSWR from "swr";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
-import { getTodayString } from "@/lib/utils";
 import type { StatsData, HonestStats, HonestScenario } from "@/app/api/stats/route";
 
 /* ================================================================
@@ -869,7 +868,7 @@ export default function StatsPage() {
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
-      <TopNav currentDate={getTodayString()} />
+      <TopNav />
       <NavBar />
 
       <main className="flex-1 overflow-y-auto p-4 md:p-5 animate-fade-in">

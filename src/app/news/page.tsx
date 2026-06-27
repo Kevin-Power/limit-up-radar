@@ -4,7 +4,6 @@ import { useState, useMemo, useEffect } from "react";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
-import { getTodayString } from "@/lib/utils";
 import type { NewsArticle } from "@/app/api/news/route";
 
 
@@ -129,7 +128,7 @@ export default function NewsPage() {
 
   return (
     <div className="min-h-screen bg-bg-0 text-txt-1 animate-fade-in">
-      <TopNav currentDate={getTodayString()} />
+      <TopNav />
       <NavBar />
 
       <main className="max-w-4xl mx-auto px-4 pt-20 pb-16 space-y-6 animate-fade-in">

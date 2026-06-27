@@ -5,7 +5,7 @@ import useSWR from "swr";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
-import { formatDateDisplay, getTodayString } from "@/lib/utils";
+import { formatDateDisplay } from "@/lib/utils";
 import type { StatsData } from "@/app/api/stats/route";
 
 interface DayRecord {
@@ -136,7 +136,7 @@ export default function HistoryPage() {
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
-      <TopNav currentDate={getTodayString()} />
+      <TopNav />
       <NavBar />
 
       <main className="flex-1 overflow-y-auto p-4 md:p-5 animate-fade-in">

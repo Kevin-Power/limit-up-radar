@@ -3,7 +3,7 @@
 import { useState, useMemo, useEffect, useCallback } from "react";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
-import { formatPrice, getTodayString } from "@/lib/utils";
+import { formatPrice } from "@/lib/utils";
 import type { BacktestResult as RealBacktestResult, Trade } from "@/app/api/backtest/route";
 import Backtest0903 from "@/components/Backtest0903";
 import RecommendedStrategy from "@/components/RecommendedStrategy";
@@ -175,7 +175,7 @@ export default function BacktestPage() {
 
   return (
     <div className="min-h-screen bg-bg-0 text-txt-1 animate-fade-in">
-      <TopNav currentDate={getTodayString()} />
+      <TopNav />
       <NavBar />
 
       <main className="max-w-[1100px] mx-auto px-4 sm:px-6 py-6 animate-fade-in">

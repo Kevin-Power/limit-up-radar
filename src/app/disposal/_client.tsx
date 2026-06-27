@@ -5,7 +5,6 @@ import useSWR from "swr";
 import Link from "next/link";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
-import { getTodayString } from "@/lib/utils";
 import type { DisposalCandidate } from "@/app/api/disposal/route";
 
 // ── Types ────────────────────────────────────────────────────────────────────
@@ -232,7 +231,7 @@ export default function DisposalPage() {
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
-      <TopNav currentDate={getTodayString()} />
+      <TopNav />
       <NavBar />
       <main className="flex-1 overflow-y-auto p-4 md:p-5 max-w-6xl mx-auto w-full space-y-6 animate-fade-in">
 

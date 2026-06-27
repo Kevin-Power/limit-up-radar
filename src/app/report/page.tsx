@@ -4,7 +4,7 @@ import useSWR from "swr";
 import Link from "next/link";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
-import { formatPrice, getTodayString, getTodaySlash } from "@/lib/utils";
+import { formatPrice, getTodaySlash } from "@/lib/utils";
 
 /* ================================================================
    SUB-COMPONENTS
@@ -206,7 +206,7 @@ export default function ReportPage() {
 
   return (
     <div className="min-h-screen bg-bg-0 text-txt-1 animate-fade-in">
-      <TopNav currentDate={getTodayString()} />
+      <TopNav />
       <NavBar />
 
       <main className="max-w-5xl mx-auto px-4 py-6 space-y-6 animate-fade-in">

@@ -4,7 +4,6 @@ import { useState, useMemo } from "react";
 import useSWR from "swr";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
-import { getTodayString } from "@/lib/utils";
 import type { GlobalIndex } from "@/app/api/market/global/route";
 
 function sparklinePath(data: number[], w: number, h: number): string {
@@ -262,7 +261,7 @@ export default function GlobalPage() {
 
   return (
     <div className="min-h-screen bg-bg-0 text-txt-1 animate-fade-in">
-      <TopNav currentDate={getTodayString()} />
+      <TopNav />
       <NavBar />
 
       <main className="max-w-7xl mx-auto px-4 py-6 space-y-6 animate-fade-in">
