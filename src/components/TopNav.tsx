@@ -9,6 +9,7 @@ import { formatPrice, formatPct } from "@/lib/utils";
 import ThemeToggle from "./ThemeToggle";
 import MarketClock from "./MarketClock";
 import UserMenu from "./UserMenu";
+import { NAV_ITEMS } from "@/lib/nav";
 
 // Fetch the latest data date globally so every page gets a freshness indicator.
 function useLatestDate(): string | null {
@@ -28,25 +29,6 @@ interface TopNavProps {
 interface SearchStock extends Stock {
   group: string;
 }
-
-const NAV_ITEMS = [
-  { label: "每日總覽", href: "/" },
-  { label: "明日焦點", href: "/focus" },
-  { label: "操作手冊", href: "/sop" },
-  { label: "隔日表現", href: "/next-day" },
-  { label: "快樂小馬", href: "/pony" },
-  { label: "策略回測", href: "/backtest" },
-  { label: "進階選股", href: "/screener" },
-  { label: "供應鏈", href: "/supply-chain" },
-  { label: "營收速報", href: "/revenue" },
-  { label: "交易教室", href: "/learn" },
-  { label: "國際市場", href: "/global" },
-  { label: "市場情資", href: "/news" },
-  { label: "盤後報告", href: "/report" },
-  { label: "統計分析", href: "/stats" },
-  { label: "處置預測", href: "/disposal" },
-  { label: "股票比較", href: "/compare" },
-];
 
 export default function TopNav({ currentDate, stocks = [] }: TopNavProps) {
   const pathname = usePathname();
