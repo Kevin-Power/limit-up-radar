@@ -198,6 +198,7 @@ export default function BacktestPage() {
         <div className="mb-4 pt-2 border-t border-border">
           <h2 className="text-lg font-bold text-txt-0 tracking-tight">技術指標回測器</h2>
           <p className="text-xs text-txt-3 mt-1">單檔股票 × EMA/KD/MACD/RSI 參數回測</p>
+          <p className="text-[10px] text-txt-4 mt-1">免責：歷史回測非未來保證；未計交易成本（手續費、證交稅、滑價），實際報酬會更低；樣本數有限，請謹慎判讀。</p>
         </div>
 
         {/* Stock Selector */}
