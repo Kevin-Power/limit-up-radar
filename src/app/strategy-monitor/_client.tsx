@@ -176,8 +176,8 @@ export default function StrategyMonitorClient() {
               </tr>
             </thead>
             <tbody>
-              {[...timeline].slice(-30).reverse().map((t) => (
-                <tr key={t.date} className="border-b border-border/50">
+              {[...timeline].slice(-30).reverse().map((t, idx) => (
+                <tr key={`${t.date}-${idx}`} className="border-b border-border/50">
                   <td className="py-2 px-2 tabular-nums">{t.date}</td>
                   <td
                     className={`py-2 px-2 text-right tabular-nums ${
