@@ -7,6 +7,10 @@ export async function GET(
 ) {
   const { code } = await params;
 
+  if (!/^\d{4,6}[A-Z]?$/.test(code)) {
+    return NextResponse.json({ error: "invalid code" }, { status: 400 });
+  }
+
   const months = lastNMonths(4); // fetch 4 months to ensure ~60 trading days
 
   // Try TWSE first (fetch all months in parallel)

@@ -8,6 +8,11 @@ export async function GET(
   { params }: { params: Promise<{ code: string }> }
 ) {
   const { code } = await params;
+
+  if (!/^\d{4,6}[A-Z]?$/.test(code)) {
+    return NextResponse.json({ error: "invalid code" }, { status: 400 });
+  }
+
   try {
     const candles = await fetchRecentCandles(code, 3); // 3 months for MA60
     if (candles.length < 10) {

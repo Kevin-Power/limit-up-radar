@@ -83,6 +83,11 @@ export async function GET(
   { params }: { params: Promise<{ code: string }> }
 ) {
   const { code } = await params;
+
+  if (!/^\d{4,6}[A-Z]?$/.test(code)) {
+    return NextResponse.json({ error: "invalid code" }, { status: 400 });
+  }
+
   const anchors = loadAnchors();
   const entry = anchors[code];
 

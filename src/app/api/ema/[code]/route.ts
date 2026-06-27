@@ -9,6 +9,10 @@ export async function GET(
 ) {
   const { code } = await params;
 
+  if (!/^\d{4,6}[A-Z]?$/.test(code)) {
+    return NextResponse.json({ error: "invalid code" }, { status: 400 });
+  }
+
   try {
     const candles = await fetchRecentCandles(code, 3);
     const closes = candles.map((c) => c.close);

@@ -83,6 +83,10 @@ export async function GET(
 ) {
   const { code } = await params;
 
+  if (!/^\d{4,6}[A-Z]?$/.test(code)) {
+    return NextResponse.json({ error: "invalid code" }, { status: 400 });
+  }
+
   if (!fs.existsSync(DATA_DIR)) return NextResponse.json([]);
 
   const files = fs.readdirSync(DATA_DIR).filter((f) => f.endsWith(".json")).sort();
