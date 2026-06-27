@@ -84,16 +84,21 @@ export function scoreStock(input: ScoreInput & {
   }
 
   // === Liquidity filter (volume in shares; 1 lot = 1000 shares) ===
-  const lots = stock.volume / 1000;
+  // Guard against null/undefined/NaN volume — fall back to 0 so we still hit the
+  // 「量極小」branch (any of these means we cannot safely size in this name).
+  let lots = stock.volume / 1000;
+  if (!Number.isFinite(lots)) lots = 0;
   if (lots < 500) {
     score -= 30;
     tags.push("⚠️量極小");
   } else if (lots < 2000) {
     score -= 15;
     tags.push("⚠️量小");
-  } else if (lots >= 20000) {
-    // 屍體解剖（2026-06）：prevVolume ≥ 2 萬張 cohort 全市場 win 31.2%
-    // 主因：題材末端、籌碼凌亂、易遭主力出貨
+  }
+  // 過熱量能與「量太小」是兩個正交概念，獨立判斷以避免未來插入新分支時誤改。
+  // 屍體解剖（2026-06）：prevVolume ≥ 2 萬張 cohort 全市場 win 31.2%
+  // 主因：題材末端、籌碼凌亂、易遭主力出貨
+  if (lots >= 20000) {
     score -= 25;
     tags.push("⚠️過熱量能");
   }
