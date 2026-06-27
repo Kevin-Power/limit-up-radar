@@ -133,7 +133,10 @@ export default function Backtest0903() {
 
       {/* 規則比較表 */}
       <div className="bg-bg-1 border border-border rounded-xl p-4 mb-4">
-        <h3 className="text-xs font-semibold text-txt-2 mb-3">出場規則比較（依淨期望值）</h3>
+        <h3 className="text-xs font-semibold text-txt-2 mb-3">
+          出場規則比較（依淨期望值）
+          <span className="ml-2 text-txt-3 font-normal">— baseline 規則比較，★ 標記不隨上方 Tab 切換</span>
+        </h3>
         <div className="overflow-x-auto">
           <table className="w-full text-xs">
             <thead>
