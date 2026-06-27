@@ -42,21 +42,14 @@ export const metadata: Metadata = {
     siteName: "股文觀指",
     type: "website",
     locale: "zh_TW",
-    images: [
-      {
-        url: "/og-image.svg",
-        width: 1200,
-        height: 630,
-        alt: "股文觀指 — 台股漲停族群分類平台",
-      },
-    ],
+    // og:image 由 file convention（src/app/opengraph-image.tsx）自動產生 1200x630 PNG
   },
   twitter: {
     card: "summary_large_image",
     title: "股文觀指 — AI 驅動的台股漲停族群分類平台",
     description:
       "AI 驅動的台股漲停族群分類與分析平台，提供即時漲停板追蹤、族群歸類、隔日表現統計、策略回測與國際市場動態。",
-    images: ["/og-image.svg"],
+    // twitter:image 由 file convention（opengraph-image）自動產生
   },
   icons: {
     icon: "/favicon.svg",
