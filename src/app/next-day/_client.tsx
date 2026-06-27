@@ -23,13 +23,13 @@ interface NextDayStock {
   market: Market;
   limitPrice: number;    // 漲停價
   volumeWan: number;     // 成交量（萬張）
-  nextOpen: number;      // 隔日開盤價
-  nextOpenPct: number;   // 隔日開盤報酬%
-  nextAvg: number;       // 隔日均價
-  nextAvgPct: number;    // 隔日均價報酬%
-  nextClose: number;     // 隔日收盤價
-  nextClosePct: number;  // 隔日收盤報酬%
-  weightedReturn: number; // 加權報酬%
+  nextOpen: number | null;      // 隔日開盤價（無資料→null）
+  nextOpenPct: number | null;   // 隔日開盤報酬%（無資料→null）
+  nextAvg: number | null;       // 隔日均價（無資料→null）
+  nextAvgPct: number | null;    // 隔日均價報酬%（無資料→null）
+  nextClose: number | null;     // 隔日收盤價（無資料→null）
+  nextClosePct: number | null;  // 隔日收盤報酬%（無資料→null）
+  weightedReturn: number | null; // 加權報酬%（無資料→null）
   label: StockLabel;
 }
 
@@ -44,11 +44,12 @@ interface GroupPerf {
   name: string;
   color: string;
   count: number;
+  withDataCount: number;   // 有隔日收盤資料的檔數（勝率分母）
   positiveCount: number;
-  positiveRate: number;
-  openAvg: number;
-  avgAvg: number;
-  closeAvg: number;
+  positiveRate: number | null; // 無有效樣本→null（UI 顯示「—」）
+  openAvg: number | null;
+  avgAvg: number | null;
+  closeAvg: number | null;
   streak: number; // 連續天數
 }
 
@@ -86,13 +87,17 @@ const GROUP_COLORS: Record<string, string> = {
    Helpers
    ═══════════════════════════════════════════════════════════════ */
 
-function avg(arr: number[]): number {
-  return arr.length ? arr.reduce((s, v) => s + v, 0) / arr.length : 0;
+// 排除 null：缺值不計入平均，缺值樣本=空→回傳 null（UI 顯示「—」）
+function avg(arr: (number | null)[]): number | null {
+  const vals = arr.filter((v): v is number => v !== null);
+  return vals.length ? vals.reduce((s, v) => s + v, 0) / vals.length : null;
 }
 
-function pctPositive(arr: number[]): number {
-  if (!arr.length) return 0;
-  return (arr.filter((v) => v > 0).length / arr.length) * 100;
+// 勝率分母排除 null：缺值不計入分母，無有效樣本→回傳 null
+function pctPositive(arr: (number | null)[]): number | null {
+  const vals = arr.filter((v): v is number => v !== null);
+  if (!vals.length) return null;
+  return (vals.filter((v) => v > 0).length / vals.length) * 100;
 }
 
 function computeDayStats(day: DayData) {
@@ -116,20 +121,40 @@ function computeGroupPerfs(day: DayData): GroupPerf[] {
   return Array.from(groupMap.entries())
     .map(([name, stocks]) => {
       const closeArr = stocks.map((s) => s.nextClosePct);
-      const positiveCount = closeArr.filter((v) => v > 0).length;
+      const closeWithData = closeArr.filter((v): v is number => v !== null);
+      const positiveCount = closeWithData.filter((v) => v > 0).length;
+      // 勝率分母排除缺值；無有效樣本→null
+      const positiveRate = closeWithData.length
+        ? (positiveCount / closeWithData.length) * 100
+        : null;
       return {
         name,
         color: stocks[0]?.groupColor || "#64748b",
         count: stocks.length,
+        withDataCount: closeWithData.length,
         positiveCount,
-        positiveRate: (positiveCount / stocks.length) * 100,
+        positiveRate,
         openAvg: avg(stocks.map((s) => s.nextOpenPct)),
         avgAvg: avg(stocks.map((s) => s.nextAvgPct)),
         closeAvg: avg(closeArr),
         streak: 0,
       };
     })
-    .sort((a, b) => b.positiveRate - a.positiveRate || b.closeAvg - a.closeAvg);
+    .sort(
+      (a, b) =>
+        (b.positiveRate ?? -1) - (a.positiveRate ?? -1) ||
+        (b.closeAvg ?? -Infinity) - (a.closeAvg ?? -Infinity)
+    );
+}
+
+// 缺值統一以「—」呈現，避免 0.00% 偽裝持平
+function fmtPctOrDash(n: number | null): string {
+  return n === null ? "—" : formatPct(n);
+}
+// 缺值報酬不上色（中性灰）；有值才依台股慣例 正→紅 負→綠
+function pctColor(n: number | null): string {
+  if (n === null) return "text-txt-4";
+  return n > 0 ? "text-red" : n < 0 ? "text-green" : "text-txt-3";
 }
 
 const ALL_LABELS: StockLabel[] = ["續漲停", "強漲", "強勢漲", "銘碼漲", "開高走低", "直接跌"];
@@ -269,7 +294,11 @@ function MarketBadge({ market }: { market: Market }) {
    Price + Pct Cell
    ═══════════════════════════════════════════════════════════════ */
 
-function PriceCell({ price, pct }: { price: number; pct: number }) {
+function PriceCell({ price, pct }: { price: number | null; pct: number | null }) {
+  // 缺值（無隔日資料）顯示「—」，不偽裝成持平 0.00%
+  if (pct === null || price === null) {
+    return <span className="text-txt-4 tabular-nums">—</span>;
+  }
   const color = pct > 0 ? "text-red" : pct < 0 ? "text-green" : "text-txt-3";
   return (
     <div className="flex items-baseline justify-end gap-1.5">
@@ -308,9 +337,17 @@ function StreakBadge({ days }: { days: number }) {
 
 function mapRealToDay(r: NextDayData): DayData {
   const stocks: NextDayStock[] = r.stocks.map((s) => {
-    const op = s.nextOpenPct ?? 0;
-    const cl = s.nextClosePct ?? 0;
-    const avg = (op + cl) / 2;
+    // 保留 null：缺值不得回退成 0% 或漲停價，否則扭曲統計與顯示
+    const op = s.nextOpenPct;
+    const cl = s.nextClosePct;
+    const avgPct = op !== null && cl !== null ? +(((op + cl) / 2)).toFixed(2) : null;
+    const nextAvg =
+      s.nextOpen != null && s.nextClose != null ? (s.nextOpen + s.nextClose) / 2 : null;
+    // 加權報酬需開盤與收盤皆有資料才計算，否則 null
+    const weightedReturn =
+      op !== null && cl !== null && avgPct !== null
+        ? +(op * 0.3 + avgPct * 0.3 + cl * 0.4).toFixed(2)
+        : null;
     return {
       code: s.code,
       name: s.name,
@@ -319,13 +356,13 @@ function mapRealToDay(r: NextDayData): DayData {
       market: "上" as Market,
       limitPrice: s.limitPrice,
       volumeWan: s.volumeWan,
-      nextOpen: s.nextOpen ?? s.limitPrice,
+      nextOpen: s.nextOpen,
       nextOpenPct: op,
-      nextAvg: s.nextOpen != null && s.nextClose != null ? (s.nextOpen + s.nextClose) / 2 : s.limitPrice,
-      nextAvgPct: avg,
-      nextClose: s.nextClose ?? s.limitPrice,
+      nextAvg,
+      nextAvgPct: avgPct,
+      nextClose: s.nextClose,
       nextClosePct: cl,
-      weightedReturn: +(op * 0.3 + avg * 0.3 + cl * 0.4).toFixed(2),
+      weightedReturn,
       label: s.label as StockLabel,
     };
   });
@@ -376,7 +413,7 @@ export default function NextDayPage() {
     if (!day) return [];
     let list = activeFilter === "all" ? [...day.stocks] : day.stocks.filter((s) => s.label === activeFilter);
     list.sort((a, b) => {
-      let va: number | string, vb: number | string;
+      let va: number | string | null, vb: number | string | null;
       switch (sortKey) {
         case "nextOpenPct": va = a.nextOpenPct; vb = b.nextOpenPct; break;
         case "nextAvgPct": va = a.nextAvgPct; vb = b.nextAvgPct; break;
@@ -386,6 +423,10 @@ export default function NextDayPage() {
         case "code": va = a.code; vb = b.code; break;
         default: va = a.weightedReturn; vb = b.weightedReturn;
       }
+      // 缺值（null）一律排在最後，不論升降序
+      if (va === null && vb === null) return 0;
+      if (va === null) return 1;
+      if (vb === null) return -1;
       if (typeof va === "number" && typeof vb === "number") return sortAsc ? va - vb : vb - va;
       return sortAsc ? String(va).localeCompare(String(vb)) : String(vb).localeCompare(String(va));
     });
@@ -399,15 +440,16 @@ export default function NextDayPage() {
 
   // History chart data
   const histLabels = DATA.map((d) => d.nextDate.slice(5).replace("-", "/"));
+  // 折線圖需數值點：整日無有效樣本（null）才退回 0
   const histAvg: ChartLine[] = [
-    { values: DATA.map((d) => computeDayStats(d).openAvg), color: "#3b82f6", label: "開盤" },
-    { values: DATA.map((d) => computeDayStats(d).avgAvg), color: "#f59e0b", label: "均價" },
-    { values: DATA.map((d) => computeDayStats(d).closeAvg), color: "#ef4444", label: "收盤" },
+    { values: DATA.map((d) => computeDayStats(d).openAvg ?? 0), color: "#3b82f6", label: "開盤" },
+    { values: DATA.map((d) => computeDayStats(d).avgAvg ?? 0), color: "#f59e0b", label: "均價" },
+    { values: DATA.map((d) => computeDayStats(d).closeAvg ?? 0), color: "#ef4444", label: "收盤" },
   ];
   const histRate: ChartLine[] = [
-    { values: DATA.map((d) => computeDayStats(d).openPositive), color: "#3b82f6", label: "開盤" },
-    { values: DATA.map((d) => computeDayStats(d).avgPositive), color: "#f59e0b", label: "均價" },
-    { values: DATA.map((d) => computeDayStats(d).closePositive), color: "#ef4444", label: "收盤" },
+    { values: DATA.map((d) => computeDayStats(d).openPositive ?? 0), color: "#3b82f6", label: "開盤" },
+    { values: DATA.map((d) => computeDayStats(d).avgPositive ?? 0), color: "#f59e0b", label: "均價" },
+    { values: DATA.map((d) => computeDayStats(d).closePositive ?? 0), color: "#ef4444", label: "收盤" },
   ];
 
   const SortIcon = ({ k }: { k: string }) =>
@@ -475,14 +517,14 @@ export default function NextDayPage() {
         <div className="max-w-[1400px] mx-auto px-4 md:px-6 py-5 space-y-5">
           {/* ─── KPI Cards ─── */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-            <KpiCard label="開盤均報酬" value={formatPct(stats.openAvg)}
-              subLabel="正報酬率" subValue={`${stats.openPositive.toFixed(1)}%`}
+            <KpiCard label="開盤均報酬" value={fmtPctOrDash(stats.openAvg)}
+              subLabel="正報酬率" subValue={stats.openPositive === null ? "—" : `${stats.openPositive.toFixed(1)}%`}
               accent="#22c55e" />
-            <KpiCard label="均價均報酬" value={formatPct(stats.avgAvg)}
-              subLabel="正報酬率" subValue={`${stats.avgPositive.toFixed(1)}%`}
+            <KpiCard label="均價均報酬" value={fmtPctOrDash(stats.avgAvg)}
+              subLabel="正報酬率" subValue={stats.avgPositive === null ? "—" : `${stats.avgPositive.toFixed(1)}%`}
               accent="#3b82f6" />
-            <KpiCard label="收盤均報酬" value={formatPct(stats.closeAvg)}
-              subLabel="正報酬率" subValue={`${stats.closePositive.toFixed(1)}%`}
+            <KpiCard label="收盤均報酬" value={fmtPctOrDash(stats.closeAvg)}
+              subLabel="正報酬率" subValue={stats.closePositive === null ? "—" : `${stats.closePositive.toFixed(1)}%`}
               accent="#f59e0b" />
             <KpiCard label="續漲停" value={`${stats.continuedCount} 檔`}
               subLabel="" subValue={`${day.totalLimitUp} 檔漲停`}
@@ -534,27 +576,31 @@ export default function NextDayPage() {
                         <StreakBadge days={g.streak} />
                       </td>
                       <td className="px-3 py-3 text-center">
-                        <div className="flex flex-col items-center gap-1">
-                          <div className="flex items-center gap-1.5">
-                            <span className={`font-bold tabular-nums ${g.positiveRate >= 80 ? "text-green" : g.positiveRate >= 50 ? "text-amber" : "text-red"}`}>
-                              {g.positiveRate.toFixed(1)}%
-                            </span>
-                            <span className="text-[10px] text-txt-4">{g.positiveCount}/{g.count}</span>
+                        {g.positiveRate === null ? (
+                          <span className="text-txt-4 tabular-nums">—</span>
+                        ) : (
+                          <div className="flex flex-col items-center gap-1">
+                            <div className="flex items-center gap-1.5">
+                              <span className={`font-bold tabular-nums ${g.positiveRate >= 80 ? "text-green" : g.positiveRate >= 50 ? "text-amber" : "text-red"}`}>
+                                {g.positiveRate.toFixed(1)}%
+                              </span>
+                              <span className="text-[10px] text-txt-4">{g.positiveCount}/{g.withDataCount}</span>
+                            </div>
+                            <div className="h-[3px] w-16 bg-bg-4 rounded-full overflow-hidden">
+                              <div className={`h-full rounded-full ${g.positiveRate >= 80 ? "bg-green" : g.positiveRate >= 50 ? "bg-amber" : "bg-red"}`}
+                                style={{ width: `${g.positiveRate}%` }} />
+                            </div>
                           </div>
-                          <div className="h-[3px] w-16 bg-bg-4 rounded-full overflow-hidden">
-                            <div className={`h-full rounded-full ${g.positiveRate >= 80 ? "bg-green" : g.positiveRate >= 50 ? "bg-amber" : "bg-red"}`}
-                              style={{ width: `${g.positiveRate}%` }} />
-                          </div>
-                        </div>
+                        )}
                       </td>
-                      <td className={`px-3 py-3 text-right font-semibold tabular-nums ${g.openAvg > 0 ? "text-red" : g.openAvg < 0 ? "text-green" : "text-txt-3"}`}>
-                        {formatPct(g.openAvg)}
+                      <td className={`px-3 py-3 text-right font-semibold tabular-nums ${pctColor(g.openAvg)}`}>
+                        {fmtPctOrDash(g.openAvg)}
                       </td>
-                      <td className={`px-3 py-3 text-right font-semibold tabular-nums ${g.avgAvg > 0 ? "text-red" : g.avgAvg < 0 ? "text-green" : "text-txt-3"}`}>
-                        {formatPct(g.avgAvg)}
+                      <td className={`px-3 py-3 text-right font-semibold tabular-nums ${pctColor(g.avgAvg)}`}>
+                        {fmtPctOrDash(g.avgAvg)}
                       </td>
-                      <td className={`px-3 py-3 text-right font-semibold tabular-nums ${g.closeAvg > 0 ? "text-red" : g.closeAvg < 0 ? "text-green" : "text-txt-3"}`}>
-                        {formatPct(g.closeAvg)}
+                      <td className={`px-3 py-3 text-right font-semibold tabular-nums ${pctColor(g.closeAvg)}`}>
+                        {fmtPctOrDash(g.closeAvg)}
                       </td>
                     </tr>
                   ))}
@@ -658,8 +704,8 @@ export default function NextDayPage() {
                       <td className="px-3 py-2.5 text-right"><PriceCell price={s.nextOpen} pct={s.nextOpenPct} /></td>
                       <td className="px-3 py-2.5 text-right"><PriceCell price={s.nextAvg} pct={s.nextAvgPct} /></td>
                       <td className="px-3 py-2.5 text-right"><PriceCell price={s.nextClose} pct={s.nextClosePct} /></td>
-                      <td className={`px-3 py-2.5 text-right font-semibold tabular-nums ${s.weightedReturn > 0 ? "text-red" : s.weightedReturn < 0 ? "text-green" : "text-txt-3"}`}>
-                        {formatPct(s.weightedReturn)}
+                      <td className={`px-3 py-2.5 text-right font-semibold tabular-nums ${pctColor(s.weightedReturn)}`}>
+                        {fmtPctOrDash(s.weightedReturn)}
                       </td>
                       <td className="px-3 py-2.5 text-center"><LabelBadge label={s.label} /></td>
                       <td className="px-3 py-2.5 text-left">
