@@ -91,6 +91,11 @@ export function scoreStock(input: ScoreInput & {
   } else if (lots < 2000) {
     score -= 15;
     tags.push("⚠️量小");
+  } else if (lots >= 20000) {
+    // 屍體解剖（2026-06）：prevVolume ≥ 2 萬張 cohort 全市場 win 31.2%
+    // 主因：題材末端、籌碼凌亂、易遭主力出貨
+    score -= 25;
+    tags.push("⚠️過熱量能");
   }
 
   // === Positive signals ===
