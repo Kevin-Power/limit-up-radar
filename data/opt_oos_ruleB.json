@@ -1,0 +1,711 @@
+{
+  "meta": {
+    "scoreMin": 75,
+    "costRtPct": 0.3798,
+    "nTotal": 207,
+    "dateFrom": "2026-04-13",
+    "dateTo": "2026-06-24",
+    "claimedEV": 2.209,
+    "claimedWinRate": 69.6,
+    "claimedExitMap": {
+      "neg": "11:30",
+      "0-3": "09:15",
+      "3-5": "09:15",
+      "5-8": "T2_open",
+      "8-10": "T2_open",
+      "10+": "T2_open"
+    }
+  },
+  "splits": {
+    "train60_test40": {
+      "trainPeriod": [
+        "2026-04-13",
+        "2026-06-05"
+      ],
+      "testPeriod": [
+        "2026-06-05",
+        "2026-06-24"
+      ],
+      "fittedExitMap": {
+        "neg": "T2_open",
+        "0-3": "T2_open",
+        "3-5": "09:15",
+        "5-8": "T2_open",
+        "8-10": "T2_open",
+        "10+": "T2_open"
+      },
+      "trainStats": {
+        "n": 124,
+        "winRate": 66.1,
+        "evPct": 2.669,
+        "median": 2.754,
+        "ciLow": 57.4,
+        "ciHigh": 73.9,
+        "totalNetPct": 330.96,
+        "totalDeltaTWD": 3309588
+      },
+      "testStats": {
+        "n": 83,
+        "winRate": 55.4,
+        "evPct": 1.313,
+        "median": 0.715,
+        "ciLow": 44.7,
+        "ciHigh": 65.6,
+        "totalNetPct": 108.99,
+        "totalDeltaTWD": 1089869
+      },
+      "testBaselineStats": {
+        "n": 83,
+        "winRate": 54.2,
+        "evPct": 1.22,
+        "median": 0.47,
+        "ciLow": 43.5,
+        "ciHigh": 64.5,
+        "totalNetPct": 101.27,
+        "totalDeltaTWD": 1012734
+      },
+      "testByMonth": {
+        "2026-06": {
+          "n": 83,
+          "winRate": 55.4,
+          "evPct": 1.313,
+          "median": 0.715,
+          "ciLow": 44.7,
+          "ciHigh": 65.6,
+          "totalNetPct": 108.99,
+          "totalDeltaTWD": 1089869
+        }
+      },
+      "testBaselineByMonth": {
+        "2026-06": {
+          "n": 83,
+          "winRate": 54.2,
+          "evPct": 1.22,
+          "median": 0.47,
+          "ciLow": 43.5,
+          "ciHigh": 64.5,
+          "totalNetPct": 101.27,
+          "totalDeltaTWD": 1012734
+        }
+      },
+      "fitDiag": {
+        "neg": {
+          "n": 19,
+          "bestExit": "T2_open",
+          "bestEV": 2.647,
+          "evByExit": {
+            "09:01": 1.142,
+            "09:05": 2.448,
+            "09:15": 1.492,
+            "10:00": 2.075,
+            "11:30": 2.202,
+            "T1_close": 2.54,
+            "T2_open": 2.647
+          }
+        },
+        "0-3": {
+          "n": 28,
+          "bestExit": "T2_open",
+          "bestEV": 4.529,
+          "evByExit": {
+            "09:01": 0.431,
+            "09:05": 1.663,
+            "09:15": 1.846,
+            "10:00": 2.126,
+            "11:30": 3.114,
+            "T1_close": 3.118,
+            "T2_open": 4.529
+          }
+        },
+        "3-5": {
+          "n": 22,
+          "bestExit": "09:15",
+          "bestEV": 2.16,
+          "evByExit": {
+            "09:01": 0.556,
+            "09:05": 1.931,
+            "09:15": 2.16,
+            "10:00": 1.137,
+            "11:30": 1.246,
+            "T1_close": 0.127,
+            "T2_open": 0.539
+          }
+        },
+        "5-8": {
+          "n": 28,
+          "bestExit": "T2_open",
+          "bestEV": 2.017,
+          "evByExit": {
+            "09:01": 0.928,
+            "09:05": 1.466,
+            "09:15": 1.151,
+            "10:00": 1.225,
+            "11:30": 1.191,
+            "T1_close": 0.809,
+            "T2_open": 2.017
+          }
+        },
+        "8-10": {
+          "n": 19,
+          "bestExit": "T2_open",
+          "bestEV": 1.481,
+          "evByExit": {
+            "09:01": -0.729,
+            "09:05": -0.441,
+            "09:15": -0.523,
+            "10:00": -0.584,
+            "11:30": -0.777,
+            "T1_close": -0.963,
+            "T2_open": 1.481
+          }
+        },
+        "10+": {
+          "n": 8,
+          "bestExit": "T2_open",
+          "bestEV": 2.715,
+          "evByExit": {
+            "09:01": -0.15,
+            "09:05": 0.95,
+            "09:15": 0.814,
+            "10:00": -0.134,
+            "11:30": 1.181,
+            "T1_close": 1.643,
+            "T2_open": 2.715
+          }
+        }
+      }
+    },
+    "train70_test30": {
+      "trainPeriod": [
+        "2026-04-13",
+        "2026-06-15"
+      ],
+      "testPeriod": [
+        "2026-06-15",
+        "2026-06-24"
+      ],
+      "fittedExitMap": {
+        "neg": "09:05",
+        "0-3": "T2_open",
+        "3-5": "09:15",
+        "5-8": "T2_open",
+        "8-10": "T2_open",
+        "10+": "T2_open"
+      },
+      "trainStats": {
+        "n": 144,
+        "winRate": 72.2,
+        "evPct": 2.533,
+        "median": 2.614,
+        "ciLow": 64.4,
+        "ciHigh": 78.9,
+        "totalNetPct": 364.78,
+        "totalDeltaTWD": 3647825
+      },
+      "testStats": {
+        "n": 63,
+        "winRate": 57.1,
+        "evPct": 1.213,
+        "median": 1.146,
+        "ciLow": 44.9,
+        "ciHigh": 68.6,
+        "totalNetPct": 76.4,
+        "totalDeltaTWD": 764000
+      },
+      "testBaselineStats": {
+        "n": 63,
+        "winRate": 55.6,
+        "evPct": 1.468,
+        "median": 0.715,
+        "ciLow": 43.3,
+        "ciHigh": 67.2,
+        "totalNetPct": 92.5,
+        "totalDeltaTWD": 925010
+      },
+      "testByMonth": {
+        "2026-06": {
+          "n": 63,
+          "winRate": 57.1,
+          "evPct": 1.213,
+          "median": 1.146,
+          "ciLow": 44.9,
+          "ciHigh": 68.6,
+          "totalNetPct": 76.4,
+          "totalDeltaTWD": 764000
+        }
+      },
+      "testBaselineByMonth": {
+        "2026-06": {
+          "n": 63,
+          "winRate": 55.6,
+          "evPct": 1.468,
+          "median": 0.715,
+          "ciLow": 43.3,
+          "ciHigh": 67.2,
+          "totalNetPct": 92.5,
+          "totalDeltaTWD": 925010
+        }
+      },
+      "fitDiag": {
+        "neg": {
+          "n": 24,
+          "bestExit": "09:05",
+          "bestEV": 2.88,
+          "evByExit": {
+            "09:01": 1.322,
+            "09:05": 2.88,
+            "09:15": 1.952,
+            "10:00": 2.67,
+            "11:30": 2.774,
+            "T1_close": 2.185,
+            "T2_open": 2.116
+          }
+        },
+        "0-3": {
+          "n": 35,
+          "bestExit": "T2_open",
+          "bestEV": 3.756,
+          "evByExit": {
+            "09:01": 0.417,
+            "09:05": 1.884,
+            "09:15": 2.14,
+            "10:00": 2.075,
+            "11:30": 2.859,
+            "T1_close": 2.335,
+            "T2_open": 3.756
+          }
+        },
+        "3-5": {
+          "n": 23,
+          "bestExit": "09:15",
+          "bestEV": 2.271,
+          "evByExit": {
+            "09:01": 0.667,
+            "09:05": 2.052,
+            "09:15": 2.271,
+            "10:00": 1.293,
+            "11:30": 1.397,
+            "T1_close": -0.122,
+            "T2_open": 0.428
+          }
+        },
+        "5-8": {
+          "n": 34,
+          "bestExit": "T2_open",
+          "bestEV": 1.764,
+          "evByExit": {
+            "09:01": 0.797,
+            "09:05": 1.242,
+            "09:15": 1.269,
+            "10:00": 1.493,
+            "11:30": 1.5,
+            "T1_close": 1.049,
+            "T2_open": 1.764
+          }
+        },
+        "8-10": {
+          "n": 20,
+          "bestExit": "T2_open",
+          "bestEV": 1.514,
+          "evByExit": {
+            "09:01": -0.711,
+            "09:05": -0.438,
+            "09:15": -0.516,
+            "10:00": -0.573,
+            "11:30": -0.757,
+            "T1_close": -0.934,
+            "T2_open": 1.514
+          }
+        },
+        "10+": {
+          "n": 8,
+          "bestExit": "T2_open",
+          "bestEV": 2.715,
+          "evByExit": {
+            "09:01": -0.15,
+            "09:05": 0.95,
+            "09:15": 0.814,
+            "10:00": -0.134,
+            "11:30": 1.181,
+            "T1_close": 1.643,
+            "T2_open": 2.715
+          }
+        }
+      }
+    },
+    "train80_test19": {
+      "trainPeriod": [
+        "2026-04-13",
+        "2026-06-16"
+      ],
+      "testPeriod": [
+        "2026-06-16",
+        "2026-06-24"
+      ],
+      "fittedExitMap": {
+        "neg": "09:05",
+        "0-3": "T2_open",
+        "3-5": "09:05",
+        "5-8": "T2_open",
+        "8-10": "T2_open",
+        "10+": "T2_open"
+      },
+      "trainStats": {
+        "n": 165,
+        "winRate": 72.1,
+        "evPct": 2.372,
+        "median": 2.312,
+        "ciLow": 64.8,
+        "ciHigh": 78.4,
+        "totalNetPct": 391.39,
+        "totalDeltaTWD": 3913930
+      },
+      "testStats": {
+        "n": 42,
+        "winRate": 57.1,
+        "evPct": 1.08,
+        "median": 0.843,
+        "ciLow": 42.2,
+        "ciHigh": 70.9,
+        "totalNetPct": 45.37,
+        "totalDeltaTWD": 453709
+      },
+      "testBaselineStats": {
+        "n": 42,
+        "winRate": 54.8,
+        "evPct": 1.411,
+        "median": 0.355,
+        "ciLow": 39.9,
+        "ciHigh": 68.8,
+        "totalNetPct": 59.25,
+        "totalDeltaTWD": 592525
+      },
+      "testByMonth": {
+        "2026-06": {
+          "n": 42,
+          "winRate": 57.1,
+          "evPct": 1.08,
+          "median": 0.843,
+          "ciLow": 42.2,
+          "ciHigh": 70.9,
+          "totalNetPct": 45.37,
+          "totalDeltaTWD": 453709
+        }
+      },
+      "testBaselineByMonth": {
+        "2026-06": {
+          "n": 42,
+          "winRate": 54.8,
+          "evPct": 1.411,
+          "median": 0.355,
+          "ciLow": 39.9,
+          "ciHigh": 68.8,
+          "totalNetPct": 59.25,
+          "totalDeltaTWD": 592525
+        }
+      },
+      "fitDiag": {
+        "neg": {
+          "n": 24,
+          "bestExit": "09:05",
+          "bestEV": 2.88,
+          "evByExit": {
+            "09:01": 1.322,
+            "09:05": 2.88,
+            "09:15": 1.952,
+            "10:00": 2.67,
+            "11:30": 2.774,
+            "T1_close": 2.185,
+            "T2_open": 2.116
+          }
+        },
+        "0-3": {
+          "n": 41,
+          "bestExit": "T2_open",
+          "bestEV": 3.071,
+          "evByExit": {
+            "09:01": 0.352,
+            "09:05": 2.001,
+            "09:15": 2.042,
+            "10:00": 1.97,
+            "11:30": 2.486,
+            "T1_close": 1.817,
+            "T2_open": 3.071
+          }
+        },
+        "3-5": {
+          "n": 29,
+          "bestExit": "09:05",
+          "bestEV": 1.819,
+          "evByExit": {
+            "09:01": 0.626,
+            "09:05": 1.819,
+            "09:15": 1.726,
+            "10:00": 1.369,
+            "11:30": 1.397,
+            "T1_close": -0.008,
+            "T2_open": 0.586
+          }
+        },
+        "5-8": {
+          "n": 39,
+          "bestExit": "T2_open",
+          "bestEV": 1.726,
+          "evByExit": {
+            "09:01": 0.818,
+            "09:05": 1.184,
+            "09:15": 1.234,
+            "10:00": 1.609,
+            "11:30": 1.633,
+            "T1_close": 1.161,
+            "T2_open": 1.726
+          }
+        },
+        "8-10": {
+          "n": 24,
+          "bestExit": "T2_open",
+          "bestEV": 2.274,
+          "evByExit": {
+            "09:01": -0.588,
+            "09:05": -0.36,
+            "09:15": -0.425,
+            "10:00": -0.473,
+            "11:30": -0.626,
+            "T1_close": -0.774,
+            "T2_open": 2.274
+          }
+        },
+        "10+": {
+          "n": 8,
+          "bestExit": "T2_open",
+          "bestEV": 2.715,
+          "evByExit": {
+            "09:01": -0.15,
+            "09:05": 0.95,
+            "09:15": 0.814,
+            "10:00": -0.134,
+            "11:30": 1.181,
+            "T1_close": 1.643,
+            "T2_open": 2.715
+          }
+        }
+      }
+    }
+  },
+  "walkForward": {
+    "overall": {
+      "n": 106,
+      "winRate": 51.9,
+      "evPct": 0.931,
+      "median": 0.443,
+      "ciLow": 42.5,
+      "ciHigh": 61.2,
+      "totalNetPct": 98.64,
+      "totalDeltaTWD": 986353
+    },
+    "byMonth": [
+      {
+        "month": "2026-04",
+        "n": 14,
+        "note": "skip (insufficient train)"
+      },
+      {
+        "month": "2026-05",
+        "n": 87,
+        "note": "skip (insufficient train)"
+      },
+      {
+        "month": "2026-06",
+        "trainN": 101,
+        "testN": 106,
+        "exitMap": {
+          "neg": "T2_open",
+          "0-3": "T2_open",
+          "3-5": "09:15",
+          "5-8": "T2_open",
+          "8-10": "T2_open",
+          "10+": "T2_open"
+        },
+        "stats": {
+          "n": 106,
+          "winRate": 51.9,
+          "evPct": 0.931,
+          "median": 0.443,
+          "ciLow": 42.5,
+          "ciHigh": 61.2,
+          "totalNetPct": 98.64,
+          "totalDeltaTWD": 986353
+        },
+        "baselineStats": {
+          "n": 106,
+          "winRate": 49.1,
+          "evPct": 0.745,
+          "median": -0.223,
+          "ciLow": 39.7,
+          "ciHigh": 58.4,
+          "totalNetPct": 79.02,
+          "totalDeltaTWD": 790187
+        }
+      }
+    ]
+  },
+  "exitMapStability": {
+    "neg": {
+      "uniqueChoices": 2,
+      "choices": [
+        "09:05",
+        "T2_open"
+      ]
+    },
+    "0-3": {
+      "uniqueChoices": 1,
+      "choices": [
+        "T2_open"
+      ]
+    },
+    "3-5": {
+      "uniqueChoices": 2,
+      "choices": [
+        "09:05",
+        "09:15"
+      ]
+    },
+    "5-8": {
+      "uniqueChoices": 1,
+      "choices": [
+        "T2_open"
+      ]
+    },
+    "8-10": {
+      "uniqueChoices": 1,
+      "choices": [
+        "T2_open"
+      ]
+    },
+    "10+": {
+      "uniqueChoices": 1,
+      "choices": [
+        "T2_open"
+      ]
+    }
+  },
+  "existingLOO": {
+    "stats": {
+      "n": 207,
+      "winRate": 59.4,
+      "evPct": 1.249,
+      "median": 1.375,
+      "ciLow": 52.6,
+      "ciHigh": 65.9,
+      "totalNetPct": 258.47,
+      "totalDeltaTWD": 2584736
+    },
+    "perHoldout": [
+      {
+        "holdout": "2026-04",
+        "n": 14,
+        "ev": 2.142,
+        "trainExitMap": {
+          "neg": "11:30",
+          "0-3": "09:15",
+          "3-5": "09:15",
+          "5-8": "T2_open",
+          "8-10": "T2_open",
+          "10+": "T2_open"
+        }
+      },
+      {
+        "holdout": "2026-05",
+        "n": 87,
+        "ev": 1.492,
+        "trainExitMap": {
+          "neg": "11:30",
+          "0-3": "09:05",
+          "3-5": "10:00",
+          "5-8": "11:30",
+          "8-10": "T2_open",
+          "10+": "T2_open"
+        }
+      },
+      {
+        "holdout": "2026-06",
+        "n": 106,
+        "ev": 0.931,
+        "trainExitMap": {
+          "neg": "T2_open",
+          "0-3": "T2_open",
+          "3-5": "09:15",
+          "5-8": "T2_open",
+          "8-10": "T2_open",
+          "10+": "T2_open"
+        }
+      }
+    ]
+  },
+  "existingMonthly": {
+    "ruleB": {
+      "2026-04": {
+        "n": 14,
+        "winRate": 64.3,
+        "evPct": 2.142,
+        "median": 1.851,
+        "ciLow": 38.8,
+        "ciHigh": 83.7,
+        "totalNetPct": 29.99,
+        "totalDeltaTWD": 299914
+      },
+      "2026-05": {
+        "n": 87,
+        "winRate": 69.0,
+        "evPct": 2.089,
+        "median": 2.196,
+        "ciLow": 58.6,
+        "ciHigh": 77.7,
+        "totalNetPct": 181.73,
+        "totalDeltaTWD": 1817313
+      },
+      "2026-06": {
+        "n": 106,
+        "winRate": 70.8,
+        "evPct": 2.317,
+        "median": 2.153,
+        "ciLow": 61.5,
+        "ciHigh": 78.6,
+        "totalNetPct": 245.58,
+        "totalDeltaTWD": 2455763
+      }
+    },
+    "baseline": {
+      "2026-04": {
+        "n": 14,
+        "winRate": 64.3,
+        "evPct": 3.853,
+        "median": 4.285,
+        "ciLow": 38.8,
+        "ciHigh": 83.7,
+        "totalNetPct": 53.94,
+        "totalDeltaTWD": 539414
+      },
+      "2026-05": {
+        "n": 87,
+        "winRate": 67.8,
+        "evPct": 3.03,
+        "median": 2.86,
+        "ciLow": 57.4,
+        "ciHigh": 76.7,
+        "totalNetPct": 263.6,
+        "totalDeltaTWD": 2636010
+      },
+      "2026-06": {
+        "n": 106,
+        "winRate": 49.1,
+        "evPct": 0.745,
+        "median": -0.223,
+        "ciLow": 39.7,
+        "ciHigh": 58.4,
+        "totalNetPct": 79.02,
+        "totalDeltaTWD": 790187
+      }
+    }
+  }
+}

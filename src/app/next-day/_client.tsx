@@ -572,6 +572,10 @@ export default function NextDayPage() {
             <p className="text-[10px] text-txt-4 mb-3">
               標籤根據隔日買賣開盤與收盤價格分類，僅描述已發生之走勢。
             </p>
+            <div className="text-[11px] text-amber mb-3 flex items-center gap-1.5 bg-amber/10 border border-amber/25 rounded-md px-3 py-2">
+              <span className="font-semibold">預計出場：</span>
+              <span>若 T+1 開盤 gap 0~5% → 09:15 賣；否則 T+2 開盤</span>
+            </div>
 
             {/* Filter Tabs */}
             <div className="flex flex-wrap gap-2 mb-4">

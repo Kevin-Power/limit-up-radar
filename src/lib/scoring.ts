@@ -3,6 +3,13 @@
  * Used by both /api/focus and /api/daily-report to ensure consistency.
  */
 
+/**
+ * 評分版本標記。
+ * 規則：每次評分邏輯變動，PATCH +1；新訊號加減項 MINOR +1。
+ * 寫入 daily/*.json 的 scoringVersion 欄位，回測時可驗證版本一致。
+ */
+export const SCORING_VERSION = "v3.2-2026-06-27";
+
 export interface DailyStockMin {
   code: string;
   name: string;
@@ -38,11 +45,11 @@ export interface ScoreResult {
  * Positive signals:
  *   - 趨勢族群 (2+ days trending): +30
  *   - 營收 YoY > 20%: +25 (>50% extra +10)
- *   - 法人買超分三級: 大買(>=1M股)+25 / 中買(>=200K)+15 / 小買+5 / 大賣超(<=-500K)-20
+ *   - 法人買超分三級: 大買(>=1M股)+25 / 中買(>=200K)+15 / 大賣超(<=-500K)-20
  *   - 連板 (streak >= 1): +streak*6 (cap 30); streak >= 5: -10 高追風險
  *   - 大量 (volume > 5M shares = 5,000 lots): +5
  *   - 族群龍頭 (top volume in group): +10
- *   - 權值股漲停 (isHeavyweight=true): +25 (TWSE 50 成分股漲停為強訊號，較罕見)
+ *   - 權值股漲停 (isHeavyweight=true): +10 (TWSE 50 成分股漲停為提示性訊號)
  *
  * Negative signals (liquidity / risk filters):
  *   - 流動性極低 (volume < 500 lots): -30 (essentially excluded from picks)
@@ -77,13 +84,23 @@ export function scoreStock(input: ScoreInput & {
   }
 
   // === Liquidity filter (volume in shares; 1 lot = 1000 shares) ===
-  const lots = stock.volume / 1000;
+  // Guard against null/undefined/NaN volume — fall back to 0 so we still hit the
+  // 「量極小」branch (any of these means we cannot safely size in this name).
+  let lots = stock.volume / 1000;
+  if (!Number.isFinite(lots)) lots = 0;
   if (lots < 500) {
     score -= 30;
     tags.push("⚠️量極小");
   } else if (lots < 2000) {
     score -= 15;
     tags.push("⚠️量小");
+  }
+  // 過熱量能與「量太小」是兩個正交概念，獨立判斷以避免未來插入新分支時誤改。
+  // 屍體解剖（2026-06）：prevVolume ≥ 2 萬張 cohort 全市場 win 31.2%
+  // 主因：題材末端、籌碼凌亂、易遭主力出貨
+  if (lots >= 20000) {
+    score -= 25;
+    tags.push("⚠️過熱量能");
   }
 
   // === Positive signals ===
@@ -105,9 +122,6 @@ export function scoreStock(input: ScoreInput & {
   } else if (stock.major_net >= 200_000) {
     score += 15;
     tags.push("法人買超");
-  } else if (stock.major_net > 0) {
-    score += 5;
-    tags.push("法人小買超");
   } else if (stock.major_net <= -500_000) {
     score -= 20;
     tags.push("⚠️主力大賣超");
@@ -137,7 +151,8 @@ export function scoreStock(input: ScoreInput & {
   }
   // === 權值股漲停 = 重大訊號 (TWSE 50 龍頭很少漲停，一旦發生通常帶領大盤) ===
   if (isHeavyweight) {
-    score += 25;
+    // 屍體解剖：權值股漲停 cohort win 50%（非權值股 55.5%）—— tag 保留但加分降低
+    score += 10;
     tags.push("⭐權值股");
   }
 

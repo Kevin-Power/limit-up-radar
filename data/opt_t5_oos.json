@@ -1,0 +1,200 @@
+{
+  "rule": "T+5_close (持有 5 交易日, 第 5 日收盤平倉)",
+  "scoreMin": 75,
+  "costPct": 0.37979999999999997,
+  "totalTrades": 389,
+  "splitRatio": "70/30 (chronological by entryDate)",
+  "fullSample": {
+    "n": 389,
+    "winRate": 51.4,
+    "meanNet": 2.906,
+    "medianNet": 0.988,
+    "totalNet": 1130.26,
+    "sd": 14.3
+  },
+  "train": {
+    "range": [
+      "2026-04-13",
+      "2026-06-04"
+    ],
+    "stats": {
+      "n": 272,
+      "winRate": 47.8,
+      "meanNet": 2.235,
+      "medianNet": -0.979,
+      "totalNet": 607.97,
+      "sd": 14.652
+    }
+  },
+  "test": {
+    "range": [
+      "2026-06-04",
+      "2026-06-18"
+    ],
+    "stats": {
+      "n": 117,
+      "winRate": 59.8,
+      "meanNet": 4.464,
+      "medianNet": 2.383,
+      "totalNet": 522.29,
+      "sd": 13.376
+    }
+  },
+  "gap": {
+    "winRate_test_minus_train_pp": 12.0,
+    "meanNet_test_minus_train_pct": 2.229,
+    "fails_10pp_rule": true
+  },
+  "monthly": {
+    "2026-04": {
+      "n": 39,
+      "winRate": 56.4,
+      "meanNet": 3.635,
+      "medianNet": 2.04,
+      "totalNet": 141.78,
+      "sd": 13.892
+    },
+    "2026-05": {
+      "n": 202,
+      "winRate": 49.0,
+      "meanNet": 3.064,
+      "medianNet": -0.803,
+      "totalNet": 618.99,
+      "sd": 14.745
+    },
+    "2026-06": {
+      "n": 148,
+      "winRate": 53.4,
+      "meanNet": 2.497,
+      "medianNet": 1.394,
+      "totalNet": 369.5,
+      "sd": 13.864
+    }
+  },
+  "june2026": {
+    "T+5_close": {
+      "n": 148,
+      "winRate": 53.4,
+      "meanNet": 2.497,
+      "medianNet": 1.394,
+      "totalNet": 369.5,
+      "sd": 13.864
+    },
+    "T+2_open_baseline": {
+      "n": 148,
+      "winRate": 43.2,
+      "meanNet": -0.548,
+      "medianNet": -1.435,
+      "totalNet": -81.09,
+      "sd": 7.525
+    },
+    "verdict": "T+5 救回獲利"
+  },
+  "trainTestMonthOverlap": {
+    "overlap": [
+      "2026-06"
+    ],
+    "trainOnly": [
+      "2026-04",
+      "2026-05"
+    ],
+    "testOnly": [],
+    "note": "若 test 月份在 train 內未出現過 → 樣本外才剛開始，更難判斷。"
+  },
+  "trainMonthly": {
+    "2026-04": {
+      "n": 39,
+      "winRate": 56.4,
+      "meanNet": 3.635,
+      "medianNet": 2.04,
+      "totalNet": 141.78,
+      "sd": 13.892
+    },
+    "2026-05": {
+      "n": 202,
+      "winRate": 49.0,
+      "meanNet": 3.064,
+      "medianNet": -0.803,
+      "totalNet": 618.99,
+      "sd": 14.745
+    },
+    "2026-06": {
+      "n": 31,
+      "winRate": 29.0,
+      "meanNet": -4.929,
+      "medianNet": -7.133,
+      "totalNet": -152.79,
+      "sd": 13.339
+    }
+  },
+  "scoreBands": {
+    "train": {
+      "75": {
+        "n": 272,
+        "winRate": 47.8,
+        "meanNet": 2.235,
+        "medianNet": -0.979,
+        "totalNet": 607.97,
+        "sd": 14.652
+      },
+      "80": {
+        "n": 225,
+        "winRate": 48.9,
+        "meanNet": 2.819,
+        "medianNet": -0.861,
+        "totalNet": 634.32,
+        "sd": 14.742
+      },
+      "85": {
+        "n": 153,
+        "winRate": 47.1,
+        "meanNet": 2.52,
+        "medianNet": -0.98,
+        "totalNet": 385.56,
+        "sd": 14.266
+      },
+      "90": {
+        "n": 115,
+        "winRate": 47.0,
+        "meanNet": 2.272,
+        "medianNet": -1.335,
+        "totalNet": 261.31,
+        "sd": 13.639
+      }
+    },
+    "test": {
+      "75": {
+        "n": 117,
+        "winRate": 59.8,
+        "meanNet": 4.464,
+        "medianNet": 2.383,
+        "totalNet": 522.29,
+        "sd": 13.376
+      },
+      "80": {
+        "n": 93,
+        "winRate": 61.3,
+        "meanNet": 4.029,
+        "medianNet": 2.367,
+        "totalNet": 374.67,
+        "sd": 13.291
+      },
+      "85": {
+        "n": 62,
+        "winRate": 62.9,
+        "meanNet": 4.278,
+        "medianNet": 3.127,
+        "totalNet": 265.22,
+        "sd": 13.781
+      },
+      "90": {
+        "n": 46,
+        "winRate": 60.9,
+        "meanNet": 3.844,
+        "medianNet": 2.343,
+        "totalNet": 176.84,
+        "sd": 13.235
+      }
+    }
+  }
+}

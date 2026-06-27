@@ -74,12 +74,17 @@ def main():
 
     f = report["funnel"]
     b = report["best"]
+    traded = len(report.get("trades", []))
     print(f"\n漏斗：精選 {f['totalPicks']} → 無資料 {f['noData']} → "
-          f"通過 {f['passedFilter']} → 成交 {f['traded']}")
+          f"通過 {f['passedFilter']} → 成交 {traded}")
     if b:
         print(f"最佳：{b['label']} 勝率{b['winRate']}% 期望值{b['meanNet']}% "
               f"獲利因子{b['profitFactor']} 最大回檔{b['maxDrawdown']}%"
               f"{' [樣本不足]' if b['lowConfidence'] else ''}")
+    r1 = report.get("r1Stats")
+    if r1:
+        print(f"R1 動態：勝率{r1['winRate']}% 期望值{r1['meanNet']}% "
+              f"獲利因子{r1['profitFactor']} 最大回檔{r1['maxDrawdown']}% (n={r1['trades']})")
     print(f"穩健性：前半最佳={report['robustness']['firstHalfBest']} "
           f"後半最佳={report['robustness']['secondHalfBest']} "
           f"一致={report['robustness']['consistent']}")

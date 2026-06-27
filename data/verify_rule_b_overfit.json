@@ -1,0 +1,562 @@
+{
+  "meta": {
+    "scoreMin": 75,
+    "costRtPct": 0.3798,
+    "ruleBExitMap": {
+      "neg": "11:30",
+      "0-3": "09:15",
+      "3-5": "09:15",
+      "5-8": "T2_open",
+      "8-10": "T2_open",
+      "10+": "T2_open"
+    },
+    "n_trades": 207
+  },
+  "baseline": {
+    "n": 207,
+    "winRate": 58.0,
+    "evPct": 1.916,
+    "median": 1.434,
+    "sumPct": 396.56
+  },
+  "ruleB": {
+    "n": 207,
+    "winRate": 69.6,
+    "evPct": 2.209,
+    "median": 2.168,
+    "sumPct": 457.3
+  },
+  "bootstrap": {
+    "nBoot": 1000,
+    "validBoot": 1000,
+    "evDiffMean": 0.299,
+    "evDiffP05": -0.316,
+    "evDiffP50": 0.305,
+    "evDiffP95": 0.89,
+    "prDiffPositive": 79.4,
+    "ruleB_EV_p05": 1.667,
+    "ruleB_EV_p50": 2.195,
+    "ruleB_EV_p95": 2.719,
+    "base_EV_p05": 1.15,
+    "base_EV_p50": 1.884,
+    "base_EV_p95": 2.708
+  },
+  "edgeSensitivity": {
+    "scale_0.9": {
+      "n": 207,
+      "evPct": 2.178,
+      "winRate": 69.1
+    },
+    "scale_0.95": {
+      "n": 207,
+      "evPct": 2.212,
+      "winRate": 69.6
+    },
+    "scale_1.0": {
+      "n": 207,
+      "evPct": 2.209,
+      "winRate": 69.6
+    },
+    "scale_1.05": {
+      "n": 207,
+      "evPct": 2.128,
+      "winRate": 69.1
+    },
+    "scale_1.1": {
+      "n": 207,
+      "evPct": 2.185,
+      "winRate": 69.6
+    }
+  },
+  "bestVsSecond": {
+    "neg": {
+      "n": 27,
+      "best": {
+        "exit": "11:30",
+        "n": 27,
+        "evPct": 2.986,
+        "winRate": 77.8
+      },
+      "second": {
+        "exit": "10:00",
+        "n": 27,
+        "evPct": 2.94,
+        "winRate": 70.4
+      },
+      "ruleBchoice": "11:30",
+      "gapBestSecond_pp": 0.046,
+      "ranks": [
+        {
+          "exit": "11:30",
+          "n": 27,
+          "evPct": 2.986,
+          "winRate": 77.8
+        },
+        {
+          "exit": "10:00",
+          "n": 27,
+          "evPct": 2.94,
+          "winRate": 70.4
+        },
+        {
+          "exit": "09:05",
+          "n": 27,
+          "evPct": 2.804,
+          "winRate": 96.3
+        },
+        {
+          "exit": "T2_open",
+          "n": 27,
+          "evPct": 2.758,
+          "winRate": 51.9
+        },
+        {
+          "exit": "T1_close",
+          "n": 27,
+          "evPct": 2.739,
+          "winRate": 63.0
+        },
+        {
+          "exit": "09:15",
+          "n": 27,
+          "evPct": 2.183,
+          "winRate": 74.1
+        },
+        {
+          "exit": "09:01",
+          "n": 26,
+          "evPct": 1.333,
+          "winRate": 76.9
+        }
+      ]
+    },
+    "0-3": {
+      "n": 66,
+      "best": {
+        "exit": "09:15",
+        "n": 66,
+        "evPct": 2.074,
+        "winRate": 71.2
+      },
+      "second": {
+        "exit": "09:05",
+        "n": 66,
+        "evPct": 2.004,
+        "winRate": 89.4
+      },
+      "ruleBchoice": "09:15",
+      "gapBestSecond_pp": 0.07,
+      "ranks": [
+        {
+          "exit": "09:15",
+          "n": 66,
+          "evPct": 2.074,
+          "winRate": 71.2
+        },
+        {
+          "exit": "09:05",
+          "n": 66,
+          "evPct": 2.004,
+          "winRate": 89.4
+        },
+        {
+          "exit": "T2_open",
+          "n": 66,
+          "evPct": 1.905,
+          "winRate": 57.6
+        },
+        {
+          "exit": "11:30",
+          "n": 66,
+          "evPct": 1.767,
+          "winRate": 57.6
+        },
+        {
+          "exit": "10:00",
+          "n": 66,
+          "evPct": 1.562,
+          "winRate": 63.6
+        },
+        {
+          "exit": "T1_close",
+          "n": 66,
+          "evPct": 1.031,
+          "winRate": 51.5
+        },
+        {
+          "exit": "09:01",
+          "n": 66,
+          "evPct": 0.557,
+          "winRate": 69.7
+        }
+      ]
+    },
+    "3-5": {
+      "n": 33,
+      "best": {
+        "exit": "09:15",
+        "n": 33,
+        "evPct": 2.05,
+        "winRate": 75.8
+      },
+      "second": {
+        "exit": "09:05",
+        "n": 33,
+        "evPct": 1.916,
+        "winRate": 84.8
+      },
+      "ruleBchoice": "09:15",
+      "gapBestSecond_pp": 0.134,
+      "ranks": [
+        {
+          "exit": "09:15",
+          "n": 33,
+          "evPct": 2.05,
+          "winRate": 75.8
+        },
+        {
+          "exit": "09:05",
+          "n": 33,
+          "evPct": 1.916,
+          "winRate": 84.8
+        },
+        {
+          "exit": "10:00",
+          "n": 33,
+          "evPct": 1.676,
+          "winRate": 72.7
+        },
+        {
+          "exit": "11:30",
+          "n": 33,
+          "evPct": 1.645,
+          "winRate": 63.6
+        },
+        {
+          "exit": "09:01",
+          "n": 33,
+          "evPct": 0.749,
+          "winRate": 72.7
+        },
+        {
+          "exit": "T2_open",
+          "n": 33,
+          "evPct": 0.735,
+          "winRate": 51.5
+        },
+        {
+          "exit": "T1_close",
+          "n": 33,
+          "evPct": 0.129,
+          "winRate": 48.5
+        }
+      ]
+    },
+    "5-8": {
+      "n": 47,
+      "best": {
+        "exit": "T2_open",
+        "n": 47,
+        "evPct": 2.004,
+        "winRate": 66.0
+      },
+      "second": {
+        "exit": "11:30",
+        "n": 47,
+        "evPct": 1.751,
+        "winRate": 78.7
+      },
+      "ruleBchoice": "T2_open",
+      "gapBestSecond_pp": 0.253,
+      "ranks": [
+        {
+          "exit": "T2_open",
+          "n": 47,
+          "evPct": 2.004,
+          "winRate": 66.0
+        },
+        {
+          "exit": "11:30",
+          "n": 47,
+          "evPct": 1.751,
+          "winRate": 78.7
+        },
+        {
+          "exit": "10:00",
+          "n": 47,
+          "evPct": 1.496,
+          "winRate": 74.5
+        },
+        {
+          "exit": "T1_close",
+          "n": 47,
+          "evPct": 1.319,
+          "winRate": 76.6
+        },
+        {
+          "exit": "09:05",
+          "n": 47,
+          "evPct": 1.095,
+          "winRate": 74.5
+        },
+        {
+          "exit": "09:15",
+          "n": 47,
+          "evPct": 1.082,
+          "winRate": 68.1
+        },
+        {
+          "exit": "09:01",
+          "n": 47,
+          "evPct": 0.625,
+          "winRate": 61.7
+        }
+      ]
+    },
+    "8-10": {
+      "n": 26,
+      "best": {
+        "exit": "T2_open",
+        "n": 26,
+        "evPct": 2.161,
+        "winRate": 57.7
+      },
+      "second": {
+        "exit": "09:05",
+        "n": 26,
+        "evPct": -0.295,
+        "winRate": 19.2
+      },
+      "ruleBchoice": "T2_open",
+      "gapBestSecond_pp": 2.456,
+      "ranks": [
+        {
+          "exit": "T2_open",
+          "n": 26,
+          "evPct": 2.161,
+          "winRate": 57.7
+        },
+        {
+          "exit": "09:05",
+          "n": 26,
+          "evPct": -0.295,
+          "winRate": 19.2
+        },
+        {
+          "exit": "09:15",
+          "n": 26,
+          "evPct": -0.388,
+          "winRate": 19.2
+        },
+        {
+          "exit": "10:00",
+          "n": 26,
+          "evPct": -0.499,
+          "winRate": 11.5
+        },
+        {
+          "exit": "09:01",
+          "n": 26,
+          "evPct": -0.55,
+          "winRate": 19.2
+        },
+        {
+          "exit": "11:30",
+          "n": 26,
+          "evPct": -0.663,
+          "winRate": 7.7
+        },
+        {
+          "exit": "T1_close",
+          "n": 26,
+          "evPct": -0.81,
+          "winRate": 7.7
+        }
+      ]
+    },
+    "10+": {
+      "n": 8,
+      "best": {
+        "exit": "T2_open",
+        "n": 8,
+        "evPct": 2.715,
+        "winRate": 62.5
+      },
+      "second": {
+        "exit": "T1_close",
+        "n": 8,
+        "evPct": 1.643,
+        "winRate": 37.5
+      },
+      "ruleBchoice": "T2_open",
+      "gapBestSecond_pp": 1.072,
+      "ranks": [
+        {
+          "exit": "T2_open",
+          "n": 8,
+          "evPct": 2.715,
+          "winRate": 62.5
+        },
+        {
+          "exit": "T1_close",
+          "n": 8,
+          "evPct": 1.643,
+          "winRate": 37.5
+        },
+        {
+          "exit": "11:30",
+          "n": 8,
+          "evPct": 1.181,
+          "winRate": 37.5
+        },
+        {
+          "exit": "09:05",
+          "n": 8,
+          "evPct": 0.95,
+          "winRate": 50.0
+        },
+        {
+          "exit": "09:15",
+          "n": 8,
+          "evPct": 0.814,
+          "winRate": 62.5
+        },
+        {
+          "exit": "10:00",
+          "n": 8,
+          "evPct": -0.134,
+          "winRate": 37.5
+        },
+        {
+          "exit": "09:01",
+          "n": 8,
+          "evPct": -0.15,
+          "winRate": 12.5
+        }
+      ]
+    }
+  },
+  "randomMapDistribution": {
+    "iters": 500,
+    "ruleB_EV": 2.209,
+    "rand_EV_p05": 0.883,
+    "rand_EV_p50": 1.347,
+    "rand_EV_p95": 1.783,
+    "ruleB_percentileVsRandom": 100.0,
+    "note": "百分位接近 100 表示 Rule B 比隨機好；50 附近表示無實質差別"
+  },
+  "looOOS": {
+    "summary": {
+      "n": 207,
+      "winRate": 59.4,
+      "evPct": 1.249,
+      "median": 1.375,
+      "sumPct": 258.47
+    },
+    "perHoldout": [
+      {
+        "holdout": "2026-04",
+        "test_n": 14,
+        "test_EV": 2.142,
+        "test_WR": 64.3,
+        "train_inSample_EV": 2.214,
+        "trainMap": {
+          "neg": "11:30",
+          "0-3": "09:15",
+          "3-5": "09:15",
+          "5-8": "T2_open",
+          "8-10": "T2_open",
+          "10+": "T2_open"
+        }
+      },
+      {
+        "holdout": "2026-05",
+        "test_n": 87,
+        "test_EV": 1.492,
+        "test_WR": 67.8,
+        "train_inSample_EV": 2.488,
+        "trainMap": {
+          "neg": "11:30",
+          "0-3": "09:05",
+          "3-5": "10:00",
+          "5-8": "11:30",
+          "8-10": "T2_open",
+          "10+": "T2_open"
+        }
+      },
+      {
+        "holdout": "2026-06",
+        "test_n": 106,
+        "test_EV": 0.931,
+        "test_WR": 51.9,
+        "train_inSample_EV": 3.379,
+        "trainMap": {
+          "neg": "T2_open",
+          "0-3": "T2_open",
+          "3-5": "09:15",
+          "5-8": "T2_open",
+          "8-10": "T2_open",
+          "10+": "T2_open"
+        }
+      }
+    ]
+  },
+  "redFlags": {
+    "smallBuckets": {
+      "8-10": 26,
+      "10+": 8
+    },
+    "bucket_8_10_anomaly": {
+      "note": "8-10 桶 T2_open EV vs 其他出場差距 — 強烈過擬合徵兆",
+      "ranks": [
+        {
+          "exit": "T2_open",
+          "n": 26,
+          "evPct": 2.161,
+          "winRate": 57.7
+        },
+        {
+          "exit": "09:05",
+          "n": 26,
+          "evPct": -0.295,
+          "winRate": 19.2
+        },
+        {
+          "exit": "09:15",
+          "n": 26,
+          "evPct": -0.388,
+          "winRate": 19.2
+        },
+        {
+          "exit": "10:00",
+          "n": 26,
+          "evPct": -0.499,
+          "winRate": 11.5
+        },
+        {
+          "exit": "09:01",
+          "n": 26,
+          "evPct": -0.55,
+          "winRate": 19.2
+        },
+        {
+          "exit": "11:30",
+          "n": 26,
+          "evPct": -0.663,
+          "winRate": 7.7
+        },
+        {
+          "exit": "T1_close",
+          "n": 26,
+          "evPct": -0.81,
+          "winRate": 7.7
+        }
+      ]
+    },
+    "loo_degradation": {
+      "inSample_EV": 2.209,
+      "outOfSample_EV": 1.249,
+      "degradationPct": 43.5
+    }
+  }
+}

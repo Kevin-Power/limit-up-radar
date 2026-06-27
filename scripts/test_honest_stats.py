@@ -85,12 +85,14 @@ def _stock(**kw):
 
 
 def test_score_full_all_positive_signals():
-    # 趨勢+30 營收>50→+35 法人+20 連板+15 量+5 龍頭+10 權值+25 = 140
+    # P1-3 後法人三級制：major_net=1 不觸發任何加分（需 >=200K）
+    # P1-4 後權值股 +25 → +10
+    # 趨勢+30 營收>50→+35 連板+15 量>5M→+5 龍頭+10 權值+10 = 105
     sc = hs.score_stock_full(
         _stock(), group_name="G", trending={"G"}, leader_code="9999",
         rev_yoy=60, is_disposal=False, recent_bearish=False, is_heavyweight=True,
     )
-    assert sc == 140
+    assert sc == 105
 
 
 def test_score_full_negative_signals():
@@ -128,8 +130,9 @@ def test_score_full_heavyweight_and_bearish_are_wired():
                 rev_yoy=None, is_disposal=False)
     s0 = hs.score_stock_full(_stock(streak=1, major_net=0), recent_bearish=False,
                              is_heavyweight=False, **base)
+    # P1-4: 權值股加分由 +25 降為 +10（屍體解剖：權值股漲停 win 50% < 非權值 55.5%）
     assert hs.score_stock_full(_stock(streak=1, major_net=0), recent_bearish=False,
-                               is_heavyweight=True, **base) == s0 + 25
+                               is_heavyweight=True, **base) == s0 + 10
     assert hs.score_stock_full(_stock(streak=1, major_net=0), recent_bearish=True,
                                is_heavyweight=False, **base) == s0 - 25
 

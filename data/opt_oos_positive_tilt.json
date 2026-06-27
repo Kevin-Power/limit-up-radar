@@ -1,0 +1,978 @@
+{
+  "rule": "POSITIVE TILT: cat ∈ {個股亮點, 光通訊/矽光子} AND cluster<=7",
+  "claimedEffect": {
+    "n": 52,
+    "winRate": 67.3,
+    "evPct": 3.39
+  },
+  "validationMethod": "70/30 time split + monthly breakdown (focus on 2026-06)",
+  "baselineParams": {
+    "scoreMin": 75,
+    "costRoundTripPct": 0.37979999999999997,
+    "positionTWD": 1000000
+  },
+  "split": {
+    "trainDates": [
+      "2026-04-10",
+      "2026-06-04"
+    ],
+    "testDates": [
+      "2026-06-05",
+      "2026-06-23"
+    ],
+    "trainPickDays": 25,
+    "testPickDays": 11
+  },
+  "fullSampleCheck": {
+    "n": 52,
+    "winRate": 67.3,
+    "evPct": 3.387,
+    "median": 2.719,
+    "totalPct": 176.13,
+    "totalTWD": 1761266.0,
+    "maxWin": 30.97,
+    "maxLoss": -12.49
+  },
+  "train": {
+    "label": "TRAIN(70%)",
+    "dateRange": {
+      "from": "2026-04-10",
+      "to": "2026-06-04"
+    },
+    "baseline": {
+      "n": 126,
+      "winRate": 59.5,
+      "evPct": 2.296,
+      "median": 2.232,
+      "totalPct": 289.36,
+      "totalTWD": 2893557.0,
+      "maxWin": 30.97,
+      "maxLoss": -12.49
+    },
+    "rule_kept": {
+      "n": 33,
+      "winRate": 60.6,
+      "evPct": 2.99,
+      "median": 3.083,
+      "totalPct": 98.67,
+      "totalTWD": 986740.0,
+      "maxWin": 30.97,
+      "maxLoss": -12.49
+    },
+    "rule_dropped": {
+      "n": 93,
+      "winRate": 59.1,
+      "evPct": 2.05,
+      "median": 2.213,
+      "totalPct": 190.68,
+      "totalTWD": 1906817.0,
+      "maxWin": 17.76,
+      "maxLoss": -11.43
+    },
+    "tradesKept": [
+      {
+        "pickDate": "2026-04-10",
+        "code": "4989",
+        "name": "榮科",
+        "categories": [
+          "光通訊 / 矽光子"
+        ],
+        "net": 4.1881
+      },
+      {
+        "pickDate": "2026-04-16",
+        "code": "4979",
+        "name": "華星光",
+        "categories": [
+          "光通訊 / 矽光子"
+        ],
+        "net": 14.3929
+      },
+      {
+        "pickDate": "2026-04-16",
+        "code": "6829",
+        "name": "千附精密",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": 14.7145
+      },
+      {
+        "pickDate": "2026-04-23",
+        "code": "6907",
+        "name": "雅特力-KY",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": -12.4905
+      },
+      {
+        "pickDate": "2026-04-28",
+        "code": "8103",
+        "name": "瀚荃",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": 4.3821
+      },
+      {
+        "pickDate": "2026-05-04",
+        "code": "8074",
+        "name": "鉅橡",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": 1.0441
+      },
+      {
+        "pickDate": "2026-05-11",
+        "code": "4576",
+        "name": "大銀微系統",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": 1.0119
+      },
+      {
+        "pickDate": "2026-05-11",
+        "code": "4931",
+        "name": "新盛力",
+        "categories": [
+          "光通訊 / 矽光子"
+        ],
+        "net": 0.6303
+      },
+      {
+        "pickDate": "2026-05-11",
+        "code": "4973",
+        "name": "廣穎",
+        "categories": [
+          "光通訊 / 矽光子"
+        ],
+        "net": 3.0834
+      },
+      {
+        "pickDate": "2026-05-11",
+        "code": "8299",
+        "name": "群聯",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": -5.2359
+      },
+      {
+        "pickDate": "2026-05-12",
+        "code": "8069",
+        "name": "元太",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": 3.9471
+      },
+      {
+        "pickDate": "2026-05-14",
+        "code": "3707",
+        "name": "漢磊",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": -8.6151
+      },
+      {
+        "pickDate": "2026-05-14",
+        "code": "8028",
+        "name": "昇陽半導體",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": 7.5747
+      },
+      {
+        "pickDate": "2026-05-15",
+        "code": "8374",
+        "name": "羅昇",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": -3.2369
+      },
+      {
+        "pickDate": "2026-05-18",
+        "code": "8040",
+        "name": "九暘",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": 30.9668
+      },
+      {
+        "pickDate": "2026-05-20",
+        "code": "4916",
+        "name": "事欣科",
+        "categories": [
+          "光通訊 / 矽光子"
+        ],
+        "net": -0.3798
+      },
+      {
+        "pickDate": "2026-05-20",
+        "code": "8121",
+        "name": "越峰",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": 6.9438
+      },
+      {
+        "pickDate": "2026-05-22",
+        "code": "3711",
+        "name": "日月光投控",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": 6.8108
+      },
+      {
+        "pickDate": "2026-05-22",
+        "code": "4931",
+        "name": "新盛力",
+        "categories": [
+          "光通訊 / 矽光子"
+        ],
+        "net": -5.7794
+      },
+      {
+        "pickDate": "2026-05-22",
+        "code": "8021",
+        "name": "尖點",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": 4.7887
+      },
+      {
+        "pickDate": "2026-05-22",
+        "code": "8064",
+        "name": "東捷",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": 7.7474
+      },
+      {
+        "pickDate": "2026-05-22",
+        "code": "8996",
+        "name": "高力",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": 5.9493
+      },
+      {
+        "pickDate": "2026-05-25",
+        "code": "3711",
+        "name": "日月光投控",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": -2.7199
+      },
+      {
+        "pickDate": "2026-05-25",
+        "code": "8150",
+        "name": "南茂",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": 9.7651
+      },
+      {
+        "pickDate": "2026-05-27",
+        "code": "4973",
+        "name": "廣穎",
+        "categories": [
+          "光通訊 / 矽光子"
+        ],
+        "net": 7.8169
+      },
+      {
+        "pickDate": "2026-05-27",
+        "code": "8150",
+        "name": "南茂",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": 13.9927
+      },
+      {
+        "pickDate": "2026-05-28",
+        "code": "1409",
+        "name": "新纖",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": 9.4886
+      },
+      {
+        "pickDate": "2026-05-29",
+        "code": "8043",
+        "name": "蜜望實",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": -4.5733
+      },
+      {
+        "pickDate": "2026-06-01",
+        "code": "8043",
+        "name": "蜜望實",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": -4.0835
+      },
+      {
+        "pickDate": "2026-06-01",
+        "code": "8096",
+        "name": "擎亞",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": -2.2455
+      },
+      {
+        "pickDate": "2026-06-04",
+        "code": "1708",
+        "name": "東鹼",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": -5.2734
+      },
+      {
+        "pickDate": "2026-06-04",
+        "code": "5426",
+        "name": "振發",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": -5.5522
+      },
+      {
+        "pickDate": "2026-06-04",
+        "code": "6907",
+        "name": "雅特力-KY",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": -0.3798
+      }
+    ]
+  },
+  "test": {
+    "label": "TEST(30%)",
+    "dateRange": {
+      "from": "2026-06-05",
+      "to": "2026-06-23"
+    },
+    "baseline": {
+      "n": 81,
+      "winRate": 55.6,
+      "evPct": 1.324,
+      "median": 0.715,
+      "totalPct": 107.21,
+      "totalTWD": 1072054.0,
+      "maxWin": 17.33,
+      "maxLoss": -10.49
+    },
+    "rule_kept": {
+      "n": 19,
+      "winRate": 78.9,
+      "evPct": 4.076,
+      "median": 2.354,
+      "totalPct": 77.45,
+      "totalTWD": 774526.0,
+      "maxWin": 15.59,
+      "maxLoss": -6.71
+    },
+    "rule_dropped": {
+      "n": 62,
+      "winRate": 48.4,
+      "evPct": 0.48,
+      "median": -0.223,
+      "totalPct": 29.75,
+      "totalTWD": 297528.0,
+      "maxWin": 17.33,
+      "maxLoss": -10.49
+    },
+    "tradesKept": [
+      {
+        "pickDate": "2026-06-08",
+        "code": "1714",
+        "name": "和桐",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": 2.1382
+      },
+      {
+        "pickDate": "2026-06-08",
+        "code": "2241",
+        "name": "艾姆勒",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": 1.1547
+      },
+      {
+        "pickDate": "2026-06-09",
+        "code": "4973",
+        "name": "廣穎",
+        "categories": [
+          "光通訊 / 矽光子"
+        ],
+        "net": 2.3012
+      },
+      {
+        "pickDate": "2026-06-09",
+        "code": "8121",
+        "name": "越峰",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": 2.3537
+      },
+      {
+        "pickDate": "2026-06-11",
+        "code": "5498",
+        "name": "凱崴",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": 5.6496
+      },
+      {
+        "pickDate": "2026-06-12",
+        "code": "4534",
+        "name": "慶騰",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": -4.2425
+      },
+      {
+        "pickDate": "2026-06-12",
+        "code": "5864",
+        "name": "致和證",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": 1.96
+      },
+      {
+        "pickDate": "2026-06-12",
+        "code": "8096",
+        "name": "擎亞",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": 6.9195
+      },
+      {
+        "pickDate": "2026-06-15",
+        "code": "4551",
+        "name": "智伸科",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": 8.9098
+      },
+      {
+        "pickDate": "2026-06-15",
+        "code": "5328",
+        "name": "華容",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": 6.0459
+      },
+      {
+        "pickDate": "2026-06-17",
+        "code": "1727",
+        "name": "中華化",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": -1.0074
+      },
+      {
+        "pickDate": "2026-06-17",
+        "code": "4923",
+        "name": "力士",
+        "categories": [
+          "光通訊 / 矽光子"
+        ],
+        "net": 15.38
+      },
+      {
+        "pickDate": "2026-06-18",
+        "code": "4576",
+        "name": "大銀微系統",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": 4.0352
+      },
+      {
+        "pickDate": "2026-06-22",
+        "code": "2369",
+        "name": "菱生",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": 5.4384
+      },
+      {
+        "pickDate": "2026-06-22",
+        "code": "3707",
+        "name": "漢磊",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": 1.2159
+      },
+      {
+        "pickDate": "2026-06-22",
+        "code": "3711",
+        "name": "日月光投控",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": -6.7126
+      },
+      {
+        "pickDate": "2026-06-22",
+        "code": "8054",
+        "name": "安國",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": -0.7982
+      },
+      {
+        "pickDate": "2026-06-23",
+        "code": "8040",
+        "name": "九暘",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": 11.1246
+      },
+      {
+        "pickDate": "2026-06-23",
+        "code": "8054",
+        "name": "安國",
+        "categories": [
+          "個股亮點"
+        ],
+        "net": 15.5866
+      }
+    ]
+  },
+  "monthly": {
+    "2026-04": {
+      "baseline": {
+        "n": 14,
+        "winRate": 64.3,
+        "evPct": 3.853,
+        "median": 4.285,
+        "totalPct": 53.94,
+        "totalTWD": 539414.0,
+        "maxWin": 17.58,
+        "maxLoss": -12.49
+      },
+      "rule_kept": {
+        "n": 5,
+        "winRate": 80.0,
+        "evPct": 5.037,
+        "median": 4.382,
+        "totalPct": 25.19,
+        "totalTWD": 251871.0,
+        "maxWin": 14.71,
+        "maxLoss": -12.49
+      },
+      "keptDetail": [
+        {
+          "date": "2026-04-10",
+          "code": "4989",
+          "name": "榮科",
+          "net": 4.1881
+        },
+        {
+          "date": "2026-04-16",
+          "code": "4979",
+          "name": "華星光",
+          "net": 14.3929
+        },
+        {
+          "date": "2026-04-16",
+          "code": "6829",
+          "name": "千附精密",
+          "net": 14.7145
+        },
+        {
+          "date": "2026-04-23",
+          "code": "6907",
+          "name": "雅特力-KY",
+          "net": -12.4905
+        },
+        {
+          "date": "2026-04-28",
+          "code": "8103",
+          "name": "瀚荃",
+          "net": 4.3821
+        }
+      ]
+    },
+    "2026-05": {
+      "baseline": {
+        "n": 96,
+        "winRate": 65.6,
+        "evPct": 2.747,
+        "median": 2.825,
+        "totalPct": 263.67,
+        "totalTWD": 2636692.0,
+        "maxWin": 30.97,
+        "maxLoss": -11.43
+      },
+      "rule_kept": {
+        "n": 23,
+        "winRate": 69.6,
+        "evPct": 3.957,
+        "median": 3.947,
+        "totalPct": 91.02,
+        "totalTWD": 910213.0,
+        "maxWin": 30.97,
+        "maxLoss": -8.62
+      },
+      "keptDetail": [
+        {
+          "date": "2026-05-04",
+          "code": "8074",
+          "name": "鉅橡",
+          "net": 1.0441
+        },
+        {
+          "date": "2026-05-11",
+          "code": "4576",
+          "name": "大銀微系統",
+          "net": 1.0119
+        },
+        {
+          "date": "2026-05-11",
+          "code": "4931",
+          "name": "新盛力",
+          "net": 0.6303
+        },
+        {
+          "date": "2026-05-11",
+          "code": "4973",
+          "name": "廣穎",
+          "net": 3.0834
+        },
+        {
+          "date": "2026-05-11",
+          "code": "8299",
+          "name": "群聯",
+          "net": -5.2359
+        },
+        {
+          "date": "2026-05-12",
+          "code": "8069",
+          "name": "元太",
+          "net": 3.9471
+        },
+        {
+          "date": "2026-05-14",
+          "code": "3707",
+          "name": "漢磊",
+          "net": -8.6151
+        },
+        {
+          "date": "2026-05-14",
+          "code": "8028",
+          "name": "昇陽半導體",
+          "net": 7.5747
+        },
+        {
+          "date": "2026-05-15",
+          "code": "8374",
+          "name": "羅昇",
+          "net": -3.2369
+        },
+        {
+          "date": "2026-05-18",
+          "code": "8040",
+          "name": "九暘",
+          "net": 30.9668
+        },
+        {
+          "date": "2026-05-20",
+          "code": "4916",
+          "name": "事欣科",
+          "net": -0.3798
+        },
+        {
+          "date": "2026-05-20",
+          "code": "8121",
+          "name": "越峰",
+          "net": 6.9438
+        },
+        {
+          "date": "2026-05-22",
+          "code": "3711",
+          "name": "日月光投控",
+          "net": 6.8108
+        },
+        {
+          "date": "2026-05-22",
+          "code": "4931",
+          "name": "新盛力",
+          "net": -5.7794
+        },
+        {
+          "date": "2026-05-22",
+          "code": "8021",
+          "name": "尖點",
+          "net": 4.7887
+        },
+        {
+          "date": "2026-05-22",
+          "code": "8064",
+          "name": "東捷",
+          "net": 7.7474
+        },
+        {
+          "date": "2026-05-22",
+          "code": "8996",
+          "name": "高力",
+          "net": 5.9493
+        },
+        {
+          "date": "2026-05-25",
+          "code": "3711",
+          "name": "日月光投控",
+          "net": -2.7199
+        },
+        {
+          "date": "2026-05-25",
+          "code": "8150",
+          "name": "南茂",
+          "net": 9.7651
+        },
+        {
+          "date": "2026-05-27",
+          "code": "4973",
+          "name": "廣穎",
+          "net": 7.8169
+        },
+        {
+          "date": "2026-05-27",
+          "code": "8150",
+          "name": "南茂",
+          "net": 13.9927
+        },
+        {
+          "date": "2026-05-28",
+          "code": "1409",
+          "name": "新纖",
+          "net": 9.4886
+        },
+        {
+          "date": "2026-05-29",
+          "code": "8043",
+          "name": "蜜望實",
+          "net": -4.5733
+        }
+      ]
+    },
+    "2026-06": {
+      "baseline": {
+        "n": 97,
+        "winRate": 49.5,
+        "evPct": 0.814,
+        "median": -0.066,
+        "totalPct": 78.95,
+        "totalTWD": 789505.0,
+        "maxWin": 17.33,
+        "maxLoss": -10.91
+      },
+      "rule_kept": {
+        "n": 24,
+        "winRate": 62.5,
+        "evPct": 2.497,
+        "median": 2.049,
+        "totalPct": 59.92,
+        "totalTWD": 599182.0,
+        "maxWin": 15.59,
+        "maxLoss": -6.71
+      },
+      "keptDetail": [
+        {
+          "date": "2026-06-01",
+          "code": "8043",
+          "name": "蜜望實",
+          "net": -4.0835
+        },
+        {
+          "date": "2026-06-01",
+          "code": "8096",
+          "name": "擎亞",
+          "net": -2.2455
+        },
+        {
+          "date": "2026-06-04",
+          "code": "1708",
+          "name": "東鹼",
+          "net": -5.2734
+        },
+        {
+          "date": "2026-06-04",
+          "code": "5426",
+          "name": "振發",
+          "net": -5.5522
+        },
+        {
+          "date": "2026-06-04",
+          "code": "6907",
+          "name": "雅特力-KY",
+          "net": -0.3798
+        },
+        {
+          "date": "2026-06-08",
+          "code": "1714",
+          "name": "和桐",
+          "net": 2.1382
+        },
+        {
+          "date": "2026-06-08",
+          "code": "2241",
+          "name": "艾姆勒",
+          "net": 1.1547
+        },
+        {
+          "date": "2026-06-09",
+          "code": "4973",
+          "name": "廣穎",
+          "net": 2.3012
+        },
+        {
+          "date": "2026-06-09",
+          "code": "8121",
+          "name": "越峰",
+          "net": 2.3537
+        },
+        {
+          "date": "2026-06-11",
+          "code": "5498",
+          "name": "凱崴",
+          "net": 5.6496
+        },
+        {
+          "date": "2026-06-12",
+          "code": "4534",
+          "name": "慶騰",
+          "net": -4.2425
+        },
+        {
+          "date": "2026-06-12",
+          "code": "5864",
+          "name": "致和證",
+          "net": 1.96
+        },
+        {
+          "date": "2026-06-12",
+          "code": "8096",
+          "name": "擎亞",
+          "net": 6.9195
+        },
+        {
+          "date": "2026-06-15",
+          "code": "4551",
+          "name": "智伸科",
+          "net": 8.9098
+        },
+        {
+          "date": "2026-06-15",
+          "code": "5328",
+          "name": "華容",
+          "net": 6.0459
+        },
+        {
+          "date": "2026-06-17",
+          "code": "1727",
+          "name": "中華化",
+          "net": -1.0074
+        },
+        {
+          "date": "2026-06-17",
+          "code": "4923",
+          "name": "力士",
+          "net": 15.38
+        },
+        {
+          "date": "2026-06-18",
+          "code": "4576",
+          "name": "大銀微系統",
+          "net": 4.0352
+        },
+        {
+          "date": "2026-06-22",
+          "code": "2369",
+          "name": "菱生",
+          "net": 5.4384
+        },
+        {
+          "date": "2026-06-22",
+          "code": "3707",
+          "name": "漢磊",
+          "net": 1.2159
+        },
+        {
+          "date": "2026-06-22",
+          "code": "3711",
+          "name": "日月光投控",
+          "net": -6.7126
+        },
+        {
+          "date": "2026-06-22",
+          "code": "8054",
+          "name": "安國",
+          "net": -0.7982
+        },
+        {
+          "date": "2026-06-23",
+          "code": "8040",
+          "name": "九暘",
+          "net": 11.1246
+        },
+        {
+          "date": "2026-06-23",
+          "code": "8054",
+          "name": "安國",
+          "net": 15.5866
+        }
+      ]
+    }
+  },
+  "delta": {
+    "baseline": {
+      "winRateDeltaPP": -3.9,
+      "evDeltaPct": -0.972
+    },
+    "rule_kept": {
+      "winRateDeltaPP": 18.3,
+      "evDeltaPct": 1.086
+    }
+  }
+}

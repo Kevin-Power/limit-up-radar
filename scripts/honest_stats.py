@@ -19,6 +19,9 @@ import sys
 import tempfile
 import time
 
+# scoring.ts 同名常數，須同步更新
+SCORING_VERSION = "v3.2-2026-06-27"
+
 # ── 成本常數（台股現股當沖）─────────────────────────────────
 COST_FEES_PCT = 0.435          # 手續費 0.1425%×2 + 當沖證交稅 0.15%
 COST_CONSERVATIVE_PCT = 1.0    # 費稅 + 保守滑價（低流動性小型股）
@@ -115,8 +118,13 @@ def score_stock_full(stock, *, group_name, trending, leader_code, rev_yoy,
         score += 25
         if rev_yoy > 50:
             score += 10
-    if stock["major_net"] > 0:
-        score += 20
+    # P1-3: 對齊 scoring.ts —— 法人三級制，無「小買 +5」
+    if stock["major_net"] >= 1_000_000:
+        score += 25
+    elif stock["major_net"] >= 200_000:
+        score += 15
+    elif stock["major_net"] <= -500_000:
+        score -= 20
     if stock.get("streak", 1) >= 2:
         score += 15
     if stock["volume"] > 5_000_000:
@@ -124,7 +132,7 @@ def score_stock_full(stock, *, group_name, trending, leader_code, rev_yoy,
     if leader_code == stock["code"]:
         score += 10
     if is_heavyweight:
-        score += 25
+        score += 10
     return score
 
 

@@ -1,0 +1,1302 @@
+{
+  "method": "對每個交易日重建 cap=20 精選，比對 backtest_0903 隔日 open 毛報酬扣 0.435% 費稅",
+  "totalRows": 332,
+  "cohortSummary": [
+    {
+      "label": "50-89",
+      "n": 263,
+      "winRate": 73.8,
+      "meanRet": 5.357,
+      "medianRet": 3.995,
+      "sumRet": 1408.9
+    },
+    {
+      "label": "75-89",
+      "n": 94,
+      "winRate": 73.4,
+      "meanRet": 5.221,
+      "medianRet": 4.127,
+      "sumRet": 490.7
+    },
+    {
+      "label": "85-89",
+      "n": 27,
+      "winRate": 77.8,
+      "meanRet": 7.409,
+      "medianRet": 7.192,
+      "sumRet": 200.0
+    },
+    {
+      "label": "90+",
+      "n": 69,
+      "winRate": 65.2,
+      "meanRet": 4.009,
+      "medianRet": 3.532,
+      "sumRet": 276.6
+    }
+  ],
+  "signalLift_90plus": [
+    {
+      "signal": "disposal_-50",
+      "winnerHits": 0,
+      "loserHits": 0,
+      "winnerRate": 0.0,
+      "loserRate": 0.0,
+      "lift": 1.0,
+      "withSigN": 0,
+      "withSigMean": null,
+      "withSigWinRate": 0.0,
+      "withoutSigN": 69,
+      "withoutSigMean": 4.009,
+      "withoutSigWinRate": 65.2
+    },
+    {
+      "signal": "recent_bearish_-25",
+      "winnerHits": 0,
+      "loserHits": 0,
+      "winnerRate": 0.0,
+      "loserRate": 0.0,
+      "lift": 1.0,
+      "withSigN": 0,
+      "withSigMean": null,
+      "withSigWinRate": 0.0,
+      "withoutSigN": 69,
+      "withoutSigMean": 4.009,
+      "withoutSigWinRate": 65.2
+    },
+    {
+      "signal": "lots_lt_500_-30",
+      "winnerHits": 0,
+      "loserHits": 0,
+      "winnerRate": 0.0,
+      "loserRate": 0.0,
+      "lift": 1.0,
+      "withSigN": 0,
+      "withSigMean": null,
+      "withSigWinRate": 0.0,
+      "withoutSigN": 69,
+      "withoutSigMean": 4.009,
+      "withoutSigWinRate": 65.2
+    },
+    {
+      "signal": "lots_lt_2000_-15",
+      "winnerHits": 0,
+      "loserHits": 1,
+      "winnerRate": 0.0,
+      "loserRate": 4.2,
+      "lift": 0.0,
+      "withSigN": 1,
+      "withSigMean": -1.371,
+      "withSigWinRate": 0.0,
+      "withoutSigN": 68,
+      "withoutSigMean": 4.088,
+      "withoutSigWinRate": 66.2
+    },
+    {
+      "signal": "trending_group_+30",
+      "winnerHits": 45,
+      "loserHits": 24,
+      "winnerRate": 100.0,
+      "loserRate": 100.0,
+      "lift": 1.0,
+      "withSigN": 69,
+      "withSigMean": 4.009,
+      "withSigWinRate": 65.2,
+      "withoutSigN": 0,
+      "withoutSigMean": null,
+      "withoutSigWinRate": 0.0
+    },
+    {
+      "signal": "rev_yoy_gt_20_+25",
+      "winnerHits": 40,
+      "loserHits": 22,
+      "winnerRate": 88.9,
+      "loserRate": 91.7,
+      "lift": 0.97,
+      "withSigN": 62,
+      "withSigMean": 4.065,
+      "withSigWinRate": 64.5,
+      "withoutSigN": 7,
+      "withoutSigMean": 3.515,
+      "withoutSigWinRate": 71.4
+    },
+    {
+      "signal": "rev_yoy_gt_50_+10",
+      "winnerHits": 21,
+      "loserHits": 13,
+      "winnerRate": 46.7,
+      "loserRate": 54.2,
+      "lift": 0.862,
+      "withSigN": 34,
+      "withSigMean": 3.525,
+      "withSigWinRate": 61.8,
+      "withoutSigN": 35,
+      "withoutSigMean": 4.479,
+      "withoutSigWinRate": 68.6
+    },
+    {
+      "signal": "major_net_pos_+20",
+      "winnerHits": 45,
+      "loserHits": 24,
+      "winnerRate": 100.0,
+      "loserRate": 100.0,
+      "lift": 1.0,
+      "withSigN": 69,
+      "withSigMean": 4.009,
+      "withSigWinRate": 65.2,
+      "withoutSigN": 0,
+      "withoutSigMean": null,
+      "withoutSigWinRate": 0.0
+    },
+    {
+      "signal": "streak_ge_2_+15",
+      "winnerHits": 14,
+      "loserHits": 5,
+      "winnerRate": 31.1,
+      "loserRate": 20.8,
+      "lift": 1.493,
+      "withSigN": 19,
+      "withSigMean": 6.771,
+      "withSigWinRate": 73.7,
+      "withoutSigN": 50,
+      "withoutSigMean": 2.959,
+      "withoutSigWinRate": 62.0
+    },
+    {
+      "signal": "volume_gt_5M_+5",
+      "winnerHits": 38,
+      "loserHits": 22,
+      "winnerRate": 84.4,
+      "loserRate": 91.7,
+      "lift": 0.921,
+      "withSigN": 60,
+      "withSigMean": 3.431,
+      "withSigWinRate": 63.3,
+      "withoutSigN": 9,
+      "withoutSigMean": 7.864,
+      "withoutSigWinRate": 77.8
+    },
+    {
+      "signal": "leader_+10",
+      "winnerHits": 12,
+      "loserHits": 6,
+      "winnerRate": 26.7,
+      "loserRate": 25.0,
+      "lift": 1.067,
+      "withSigN": 18,
+      "withSigMean": 4.09,
+      "withSigWinRate": 66.7,
+      "withoutSigN": 51,
+      "withoutSigMean": 3.98,
+      "withoutSigWinRate": 64.7
+    },
+    {
+      "signal": "heavyweight_+25",
+      "winnerHits": 14,
+      "loserHits": 7,
+      "winnerRate": 31.1,
+      "loserRate": 29.2,
+      "lift": 1.067,
+      "withSigN": 21,
+      "withSigMean": 3.558,
+      "withSigWinRate": 66.7,
+      "withoutSigN": 48,
+      "withoutSigMean": 4.206,
+      "withoutSigWinRate": 64.6
+    }
+  ],
+  "signalLift_50to89": [
+    {
+      "signal": "disposal_-50",
+      "winnerHits": 0,
+      "loserHits": 2,
+      "winnerRate": 0.0,
+      "loserRate": 2.9,
+      "lift": 0.0,
+      "withSigN": 2,
+      "withSigMean": -5.098,
+      "withSigWinRate": 0.0,
+      "withoutSigN": 261,
+      "withoutSigMean": 5.437,
+      "withoutSigWinRate": 74.3
+    },
+    {
+      "signal": "recent_bearish_-25",
+      "winnerHits": 0,
+      "loserHits": 0,
+      "winnerRate": 0.0,
+      "loserRate": 0.0,
+      "lift": 1.0,
+      "withSigN": 0,
+      "withSigMean": null,
+      "withSigWinRate": 0.0,
+      "withoutSigN": 263,
+      "withoutSigMean": 5.357,
+      "withoutSigWinRate": 73.8
+    },
+    {
+      "signal": "lots_lt_500_-30",
+      "winnerHits": 2,
+      "loserHits": 1,
+      "winnerRate": 1.0,
+      "loserRate": 1.4,
+      "lift": 0.711,
+      "withSigN": 3,
+      "withSigMean": 4.864,
+      "withSigWinRate": 66.7,
+      "withoutSigN": 260,
+      "withoutSigMean": 5.363,
+      "withoutSigWinRate": 73.8
+    },
+    {
+      "signal": "lots_lt_2000_-15",
+      "winnerHits": 17,
+      "loserHits": 9,
+      "winnerRate": 8.8,
+      "loserRate": 13.0,
+      "lift": 0.672,
+      "withSigN": 26,
+      "withSigMean": 3.813,
+      "withSigWinRate": 65.4,
+      "withoutSigN": 237,
+      "withoutSigMean": 5.526,
+      "withoutSigWinRate": 74.7
+    },
+    {
+      "signal": "trending_group_+30",
+      "winnerHits": 190,
+      "loserHits": 69,
+      "winnerRate": 97.9,
+      "loserRate": 100.0,
+      "lift": 0.979,
+      "withSigN": 259,
+      "withSigMean": 5.297,
+      "withSigWinRate": 73.4,
+      "withoutSigN": 4,
+      "withoutSigMean": 9.272,
+      "withoutSigWinRate": 100.0
+    },
+    {
+      "signal": "rev_yoy_gt_20_+25",
+      "winnerHits": 153,
+      "loserHits": 53,
+      "winnerRate": 78.9,
+      "loserRate": 76.8,
+      "lift": 1.027,
+      "withSigN": 206,
+      "withSigMean": 5.21,
+      "withSigWinRate": 74.3,
+      "withoutSigN": 57,
+      "withoutSigMean": 5.888,
+      "withoutSigWinRate": 71.9
+    },
+    {
+      "signal": "rev_yoy_gt_50_+10",
+      "winnerHits": 68,
+      "loserHits": 27,
+      "winnerRate": 35.1,
+      "loserRate": 39.1,
+      "lift": 0.896,
+      "withSigN": 95,
+      "withSigMean": 5.033,
+      "withSigWinRate": 71.6,
+      "withoutSigN": 168,
+      "withoutSigMean": 5.541,
+      "withoutSigWinRate": 75.0
+    },
+    {
+      "signal": "major_net_pos_+20",
+      "winnerHits": 66,
+      "loserHits": 37,
+      "winnerRate": 34.0,
+      "loserRate": 53.6,
+      "lift": 0.634,
+      "withSigN": 103,
+      "withSigMean": 4.664,
+      "withSigWinRate": 64.1,
+      "withoutSigN": 160,
+      "withoutSigMean": 5.803,
+      "withoutSigWinRate": 80.0
+    },
+    {
+      "signal": "streak_ge_2_+15",
+      "winnerHits": 45,
+      "loserHits": 17,
+      "winnerRate": 23.2,
+      "loserRate": 24.6,
+      "lift": 0.941,
+      "withSigN": 62,
+      "withSigMean": 5.434,
+      "withSigWinRate": 72.6,
+      "withoutSigN": 201,
+      "withoutSigMean": 5.334,
+      "withoutSigWinRate": 74.1
+    },
+    {
+      "signal": "volume_gt_5M_+5",
+      "winnerHits": 112,
+      "loserHits": 38,
+      "winnerRate": 57.7,
+      "loserRate": 55.1,
+      "lift": 1.048,
+      "withSigN": 150,
+      "withSigMean": 5.636,
+      "withSigWinRate": 74.7,
+      "withoutSigN": 113,
+      "withoutSigMean": 4.987,
+      "withoutSigWinRate": 72.6
+    },
+    {
+      "signal": "leader_+10",
+      "winnerHits": 32,
+      "loserHits": 5,
+      "winnerRate": 16.5,
+      "loserRate": 7.2,
+      "lift": 2.276,
+      "withSigN": 37,
+      "withSigMean": 7.796,
+      "withSigWinRate": 86.5,
+      "withoutSigN": 226,
+      "withoutSigMean": 4.958,
+      "withoutSigWinRate": 71.7
+    },
+    {
+      "signal": "heavyweight_+25",
+      "winnerHits": 14,
+      "loserHits": 3,
+      "winnerRate": 7.2,
+      "loserRate": 4.3,
+      "lift": 1.66,
+      "withSigN": 17,
+      "withSigMean": 4.8,
+      "withSigWinRate": 82.4,
+      "withoutSigN": 246,
+      "withoutSigMean": 5.396,
+      "withoutSigWinRate": 73.2
+    }
+  ],
+  "signalFreq_90plus": {
+    "disposal_-50": 0.0,
+    "recent_bearish_-25": 0.0,
+    "lots_lt_500_-30": 0.0,
+    "lots_lt_2000_-15": 1.4,
+    "trending_group_+30": 100.0,
+    "rev_yoy_gt_20_+25": 89.9,
+    "rev_yoy_gt_50_+10": 49.3,
+    "major_net_pos_+20": 100.0,
+    "streak_ge_2_+15": 27.5,
+    "volume_gt_5M_+5": 87.0,
+    "leader_+10": 26.1,
+    "heavyweight_+25": 30.4
+  },
+  "signalFreq_50to89": {
+    "disposal_-50": 0.8,
+    "recent_bearish_-25": 0.0,
+    "lots_lt_500_-30": 1.1,
+    "lots_lt_2000_-15": 9.9,
+    "trending_group_+30": 98.5,
+    "rev_yoy_gt_20_+25": 78.3,
+    "rev_yoy_gt_50_+10": 36.1,
+    "major_net_pos_+20": 39.2,
+    "streak_ge_2_+15": 23.6,
+    "volume_gt_5M_+5": 57.0,
+    "leader_+10": 14.1,
+    "heavyweight_+25": 6.5
+  },
+  "overheatSignals": [
+    {
+      "signal": "major_net_pos_+20",
+      "freq_90+": 100.0,
+      "freq_50-89": 39.2,
+      "delta": 60.8
+    },
+    {
+      "signal": "volume_gt_5M_+5",
+      "freq_90+": 87.0,
+      "freq_50-89": 57.0,
+      "delta": 30.0
+    },
+    {
+      "signal": "heavyweight_+25",
+      "freq_90+": 30.4,
+      "freq_50-89": 6.5,
+      "delta": 23.9
+    },
+    {
+      "signal": "rev_yoy_gt_50_+10",
+      "freq_90+": 49.3,
+      "freq_50-89": 36.1,
+      "delta": 13.2
+    },
+    {
+      "signal": "leader_+10",
+      "freq_90+": 26.1,
+      "freq_50-89": 14.1,
+      "delta": 12.0
+    },
+    {
+      "signal": "rev_yoy_gt_20_+25",
+      "freq_90+": 89.9,
+      "freq_50-89": 78.3,
+      "delta": 11.6
+    },
+    {
+      "signal": "streak_ge_2_+15",
+      "freq_90+": 27.5,
+      "freq_50-89": 23.6,
+      "delta": 3.9
+    },
+    {
+      "signal": "trending_group_+30",
+      "freq_90+": 100.0,
+      "freq_50-89": 98.5,
+      "delta": 1.5
+    },
+    {
+      "signal": "recent_bearish_-25",
+      "freq_90+": 0.0,
+      "freq_50-89": 0.0,
+      "delta": 0.0
+    },
+    {
+      "signal": "disposal_-50",
+      "freq_90+": 0.0,
+      "freq_50-89": 0.8,
+      "delta": -0.8
+    },
+    {
+      "signal": "lots_lt_500_-30",
+      "freq_90+": 0.0,
+      "freq_50-89": 1.1,
+      "delta": -1.1
+    },
+    {
+      "signal": "lots_lt_2000_-15",
+      "freq_90+": 1.4,
+      "freq_50-89": 9.9,
+      "delta": -8.5
+    }
+  ],
+  "streakByGroup_90plus": {
+    "1": {
+      "n": 50,
+      "winRate": 62.0,
+      "mean": 2.959
+    },
+    "2": {
+      "n": 19,
+      "winRate": 73.7,
+      "mean": 6.771
+    }
+  },
+  "fixes": [
+    {
+      "fix": "streak_ge_2_+15 → +5 (delta -10)",
+      "90+": {
+        "label": "90+ (after fix)",
+        "n": 59,
+        "winRate": 64.4,
+        "meanRet": 3.806,
+        "medianRet": 3.532,
+        "sumRet": 224.5
+      },
+      "75-89": {
+        "label": "75-89 (after fix)",
+        "n": 95,
+        "winRate": 72.6,
+        "meanRet": 5.431,
+        "medianRet": 4.172,
+        "sumRet": 516.0
+      },
+      "50-89": {
+        "label": "50-89 (after fix)",
+        "n": 253,
+        "winRate": 74.3,
+        "meanRet": 5.281,
+        "medianRet": 4.016,
+        "sumRet": 1336.0
+      }
+    },
+    {
+      "fix": "streak_ge_2_+15 → 0 (delta -15)",
+      "90+": {
+        "label": "90+ (after fix)",
+        "n": 57,
+        "winRate": 64.9,
+        "meanRet": 3.767,
+        "medianRet": 3.532,
+        "sumRet": 214.7
+      },
+      "75-89": {
+        "label": "75-89 (after fix)",
+        "n": 85,
+        "winRate": 70.6,
+        "meanRet": 5.176,
+        "medianRet": 4.081,
+        "sumRet": 439.9
+      },
+      "50-89": {
+        "label": "50-89 (after fix)",
+        "n": 248,
+        "winRate": 73.8,
+        "meanRet": 5.28,
+        "medianRet": 4.049,
+        "sumRet": 1309.4
+      }
+    },
+    {
+      "fix": "major_net_pos_+20 → +10 (delta -10)",
+      "90+": {
+        "label": "90+ (after fix)",
+        "n": 21,
+        "winRate": 71.4,
+        "meanRet": 5.208,
+        "medianRet": 5.584,
+        "sumRet": 109.4
+      },
+      "75-89": {
+        "label": "75-89 (after fix)",
+        "n": 91,
+        "winRate": 70.3,
+        "meanRet": 4.97,
+        "medianRet": 4.411,
+        "sumRet": 452.3
+      },
+      "50-89": {
+        "label": "50-89 (after fix)",
+        "n": 293,
+        "winRate": 72.7,
+        "meanRet": 5.111,
+        "medianRet": 3.995,
+        "sumRet": 1497.6
+      }
+    },
+    {
+      "fix": "heavyweight_+25 → +10 (delta -15)",
+      "90+": {
+        "label": "90+ (after fix)",
+        "n": 58,
+        "winRate": 63.8,
+        "meanRet": 3.943,
+        "medianRet": 3.971,
+        "sumRet": 228.7
+      },
+      "75-89": {
+        "label": "75-89 (after fix)",
+        "n": 100,
+        "winRate": 72.0,
+        "meanRet": 5.101,
+        "medianRet": 4.027,
+        "sumRet": 510.1
+      },
+      "50-89": {
+        "label": "50-89 (after fix)",
+        "n": 268,
+        "winRate": 74.3,
+        "meanRet": 5.437,
+        "medianRet": 4.049,
+        "sumRet": 1457.1
+      }
+    },
+    {
+      "fix": "rev_yoy_gt_50_+10 → 0",
+      "90+": {
+        "label": "90+ (after fix)",
+        "n": 43,
+        "winRate": 69.8,
+        "meanRet": 4.643,
+        "medianRet": 4.934,
+        "sumRet": 199.7
+      },
+      "75-89": {
+        "label": "75-89 (after fix)",
+        "n": 111,
+        "winRate": 68.5,
+        "meanRet": 4.483,
+        "medianRet": 3.535,
+        "sumRet": 497.7
+      },
+      "50-89": {
+        "label": "50-89 (after fix)",
+        "n": 278,
+        "winRate": 72.3,
+        "meanRet": 5.184,
+        "medianRet": 3.901,
+        "sumRet": 1441.3
+      }
+    },
+    {
+      "fix": "trending_group_+30 → +20",
+      "90+": {
+        "label": "90+ (after fix)",
+        "n": 21,
+        "winRate": 71.4,
+        "meanRet": 5.208,
+        "medianRet": 5.584,
+        "sumRet": 109.4
+      },
+      "75-89": {
+        "label": "75-89 (after fix)",
+        "n": 75,
+        "winRate": 68.0,
+        "meanRet": 4.897,
+        "medianRet": 4.411,
+        "sumRet": 367.3
+      },
+      "50-89": {
+        "label": "50-89 (after fix)",
+        "n": 253,
+        "winRate": 71.1,
+        "meanRet": 4.8,
+        "medianRet": 3.83,
+        "sumRet": 1214.5
+      }
+    },
+    {
+      "fix": "score>=85 時 major_net+20 不加",
+      "90+": {
+        "label": "90+",
+        "n": 5,
+        "winRate": 80.0,
+        "meanRet": 7.353,
+        "medianRet": 8.287,
+        "sumRet": 36.8
+      },
+      "75-89": {
+        "label": "75-89",
+        "n": 101,
+        "winRate": 71.3,
+        "meanRet": 4.462,
+        "medianRet": 3.533,
+        "sumRet": 450.7
+      },
+      "50-89": {
+        "label": "50-89",
+        "n": 327,
+        "winRate": 71.9,
+        "meanRet": 5.042,
+        "medianRet": 3.83,
+        "sumRet": 1648.8
+      }
+    },
+    {
+      "fix": "score>=85 時 streak+15 不加",
+      "90+": {
+        "label": "90+",
+        "n": 57,
+        "winRate": 64.9,
+        "meanRet": 3.767,
+        "medianRet": 3.532,
+        "sumRet": 214.7
+      },
+      "75-89": {
+        "label": "75-89",
+        "n": 94,
+        "winRate": 71.3,
+        "meanRet": 4.966,
+        "medianRet": 4.027,
+        "sumRet": 466.8
+      },
+      "50-89": {
+        "label": "50-89",
+        "n": 275,
+        "winRate": 73.5,
+        "meanRet": 5.348,
+        "medianRet": 3.995,
+        "sumRet": 1470.8
+      }
+    },
+    {
+      "fix": "score>=85 時 (streak+15, major_net+20) 都不加",
+      "90+": {
+        "label": "90+",
+        "n": 2,
+        "winRate": 50.0,
+        "meanRet": 1.181,
+        "medianRet": 1.181,
+        "sumRet": 2.4
+      },
+      "75-89": {
+        "label": "75-89",
+        "n": 83,
+        "winRate": 71.1,
+        "meanRet": 4.295,
+        "medianRet": 3.533,
+        "sumRet": 356.5
+      },
+      "50-89": {
+        "label": "50-89",
+        "n": 330,
+        "winRate": 72.1,
+        "meanRet": 5.101,
+        "medianRet": 3.984,
+        "sumRet": 1683.2
+      }
+    },
+    {
+      "fix": "score>=85 時 (streak, major_net, rev_gt_50) 都不加",
+      "90+": {
+        "label": "90+",
+        "n": 1,
+        "winRate": 0.0,
+        "meanRet": -2.572,
+        "medianRet": -2.572,
+        "sumRet": -2.6
+      },
+      "75-89": {
+        "label": "75-89",
+        "n": 79,
+        "winRate": 72.2,
+        "meanRet": 4.364,
+        "medianRet": 3.533,
+        "sumRet": 344.8
+      },
+      "50-89": {
+        "label": "50-89",
+        "n": 328,
+        "winRate": 72.3,
+        "meanRet": 5.086,
+        "medianRet": 3.984,
+        "sumRet": 1668.2
+      }
+    },
+    {
+      "fix": "major_net_pos_+20 → 0 (全面)",
+      "90+": {
+        "label": "90+ (after fix)",
+        "n": 5,
+        "winRate": 80.0,
+        "meanRet": 7.353,
+        "medianRet": 8.287,
+        "sumRet": 36.8
+      },
+      "75-89": {
+        "label": "75-89 (after fix)",
+        "n": 50,
+        "winRate": 74.0,
+        "meanRet": 4.899,
+        "medianRet": 3.926,
+        "sumRet": 244.9
+      },
+      "50-89": {
+        "label": "50-89 (after fix)",
+        "n": 300,
+        "winRate": 73.0,
+        "meanRet": 5.105,
+        "medianRet": 4.005,
+        "sumRet": 1531.5
+      }
+    },
+    {
+      "fix": "heavyweight_+25 → 0 (全面)",
+      "90+": {
+        "label": "90+ (after fix)",
+        "n": 52,
+        "winRate": 65.4,
+        "meanRet": 4.382,
+        "medianRet": 4.822,
+        "sumRet": 227.9
+      },
+      "75-89": {
+        "label": "75-89 (after fix)",
+        "n": 98,
+        "winRate": 71.4,
+        "meanRet": 4.976,
+        "medianRet": 3.896,
+        "sumRet": 487.7
+      },
+      "50-89": {
+        "label": "50-89 (after fix)",
+        "n": 268,
+        "winRate": 73.1,
+        "meanRet": 5.241,
+        "medianRet": 3.825,
+        "sumRet": 1404.7
+      }
+    },
+    {
+      "fix": "cap=10 (更嚴)",
+      "90+": {
+        "label": "90+",
+        "n": 69,
+        "winRate": 65.2,
+        "meanRet": 4.009,
+        "medianRet": 3.532,
+        "sumRet": 276.6
+      },
+      "75-89": {
+        "label": "75-89",
+        "n": 86,
+        "winRate": 75.6,
+        "meanRet": 5.386,
+        "medianRet": 4.199,
+        "sumRet": 463.2
+      },
+      "50-89": {
+        "label": "50-89",
+        "n": 244,
+        "winRate": 73.4,
+        "meanRet": 5.39,
+        "medianRet": 3.813,
+        "sumRet": 1315.1
+      }
+    },
+    {
+      "fix": "cap=5 (極嚴)",
+      "90+": {
+        "label": "90+",
+        "n": 59,
+        "winRate": 64.4,
+        "meanRet": 4.291,
+        "medianRet": 4.734,
+        "sumRet": 253.2
+      },
+      "75-89": {
+        "label": "75-89",
+        "n": 53,
+        "winRate": 79.2,
+        "meanRet": 6.174,
+        "medianRet": 4.317,
+        "sumRet": 327.2
+      },
+      "50-89": {
+        "label": "50-89",
+        "n": 165,
+        "winRate": 73.3,
+        "meanRet": 5.483,
+        "medianRet": 3.533,
+        "sumRet": 904.7
+      }
+    },
+    {
+      "fix": "排除：volume>2萬張 (從 stock_features 黑名單)",
+      "90+": {
+        "label": "90+",
+        "n": 42,
+        "winRate": 76.2,
+        "meanRet": 5.831,
+        "medianRet": 6.029,
+        "sumRet": 244.9
+      },
+      "75-89": {
+        "label": "75-89",
+        "n": 75,
+        "winRate": 70.7,
+        "meanRet": 4.749,
+        "medianRet": 3.533,
+        "sumRet": 356.2
+      },
+      "50-89": {
+        "label": "50-89",
+        "n": 212,
+        "winRate": 71.7,
+        "meanRet": 4.968,
+        "medianRet": 3.532,
+        "sumRet": 1053.3
+      },
+      "kept_total": 254
+    },
+    {
+      "fix": "排除：score>=90 且 heavyweight",
+      "90+": {
+        "label": "90+",
+        "n": 48,
+        "winRate": 64.6,
+        "meanRet": 4.206,
+        "medianRet": 4.572,
+        "sumRet": 201.9
+      },
+      "75-89": {
+        "label": "75-89",
+        "n": 94,
+        "winRate": 73.4,
+        "meanRet": 5.221,
+        "medianRet": 4.127,
+        "sumRet": 490.7
+      },
+      "50-89": {
+        "label": "50-89",
+        "n": 263,
+        "winRate": 73.8,
+        "meanRet": 5.357,
+        "medianRet": 3.995,
+        "sumRet": 1408.9
+      },
+      "kept_total": 311
+    },
+    {
+      "fix": "排除：score>=85 且 volume>5億張 (過熱量)",
+      "90+": {
+        "label": "90+",
+        "n": 53,
+        "winRate": 71.7,
+        "meanRet": 4.849,
+        "medianRet": 4.909,
+        "sumRet": 257.0
+      },
+      "75-89": {
+        "label": "75-89",
+        "n": 93,
+        "winRate": 73.1,
+        "meanRet": 5.14,
+        "medianRet": 4.081,
+        "sumRet": 478.0
+      },
+      "50-89": {
+        "label": "50-89",
+        "n": 262,
+        "winRate": 73.7,
+        "meanRet": 5.329,
+        "medianRet": 3.984,
+        "sumRet": 1396.2
+      },
+      "kept_total": 315
+    }
+  ],
+  "worst20_in_90plus": [
+    {
+      "date": "2026-06-22",
+      "code": "2337",
+      "name": "旺宏",
+      "score": 90,
+      "net_ret": -9.33,
+      "group": "電子 / 半導體",
+      "streak": 1,
+      "rev_yoy": 175.8,
+      "active_signals": [
+        "trending_group_+30",
+        "rev_yoy_gt_20_+25",
+        "rev_yoy_gt_50_+10",
+        "major_net_pos_+20",
+        "volume_gt_5M_+5"
+      ]
+    },
+    {
+      "date": "2026-06-22",
+      "code": "2409",
+      "name": "友達",
+      "score": 90,
+      "net_ret": -8.674,
+      "group": "電子 / 半導體",
+      "streak": 1,
+      "rev_yoy": -1.4,
+      "active_signals": [
+        "trending_group_+30",
+        "major_net_pos_+20",
+        "volume_gt_5M_+5",
+        "leader_+10",
+        "heavyweight_+25"
+      ]
+    },
+    {
+      "date": "2026-06-09",
+      "code": "6209",
+      "name": "今國光",
+      "score": 90,
+      "net_ret": -8.617,
+      "group": "電子 / 半導體",
+      "streak": 1,
+      "rev_yoy": 66.88,
+      "active_signals": [
+        "trending_group_+30",
+        "rev_yoy_gt_20_+25",
+        "rev_yoy_gt_50_+10",
+        "major_net_pos_+20",
+        "volume_gt_5M_+5"
+      ]
+    },
+    {
+      "date": "2026-05-13",
+      "code": "6218",
+      "name": "豪勉",
+      "score": 100,
+      "net_ret": -8.417,
+      "group": "電子 / 半導體",
+      "streak": 2,
+      "rev_yoy": 98.95,
+      "active_signals": [
+        "trending_group_+30",
+        "rev_yoy_gt_20_+25",
+        "rev_yoy_gt_50_+10",
+        "major_net_pos_+20",
+        "streak_ge_2_+15"
+      ]
+    },
+    {
+      "date": "2026-05-29",
+      "code": "6770",
+      "name": "力積電",
+      "score": 90,
+      "net_ret": -6.974,
+      "group": "IC設計 / AI邊緣運算",
+      "streak": 1,
+      "rev_yoy": 32.46,
+      "active_signals": [
+        "trending_group_+30",
+        "rev_yoy_gt_20_+25",
+        "major_net_pos_+20",
+        "volume_gt_5M_+5",
+        "leader_+10"
+      ]
+    },
+    {
+      "date": "2026-06-15",
+      "code": "3016",
+      "name": "嘉晶",
+      "score": 95,
+      "net_ret": -6.435,
+      "group": "電子 / 半導體",
+      "streak": 2,
+      "rev_yoy": 37.28,
+      "active_signals": [
+        "trending_group_+30",
+        "rev_yoy_gt_20_+25",
+        "major_net_pos_+20",
+        "streak_ge_2_+15",
+        "volume_gt_5M_+5"
+      ]
+    },
+    {
+      "date": "2026-06-22",
+      "code": "3711",
+      "name": "日月光投控",
+      "score": 105,
+      "net_ret": -6.073,
+      "group": "個股亮點",
+      "streak": 1,
+      "rev_yoy": 28.57,
+      "active_signals": [
+        "trending_group_+30",
+        "rev_yoy_gt_20_+25",
+        "major_net_pos_+20",
+        "volume_gt_5M_+5",
+        "heavyweight_+25"
+      ]
+    },
+    {
+      "date": "2026-06-22",
+      "code": "2363",
+      "name": "矽統",
+      "score": 90,
+      "net_ret": -5.645,
+      "group": "電子 / 半導體",
+      "streak": 1,
+      "rev_yoy": 88.8,
+      "active_signals": [
+        "trending_group_+30",
+        "rev_yoy_gt_20_+25",
+        "rev_yoy_gt_50_+10",
+        "major_net_pos_+20",
+        "volume_gt_5M_+5"
+      ]
+    },
+    {
+      "date": "2026-05-15",
+      "code": "3691",
+      "name": "碩禾",
+      "score": 90,
+      "net_ret": -5.025,
+      "group": "電子 / 半導體",
+      "streak": 1,
+      "rev_yoy": 163.41,
+      "active_signals": [
+        "trending_group_+30",
+        "rev_yoy_gt_20_+25",
+        "rev_yoy_gt_50_+10",
+        "major_net_pos_+20",
+        "volume_gt_5M_+5"
+      ]
+    },
+    {
+      "date": "2026-06-22",
+      "code": "6770",
+      "name": "力積電",
+      "score": 100,
+      "net_ret": -4.847,
+      "group": "IC設計 / AI邊緣運算",
+      "streak": 1,
+      "rev_yoy": 58.86,
+      "active_signals": [
+        "trending_group_+30",
+        "rev_yoy_gt_20_+25",
+        "rev_yoy_gt_50_+10",
+        "major_net_pos_+20",
+        "volume_gt_5M_+5",
+        "leader_+10"
+      ]
+    },
+    {
+      "date": "2026-06-01",
+      "code": "2408",
+      "name": "南亞科",
+      "score": 90,
+      "net_ret": -3.449,
+      "group": "電子 / 半導體",
+      "streak": 1,
+      "rev_yoy": 717.33,
+      "active_signals": [
+        "trending_group_+30",
+        "rev_yoy_gt_20_+25",
+        "rev_yoy_gt_50_+10",
+        "major_net_pos_+20",
+        "volume_gt_5M_+5"
+      ]
+    },
+    {
+      "date": "2026-06-22",
+      "code": "2449",
+      "name": "京元電子",
+      "score": 95,
+      "net_ret": -3.237,
+      "group": "電子 / 半導體",
+      "streak": 2,
+      "rev_yoy": 36.61,
+      "active_signals": [
+        "trending_group_+30",
+        "rev_yoy_gt_20_+25",
+        "major_net_pos_+20",
+        "streak_ge_2_+15",
+        "volume_gt_5M_+5"
+      ]
+    },
+    {
+      "date": "2026-06-22",
+      "code": "2301",
+      "name": "光寶科",
+      "score": 105,
+      "net_ret": -3.027,
+      "group": "電子 / 半導體",
+      "streak": 1,
+      "rev_yoy": 29.56,
+      "active_signals": [
+        "trending_group_+30",
+        "rev_yoy_gt_20_+25",
+        "major_net_pos_+20",
+        "volume_gt_5M_+5",
+        "heavyweight_+25"
+      ]
+    },
+    {
+      "date": "2026-05-14",
+      "code": "3707",
+      "name": "漢磊",
+      "score": 90,
+      "net_ret": -2.935,
+      "group": "個股亮點",
+      "streak": 1,
+      "rev_yoy": 31.01,
+      "active_signals": [
+        "trending_group_+30",
+        "rev_yoy_gt_20_+25",
+        "major_net_pos_+20",
+        "volume_gt_5M_+5",
+        "leader_+10"
+      ]
+    },
+    {
+      "date": "2026-05-08",
+      "code": "6446",
+      "name": "藥華藥",
+      "score": 90,
+      "net_ret": -2.645,
+      "group": "生技 / 醫療器材",
+      "streak": 1,
+      "rev_yoy": 64.35,
+      "active_signals": [
+        "trending_group_+30",
+        "rev_yoy_gt_20_+25",
+        "rev_yoy_gt_50_+10",
+        "major_net_pos_+20",
+        "volume_gt_5M_+5"
+      ]
+    },
+    {
+      "date": "2026-06-15",
+      "code": "1303",
+      "name": "南亞",
+      "score": 130,
+      "net_ret": -2.572,
+      "group": "塑化 / 化工",
+      "streak": 2,
+      "rev_yoy": 31.35,
+      "active_signals": [
+        "trending_group_+30",
+        "rev_yoy_gt_20_+25",
+        "major_net_pos_+20",
+        "streak_ge_2_+15",
+        "volume_gt_5M_+5",
+        "leader_+10",
+        "heavyweight_+25"
+      ]
+    },
+    {
+      "date": "2026-05-15",
+      "code": "8374",
+      "name": "羅昇",
+      "score": 90,
+      "net_ret": -1.406,
+      "group": "個股亮點",
+      "streak": 1,
+      "rev_yoy": 62.73,
+      "active_signals": [
+        "trending_group_+30",
+        "rev_yoy_gt_20_+25",
+        "rev_yoy_gt_50_+10",
+        "major_net_pos_+20",
+        "volume_gt_5M_+5"
+      ]
+    },
+    {
+      "date": "2026-05-22",
+      "code": "3030",
+      "name": "德律",
+      "score": 90,
+      "net_ret": -1.389,
+      "group": "電子 / 半導體",
+      "streak": 1,
+      "rev_yoy": 62.51,
+      "active_signals": [
+        "trending_group_+30",
+        "rev_yoy_gt_20_+25",
+        "rev_yoy_gt_50_+10",
+        "major_net_pos_+20",
+        "volume_gt_5M_+5"
+      ]
+    },
+    {
+      "date": "2026-05-11",
+      "code": "8299",
+      "name": "群聯",
+      "score": 95,
+      "net_ret": -1.371,
+      "group": "個股亮點",
+      "streak": 1,
+      "rev_yoy": 236.63,
+      "active_signals": [
+        "lots_lt_2000_-15",
+        "trending_group_+30",
+        "rev_yoy_gt_20_+25",
+        "rev_yoy_gt_50_+10",
+        "major_net_pos_+20",
+        "heavyweight_+25"
+      ]
+    },
+    {
+      "date": "2026-06-22",
+      "code": "6217",
+      "name": "中探針",
+      "score": 90,
+      "net_ret": -1.356,
+      "group": "電子 / 半導體",
+      "streak": 1,
+      "rev_yoy": 51.18,
+      "active_signals": [
+        "trending_group_+30",
+        "rev_yoy_gt_20_+25",
+        "rev_yoy_gt_50_+10",
+        "major_net_pos_+20",
+        "volume_gt_5M_+5"
+      ]
+    }
+  ]
+}

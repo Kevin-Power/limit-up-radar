@@ -1,0 +1,720 @@
+{
+  "baseline": "score>=75, T+1 open buy, T+2 open sell",
+  "costPct": 0.37979999999999997,
+  "scoreMin": 75,
+  "nPicksTotal": 449,
+  "rules_fullSample": {
+    "T+2_open": {
+      "n": 438,
+      "winRate": 45.2,
+      "meanNet": -0.125,
+      "medianNet": -0.806,
+      "sd": 7.248,
+      "totalNet": -54.56,
+      "sharpe": -0.27,
+      "mdd": 97.32,
+      "maxWin": 30.97,
+      "maxLoss": -21.97,
+      "coverage": 438
+    },
+    "T+2_close": {
+      "n": 438,
+      "winRate": 42.9,
+      "meanNet": -0.472,
+      "medianNet": -1.576,
+      "sd": 8.17,
+      "totalNet": -206.64,
+      "sharpe": -0.92,
+      "mdd": 98.47,
+      "maxWin": 30.97,
+      "maxLoss": -25.61,
+      "coverage": 438
+    },
+    "T+3_open": {
+      "n": 428,
+      "winRate": 49.1,
+      "meanNet": 0.848,
+      "medianNet": -0.302,
+      "sd": 10.087,
+      "totalNet": 363.11,
+      "sharpe": 1.34,
+      "mdd": 98.57,
+      "maxWin": 43.66,
+      "maxLoss": -24.47,
+      "coverage": 428
+    },
+    "T+3_close": {
+      "n": 429,
+      "winRate": 48.3,
+      "meanNet": 0.41,
+      "medianNet": -0.38,
+      "sd": 10.466,
+      "totalNet": 175.94,
+      "sharpe": 0.62,
+      "mdd": 97.59,
+      "maxWin": 51.56,
+      "maxLoss": -23.57,
+      "coverage": 429
+    },
+    "T+5_close": {
+      "n": 389,
+      "winRate": 51.4,
+      "meanNet": 2.906,
+      "medianNet": 0.988,
+      "sd": 14.3,
+      "totalNet": 1130.26,
+      "sharpe": 3.23,
+      "mdd": 98.78,
+      "maxWin": 62.87,
+      "maxLoss": -25.96,
+      "coverage": 389
+    },
+    "T+10_close": {
+      "n": 326,
+      "winRate": 49.7,
+      "meanNet": 3.933,
+      "medianNet": -0.19,
+      "sd": 19.397,
+      "totalNet": 1282.17,
+      "sharpe": 3.22,
+      "mdd": 99.96,
+      "maxWin": 76.8,
+      "maxLoss": -36.36,
+      "coverage": 326
+    },
+    "dynamic_TP3": {
+      "n": 433,
+      "winRate": 54.7,
+      "meanNet": 0.779,
+      "medianNet": 1.388,
+      "sd": 8.873,
+      "totalNet": 337.17,
+      "sharpe": 1.39,
+      "mdd": 98.07,
+      "maxWin": 30.97,
+      "maxLoss": -24.47,
+      "coverage": 433
+    },
+    "trailing_SL": {
+      "n": 431,
+      "winRate": 34.8,
+      "meanNet": 0.021,
+      "medianNet": -2.146,
+      "sd": 9.117,
+      "totalNet": 8.95,
+      "sharpe": 0.04,
+      "mdd": 98.73,
+      "maxWin": 43.66,
+      "maxLoss": -21.97,
+      "coverage": 431
+    },
+    "split_50_50": {
+      "n": 428,
+      "winRate": 48.6,
+      "meanNet": 0.323,
+      "medianNet": -0.38,
+      "sd": 8.002,
+      "totalNet": 138.45,
+      "sharpe": 0.64,
+      "mdd": 95.93,
+      "maxWin": 37.31,
+      "maxLoss": -23.22,
+      "coverage": 428
+    }
+  },
+  "sameSample_T2": {
+    "n": 438,
+    "note": "Subset where T+2 open AND T+2 close both have data (vs baseline)",
+    "stats": {
+      "T+2_open": {
+        "n": 438,
+        "winRate": 45.2,
+        "meanNet": -0.125,
+        "medianNet": -0.806,
+        "sd": 7.248,
+        "totalNet": -54.56,
+        "sharpe": -0.27,
+        "mdd": 97.32,
+        "maxWin": 30.97,
+        "maxLoss": -21.97
+      },
+      "T+2_close": {
+        "n": 438,
+        "winRate": 42.9,
+        "meanNet": -0.472,
+        "medianNet": -1.576,
+        "sd": 8.17,
+        "totalNet": -206.64,
+        "sharpe": -0.92,
+        "mdd": 98.47,
+        "maxWin": 30.97,
+        "maxLoss": -25.61
+      },
+      "T+3_open": {
+        "n": 428,
+        "winRate": 49.1,
+        "meanNet": 0.848,
+        "medianNet": -0.302,
+        "sd": 10.087,
+        "totalNet": 363.11,
+        "sharpe": 1.34,
+        "mdd": 98.57,
+        "maxWin": 43.66,
+        "maxLoss": -24.47
+      },
+      "T+3_close": {
+        "n": 428,
+        "winRate": 48.1,
+        "meanNet": 0.345,
+        "medianNet": -0.38,
+        "sd": 10.39,
+        "totalNet": 147.57,
+        "sharpe": 0.53,
+        "mdd": 97.59,
+        "maxWin": 51.56,
+        "maxLoss": -23.57
+      },
+      "T+5_close": {
+        "n": 387,
+        "winRate": 51.2,
+        "meanNet": 2.833,
+        "medianNet": 0.641,
+        "sd": 14.275,
+        "totalNet": 1096.53,
+        "sharpe": 3.15,
+        "mdd": 98.78,
+        "maxWin": 62.87,
+        "maxLoss": -25.96
+      },
+      "T+10_close": {
+        "n": 324,
+        "winRate": 49.4,
+        "meanNet": 3.848,
+        "medianNet": -0.433,
+        "sd": 19.414,
+        "totalNet": 1246.72,
+        "sharpe": 3.15,
+        "mdd": 99.96,
+        "maxWin": 76.8,
+        "maxLoss": -36.36
+      },
+      "dynamic_TP3": {
+        "n": 433,
+        "winRate": 54.7,
+        "meanNet": 0.779,
+        "medianNet": 1.388,
+        "sd": 8.873,
+        "totalNet": 337.17,
+        "sharpe": 1.39,
+        "mdd": 98.07,
+        "maxWin": 30.97,
+        "maxLoss": -24.47
+      },
+      "trailing_SL": {
+        "n": 431,
+        "winRate": 34.8,
+        "meanNet": 0.021,
+        "medianNet": -2.146,
+        "sd": 9.117,
+        "totalNet": 8.95,
+        "sharpe": 0.04,
+        "mdd": 98.73,
+        "maxWin": 43.66,
+        "maxLoss": -21.97
+      },
+      "split_50_50": {
+        "n": 428,
+        "winRate": 48.6,
+        "meanNet": 0.323,
+        "medianNet": -0.38,
+        "sd": 8.002,
+        "totalNet": 138.45,
+        "sharpe": 0.64,
+        "mdd": 95.93,
+        "maxWin": 37.31,
+        "maxLoss": -23.22
+      }
+    }
+  },
+  "sameSample_core": {
+    "n": 428,
+    "note": "Subset where T+2 open/close AND T+3 open/close all have data",
+    "stats": {
+      "T+2_open": {
+        "n": 428,
+        "winRate": 44.9,
+        "meanNet": -0.201,
+        "medianNet": -0.852,
+        "sd": 7.256,
+        "totalNet": -86.2,
+        "sharpe": -0.44,
+        "mdd": 97.18,
+        "maxWin": 30.97,
+        "maxLoss": -21.97
+      },
+      "T+2_close": {
+        "n": 428,
+        "winRate": 43.0,
+        "meanNet": -0.457,
+        "medianNet": -1.576,
+        "sd": 8.224,
+        "totalNet": -195.45,
+        "sharpe": -0.88,
+        "mdd": 98.18,
+        "maxWin": 30.97,
+        "maxLoss": -25.61
+      },
+      "T+3_open": {
+        "n": 428,
+        "winRate": 49.1,
+        "meanNet": 0.848,
+        "medianNet": -0.302,
+        "sd": 10.087,
+        "totalNet": 363.11,
+        "sharpe": 1.34,
+        "mdd": 98.57,
+        "maxWin": 43.66,
+        "maxLoss": -24.47
+      },
+      "T+3_close": {
+        "n": 428,
+        "winRate": 48.1,
+        "meanNet": 0.345,
+        "medianNet": -0.38,
+        "sd": 10.39,
+        "totalNet": 147.57,
+        "sharpe": 0.53,
+        "mdd": 97.59,
+        "maxWin": 51.56,
+        "maxLoss": -23.57
+      },
+      "T+5_close": {
+        "n": 385,
+        "winRate": 51.2,
+        "meanNet": 2.805,
+        "medianNet": 0.641,
+        "sd": 14.237,
+        "totalNet": 1080.02,
+        "sharpe": 3.13,
+        "mdd": 98.63,
+        "maxWin": 62.87,
+        "maxLoss": -25.96
+      },
+      "T+10_close": {
+        "n": 323,
+        "winRate": 49.5,
+        "meanNet": 3.938,
+        "medianNet": -0.38,
+        "sd": 19.377,
+        "totalNet": 1271.94,
+        "sharpe": 3.23,
+        "mdd": 99.95,
+        "maxWin": 76.8,
+        "maxLoss": -36.36
+      },
+      "dynamic_TP3": {
+        "n": 428,
+        "winRate": 54.2,
+        "meanNet": 0.694,
+        "medianNet": 1.24,
+        "sd": 8.875,
+        "totalNet": 297.09,
+        "sharpe": 1.24,
+        "mdd": 98.07,
+        "maxWin": 30.97,
+        "maxLoss": -24.47
+      },
+      "trailing_SL": {
+        "n": 428,
+        "winRate": 35.0,
+        "meanNet": 0.04,
+        "medianNet": -2.144,
+        "sd": 9.145,
+        "totalNet": 17.25,
+        "sharpe": 0.07,
+        "mdd": 98.63,
+        "maxWin": 43.66,
+        "maxLoss": -21.97
+      },
+      "split_50_50": {
+        "n": 428,
+        "winRate": 48.6,
+        "meanNet": 0.323,
+        "medianNet": -0.38,
+        "sd": 8.002,
+        "totalNet": 138.45,
+        "sharpe": 0.64,
+        "mdd": 95.93,
+        "maxWin": 37.31,
+        "maxLoss": -23.22
+      }
+    }
+  },
+  "sameSample_T5": {
+    "n": 385,
+    "note": "Core subset that also has T+5 close",
+    "stats": {
+      "T+2_open": {
+        "n": 385,
+        "winRate": 46.8,
+        "meanNet": 0.184,
+        "medianNet": -0.38,
+        "sd": 7.336,
+        "totalNet": 70.69,
+        "sharpe": 0.4,
+        "mdd": 93.41,
+        "maxWin": 30.97,
+        "maxLoss": -21.97
+      },
+      "T+2_close": {
+        "n": 385,
+        "winRate": 44.9,
+        "meanNet": -0.118,
+        "medianNet": -1.173,
+        "sd": 8.375,
+        "totalNet": -45.38,
+        "sharpe": -0.22,
+        "mdd": 96.98,
+        "maxWin": 30.97,
+        "maxLoss": -25.61
+      },
+      "T+3_open": {
+        "n": 385,
+        "winRate": 51.7,
+        "meanNet": 1.199,
+        "medianNet": 0.208,
+        "sd": 10.352,
+        "totalNet": 461.65,
+        "sharpe": 1.84,
+        "mdd": 98.57,
+        "maxWin": 43.66,
+        "maxLoss": -24.47
+      },
+      "T+3_close": {
+        "n": 385,
+        "winRate": 50.6,
+        "meanNet": 0.81,
+        "medianNet": 0.034,
+        "sd": 10.632,
+        "totalNet": 311.93,
+        "sharpe": 1.21,
+        "mdd": 97.59,
+        "maxWin": 51.56,
+        "maxLoss": -23.57
+      },
+      "T+5_close": {
+        "n": 385,
+        "winRate": 51.2,
+        "meanNet": 2.805,
+        "medianNet": 0.641,
+        "sd": 14.237,
+        "totalNet": 1080.02,
+        "sharpe": 3.13,
+        "mdd": 98.63,
+        "maxWin": 62.87,
+        "maxLoss": -25.96
+      },
+      "T+10_close": {
+        "n": 323,
+        "winRate": 49.5,
+        "meanNet": 3.938,
+        "medianNet": -0.38,
+        "sd": 19.377,
+        "totalNet": 1271.94,
+        "sharpe": 3.23,
+        "mdd": 99.95,
+        "maxWin": 76.8,
+        "maxLoss": -36.36
+      },
+      "dynamic_TP3": {
+        "n": 385,
+        "winRate": 56.9,
+        "meanNet": 0.974,
+        "medianNet": 1.928,
+        "sd": 9.025,
+        "totalNet": 374.86,
+        "sharpe": 1.71,
+        "mdd": 98.07,
+        "maxWin": 30.97,
+        "maxLoss": -24.47
+      },
+      "trailing_SL": {
+        "n": 385,
+        "winRate": 37.9,
+        "meanNet": 0.558,
+        "medianNet": -1.773,
+        "sd": 9.368,
+        "totalNet": 214.73,
+        "sharpe": 0.95,
+        "mdd": 96.54,
+        "maxWin": 43.66,
+        "maxLoss": -21.97
+      },
+      "split_50_50": {
+        "n": 385,
+        "winRate": 51.4,
+        "meanNet": 0.691,
+        "medianNet": 0.298,
+        "sd": 8.191,
+        "totalNet": 266.17,
+        "sharpe": 1.34,
+        "mdd": 95.93,
+        "maxWin": 37.31,
+        "maxLoss": -23.22
+      }
+    }
+  },
+  "sameSample_T10": {
+    "n": 323,
+    "note": "T+5 subset that also has T+10 close",
+    "stats": {
+      "T+2_open": {
+        "n": 323,
+        "winRate": 46.1,
+        "meanNet": 0.032,
+        "medianNet": -0.624,
+        "sd": 7.445,
+        "totalNet": 10.43,
+        "sharpe": 0.07,
+        "mdd": 92.54,
+        "maxWin": 30.97,
+        "maxLoss": -21.97
+      },
+      "T+2_close": {
+        "n": 323,
+        "winRate": 43.3,
+        "meanNet": -0.496,
+        "medianNet": -1.573,
+        "sd": 8.477,
+        "totalNet": -160.34,
+        "sharpe": -0.93,
+        "mdd": 96.8,
+        "maxWin": 30.97,
+        "maxLoss": -25.61
+      },
+      "T+3_open": {
+        "n": 323,
+        "winRate": 50.2,
+        "meanNet": 0.804,
+        "medianNet": 0.018,
+        "sd": 10.627,
+        "totalNet": 259.83,
+        "sharpe": 1.2,
+        "mdd": 98.57,
+        "maxWin": 43.66,
+        "maxLoss": -24.47
+      },
+      "T+3_close": {
+        "n": 323,
+        "winRate": 47.1,
+        "meanNet": 0.107,
+        "medianNet": -0.951,
+        "sd": 10.874,
+        "totalNet": 34.72,
+        "sharpe": 0.16,
+        "mdd": 97.59,
+        "maxWin": 51.56,
+        "maxLoss": -23.57
+      },
+      "T+5_close": {
+        "n": 323,
+        "winRate": 48.0,
+        "meanNet": 2.058,
+        "medianNet": -0.745,
+        "sd": 14.486,
+        "totalNet": 664.7,
+        "sharpe": 2.26,
+        "mdd": 98.63,
+        "maxWin": 62.87,
+        "maxLoss": -25.96
+      },
+      "T+10_close": {
+        "n": 323,
+        "winRate": 49.5,
+        "meanNet": 3.938,
+        "medianNet": -0.38,
+        "sd": 19.377,
+        "totalNet": 1271.94,
+        "sharpe": 3.23,
+        "mdd": 99.95,
+        "maxWin": 76.8,
+        "maxLoss": -36.36
+      },
+      "dynamic_TP3": {
+        "n": 323,
+        "winRate": 55.4,
+        "meanNet": 0.619,
+        "medianNet": 1.406,
+        "sd": 9.303,
+        "totalNet": 199.98,
+        "sharpe": 1.06,
+        "mdd": 98.07,
+        "maxWin": 30.97,
+        "maxLoss": -24.47
+      },
+      "trailing_SL": {
+        "n": 323,
+        "winRate": 37.8,
+        "meanNet": 0.467,
+        "medianNet": -1.698,
+        "sd": 9.514,
+        "totalNet": 150.86,
+        "sharpe": 0.78,
+        "mdd": 93.92,
+        "maxWin": 43.66,
+        "maxLoss": -21.97
+      },
+      "split_50_50": {
+        "n": 323,
+        "winRate": 50.8,
+        "meanNet": 0.418,
+        "medianNet": 0.126,
+        "sd": 8.4,
+        "totalNet": 135.13,
+        "sharpe": 0.79,
+        "mdd": 95.93,
+        "maxWin": 37.31,
+        "maxLoss": -23.22
+      }
+    }
+  },
+  "monthlyBreakdown": {
+    "T+2_open": {
+      "2026-04": {
+        "n": 39,
+        "winRate": 56.4,
+        "meanNet": 1.202,
+        "totalNet": 46.88
+      },
+      "2026-05": {
+        "n": 200,
+        "winRate": 47.5,
+        "meanNet": 0.539,
+        "totalNet": 107.72
+      },
+      "2026-06": {
+        "n": 199,
+        "winRate": 40.7,
+        "meanNet": -1.051,
+        "totalNet": -209.16
+      }
+    },
+    "T+3_open": {
+      "2026-04": {
+        "n": 38,
+        "winRate": 55.3,
+        "meanNet": 2.903,
+        "totalNet": 110.31
+      },
+      "2026-05": {
+        "n": 199,
+        "winRate": 52.3,
+        "meanNet": 1.859,
+        "totalNet": 370.0
+      },
+      "2026-06": {
+        "n": 191,
+        "winRate": 44.5,
+        "meanNet": -0.614,
+        "totalNet": -117.2
+      }
+    },
+    "T+3_close": {
+      "2026-04": {
+        "n": 38,
+        "winRate": 52.6,
+        "meanNet": 1.404,
+        "totalNet": 53.35
+      },
+      "2026-05": {
+        "n": 199,
+        "winRate": 49.7,
+        "meanNet": 0.776,
+        "totalNet": 154.33
+      },
+      "2026-06": {
+        "n": 191,
+        "winRate": 45.5,
+        "meanNet": -0.315,
+        "totalNet": -60.11
+      }
+    },
+    "T+5_close": {
+      "2026-04": {
+        "n": 39,
+        "winRate": 56.4,
+        "meanNet": 3.635,
+        "totalNet": 141.78
+      },
+      "2026-05": {
+        "n": 201,
+        "winRate": 48.8,
+        "meanNet": 3.055,
+        "totalNet": 614.04
+      },
+      "2026-06": {
+        "n": 148,
+        "winRate": 53.4,
+        "meanNet": 2.497,
+        "totalNet": 369.5
+      }
+    },
+    "T+10_close": {
+      "2026-04": {
+        "n": 38,
+        "winRate": 52.6,
+        "meanNet": 7.687,
+        "totalNet": 292.12
+      },
+      "2026-05": {
+        "n": 202,
+        "winRate": 52.0,
+        "meanNet": 3.948,
+        "totalNet": 797.55
+      },
+      "2026-06": {
+        "n": 86,
+        "winRate": 43.0,
+        "meanNet": 2.238,
+        "totalNet": 192.5
+      }
+    },
+    "T+2_close": {
+      "2026-04": {
+        "n": 39,
+        "winRate": 48.7,
+        "meanNet": 0.952,
+        "totalNet": 37.13
+      },
+      "2026-05": {
+        "n": 200,
+        "winRate": 45.0,
+        "meanNet": -0.23,
+        "totalNet": -46.09
+      },
+      "2026-06": {
+        "n": 199,
+        "winRate": 39.7,
+        "meanNet": -0.993,
+        "totalNet": -197.68
+      }
+    }
+  },
+  "recommendation": {
+    "champion": "T+10_close",
+    "runner_up": "T+5_close",
+    "evVsBaseline_T2_n438": {
+      "T+5_close": "+2.96pct (EV +2.83% vs T+2 -0.12%)",
+      "T+10_close": "+3.97pct (EV +3.85% vs T+2 -0.12%)",
+      "dynamic_TP3": "+0.90pct",
+      "trailing_SL": "+0.15pct (marginal, hurts win rate)"
+    },
+    "rationale": "T+5/T+10 持有大幅優於 T+2 即出 — 隔日開盤往往承壓（gap-down），但 3-10 日內傾向反彈或續漲。重點：T+5 在 6 月失效期仍正期望 (+2.50%)，證明長持能對沖短期反轉風險。",
+    "risks": [
+      "波動倍增：sd 從 7.25 (T+2 open) → 19.40 (T+10 close)",
+      "最大單筆虧損從 -21.97% (T+2) → -36.36% (T+10)",
+      "T+5/T+10 樣本受資料邊界影響，6 月後段樣本減少 (T+10 June n=86)",
+      "Sharpe 仍維持高水位 (T+5: 3.23, T+10: 3.22)，遠優於 T+2 (-0.27)"
+    ]
+  }
+}

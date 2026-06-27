@@ -8,6 +8,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from honest_stats import summarize  # noqa: E402
+from lib.r1_exit import decide_r1_exit, compute_r1_return  # noqa: E402
 
 # ── 成本（扣百分點，與 honest_stats 一致）────────────────────
 COST_DAYTRADE = 0.435    # 0.1425%×2 + 當沖稅 0.15%
@@ -212,6 +213,8 @@ def build_report(pick_days, bars_provider, rules=EXIT_RULES, min_trades=30):
                 "dayHighAfter": round(day_high_after, 2), "dayLowAfter": round(day_low_after, 2),
                 "dayClose": day_close, "nextOpen": next_open, "nextClose": next_close,
                 "barsAfter": after,
+                "t1Bars": day_bars,        # R1 用：T+1 全日 1 分 K（進場=entryDate 09:03，故 T+1=當日）
+                "t2Open": next_open,        # R1 用：T+2 開盤
             })
             entry_dates.append(entry_date)
 
@@ -238,14 +241,39 @@ def build_report(pick_days, bars_provider, rules=EXIT_RULES, min_trades=30):
         fh, sh = best_key(ordered[:half]), best_key(ordered[half:])
         robustness = {"firstHalfBest": fh, "secondHalfBest": sh, "consistent": fh == sh}
 
-    # 為 trades 加上「最佳規則」的出場價與報酬，並移除 barsAfter
+    # 為 trades 加上「最佳規則」的出場價與報酬，並移除 barsAfter / t1Bars
     best_rule = next((r for r in rules if r["key"] == best["key"]), None) if best else None
     out_trades = []
     for t in trades:
         ret = simulate_exit(t, best_rule) if best_rule else None
-        slim = {k: v for k, v in t.items() if k != "barsAfter"}
+        slim = {k: v for k, v in t.items() if k not in ("barsAfter", "t1Bars")}
         slim["bestReturnNet"] = ret
         out_trades.append(slim)
+
+    # === R1 統計（P0-2）===
+    r1_per_trade = [simulate_r1(t) for t in trades]
+    r1_rets = [x["ret"] for x in r1_per_trade]
+    r1_stats = {**aggregate_rule(r1_rets), "rule": "R1_dynamic",
+                "label": "R1 動態出場 (gap 0~5% → 09:15, 否則 T+2 開)"}
+
+    # baseline = best rule（既有邏輯）
+    baseline_stats = dict(best) if best else None
+
+    monthly_r1 = aggregate_monthly([
+        {"dEntry": t["dEntry"], "ret": r}
+        for t, r in zip(trades, r1_rets)
+    ])
+    monthly_baseline = aggregate_monthly([
+        {"dEntry": t["dEntry"], "ret": t["bestReturnNet"]}
+        for t in out_trades
+    ])
+
+    # 把 R1 per-trade 結果合併到 out_trades
+    for t, r in zip(out_trades, r1_per_trade):
+        t["r1Ret"] = r["ret"]
+        t["r1Rule"] = r["rule"]
+        t["r1GapPct"] = r["gapPct"]
+        t["r1ExitPrice"] = r["exitPrice"]
 
     return {
         "dateRange": {"start": min(entry_dates), "end": max(entry_dates)} if entry_dates
@@ -258,10 +286,48 @@ def build_report(pick_days, bars_provider, rules=EXIT_RULES, min_trades=30):
                    "notEntered": not_entered, "passedFilter": passed},
         "rules": rule_results,
         "best": best,
+        "baselineStats": baseline_stats,
+        "r1Stats": r1_stats,
+        "monthlyBaseline": monthly_baseline,
+        "monthlyR1": monthly_r1,
         "robustness": robustness,
         "trades": out_trades,
         "methodology": (
             "永豐 Shioaji 真實 1 分 K。選股池=當日 score≥50 全部；隔日 09:03 "
             "紅K(現價>開盤)且高於昨收才進場；多種出場規則回測，依淨期望值挑最佳。"
-            "成本：當沖0.435%、隔日0.585%（扣百分點）。"),
+            "成本：當沖0.435%、隔日0.585%（扣百分點）。"
+            "R1 動態出場：gap 0~5% → T+1 09:15 出，否則 T+2 開盤出。"),
     }
+
+
+# ── R1 動態出場整合（P0-2）──────────────────────────────────
+def simulate_r1(trade):
+    """對單筆 trade 套 R1 規則，回 {ret, rule, gapPct, exitPrice}。缺資料 → 全 None。"""
+    t1_bars = trade.get("t1Bars") or []
+    t2_open = trade.get("t2Open")
+    decision = decide_r1_exit(trade["entry"], t1_bars, t2_open)
+    if decision is None:
+        return {"ret": None, "rule": None, "gapPct": None, "exitPrice": None}
+    ret = compute_r1_return(trade["entry"], decision["exit_price"])
+    return {"ret": ret, "rule": decision["rule"],
+            "gapPct": round(decision["gap_pct"], 3),
+            "exitPrice": decision["exit_price"]}
+
+
+def aggregate_monthly(trades_with_ret):
+    """[{dEntry: 'YYYY-MM-DD', ret: float|None}, ...] → {'YYYY-MM': {trades, winRate, ev, total}}。"""
+    by_month = {}
+    for t in trades_with_ret:
+        if t["ret"] is None:
+            continue
+        ym = t["dEntry"][:7]
+        by_month.setdefault(ym, []).append(t["ret"])
+    out = {}
+    for ym, rets in sorted(by_month.items()):
+        out[ym] = {
+            "trades": len(rets),
+            "winRate": round(sum(1 for r in rets if r > 0) / len(rets) * 100, 1),
+            "ev": round(sum(rets) / len(rets), 3),
+            "total": round(sum(rets), 2),
+        }
+    return out

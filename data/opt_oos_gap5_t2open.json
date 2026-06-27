@@ -1,0 +1,379 @@
+{
+  "meta": {
+    "scoreMin": 75,
+    "gapMin": 5.0,
+    "costRtPct": 0.3798,
+    "dateRange": {
+      "from": "2026-04-13",
+      "to": "2026-06-24"
+    },
+    "trainCutoff": "2026-06-05",
+    "testStart": "2026-06-08"
+  },
+  "claim": {
+    "winRate": 63.0,
+    "evPct": 2.13,
+    "n": 81
+  },
+  "full_sample": {
+    "baseline_score75": {
+      "n": 207,
+      "winRate": 58.0,
+      "evPct": 1.916,
+      "median": 1.434,
+      "ciLow": 51.2,
+      "ciHigh": 64.5,
+      "totalNetPct": 396.56,
+      "totalDeltaTWD": 3965611
+    },
+    "rule_score75_gap5": {
+      "n": 81,
+      "winRate": 63.0,
+      "evPct": 2.125,
+      "median": 2.252,
+      "ciLow": 52.1,
+      "ciHigh": 72.7,
+      "totalNetPct": 172.12,
+      "totalDeltaTWD": 1721185
+    }
+  },
+  "train_test_split_70_30": {
+    "train": {
+      "baseline": {
+        "n": 126,
+        "winRate": 59.5,
+        "evPct": 2.296,
+        "median": 2.232,
+        "ciLow": 50.8,
+        "ciHigh": 67.7,
+        "totalNetPct": 289.36,
+        "totalDeltaTWD": 2893557
+      },
+      "rule": {
+        "n": 56,
+        "winRate": 60.7,
+        "evPct": 1.8,
+        "median": 2.224,
+        "ciLow": 47.6,
+        "ciHigh": 72.4,
+        "totalNetPct": 100.79,
+        "totalDeltaTWD": 1007865
+      }
+    },
+    "test": {
+      "baseline": {
+        "n": 81,
+        "winRate": 55.6,
+        "evPct": 1.324,
+        "median": 0.715,
+        "ciLow": 44.7,
+        "ciHigh": 65.9,
+        "totalNetPct": 107.21,
+        "totalDeltaTWD": 1072054
+      },
+      "rule": {
+        "n": 25,
+        "winRate": 68.0,
+        "evPct": 2.853,
+        "median": 2.301,
+        "ciLow": 48.4,
+        "ciHigh": 82.8,
+        "totalNetPct": 71.33,
+        "totalDeltaTWD": 713320
+      }
+    },
+    "drop": {
+      "winRatePP": -7.299999999999997,
+      "evPP": -1.0530000000000002
+    }
+  },
+  "gap_threshold_grid": {
+    "grid": [
+      3.0,
+      4.0,
+      4.5,
+      5.0,
+      5.5,
+      6.0,
+      7.0,
+      8.0
+    ],
+    "train": {
+      "3.0": {
+        "n": 78,
+        "winRate": 56.4,
+        "evPct": 1.444,
+        "median": 1.796,
+        "ciLow": 45.4,
+        "ciHigh": 66.9,
+        "totalNetPct": 112.63,
+        "totalDeltaTWD": 1126343
+      },
+      "4.0": {
+        "n": 63,
+        "winRate": 58.7,
+        "evPct": 1.678,
+        "median": 2.196,
+        "ciLow": 46.4,
+        "ciHigh": 70.0,
+        "totalNetPct": 105.7,
+        "totalDeltaTWD": 1056992
+      },
+      "4.5": {
+        "n": 60,
+        "winRate": 60.0,
+        "evPct": 1.794,
+        "median": 2.224,
+        "ciLow": 47.4,
+        "ciHigh": 71.4,
+        "totalNetPct": 107.65,
+        "totalDeltaTWD": 1076476
+      },
+      "5.0": {
+        "n": 56,
+        "winRate": 60.7,
+        "evPct": 1.8,
+        "median": 2.224,
+        "ciLow": 47.6,
+        "ciHigh": 72.4,
+        "totalNetPct": 100.79,
+        "totalDeltaTWD": 1007865
+      },
+      "5.5": {
+        "n": 47,
+        "winRate": 59.6,
+        "evPct": 1.646,
+        "median": 1.893,
+        "ciLow": 45.3,
+        "ciHigh": 72.4,
+        "totalNetPct": 77.34,
+        "totalDeltaTWD": 773437
+      },
+      "6.0": {
+        "n": 45,
+        "winRate": 57.8,
+        "evPct": 1.447,
+        "median": 1.893,
+        "ciLow": 43.3,
+        "ciHigh": 71.0,
+        "totalNetPct": 65.11,
+        "totalDeltaTWD": 651089
+      },
+      "7.0": {
+        "n": 34,
+        "winRate": 58.8,
+        "evPct": 1.758,
+        "median": 2.044,
+        "ciLow": 42.2,
+        "ciHigh": 73.6,
+        "totalNetPct": 59.77,
+        "totalDeltaTWD": 597698
+      },
+      "8.0": {
+        "n": 27,
+        "winRate": 55.6,
+        "evPct": 1.847,
+        "median": 2.196,
+        "ciLow": 37.3,
+        "ciHigh": 72.4,
+        "totalNetPct": 49.86,
+        "totalDeltaTWD": 498609
+      }
+    },
+    "test": {
+      "3.0": {
+        "n": 36,
+        "winRate": 66.7,
+        "evPct": 2.327,
+        "median": 2.049,
+        "ciLow": 50.3,
+        "ciHigh": 79.8,
+        "totalNetPct": 83.75,
+        "totalDeltaTWD": 837547
+      },
+      "4.0": {
+        "n": 30,
+        "winRate": 70.0,
+        "evPct": 2.875,
+        "median": 2.22,
+        "ciLow": 52.1,
+        "ciHigh": 83.3,
+        "totalNetPct": 86.25,
+        "totalDeltaTWD": 862477
+      },
+      "4.5": {
+        "n": 27,
+        "winRate": 66.7,
+        "evPct": 2.614,
+        "median": 2.138,
+        "ciLow": 47.8,
+        "ciHigh": 81.4,
+        "totalNetPct": 70.58,
+        "totalDeltaTWD": 705754
+      },
+      "5.0": {
+        "n": 25,
+        "winRate": 68.0,
+        "evPct": 2.853,
+        "median": 2.301,
+        "ciLow": 48.4,
+        "ciHigh": 82.8,
+        "totalNetPct": 71.33,
+        "totalDeltaTWD": 713320
+      },
+      "5.5": {
+        "n": 19,
+        "winRate": 78.9,
+        "evPct": 3.837,
+        "median": 2.489,
+        "ciLow": 56.7,
+        "ciHigh": 91.5,
+        "totalNetPct": 72.9,
+        "totalDeltaTWD": 728997
+      },
+      "6.0": {
+        "n": 15,
+        "winRate": 80.0,
+        "evPct": 3.541,
+        "median": 2.489,
+        "ciLow": 54.8,
+        "ciHigh": 93.0,
+        "totalNetPct": 53.12,
+        "totalDeltaTWD": 531172
+      },
+      "7.0": {
+        "n": 11,
+        "winRate": 72.7,
+        "evPct": 3.962,
+        "median": 2.571,
+        "ciLow": 43.4,
+        "ciHigh": 90.3,
+        "totalNetPct": 43.58,
+        "totalDeltaTWD": 435774
+      },
+      "8.0": {
+        "n": 7,
+        "winRate": 71.4,
+        "evPct": 4.007,
+        "median": 2.571,
+        "ciLow": 35.9,
+        "ciHigh": 91.8,
+        "totalNetPct": 28.05,
+        "totalDeltaTWD": 280494
+      }
+    },
+    "trainBest": 8.0,
+    "oosAtTrainBest": {
+      "n": 7,
+      "winRate": 71.4,
+      "evPct": 4.007,
+      "median": 2.571,
+      "ciLow": 35.9,
+      "ciHigh": 91.8,
+      "totalNetPct": 28.05,
+      "totalDeltaTWD": 280494
+    },
+    "spearman": {
+      "train": 0.452,
+      "test": 0.905
+    }
+  },
+  "monthly": {
+    "2026-04": {
+      "baseline": {
+        "n": 14,
+        "winRate": 64.3,
+        "evPct": 3.853,
+        "median": 4.285,
+        "ciLow": 38.8,
+        "ciHigh": 83.7,
+        "totalNetPct": 53.94,
+        "totalDeltaTWD": 539414
+      },
+      "rule": {
+        "n": 3,
+        "winRate": 66.7,
+        "evPct": 2.922,
+        "median": 2.252,
+        "ciLow": 20.8,
+        "ciHigh": 93.9,
+        "totalNetPct": 8.76,
+        "totalDeltaTWD": 87649
+      }
+    },
+    "2026-05": {
+      "baseline": {
+        "n": 87,
+        "winRate": 67.8,
+        "evPct": 3.03,
+        "median": 2.86,
+        "ciLow": 57.4,
+        "ciHigh": 76.7,
+        "totalNetPct": 263.6,
+        "totalDeltaTWD": 2636010
+      },
+      "rule": {
+        "n": 38,
+        "winRate": 68.4,
+        "evPct": 2.359,
+        "median": 2.825,
+        "ciLow": 52.5,
+        "ciHigh": 80.9,
+        "totalNetPct": 89.65,
+        "totalDeltaTWD": 896500
+      }
+    },
+    "2026-06": {
+      "baseline": {
+        "n": 106,
+        "winRate": 49.1,
+        "evPct": 0.745,
+        "median": -0.223,
+        "ciLow": 39.7,
+        "ciHigh": 58.4,
+        "totalNetPct": 79.02,
+        "totalDeltaTWD": 790187
+      },
+      "rule": {
+        "n": 40,
+        "winRate": 57.5,
+        "evPct": 1.843,
+        "median": 1.893,
+        "ciLow": 42.2,
+        "ciHigh": 71.5,
+        "totalNetPct": 73.7,
+        "totalDeltaTWD": 737036
+      }
+    }
+  },
+  "june_check": {
+    "baseline": {
+      "n": 106,
+      "winRate": 49.1,
+      "evPct": 0.745,
+      "median": -0.223,
+      "ciLow": 39.7,
+      "ciHigh": 58.4,
+      "totalNetPct": 79.02,
+      "totalDeltaTWD": 790187
+    },
+    "rule": {
+      "n": 40,
+      "winRate": 57.5,
+      "evPct": 1.843,
+      "median": 1.893,
+      "ciLow": 42.2,
+      "ciHigh": 71.5,
+      "totalNetPct": 73.7,
+      "totalDeltaTWD": 737036
+    },
+    "rescued": true,
+    "profitableInJune": true
+  },
+  "robust_checks": {
+    "testProfitable": true,
+    "winRateDropOk": true,
+    "thresholdStable": false,
+    "juneRescued": true
+  }
+}

@@ -70,3 +70,4 @@ data/intraday_cache/
 
 # Shioaji runtime log (寫於 import 時)
 shioaji.log
+data/_price_month_cache.json

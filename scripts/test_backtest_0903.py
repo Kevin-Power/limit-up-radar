@@ -219,3 +219,141 @@ def test_build_report_funnel_and_rules():
     assert len(rep["trades"]) == 1
     assert rep["trades"][0]["code"] == "AAA"
     assert "bestReturnNet" in rep["trades"][0]
+
+
+# ── P0-2 R1 整合測試 ────────────────────────────────────────
+def test_simulate_r1_t1_0915_path():
+    """gap 0~5% → 09:15 出場路徑。"""
+    t1_bars = [
+        {"time": "09:00", "open": 102, "high": 102, "low": 102, "close": 102},
+        {"time": "09:15", "open": 103, "high": 104, "low": 102.5, "close": 103.5},
+    ]
+    trade = {"entry": 100, "t1Bars": t1_bars, "t2Open": 105}
+    r = bt.simulate_r1(trade)
+    # gap=(102/100-1)*100=2% in [0,5) → 09:15 close=103.5
+    # gross=(103.5-100)/100*100=3.5, net=3.5-0.585=2.915
+    assert r["rule"] == "T1_0915"
+    assert r["gapPct"] == pytest.approx(2.0, abs=0.01)
+    assert r["exitPrice"] == 103.5
+    assert r["ret"] == pytest.approx(2.915, abs=0.01)
+
+
+def test_simulate_r1_t2_open_path_negative_gap():
+    """gap < 0 → T+2 開盤出場。"""
+    t1_bars = [
+        {"time": "09:00", "open": 98, "high": 99, "low": 97, "close": 98.5},
+        {"time": "09:15", "open": 98.5, "high": 99, "low": 98, "close": 98.5},
+    ]
+    trade = {"entry": 100, "t1Bars": t1_bars, "t2Open": 101}
+    r = bt.simulate_r1(trade)
+    # gap=-2% → T2 open=101, gross=1%, net=1-0.585=0.415
+    assert r["rule"] == "T2_open"
+    assert r["exitPrice"] == 101
+    assert r["ret"] == pytest.approx(0.415, abs=0.01)
+
+
+def test_simulate_r1_t2_open_path_large_gap():
+    """gap ≥ 5% → T+2 開盤出場。"""
+    t1_bars = [
+        {"time": "09:00", "open": 106, "high": 107, "low": 105, "close": 106.5},
+        {"time": "09:15", "open": 106.5, "high": 107, "low": 106, "close": 106.8},
+    ]
+    trade = {"entry": 100, "t1Bars": t1_bars, "t2Open": 108}
+    r = bt.simulate_r1(trade)
+    # gap=6% ≥ 5 → T2 open=108
+    assert r["rule"] == "T2_open"
+    assert r["exitPrice"] == 108
+
+
+def test_simulate_r1_no_data_returns_nones():
+    r = bt.simulate_r1({"entry": 100, "t1Bars": [], "t2Open": None})
+    assert r["ret"] is None and r["rule"] is None
+
+
+def test_aggregate_monthly_groups_by_yyyymm():
+    trades = [
+        {"dEntry": "2026-05-10", "ret": 2.0},
+        {"dEntry": "2026-05-20", "ret": -1.0},
+        {"dEntry": "2026-06-01", "ret": 3.0},
+        {"dEntry": "2026-06-15", "ret": None},   # 應被忽略
+    ]
+    out = bt.aggregate_monthly(trades)
+    assert set(out.keys()) == {"2026-05", "2026-06"}
+    assert out["2026-05"]["trades"] == 2
+    assert out["2026-05"]["winRate"] == pytest.approx(50.0)
+    assert out["2026-05"]["ev"] == pytest.approx(0.5)
+    assert out["2026-05"]["total"] == pytest.approx(1.0)
+    assert out["2026-06"]["trades"] == 1
+    assert out["2026-06"]["winRate"] == pytest.approx(100.0)
+
+
+def test_build_report_emits_r1_and_baseline_stats():
+    """build_report 必須輸出 r1Stats / baselineStats / monthlyR1 / monthlyBaseline。"""
+    pick_days = [{
+        "pickDate": "2026-06-23", "entryDate": "2026-06-24", "nextDate": "2026-06-25",
+        "picks": [
+            {"code": "AAA", "name": "進場檔", "score": 80, "prevClose": 100.0},
+        ],
+    }]
+
+    def provider(code, date):
+        if code == "AAA" and date == "2026-06-24":
+            # 多根 bar，含 09:15 供 R1 命中
+            return [{"time": "09:01", "open": 100, "high": 101, "low": 100, "close": 100.5},
+                    {"time": "09:03", "open": 100.5, "high": 105, "low": 100.5, "close": 104},
+                    {"time": "09:15", "open": 104, "high": 105, "low": 103.5, "close": 104.5},
+                    {"time": "13:30", "open": 104, "high": 106, "low": 103, "close": 105}]
+        if code == "AAA" and date == "2026-06-25":
+            return [{"time": "09:01", "open": 107, "high": 108, "low": 106, "close": 107.5},
+                    {"time": "13:30", "open": 107, "high": 108, "low": 106, "close": 106}]
+        return []
+
+    rep = bt.build_report(pick_days, provider, min_trades=0)
+    # 新增鍵存在
+    assert "r1Stats" in rep
+    assert "baselineStats" in rep
+    assert "monthlyR1" in rep
+    assert "monthlyBaseline" in rep
+    # r1Stats 含 rule/label
+    assert rep["r1Stats"]["rule"] == "R1_dynamic"
+    assert "R1" in rep["r1Stats"]["label"]
+    # 月度有 2026-06
+    assert "2026-06" in rep["monthlyR1"]
+    assert "2026-06" in rep["monthlyBaseline"]
+    # 每筆 trade 有 r1 欄位
+    t = rep["trades"][0]
+    assert "r1Ret" in t and "r1Rule" in t and "r1GapPct" in t and "r1ExitPrice" in t
+    # entry=104, t1_open=100 → gap=(100/104-1)*100≈-3.85% < 0 → T2 open=107
+    assert t["r1Rule"] == "T2_open"
+    assert t["r1ExitPrice"] == 107
+
+
+# ── run_backtest_0903 console summary 不可 KeyError（regression）─────
+def test_run_backtest_console_summary_uses_valid_funnel_keys(capsys):
+    """run_backtest_0903.main 的 print 不可引用 funnel 不存在的 key。
+    確保 funnel 只用 totalPicks/noData/notEntered/passedFilter，
+    成交數改由 len(report['trades']) 取得（避免 KeyError）。"""
+    pick_days = [{
+        "pickDate": "2026-06-23", "entryDate": "2026-06-24", "nextDate": "2026-06-25",
+        "picks": [
+            {"code": "AAA", "name": "進場檔", "score": 80, "prevClose": 100.0},
+        ],
+    }]
+
+    def provider(code, date):
+        if code == "AAA" and date == "2026-06-24":
+            return [{"time": "09:01", "open": 100, "high": 101, "low": 100, "close": 100.5},
+                    {"time": "09:03", "open": 100.5, "high": 105, "low": 100.5, "close": 104},
+                    {"time": "13:30", "open": 104, "high": 106, "low": 103, "close": 105}]
+        if code == "AAA" and date == "2026-06-25":
+            return [{"time": "09:01", "open": 107, "high": 108, "low": 106, "close": 107.5}]
+        return []
+
+    rep = bt.build_report(pick_days, provider, min_trades=0)
+    f = rep["funnel"]
+    # 完整跑 run_backtest_0903 print 邏輯 — 不可 KeyError
+    traded = len(rep.get("trades", []))
+    line = (f"漏斗：精選 {f['totalPicks']} → 無資料 {f['noData']} → "
+            f"通過 {f['passedFilter']} → 成交 {traded}")
+    assert "成交 1" in line   # AAA 進場成功
+    assert "精選 1" in line

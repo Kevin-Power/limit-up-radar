@@ -12,6 +12,7 @@ const NAV_ITEMS = [
   { label: "研究工作台", href: "/workspace" },
   { label: "快樂小馬", href: "/pony" },
   { label: "策略回測", href: "/backtest" },
+  { label: "策略監控", href: "/strategy-monitor" },
   { label: "進階選股", href: "/screener" },
   { label: "供應鏈", href: "/supply-chain" },
   { label: "營收速報", href: "/revenue" },

@@ -1,0 +1,166 @@
+{
+  "rule": "score>=75, T+1 open buy, T+5 close sell",
+  "claim": {
+    "winRate": 51.2,
+    "ev": 2.83,
+    "n": 438
+  },
+  "observed": {
+    "n": 385,
+    "winRate": 50.91,
+    "mean": 2.356,
+    "median": 0.456,
+    "total": 906.9
+  },
+  "bootstrap": {
+    "ciLow": 0.797,
+    "ciHigh": 3.915,
+    "pPositive": 1.0
+  },
+  "halfSplit": {
+    "firstHalf": {
+      "n": 222,
+      "winRate": 49.55,
+      "mean": 2.861,
+      "median": -0.181,
+      "total": 635.18
+    },
+    "secondHalf": {
+      "n": 163,
+      "winRate": 52.76,
+      "mean": 1.667,
+      "median": 1.001,
+      "total": 271.71
+    },
+    "evGap": -1.194
+  },
+  "monthly": {
+    "2026-04": {
+      "n": 38,
+      "winRate": 60.53,
+      "mean": 4.132,
+      "median": 1.871,
+      "total": 157.03
+    },
+    "2026-05": {
+      "n": 199,
+      "winRate": 47.74,
+      "mean": 2.463,
+      "median": -0.38,
+      "total": 490.09
+    },
+    "2026-06": {
+      "n": 148,
+      "winRate": 52.7,
+      "mean": 1.755,
+      "median": 0.972,
+      "total": 259.78
+    }
+  },
+  "thresholdSensitivity": {
+    "score>=70": {
+      "n": 425,
+      "winRate": 52.71,
+      "mean": 2.847,
+      "median": 0.944,
+      "total": 1210.12
+    },
+    "score>=75": {
+      "n": 385,
+      "winRate": 50.91,
+      "mean": 2.356,
+      "median": 0.456,
+      "total": 906.9
+    },
+    "score>=80": {
+      "n": 314,
+      "winRate": 51.59,
+      "mean": 2.615,
+      "median": 0.564,
+      "total": 820.96
+    }
+  },
+  "holdDaysSensitivity": {
+    "T+3_close": {
+      "n": 428,
+      "winRate": 44.86,
+      "mean": 0.743,
+      "median": -1.184,
+      "total": 318.06
+    },
+    "T+4_close": {
+      "n": 400,
+      "winRate": 50.0,
+      "mean": 1.48,
+      "median": -0.005,
+      "total": 591.88
+    },
+    "T+5_close": {
+      "n": 385,
+      "winRate": 50.91,
+      "mean": 2.356,
+      "median": 0.456,
+      "total": 906.9
+    },
+    "T+6_close": {
+      "n": 374,
+      "winRate": 49.2,
+      "mean": 3.231,
+      "median": -0.167,
+      "total": 1208.46
+    },
+    "T+7_close": {
+      "n": 372,
+      "winRate": 50.0,
+      "mean": 3.674,
+      "median": 0.154,
+      "total": 1366.68
+    }
+  },
+  "microThresholdSweep": {
+    "score>=68": {
+      "n": 425,
+      "winRate": 52.71,
+      "mean": 2.847,
+      "median": 0.944,
+      "total": 1210.12
+    },
+    "score>=72": {
+      "n": 385,
+      "winRate": 50.91,
+      "mean": 2.356,
+      "median": 0.456,
+      "total": 906.9
+    },
+    "score>=75": {
+      "n": 385,
+      "winRate": 50.91,
+      "mean": 2.356,
+      "median": 0.456,
+      "total": 906.9
+    },
+    "score>=78": {
+      "n": 314,
+      "winRate": 51.59,
+      "mean": 2.615,
+      "median": 0.564,
+      "total": 820.96
+    },
+    "score>=82": {
+      "n": 213,
+      "winRate": 50.23,
+      "mean": 2.435,
+      "median": 0.341,
+      "total": 518.7
+    }
+  },
+  "baselineT2open_score75": {
+    "n": 444,
+    "winRate": 45.72,
+    "mean": -0.221,
+    "median": -0.666,
+    "total": -98.26
+  },
+  "costRoundtripPct": 0.38,
+  "note": "用 _price_month_cache 真實日 OHLC；entryDate=T+1，T+5 close = entryDate 之後第 4 個交易日 close"
+}
