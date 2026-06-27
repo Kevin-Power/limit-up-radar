@@ -50,8 +50,9 @@ function getRegionSentiment(region: Region, indices: IndexData[]): { label: stri
   if (items.length === 0) return { label: "中性", color: "text-amber bg-amber-bg" };
   const upCount = items.filter((i) => i.changePct > 0).length;
   const ratio = upCount / items.length;
-  if (ratio >= 0.6) return { label: "偏多", color: "text-green bg-green-bg" };
-  if (ratio <= 0.4) return { label: "偏空", color: "text-red bg-red-bg" };
+  // 台股慣例：偏多=紅 / 偏空=綠
+  if (ratio >= 0.6) return { label: "偏多", color: "text-red bg-red-bg" };
+  if (ratio <= 0.4) return { label: "偏空", color: "text-green bg-green-bg" };
   return { label: "中性", color: "text-amber bg-amber-bg" };
 }
 
@@ -100,11 +101,12 @@ function Card({ children, className = "" }: { children: React.ReactNode; classNa
 
 function IndexCard({ idx }: { idx: IndexData }) {
   const isUp = idx.changePct >= 0;
-  const borderColor = isUp ? "border-green/40" : "border-red/40";
-  const changeColor = isUp ? "text-green" : "text-red";
+  // 台股慣例：漲=紅 / 跌=綠
+  const borderColor = isUp ? "border-red/40" : "border-green/40";
+  const changeColor = isUp ? "text-red" : "text-green";
   const sparkData = idx.realSparkline;
   const path = sparkData ? sparklinePath(sparkData, 100, 28) : "";
-  const strokeColor = isUp ? "var(--green)" : "var(--red)";
+  const strokeColor = isUp ? "var(--red)" : "var(--green)";
   const sign = isUp ? "+" : "";
 
   return (
@@ -117,8 +119,8 @@ function IndexCard({ idx }: { idx: IndexData }) {
         <span
           className={`text-[10px] px-1.5 py-0.5 rounded font-medium ${
             idx.emaSignal === "multi"
-              ? "text-green bg-green-bg"
-              : "text-red bg-red-bg"
+              ? "text-red bg-red-bg"
+              : "text-green bg-green-bg"
           }`}
         >
           {idx.emaSignal === "multi" ? "多頭" : "空頭"}
@@ -277,8 +279,8 @@ export default function GlobalPage() {
             const items = displayIndices.filter((i) => i.region === r.key);
             const upCount = items.filter((i) => i.changePct > 0).length;
             const ratio = items.length > 0 ? upCount / items.length : 0.5;
-            const sentiment = ratio >= 0.6 ? { label: "偏多", color: "text-green bg-green-bg" }
-              : ratio <= 0.4 ? { label: "偏空", color: "text-red bg-red-bg" }
+            const sentiment = ratio >= 0.6 ? { label: "偏多", color: "text-red bg-red-bg" }
+              : ratio <= 0.4 ? { label: "偏空", color: "text-green bg-green-bg" }
               : { label: "中性", color: "text-amber bg-amber-bg" };
             return (
               <Card key={r.key}>
