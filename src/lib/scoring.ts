@@ -3,6 +3,13 @@
  * Used by both /api/focus and /api/daily-report to ensure consistency.
  */
 
+/**
+ * 評分版本標記。
+ * 規則：每次評分邏輯變動，PATCH +1；新訊號加減項 MINOR +1。
+ * 寫入 daily/*.json 的 scoringVersion 欄位，回測時可驗證版本一致。
+ */
+export const SCORING_VERSION = "v3.2-2026-06-27";
+
 export interface DailyStockMin {
   code: string;
   name: string;

@@ -19,6 +19,9 @@ import sys
 import tempfile
 import time
 
+# scoring.ts 同名常數，須同步更新
+SCORING_VERSION = "v3.2-2026-06-27"
+
 # ── 成本常數（台股現股當沖）─────────────────────────────────
 COST_FEES_PCT = 0.435          # 手續費 0.1425%×2 + 當沖證交稅 0.15%
 COST_CONSERVATIVE_PCT = 1.0    # 費稅 + 保守滑價（低流動性小型股）
