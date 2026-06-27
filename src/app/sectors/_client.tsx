@@ -41,7 +41,11 @@ interface SectorAgg {
   strength: number; // 綜合強弱分數
 }
 
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
+const fetcher = (url: string) =>
+  fetch(url).then((r) => {
+    if (!r.ok) throw new Error(String(r.status));
+    return r.json();
+  });
 
 type SortKey = "strength" | "count" | "avgChangePct" | "netFlow" | "days";
 
@@ -150,9 +154,15 @@ export default function SectorsClient() {
   const { data, isLoading, error } = useSWR<FocusData>("/api/focus", fetcher);
   const [sortKey, setSortKey] = useState<SortKey>("strength");
 
+  // 404 = no daily data yet -> show friendly empty state, not a hard error.
+  const isNoData = error instanceof Error && error.message === "404";
+  const isRealError = !!error && !isNoData;
+
   const aggs = useMemo(
     () =>
-      data ? aggregateSectors(data.focusStocks, data.trendingGroups) : [],
+      data && Array.isArray(data.focusStocks)
+        ? aggregateSectors(data.focusStocks, data.trendingGroups ?? [])
+        : [],
     [data]
   );
 
@@ -190,7 +200,7 @@ export default function SectorsClient() {
         )}
 
         {/* Error */}
-        {error && !isLoading && (
+        {isRealError && !isLoading && (
           <div className="bg-bg-1 border border-red/30 rounded-xl p-8 text-center">
             <p className="text-sm text-red font-semibold mb-1">載入失敗</p>
             <p className="text-xs text-txt-4">
@@ -199,8 +209,8 @@ export default function SectorsClient() {
           </div>
         )}
 
-        {/* Empty */}
-        {data && !isLoading && aggs.length === 0 && (
+        {/* Empty (no daily data, or data present but no sectors) */}
+        {!isLoading && !isRealError && (isNoData || (data && aggs.length === 0)) && (
           <div className="bg-bg-1 border border-border rounded-xl p-10 text-center">
             <p className="text-sm text-txt-2 font-semibold mb-1">
               今日尚無族群資料
