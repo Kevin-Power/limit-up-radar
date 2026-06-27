@@ -82,6 +82,16 @@ export default function StockRow({ stock, groupColor, isWatched = false, onToggl
           </span>
         </div>
 
+        {/* R1 dynamic exit hint */}
+        <div className="hidden md:flex w-8 justify-end flex-shrink-0">
+          <span
+            className="text-[10px] text-amber px-1 py-0.5 rounded bg-amber/10"
+            title="R1 動態出場：T+1 開盤 gap 0~5% → 09:15 賣；其它 → T+2 開盤賣"
+          >
+            R1
+          </span>
+        </div>
+
         {/* Volume: hidden on mobile */}
         <div className="hidden md:block w-20 text-right text-xs text-txt-2 tabular-nums flex-shrink-0">
           {formatNumber(s.volume)}
