@@ -1,0 +1,523 @@
+{
+  "baseline": {
+    "scoreMin": 75,
+    "n": 207,
+    "winRate": 58.0,
+    "ev": 1.9156,
+    "totalPct": 396.52,
+    "totalTWD": 39652,
+    "tradingDays": 36,
+    "costPctRoundTrip": 0.38,
+    "capitalPerTradeTWD": 10000
+  },
+  "filters": [
+    {
+      "name": "taiex_up_0",
+      "description": "大盤前一日紅K (taiex_change_pct >= 0)",
+      "passDays": 22,
+      "totalDays": 36,
+      "passRate": 61.1,
+      "passed": {
+        "n": 171,
+        "winRate": 57.9,
+        "ev": 1.7206,
+        "totalPct": 294.22,
+        "totalTWD": 29422
+      },
+      "blocked": {
+        "n": 36,
+        "winRate": 58.3,
+        "ev": 2.8417,
+        "totalPct": 102.3,
+        "totalTWD": 10230
+      },
+      "deltaTWD_vs_baseline": -10230
+    },
+    {
+      "name": "taiex_up_0.5",
+      "description": "大盤前一日漲>=0.5%",
+      "passDays": 18,
+      "totalDays": 36,
+      "passRate": 50.0,
+      "passed": {
+        "n": 137,
+        "winRate": 54.0,
+        "ev": 1.2587,
+        "totalPct": 172.45,
+        "totalTWD": 17245
+      },
+      "blocked": {
+        "n": 70,
+        "winRate": 65.7,
+        "ev": 3.2011,
+        "totalPct": 224.07,
+        "totalTWD": 22407
+      },
+      "deltaTWD_vs_baseline": -22407
+    },
+    {
+      "name": "taiex_not_crash_-1",
+      "description": "大盤前一日未跌破 -1% (>=-1.0%)",
+      "passDays": 29,
+      "totalDays": 36,
+      "passRate": 80.6,
+      "passed": {
+        "n": 187,
+        "winRate": 58.8,
+        "ev": 2.0365,
+        "totalPct": 380.83,
+        "totalTWD": 38083
+      },
+      "blocked": {
+        "n": 20,
+        "winRate": 50.0,
+        "ev": 0.7845,
+        "totalPct": 15.69,
+        "totalTWD": 1569
+      },
+      "deltaTWD_vs_baseline": -1569
+    },
+    {
+      "name": "taiex_not_big_drop_-0.5",
+      "description": "大盤前一日跌幅小於 0.5% (>=-0.5%)",
+      "passDays": 26,
+      "totalDays": 36,
+      "passRate": 72.2,
+      "passed": {
+        "n": 180,
+        "winRate": 57.8,
+        "ev": 1.7878,
+        "totalPct": 321.8,
+        "totalTWD": 32180
+      },
+      "blocked": {
+        "n": 27,
+        "winRate": 59.3,
+        "ev": 2.7673,
+        "totalPct": 74.72,
+        "totalTWD": 7472
+      },
+      "deltaTWD_vs_baseline": -7472
+    },
+    {
+      "name": "chg_5d_sum_up",
+      "description": "近 5 日大盤累積漲幅 >= 0%",
+      "passDays": 27,
+      "totalDays": 36,
+      "passRate": 75.0,
+      "passed": {
+        "n": 161,
+        "winRate": 56.5,
+        "ev": 1.7114,
+        "totalPct": 275.53,
+        "totalTWD": 27553
+      },
+      "blocked": {
+        "n": 46,
+        "winRate": 63.0,
+        "ev": 2.6302,
+        "totalPct": 120.99,
+        "totalTWD": 12099
+      },
+      "deltaTWD_vs_baseline": -12099
+    },
+    {
+      "name": "chg_3d_sum_up",
+      "description": "近 3 日大盤累積漲幅 >= 0%",
+      "passDays": 25,
+      "totalDays": 36,
+      "passRate": 69.4,
+      "passed": {
+        "n": 151,
+        "winRate": 55.0,
+        "ev": 1.5452,
+        "totalPct": 233.33,
+        "totalTWD": 23333
+      },
+      "blocked": {
+        "n": 56,
+        "winRate": 66.1,
+        "ev": 2.9141,
+        "totalPct": 163.19,
+        "totalTWD": 16319
+      },
+      "deltaTWD_vs_baseline": -16319
+    },
+    {
+      "name": "ma5_above",
+      "description": "大盤站上 5MA",
+      "passDays": 29,
+      "totalDays": 36,
+      "passRate": 80.6,
+      "passed": {
+        "n": 179,
+        "winRate": 58.1,
+        "ev": 1.8849,
+        "totalPct": 337.4,
+        "totalTWD": 33740
+      },
+      "blocked": {
+        "n": 28,
+        "winRate": 57.1,
+        "ev": 2.1115,
+        "totalPct": 59.12,
+        "totalTWD": 5912
+      },
+      "deltaTWD_vs_baseline": -5912
+    },
+    {
+      "name": "ma10_above",
+      "description": "大盤站上 10MA",
+      "passDays": 30,
+      "totalDays": 36,
+      "passRate": 83.3,
+      "passed": {
+        "n": 181,
+        "winRate": 55.8,
+        "ev": 1.4635,
+        "totalPct": 264.9,
+        "totalTWD": 26490
+      },
+      "blocked": {
+        "n": 26,
+        "winRate": 73.1,
+        "ev": 5.0624,
+        "totalPct": 131.62,
+        "totalTWD": 13162
+      },
+      "deltaTWD_vs_baseline": -13162
+    },
+    {
+      "name": "ma20_above",
+      "description": "大盤站上 20MA",
+      "passDays": 35,
+      "totalDays": 36,
+      "passRate": 97.2,
+      "passed": {
+        "n": 204,
+        "winRate": 57.8,
+        "ev": 1.8373,
+        "totalPct": 374.82,
+        "totalTWD": 37482
+      },
+      "blocked": {
+        "n": 3,
+        "winRate": 66.7,
+        "ev": 7.2343,
+        "totalPct": 21.7,
+        "totalTWD": 2170
+      },
+      "deltaTWD_vs_baseline": -2170
+    },
+    {
+      "name": "not_streak_dn3",
+      "description": "未連續 3 日下跌",
+      "passDays": 34,
+      "totalDays": 36,
+      "passRate": 94.4,
+      "passed": {
+        "n": 201,
+        "winRate": 57.2,
+        "ev": 1.7978,
+        "totalPct": 361.36,
+        "totalTWD": 36136
+      },
+      "blocked": {
+        "n": 6,
+        "winRate": 83.3,
+        "ev": 5.8605,
+        "totalPct": 35.16,
+        "totalTWD": 3516
+      },
+      "deltaTWD_vs_baseline": -3516
+    },
+    {
+      "name": "advdec_ge_1.0",
+      "description": "漲跌家數比 >= 1.0 (advance/decline)",
+      "passDays": 19,
+      "totalDays": 36,
+      "passRate": 52.8,
+      "passed": {
+        "n": 154,
+        "winRate": 56.5,
+        "ev": 1.5265,
+        "totalPct": 235.07,
+        "totalTWD": 23507
+      },
+      "blocked": {
+        "n": 53,
+        "winRate": 62.3,
+        "ev": 3.0461,
+        "totalPct": 161.44,
+        "totalTWD": 16144
+      },
+      "deltaTWD_vs_baseline": -16145
+    },
+    {
+      "name": "advdec_ge_1.5",
+      "description": "漲跌家數比 >= 1.5",
+      "passDays": 10,
+      "totalDays": 36,
+      "passRate": 27.8,
+      "passed": {
+        "n": 97,
+        "winRate": 59.8,
+        "ev": 2.3359,
+        "totalPct": 226.58,
+        "totalTWD": 22658
+      },
+      "blocked": {
+        "n": 110,
+        "winRate": 56.4,
+        "ev": 1.5449,
+        "totalPct": 169.94,
+        "totalTWD": 16994
+      },
+      "deltaTWD_vs_baseline": -16994
+    },
+    {
+      "name": "limit_up_ge_60",
+      "description": "當日漲停家數 >= 60（市場熱絡）",
+      "passDays": 24,
+      "totalDays": 36,
+      "passRate": 66.7,
+      "passed": {
+        "n": 177,
+        "winRate": 57.1,
+        "ev": 1.7497,
+        "totalPct": 309.7,
+        "totalTWD": 30970
+      },
+      "blocked": {
+        "n": 30,
+        "winRate": 63.3,
+        "ev": 2.894,
+        "totalPct": 86.82,
+        "totalTWD": 8682
+      },
+      "deltaTWD_vs_baseline": -8682
+    },
+    {
+      "name": "limit_up_ge_40",
+      "description": "當日漲停家數 >= 40",
+      "passDays": 34,
+      "totalDays": 36,
+      "passRate": 94.4,
+      "passed": {
+        "n": 201,
+        "winRate": 57.7,
+        "ev": 1.9196,
+        "totalPct": 385.85,
+        "totalTWD": 38585
+      },
+      "blocked": {
+        "n": 6,
+        "winRate": 66.7,
+        "ev": 1.7785,
+        "totalPct": 10.67,
+        "totalTWD": 1067
+      },
+      "deltaTWD_vs_baseline": -1067
+    },
+    {
+      "name": "limit_dn_le_5",
+      "description": "當日跌停家數 <= 5（無恐慌）",
+      "passDays": 16,
+      "totalDays": 36,
+      "passRate": 44.4,
+      "passed": {
+        "n": 114,
+        "winRate": 56.1,
+        "ev": 1.9795,
+        "totalPct": 225.66,
+        "totalTWD": 22566
+      },
+      "blocked": {
+        "n": 93,
+        "winRate": 60.2,
+        "ev": 1.8372,
+        "totalPct": 170.86,
+        "totalTWD": 17086
+      },
+      "deltaTWD_vs_baseline": -17086
+    },
+    {
+      "name": "vol_5d_sd_le_1.5",
+      "description": "近 5 日大盤波動率 <= 1.5%",
+      "passDays": 19,
+      "totalDays": 36,
+      "passRate": 52.8,
+      "passed": {
+        "n": 111,
+        "winRate": 64.0,
+        "ev": 2.784,
+        "totalPct": 309.02,
+        "totalTWD": 30902
+      },
+      "blocked": {
+        "n": 96,
+        "winRate": 51.0,
+        "ev": 0.9114,
+        "totalPct": 87.5,
+        "totalTWD": 8750
+      },
+      "deltaTWD_vs_baseline": -8750
+    },
+    {
+      "name": "picks75_3_to_15",
+      "description": "≥75 分精選 3~15 檔（適中）",
+      "passDays": 19,
+      "totalDays": 36,
+      "passRate": 52.8,
+      "passed": {
+        "n": 63,
+        "winRate": 69.8,
+        "ev": 4.1353,
+        "totalPct": 260.52,
+        "totalTWD": 26052
+      },
+      "blocked": {
+        "n": 144,
+        "winRate": 52.8,
+        "ev": 0.9444,
+        "totalPct": 136.0,
+        "totalTWD": 13600
+      },
+      "deltaTWD_vs_baseline": -13600
+    },
+    {
+      "name": "picks75_ge_3",
+      "description": "≥75 分精選 >= 3 檔",
+      "passDays": 30,
+      "totalDays": 36,
+      "passRate": 83.3,
+      "passed": {
+        "n": 201,
+        "winRate": 57.7,
+        "ev": 1.8081,
+        "totalPct": 363.43,
+        "totalTWD": 36343
+      },
+      "blocked": {
+        "n": 6,
+        "winRate": 66.7,
+        "ev": 5.5155,
+        "totalPct": 33.09,
+        "totalTWD": 3309
+      },
+      "deltaTWD_vs_baseline": -3309
+    },
+    {
+      "name": "picks75_le_15",
+      "description": "≥75 分精選 <= 15 檔（避免訊號氾濫）",
+      "passDays": 25,
+      "totalDays": 36,
+      "passRate": 69.4,
+      "passed": {
+        "n": 69,
+        "winRate": 69.6,
+        "ev": 4.2553,
+        "totalPct": 293.62,
+        "totalTWD": 29362
+      },
+      "blocked": {
+        "n": 138,
+        "winRate": 52.2,
+        "ev": 0.7457,
+        "totalPct": 102.9,
+        "totalTWD": 10290
+      },
+      "deltaTWD_vs_baseline": -10290
+    },
+    {
+      "name": "foreign_net_buy",
+      "description": "外資當日買超（foreign_net >= 0）",
+      "passDays": 16,
+      "totalDays": 36,
+      "passRate": 44.4,
+      "passed": {
+        "n": 125,
+        "winRate": 54.4,
+        "ev": 1.4309,
+        "totalPct": 178.86,
+        "totalTWD": 17886
+      },
+      "blocked": {
+        "n": 82,
+        "winRate": 63.4,
+        "ev": 2.6543,
+        "totalPct": 217.66,
+        "totalTWD": 21766
+      },
+      "deltaTWD_vs_baseline": -21766
+    },
+    {
+      "name": "combo_safe",
+      "description": "組合：未崩 + ma20 之上 + 未連跌 3 日",
+      "passDays": 28,
+      "totalDays": 36,
+      "passRate": 77.8,
+      "passed": {
+        "n": 184,
+        "winRate": 58.7,
+        "ev": 1.9518,
+        "totalPct": 359.13,
+        "totalTWD": 35913
+      },
+      "blocked": {
+        "n": 23,
+        "winRate": 52.2,
+        "ev": 1.6257,
+        "totalPct": 37.39,
+        "totalTWD": 3739
+      },
+      "deltaTWD_vs_baseline": -3739
+    },
+    {
+      "name": "combo_loose",
+      "description": "組合：未大跌 + 5 日累積漲幅非負",
+      "passDays": 21,
+      "totalDays": 36,
+      "passRate": 58.3,
+      "passed": {
+        "n": 144,
+        "winRate": 56.2,
+        "ev": 1.735,
+        "totalPct": 249.85,
+        "totalTWD": 24985
+      },
+      "blocked": {
+        "n": 63,
+        "winRate": 61.9,
+        "ev": 2.3281,
+        "totalPct": 146.67,
+        "totalTWD": 14667
+      },
+      "deltaTWD_vs_baseline": -14667
+    }
+  ],
+  "ranked_by_passed_twd": [
+    "limit_up_ge_40",
+    "taiex_not_crash_-1",
+    "ma20_above",
+    "picks75_ge_3",
+    "not_streak_dn3",
+    "combo_safe",
+    "ma5_above",
+    "taiex_not_big_drop_-0.5",
+    "limit_up_ge_60",
+    "vol_5d_sd_le_1.5",
+    "taiex_up_0",
+    "picks75_le_15",
+    "chg_5d_sum_up",
+    "ma10_above",
+    "picks75_3_to_15",
+    "combo_loose",
+    "advdec_ge_1.0",
+    "chg_3d_sum_up",
+    "limit_dn_le_5",
+    "foreign_net_buy",
+    "taiex_up_0.5"
+  ],
+  "note": "baseline 用每筆 1 萬元×淨報酬% 累加。實際用戶說「+186 萬」是 ≥70 分基線，capitalPerTradeTWD=362,774 等價於 274 筆×1.87%×36.3 萬。本檔用 1 萬元/筆是為了數字可比，等比例放大 36.3x 即可對齊用戶基線。"
+}

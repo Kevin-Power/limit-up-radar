@@ -1,0 +1,188 @@
+{
+  "meta": {
+    "rule": "score>=75 AND gap>=5 -> T+2 open",
+    "costRtPct": 0.3798,
+    "nominalTwdPerTrade": 1000000,
+    "totalScoreGe75": 207
+  },
+  "target": {
+    "n": 81,
+    "winRate": 63.0,
+    "evPct": 2.125,
+    "median": 2.252,
+    "totalNetPct": 172.12,
+    "totalDeltaTWD": 1721185
+  },
+  "baseline_all_score75": {
+    "n": 207,
+    "winRate": 58.0,
+    "evPct": 1.916,
+    "median": 1.434,
+    "totalNetPct": 396.56,
+    "totalDeltaTWD": 3965611
+  },
+  "firstHalf": {
+    "n": 40,
+    "winRate": 67.5,
+    "evPct": 2.223,
+    "median": 2.521,
+    "totalNetPct": 88.93,
+    "totalDeltaTWD": 889263
+  },
+  "secondHalf": {
+    "n": 41,
+    "winRate": 58.5,
+    "evPct": 2.029,
+    "median": 2.138,
+    "totalNetPct": 83.19,
+    "totalDeltaTWD": 831922
+  },
+  "monthly": {
+    "2026-04": {
+      "n": 3,
+      "winRate": 66.7,
+      "evPct": 2.922,
+      "median": 2.252,
+      "totalNetPct": 8.76,
+      "totalDeltaTWD": 87649
+    },
+    "2026-05": {
+      "n": 38,
+      "winRate": 68.4,
+      "evPct": 2.359,
+      "median": 2.825,
+      "totalNetPct": 89.65,
+      "totalDeltaTWD": 896500
+    },
+    "2026-06": {
+      "n": 40,
+      "winRate": 57.5,
+      "evPct": 1.843,
+      "median": 1.893,
+      "totalNetPct": 73.7,
+      "totalDeltaTWD": 737036
+    }
+  },
+  "gapThresholdSensitivity": {
+    "gap>=3": {
+      "n": 114,
+      "winRate": 59.6,
+      "evPct": 1.723,
+      "median": 1.926,
+      "totalNetPct": 196.39,
+      "totalDeltaTWD": 1963890
+    },
+    "gap>=4": {
+      "n": 93,
+      "winRate": 62.4,
+      "evPct": 2.064,
+      "median": 2.196,
+      "totalNetPct": 191.95,
+      "totalDeltaTWD": 1919469
+    },
+    "gap>=4.5": {
+      "n": 87,
+      "winRate": 62.1,
+      "evPct": 2.049,
+      "median": 2.196,
+      "totalNetPct": 178.22,
+      "totalDeltaTWD": 1782230
+    },
+    "gap>=5": {
+      "n": 81,
+      "winRate": 63.0,
+      "evPct": 2.125,
+      "median": 2.252,
+      "totalNetPct": 172.12,
+      "totalDeltaTWD": 1721185
+    },
+    "gap>=5.5": {
+      "n": 66,
+      "winRate": 65.2,
+      "evPct": 2.276,
+      "median": 2.224,
+      "totalNetPct": 150.24,
+      "totalDeltaTWD": 1502434
+    },
+    "gap>=6": {
+      "n": 60,
+      "winRate": 63.3,
+      "evPct": 1.97,
+      "median": 2.167,
+      "totalNetPct": 118.23,
+      "totalDeltaTWD": 1182261
+    },
+    "gap>=7": {
+      "n": 45,
+      "winRate": 62.2,
+      "evPct": 2.297,
+      "median": 2.252,
+      "totalNetPct": 103.35,
+      "totalDeltaTWD": 1033472
+    },
+    "gap>=8": {
+      "n": 34,
+      "winRate": 58.8,
+      "evPct": 2.291,
+      "median": 2.384,
+      "totalNetPct": 77.91,
+      "totalDeltaTWD": 779103
+    }
+  },
+  "scoreThresholdSensitivity": {
+    "score>=70": {
+      "n": 81,
+      "winRate": 63.0,
+      "evPct": 2.125,
+      "median": 2.252,
+      "totalNetPct": 172.12,
+      "totalDeltaTWD": 1721185
+    },
+    "score>=75": {
+      "n": 81,
+      "winRate": 63.0,
+      "evPct": 2.125,
+      "median": 2.252,
+      "totalNetPct": 172.12,
+      "totalDeltaTWD": 1721185
+    },
+    "score>=80": {
+      "n": 68,
+      "winRate": 63.2,
+      "evPct": 2.385,
+      "median": 2.436,
+      "totalNetPct": 162.21,
+      "totalDeltaTWD": 1622106
+    },
+    "score>=85": {
+      "n": 48,
+      "winRate": 60.4,
+      "evPct": 2.221,
+      "median": 2.016,
+      "totalNetPct": 106.59,
+      "totalDeltaTWD": 1065920
+    },
+    "score>=90": {
+      "n": 35,
+      "winRate": 51.4,
+      "evPct": 1.415,
+      "median": 0.63,
+      "totalNetPct": 49.54,
+      "totalDeltaTWD": 495363
+    }
+  },
+  "bootstrap1000": {
+    "evMean": 2.1,
+    "ev2_5": 0.781,
+    "ev97_5": 3.464,
+    "winRateMean": 62.7,
+    "winRate2_5": 53.1,
+    "winRate97_5": 72.8,
+    "probEvPositive": 0.999
+  },
+  "notes": [
+    "T+2 open 本來就是基線出場 — 『維持』而非『改變』。",
+    "Rule B 在 gap>=5/8-10/10+ 全部選 T+2 open，與此規則一致。",
+    "聲稱 +1721185 元 = 比較對象需釐清；若對照『早出場』則合理，若對照基線則無變化。"
+  ]
+}

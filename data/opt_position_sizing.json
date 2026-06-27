@@ -1,0 +1,436 @@
+{
+  "dimension": "部位配置 (position sizing)",
+  "tradeUniverse": {
+    "scoreThreshold": 75,
+    "totalTrades": 207,
+    "entryDays": 36,
+    "baselineEV_pct": 1.916,
+    "baselineWinRate": 58.0
+  },
+  "costModel": {
+    "feeRate": 0.00039900000000000005,
+    "taxRate": 0.003,
+    "roundTripPct": 0.38
+  },
+  "configs": [
+    {
+      "name": "baseline_1lot",
+      "label": "每筆 1 張",
+      "capital": 1000000,
+      "result": {
+        "capital": 1000000,
+        "trades": 112,
+        "tradingDays": 36,
+        "totalPnL_TWD": 429010.0,
+        "totalReturnPct": 42.9,
+        "annualizedPct": 1116.88,
+        "winRatePct": 53.6,
+        "mdd_TWD": 86171.0,
+        "mdd_pct": 6.63,
+        "sharpe": 4.86,
+        "avgInvestedTWD": 541248.0,
+        "capitalUtilizationPct": 54.1,
+        "finalEquity_TWD": 1429010.0
+      }
+    },
+    {
+      "name": "baseline_1lot",
+      "label": "每筆 1 張",
+      "capital": 3000000,
+      "result": {
+        "capital": 3000000,
+        "trades": 174,
+        "tradingDays": 36,
+        "totalPnL_TWD": 915136.0,
+        "totalReturnPct": 30.5,
+        "annualizedPct": 544.73,
+        "winRatePct": 54.0,
+        "mdd_TWD": 122985.0,
+        "mdd_pct": 3.07,
+        "sharpe": 6.86,
+        "avgInvestedTWD": 1236642.0,
+        "capitalUtilizationPct": 41.2,
+        "finalEquity_TWD": 3915136.0
+      }
+    },
+    {
+      "name": "baseline_1lot",
+      "label": "每筆 1 張",
+      "capital": 5000000,
+      "result": {
+        "capital": 5000000,
+        "trades": 193,
+        "tradingDays": 36,
+        "totalPnL_TWD": 1101621.0,
+        "totalReturnPct": 22.03,
+        "annualizedPct": 303.02,
+        "winRatePct": 56.5,
+        "mdd_TWD": 143342.0,
+        "mdd_pct": 2.39,
+        "sharpe": 6.25,
+        "avgInvestedTWD": 1540192.0,
+        "capitalUtilizationPct": 30.8,
+        "finalEquity_TWD": 6101621.0
+      }
+    },
+    {
+      "name": "equal_amount",
+      "label": "等金額 10萬/筆",
+      "capital": 1000000,
+      "result": {
+        "capital": 1000000,
+        "trades": 109,
+        "tradingDays": 36,
+        "totalPnL_TWD": 441095.0,
+        "totalReturnPct": 44.11,
+        "annualizedPct": 1190.77,
+        "winRatePct": 53.2,
+        "mdd_TWD": 78601.0,
+        "mdd_pct": 6.03,
+        "sharpe": 4.85,
+        "avgInvestedTWD": 560382.0,
+        "capitalUtilizationPct": 56.0,
+        "finalEquity_TWD": 1441095.0
+      }
+    },
+    {
+      "name": "equal_amount",
+      "label": "等金額 30萬/筆",
+      "capital": 3000000,
+      "result": {
+        "capital": 3000000,
+        "trades": 162,
+        "tradingDays": 36,
+        "totalPnL_TWD": 1148547.0,
+        "totalReturnPct": 38.28,
+        "annualizedPct": 866.99,
+        "winRatePct": 56.2,
+        "mdd_TWD": 155822.0,
+        "mdd_pct": 3.67,
+        "sharpe": 7.4,
+        "avgInvestedTWD": 1518057.0,
+        "capitalUtilizationPct": 50.6,
+        "finalEquity_TWD": 4148547.0
+      }
+    },
+    {
+      "name": "equal_amount",
+      "label": "等金額 50萬/筆",
+      "capital": 5000000,
+      "result": {
+        "capital": 5000000,
+        "trades": 173,
+        "tradingDays": 36,
+        "totalPnL_TWD": 1618589.0,
+        "totalReturnPct": 32.37,
+        "annualizedPct": 612.14,
+        "winRatePct": 54.3,
+        "mdd_TWD": 268826.0,
+        "mdd_pct": 3.98,
+        "sharpe": 6.18,
+        "avgInvestedTWD": 2430303.0,
+        "capitalUtilizationPct": 48.6,
+        "finalEquity_TWD": 6618589.0
+      }
+    },
+    {
+      "name": "score_tiered",
+      "label": "分數加碼 base=8萬",
+      "capital": 1000000,
+      "result": {
+        "capital": 1000000,
+        "trades": 109,
+        "tradingDays": 36,
+        "totalPnL_TWD": 519018.0,
+        "totalReturnPct": 51.9,
+        "annualizedPct": 1766.13,
+        "winRatePct": 55.0,
+        "mdd_TWD": 71389.0,
+        "mdd_pct": 5.22,
+        "sharpe": 5.89,
+        "avgInvestedTWD": 569577.0,
+        "capitalUtilizationPct": 57.0,
+        "finalEquity_TWD": 1519018.0
+      }
+    },
+    {
+      "name": "score_tiered",
+      "label": "分數加碼 base=25萬",
+      "capital": 3000000,
+      "result": {
+        "capital": 3000000,
+        "trades": 146,
+        "tradingDays": 36,
+        "totalPnL_TWD": 1244642.0,
+        "totalReturnPct": 41.49,
+        "annualizedPct": 1035.11,
+        "winRatePct": 56.2,
+        "mdd_TWD": 187759.0,
+        "mdd_pct": 4.36,
+        "sharpe": 6.75,
+        "avgInvestedTWD": 1640032.0,
+        "capitalUtilizationPct": 54.7,
+        "finalEquity_TWD": 4244642.0
+      }
+    },
+    {
+      "name": "score_tiered",
+      "label": "分數加碼 base=42萬",
+      "capital": 5000000,
+      "result": {
+        "capital": 5000000,
+        "trades": 166,
+        "tradingDays": 36,
+        "totalPnL_TWD": 2088581.0,
+        "totalReturnPct": 41.77,
+        "annualizedPct": 1051.13,
+        "winRatePct": 57.2,
+        "mdd_TWD": 297245.0,
+        "mdd_pct": 4.15,
+        "sharpe": 7.09,
+        "avgInvestedTWD": 2666957.0,
+        "capitalUtilizationPct": 53.3,
+        "finalEquity_TWD": 7088581.0
+      }
+    },
+    {
+      "name": "gap_inverse",
+      "label": "gap 反向 base=8萬",
+      "capital": 1000000,
+      "result": {
+        "capital": 1000000,
+        "trades": 113,
+        "tradingDays": 36,
+        "totalPnL_TWD": 493034.0,
+        "totalReturnPct": 49.3,
+        "annualizedPct": 1553.82,
+        "winRatePct": 54.9,
+        "mdd_TWD": 82105.0,
+        "mdd_pct": 6.05,
+        "sharpe": 5.52,
+        "avgInvestedTWD": 574119.0,
+        "capitalUtilizationPct": 57.4,
+        "finalEquity_TWD": 1493034.0
+      }
+    },
+    {
+      "name": "gap_inverse",
+      "label": "gap 反向 base=25萬",
+      "capital": 3000000,
+      "result": {
+        "capital": 3000000,
+        "trades": 150,
+        "tradingDays": 36,
+        "totalPnL_TWD": 1335531.0,
+        "totalReturnPct": 44.52,
+        "annualizedPct": 1216.58,
+        "winRatePct": 56.0,
+        "mdd_TWD": 177763.0,
+        "mdd_pct": 4.05,
+        "sharpe": 7.04,
+        "avgInvestedTWD": 1638947.0,
+        "capitalUtilizationPct": 54.6,
+        "finalEquity_TWD": 4335531.0
+      }
+    },
+    {
+      "name": "gap_inverse",
+      "label": "gap 反向 base=42萬",
+      "capital": 5000000,
+      "result": {
+        "capital": 5000000,
+        "trades": 170,
+        "tradingDays": 36,
+        "totalPnL_TWD": 2242967.0,
+        "totalReturnPct": 44.86,
+        "annualizedPct": 1238.52,
+        "winRatePct": 55.3,
+        "mdd_TWD": 282497.0,
+        "mdd_pct": 3.87,
+        "sharpe": 7.16,
+        "avgInvestedTWD": 2652648.0,
+        "capitalUtilizationPct": 53.1,
+        "finalEquity_TWD": 7242967.0
+      }
+    },
+    {
+      "name": "volatility_inverse",
+      "label": "波動反向 base=10萬",
+      "capital": 1000000,
+      "result": {
+        "capital": 1000000,
+        "trades": 106,
+        "tradingDays": 36,
+        "totalPnL_TWD": 487853.0,
+        "totalReturnPct": 48.79,
+        "annualizedPct": 1514.06,
+        "winRatePct": 54.7,
+        "mdd_TWD": 72046.0,
+        "mdd_pct": 5.34,
+        "sharpe": 5.5,
+        "avgInvestedTWD": 575570.0,
+        "capitalUtilizationPct": 57.6,
+        "finalEquity_TWD": 1487853.0
+      }
+    },
+    {
+      "name": "volatility_inverse",
+      "label": "波動反向 base=30萬",
+      "capital": 3000000,
+      "result": {
+        "capital": 3000000,
+        "trades": 149,
+        "tradingDays": 36,
+        "totalPnL_TWD": 1393709.0,
+        "totalReturnPct": 46.46,
+        "annualizedPct": 1345.34,
+        "winRatePct": 55.7,
+        "mdd_TWD": 180078.0,
+        "mdd_pct": 3.99,
+        "sharpe": 7.7,
+        "avgInvestedTWD": 1640574.0,
+        "capitalUtilizationPct": 54.7,
+        "finalEquity_TWD": 4393709.0
+      }
+    },
+    {
+      "name": "volatility_inverse",
+      "label": "波動反向 base=50萬",
+      "capital": 5000000,
+      "result": {
+        "capital": 5000000,
+        "trades": 160,
+        "tradingDays": 36,
+        "totalPnL_TWD": 2249528.0,
+        "totalReturnPct": 44.99,
+        "annualizedPct": 1247.03,
+        "winRatePct": 55.6,
+        "mdd_TWD": 318321.0,
+        "mdd_pct": 4.28,
+        "sharpe": 7.24,
+        "avgInvestedTWD": 2685215.0,
+        "capitalUtilizationPct": 53.7,
+        "finalEquity_TWD": 7249528.0
+      }
+    },
+    {
+      "name": "concentration_cap_2",
+      "label": "族群≤2 等金額 12萬",
+      "capital": 1000000,
+      "result": {
+        "capital": 1000000,
+        "trades": 92,
+        "tradingDays": 36,
+        "totalPnL_TWD": 523724.0,
+        "totalReturnPct": 52.37,
+        "annualizedPct": 1806.97,
+        "winRatePct": 57.6,
+        "mdd_TWD": 60391.0,
+        "mdd_pct": 3.89,
+        "sharpe": 6.21,
+        "avgInvestedTWD": 536239.0,
+        "capitalUtilizationPct": 53.6,
+        "finalEquity_TWD": 1523724.0
+      }
+    },
+    {
+      "name": "concentration_cap_2",
+      "label": "族群≤2 等金額 38萬",
+      "capital": 3000000,
+      "result": {
+        "capital": 3000000,
+        "trades": 114,
+        "tradingDays": 36,
+        "totalPnL_TWD": 1144023.0,
+        "totalReturnPct": 38.13,
+        "annualizedPct": 859.64,
+        "winRatePct": 59.6,
+        "mdd_TWD": 112911.0,
+        "mdd_pct": 2.93,
+        "sharpe": 8.04,
+        "avgInvestedTWD": 1290838.0,
+        "capitalUtilizationPct": 43.0,
+        "finalEquity_TWD": 4144023.0
+      }
+    },
+    {
+      "name": "concentration_cap_2",
+      "label": "族群≤2 等金額 62萬",
+      "capital": 5000000,
+      "result": {
+        "capital": 5000000,
+        "trades": 114,
+        "tradingDays": 36,
+        "totalPnL_TWD": 1806715.0,
+        "totalReturnPct": 36.13,
+        "annualizedPct": 766.51,
+        "winRatePct": 59.6,
+        "mdd_TWD": 209403.0,
+        "mdd_pct": 3.36,
+        "sharpe": 7.97,
+        "avgInvestedTWD": 2060843.0,
+        "capitalUtilizationPct": 41.2,
+        "finalEquity_TWD": 6806715.0
+      }
+    }
+  ],
+  "bestPerCapital": {
+    "1000000": {
+      "name": "concentration_cap_2",
+      "label": "族群≤2 等金額 12萬",
+      "result": {
+        "capital": 1000000,
+        "trades": 92,
+        "tradingDays": 36,
+        "totalPnL_TWD": 523724.0,
+        "totalReturnPct": 52.37,
+        "annualizedPct": 1806.97,
+        "winRatePct": 57.6,
+        "mdd_TWD": 60391.0,
+        "mdd_pct": 3.89,
+        "sharpe": 6.21,
+        "avgInvestedTWD": 536239.0,
+        "capitalUtilizationPct": 53.6,
+        "finalEquity_TWD": 1523724.0
+      }
+    },
+    "3000000": {
+      "name": "volatility_inverse",
+      "label": "波動反向 base=30萬",
+      "result": {
+        "capital": 3000000,
+        "trades": 149,
+        "tradingDays": 36,
+        "totalPnL_TWD": 1393709.0,
+        "totalReturnPct": 46.46,
+        "annualizedPct": 1345.34,
+        "winRatePct": 55.7,
+        "mdd_TWD": 180078.0,
+        "mdd_pct": 3.99,
+        "sharpe": 7.7,
+        "avgInvestedTWD": 1640574.0,
+        "capitalUtilizationPct": 54.7,
+        "finalEquity_TWD": 4393709.0
+      }
+    },
+    "5000000": {
+      "name": "volatility_inverse",
+      "label": "波動反向 base=50萬",
+      "result": {
+        "capital": 5000000,
+        "trades": 160,
+        "tradingDays": 36,
+        "totalPnL_TWD": 2249528.0,
+        "totalReturnPct": 44.99,
+        "annualizedPct": 1247.03,
+        "winRatePct": 55.6,
+        "mdd_TWD": 318321.0,
+        "mdd_pct": 4.28,
+        "sharpe": 7.24,
+        "avgInvestedTWD": 2685215.0,
+        "capitalUtilizationPct": 53.7,
+        "finalEquity_TWD": 7249528.0
+      }
+    }
+  }
+}

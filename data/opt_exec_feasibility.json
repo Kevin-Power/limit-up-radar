@@ -1,0 +1,163 @@
+{
+  "rule": "score>=75 AND 0<=gap<5% -> T+1 09:15 exit",
+  "claimed": {
+    "winRate": 72.7,
+    "evPct": 2.066
+  },
+  "validated": {
+    "n": 99,
+    "winRate": 72.7,
+    "evPct": 2.066,
+    "evBootstrapCI95": [
+      1.517,
+      2.638
+    ]
+  },
+  "ifInsteadT2Open": {
+    "n": 99,
+    "winRate": 55.6,
+    "evPct": 1.515,
+    "delta_vs_0915": 0.551
+  },
+  "executionRisks": {
+    "1_dataAvailableBeforeAuction": {
+      "issue": "gap = (T+1 open - prevClose)/prevClose, 09:00 集合競價揭示後才知",
+      "implication": "不能在 09:00 競價前決定『要不要買』；只能 09:00 開盤後看到 open 才下單，此時市價已偏離 open",
+      "lookAheadBias": true
+    },
+    "2_entryAtAuctionPriceFeasibility": {
+      "issue": "回測用 day_bars[0]['open']=09:00 競價開盤價當 entry",
+      "limitUpAtEntry_n": 0,
+      "limitUpAtEntry_pct": 0.0,
+      "note": "若 entry 已漲停則買不到 (大量買單排隊)；但 gap<5 通常未到漲停"
+    },
+    "3_realEntryShouldBe0905": {
+      "slippage_mean_pp": 2.354,
+      "slippage_median_pp": 2.422,
+      "if_enter_at_0905_close_exit_0915": {
+        "n": 99,
+        "winRate": 42.4,
+        "evPct": -0.289,
+        "delta_vs_claimed": -2.355
+      },
+      "implication": "若實際 09:00-09:05 才能下市價單，預期 EV 大幅縮水"
+    },
+    "4_exitLiquidity_0915": {
+      "limitUpAt0915_n": 6,
+      "limitUpAt0915_pct": 6.1,
+      "implication": "09:15 若鎖漲停則賣不掉，必須延後出場 → 回測高估出場價",
+      "sample_blocked": [
+        {
+          "code": "6462",
+          "date": "2026-04-22",
+          "gap": 3.831
+        },
+        {
+          "code": "6217",
+          "date": "2026-05-13",
+          "gap": 3.548
+        },
+        {
+          "code": "6415",
+          "date": "2026-05-27",
+          "gap": 3.56
+        },
+        {
+          "code": "2327",
+          "date": "2026-06-10",
+          "gap": 4.6
+        },
+        {
+          "code": "6207",
+          "date": "2026-06-16",
+          "gap": 4.044
+        },
+        {
+          "code": "2316",
+          "date": "2026-06-18",
+          "gap": 2.674
+        }
+      ]
+    },
+    "5_multiStockExecution": {
+      "avg_picks_per_active_day": 3.67,
+      "max_picks_per_day": 12,
+      "active_days": 27,
+      "distribution": {
+        "1": 10,
+        "2": 4,
+        "3": 2,
+        "4": 1,
+        "5": 5,
+        "6": 1,
+        "7": 1,
+        "10": 1,
+        "11": 1,
+        "12": 1
+      },
+      "implication": "若同日多檔同時觸發, 09:00-09:01 短短一分鐘內需下多單，人工難執行"
+    }
+  },
+  "sensitivity_byExitTime": {
+    "09:05": {
+      "n": 99,
+      "winRate": 87.9,
+      "evPct": 1.975,
+      "median": 2.042,
+      "std": 2.058
+    },
+    "09:13": {
+      "n": 99,
+      "winRate": 72.7,
+      "evPct": 1.905,
+      "median": 1.733,
+      "std": 2.844
+    },
+    "09:15": {
+      "n": 99,
+      "winRate": 72.7,
+      "evPct": 2.066,
+      "median": 2.116,
+      "std": 2.873
+    },
+    "T2_open": {
+      "n": 99,
+      "winRate": 55.6,
+      "evPct": 1.515,
+      "median": 1.012,
+      "std": 7.313
+    }
+  },
+  "monthly": {
+    "2026-04": {
+      "n": 10,
+      "winRate": 70.0,
+      "evPct": 2.319
+    },
+    "2026-05": {
+      "n": 37,
+      "winRate": 70.3,
+      "evPct": 2.056
+    },
+    "2026-06": {
+      "n": 52,
+      "winRate": 75.0,
+      "evPct": 2.025
+    }
+  },
+  "overfitting_warning": {
+    "exit_time_grid_explored": [
+      "09:01",
+      "09:05",
+      "09:15",
+      "10:00",
+      "11:30",
+      "T1_close",
+      "T2_open"
+    ],
+    "gap_buckets_explored": 6,
+    "score_buckets_explored": 3,
+    "implicit_tests": 126,
+    "note": "從 126 個組合中挑出 EV 最大者；極高機率為 over-fit。Bonferroni 校正後 95%CI 通常不顯著"
+  }
+}

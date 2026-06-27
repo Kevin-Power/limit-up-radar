@@ -1,0 +1,834 @@
+{
+  "baseline": {
+    "n": 274,
+    "winRate": 59.1,
+    "ev": 2.071,
+    "totalPct": 567.45
+  },
+  "picksCountGrid": [
+    {
+      "cutoff": 2,
+      "passDays": 2,
+      "passTrades": 2,
+      "passWinRate": 100.0,
+      "passEV": 4.013,
+      "passTotalPct": 8.03,
+      "blockTrades": 272,
+      "blockEV": 2.057,
+      "blockTotalPct": 559.43
+    },
+    {
+      "cutoff": 3,
+      "passDays": 2,
+      "passTrades": 2,
+      "passWinRate": 100.0,
+      "passEV": 4.013,
+      "passTotalPct": 8.03,
+      "blockTrades": 272,
+      "blockEV": 2.057,
+      "blockTotalPct": 559.43
+    },
+    {
+      "cutoff": 4,
+      "passDays": 3,
+      "passTrades": 3,
+      "passWinRate": 66.7,
+      "passEV": 2.653,
+      "passTotalPct": 7.96,
+      "blockTrades": 271,
+      "blockEV": 2.065,
+      "blockTotalPct": 559.49
+    },
+    {
+      "cutoff": 5,
+      "passDays": 9,
+      "passTrades": 16,
+      "passWinRate": 56.2,
+      "passEV": 1.54,
+      "passTotalPct": 24.64,
+      "blockTrades": 258,
+      "blockEV": 2.104,
+      "blockTotalPct": 542.81
+    },
+    {
+      "cutoff": 6,
+      "passDays": 10,
+      "passTrades": 19,
+      "passWinRate": 63.2,
+      "passEV": 3.556,
+      "passTotalPct": 67.57,
+      "blockTrades": 255,
+      "blockEV": 1.96,
+      "blockTotalPct": 499.88
+    },
+    {
+      "cutoff": 7,
+      "passDays": 13,
+      "passTrades": 27,
+      "passWinRate": 70.4,
+      "passEV": 4.498,
+      "passTotalPct": 121.44,
+      "blockTrades": 247,
+      "blockEV": 1.806,
+      "blockTotalPct": 446.01
+    },
+    {
+      "cutoff": 8,
+      "passDays": 15,
+      "passTrades": 35,
+      "passWinRate": 65.7,
+      "passEV": 3.525,
+      "passTotalPct": 123.37,
+      "blockTrades": 239,
+      "blockEV": 1.858,
+      "blockTotalPct": 444.08
+    },
+    {
+      "cutoff": 9,
+      "passDays": 19,
+      "passTrades": 45,
+      "passWinRate": 68.9,
+      "passEV": 3.932,
+      "passTotalPct": 176.94,
+      "blockTrades": 229,
+      "blockEV": 1.705,
+      "blockTotalPct": 390.51
+    },
+    {
+      "cutoff": 10,
+      "passDays": 21,
+      "passTrades": 56,
+      "passWinRate": 73.2,
+      "passEV": 4.513,
+      "passTotalPct": 252.75,
+      "blockTrades": 218,
+      "blockEV": 1.444,
+      "blockTotalPct": 314.7
+    },
+    {
+      "cutoff": 11,
+      "passDays": 22,
+      "passTrades": 59,
+      "passWinRate": 74.6,
+      "passEV": 5.308,
+      "passTotalPct": 313.17,
+      "blockTrades": 215,
+      "blockEV": 1.183,
+      "blockTotalPct": 254.28
+    },
+    {
+      "cutoff": 12,
+      "passDays": 23,
+      "passTrades": 63,
+      "passWinRate": 74.6,
+      "passEV": 5.417,
+      "passTotalPct": 341.26,
+      "blockTrades": 211,
+      "blockEV": 1.072,
+      "blockTotalPct": 226.19
+    },
+    {
+      "cutoff": 13,
+      "passDays": 26,
+      "passTrades": 79,
+      "passWinRate": 73.4,
+      "passEV": 4.85,
+      "passTotalPct": 383.15,
+      "blockTrades": 195,
+      "blockEV": 0.945,
+      "blockTotalPct": 184.31
+    },
+    {
+      "cutoff": 14,
+      "passDays": 28,
+      "passTrades": 93,
+      "passWinRate": 69.9,
+      "passEV": 4.558,
+      "passTotalPct": 423.9,
+      "blockTrades": 181,
+      "blockEV": 0.793,
+      "blockTotalPct": 143.55
+    },
+    {
+      "cutoff": 15,
+      "passDays": 30,
+      "passTrades": 103,
+      "passWinRate": 68.9,
+      "passEV": 4.169,
+      "passTotalPct": 429.44,
+      "blockTrades": 171,
+      "blockEV": 0.807,
+      "blockTotalPct": 138.01
+    },
+    {
+      "cutoff": 16,
+      "passDays": 30,
+      "passTrades": 103,
+      "passWinRate": 68.9,
+      "passEV": 4.169,
+      "passTotalPct": 429.44,
+      "blockTrades": 171,
+      "blockEV": 0.807,
+      "blockTotalPct": 138.01
+    },
+    {
+      "cutoff": 17,
+      "passDays": 30,
+      "passTrades": 103,
+      "passWinRate": 68.9,
+      "passEV": 4.169,
+      "passTotalPct": 429.44,
+      "blockTrades": 171,
+      "blockEV": 0.807,
+      "blockTotalPct": 138.01
+    },
+    {
+      "cutoff": 18,
+      "passDays": 30,
+      "passTrades": 103,
+      "passWinRate": 68.9,
+      "passEV": 4.169,
+      "passTotalPct": 429.44,
+      "blockTrades": 171,
+      "blockEV": 0.807,
+      "blockTotalPct": 138.01
+    },
+    {
+      "cutoff": 19,
+      "passDays": 30,
+      "passTrades": 103,
+      "passWinRate": 68.9,
+      "passEV": 4.169,
+      "passTotalPct": 429.44,
+      "blockTrades": 171,
+      "blockEV": 0.807,
+      "blockTotalPct": 138.01
+    },
+    {
+      "cutoff": 20,
+      "passDays": 30,
+      "passTrades": 103,
+      "passWinRate": 68.9,
+      "passEV": 4.169,
+      "passTotalPct": 429.44,
+      "blockTrades": 171,
+      "blockEV": 0.807,
+      "blockTotalPct": 138.01
+    },
+    {
+      "cutoff": 21,
+      "passDays": 33,
+      "passTrades": 140,
+      "passWinRate": 67.1,
+      "passEV": 3.408,
+      "passTotalPct": 477.08,
+      "blockTrades": 134,
+      "blockEV": 0.674,
+      "blockTotalPct": 90.37
+    },
+    {
+      "cutoff": 22,
+      "passDays": 34,
+      "passTrades": 150,
+      "passWinRate": 67.3,
+      "passEV": 3.362,
+      "passTotalPct": 504.26,
+      "blockTrades": 124,
+      "blockEV": 0.51,
+      "blockTotalPct": 63.2
+    },
+    {
+      "cutoff": 23,
+      "passDays": 36,
+      "passTrades": 169,
+      "passWinRate": 66.9,
+      "passEV": 3.337,
+      "passTotalPct": 563.94,
+      "blockTrades": 105,
+      "blockEV": 0.033,
+      "blockTotalPct": 3.51
+    },
+    {
+      "cutoff": 24,
+      "passDays": 36,
+      "passTrades": 169,
+      "passWinRate": 66.9,
+      "passEV": 3.337,
+      "passTotalPct": 563.94,
+      "blockTrades": 105,
+      "blockEV": 0.033,
+      "blockTotalPct": 3.51
+    },
+    {
+      "cutoff": 25,
+      "passDays": 36,
+      "passTrades": 169,
+      "passWinRate": 66.9,
+      "passEV": 3.337,
+      "passTotalPct": 563.94,
+      "blockTrades": 105,
+      "blockEV": 0.033,
+      "blockTotalPct": 3.51
+    },
+    {
+      "cutoff": 26,
+      "passDays": 36,
+      "passTrades": 169,
+      "passWinRate": 66.9,
+      "passEV": 3.337,
+      "passTotalPct": 563.94,
+      "blockTrades": 105,
+      "blockEV": 0.033,
+      "blockTotalPct": 3.51
+    },
+    {
+      "cutoff": 27,
+      "passDays": 36,
+      "passTrades": 169,
+      "passWinRate": 66.9,
+      "passEV": 3.337,
+      "passTotalPct": 563.94,
+      "blockTrades": 105,
+      "blockEV": 0.033,
+      "blockTotalPct": 3.51
+    },
+    {
+      "cutoff": 28,
+      "passDays": 37,
+      "passTrades": 183,
+      "passWinRate": 63.9,
+      "passEV": 3.01,
+      "passTotalPct": 550.91,
+      "blockTrades": 91,
+      "blockEV": 0.182,
+      "blockTotalPct": 16.54
+    },
+    {
+      "cutoff": 29,
+      "passDays": 38,
+      "passTrades": 206,
+      "passWinRate": 64.1,
+      "passEV": 3.035,
+      "passTotalPct": 625.28,
+      "blockTrades": 68,
+      "blockEV": -0.85,
+      "blockTotalPct": -57.83
+    },
+    {
+      "cutoff": 30,
+      "passDays": 38,
+      "passTrades": 206,
+      "passWinRate": 64.1,
+      "passEV": 3.035,
+      "passTotalPct": 625.28,
+      "blockTrades": 68,
+      "blockEV": -0.85,
+      "blockTotalPct": -57.83
+    }
+  ],
+  "avgScoreGrid": [
+    {
+      "cutoff": 80,
+      "passDays": 18,
+      "passTrades": 54,
+      "passWinRate": 75.9,
+      "passEV": 4.805,
+      "passTotalPct": 259.46,
+      "blockEV": 1.4
+    },
+    {
+      "cutoff": 82,
+      "passDays": 25,
+      "passTrades": 105,
+      "passWinRate": 71.4,
+      "passEV": 3.724,
+      "passTotalPct": 391.0,
+      "blockEV": 1.044
+    },
+    {
+      "cutoff": 84,
+      "passDays": 34,
+      "passTrades": 210,
+      "passWinRate": 60.0,
+      "passEV": 2.293,
+      "passTotalPct": 481.55,
+      "blockEV": 1.342
+    },
+    {
+      "cutoff": 85,
+      "passDays": 36,
+      "passTrades": 240,
+      "passWinRate": 59.6,
+      "passEV": 2.08,
+      "passTotalPct": 499.1,
+      "blockEV": 2.011
+    },
+    {
+      "cutoff": 86,
+      "passDays": 37,
+      "passTrades": 245,
+      "passWinRate": 59.2,
+      "passEV": 2.041,
+      "passTotalPct": 499.96,
+      "blockEV": 2.327
+    },
+    {
+      "cutoff": 87,
+      "passDays": 37,
+      "passTrades": 245,
+      "passWinRate": 59.2,
+      "passEV": 2.041,
+      "passTotalPct": 499.96,
+      "blockEV": 2.327
+    },
+    {
+      "cutoff": 88,
+      "passDays": 40,
+      "passTrades": 260,
+      "passWinRate": 59.6,
+      "passEV": 2.101,
+      "passTotalPct": 546.37,
+      "blockEV": 1.506
+    },
+    {
+      "cutoff": 90,
+      "passDays": 41,
+      "passTrades": 264,
+      "passWinRate": 59.8,
+      "passEV": 2.156,
+      "passTotalPct": 569.27,
+      "blockEV": -0.182
+    },
+    {
+      "cutoff": 92,
+      "passDays": 42,
+      "passTrades": 274,
+      "passWinRate": 59.1,
+      "passEV": 2.071,
+      "passTotalPct": 567.45,
+      "blockEV": null
+    }
+  ],
+  "vol5dGrid": [
+    {
+      "cutoff": 0.8,
+      "passDays": 1,
+      "passTrades": 3,
+      "passWinRate": 100.0,
+      "passEV": 14.31,
+      "passTotalPct": 42.93,
+      "blockEV": 1.936
+    },
+    {
+      "cutoff": 1.0,
+      "passDays": 12,
+      "passTrades": 74,
+      "passWinRate": 68.9,
+      "passEV": 3.686,
+      "passTotalPct": 272.78,
+      "blockEV": 1.473
+    },
+    {
+      "cutoff": 1.2,
+      "passDays": 17,
+      "passTrades": 113,
+      "passWinRate": 61.1,
+      "passEV": 2.63,
+      "passTotalPct": 297.14,
+      "blockEV": 1.679
+    },
+    {
+      "cutoff": 1.5,
+      "passDays": 21,
+      "passTrades": 147,
+      "passWinRate": 62.6,
+      "passEV": 2.785,
+      "passTotalPct": 409.45,
+      "blockEV": 1.244
+    },
+    {
+      "cutoff": 1.8,
+      "passDays": 30,
+      "passTrades": 198,
+      "passWinRate": 56.6,
+      "passEV": 2.061,
+      "passTotalPct": 408.08,
+      "blockEV": 2.097
+    },
+    {
+      "cutoff": 2.0,
+      "passDays": 31,
+      "passTrades": 203,
+      "passWinRate": 57.1,
+      "passEV": 2.033,
+      "passTotalPct": 412.76,
+      "blockEV": 2.179
+    },
+    {
+      "cutoff": 2.5,
+      "passDays": 40,
+      "passTrades": 259,
+      "passWinRate": 57.9,
+      "passEV": 1.932,
+      "passTotalPct": 500.51,
+      "blockEV": 4.463
+    }
+  ],
+  "monthlyRobustness": {
+    "cut_10": {
+      "2026-04": {
+        "n": 29,
+        "winRate": 65.5,
+        "ev": 3.674,
+        "total": 106.55
+      },
+      "2026-05": {
+        "n": 16,
+        "winRate": 93.8,
+        "ev": 7.216,
+        "total": 115.46
+      },
+      "2026-06": {
+        "n": 11,
+        "winRate": 63.6,
+        "ev": 2.795,
+        "total": 30.75
+      }
+    },
+    "cut_15": {
+      "2026-04": {
+        "n": 36,
+        "winRate": 69.4,
+        "ev": 4.104,
+        "total": 147.74
+      },
+      "2026-05": {
+        "n": 39,
+        "winRate": 76.9,
+        "ev": 4.941,
+        "total": 192.7
+      },
+      "2026-06": {
+        "n": 28,
+        "winRate": 57.1,
+        "ev": 3.179,
+        "total": 89.01
+      }
+    },
+    "cut_20": {
+      "2026-04": {
+        "n": 36,
+        "winRate": 69.4,
+        "ev": 4.104,
+        "total": 147.74
+      },
+      "2026-05": {
+        "n": 39,
+        "winRate": 76.9,
+        "ev": 4.941,
+        "total": 192.7
+      },
+      "2026-06": {
+        "n": 28,
+        "winRate": 57.1,
+        "ev": 3.179,
+        "total": 89.01
+      }
+    },
+    "baseline": {
+      "2026-04": {
+        "n": 36,
+        "winRate": 69.4,
+        "ev": 4.104,
+        "total": 147.74
+      },
+      "2026-05": {
+        "n": 110,
+        "winRate": 68.2,
+        "ev": 3.115,
+        "total": 342.62
+      },
+      "2026-06": {
+        "n": 128,
+        "winRate": 48.4,
+        "ev": 0.602,
+        "total": 77.1
+      }
+    }
+  },
+  "leaveOneOut": {
+    "cut_10": [
+      {
+        "holdoutMonth": "2026-04",
+        "inSampleEV": 5.415,
+        "oosEV": 3.674,
+        "oosN": 29
+      },
+      {
+        "holdoutMonth": "2026-05",
+        "inSampleEV": 3.432,
+        "oosEV": 7.216,
+        "oosN": 16
+      },
+      {
+        "holdoutMonth": "2026-06",
+        "inSampleEV": 4.933,
+        "oosEV": 2.795,
+        "oosN": 11
+      }
+    ],
+    "cut_15": [
+      {
+        "holdoutMonth": "2026-04",
+        "inSampleEV": 4.205,
+        "oosEV": 4.104,
+        "oosN": 36
+      },
+      {
+        "holdoutMonth": "2026-05",
+        "inSampleEV": 3.699,
+        "oosEV": 4.941,
+        "oosN": 39
+      },
+      {
+        "holdoutMonth": "2026-06",
+        "inSampleEV": 4.539,
+        "oosEV": 3.179,
+        "oosN": 28
+      }
+    ],
+    "cut_20": [
+      {
+        "holdoutMonth": "2026-04",
+        "inSampleEV": 4.205,
+        "oosEV": 4.104,
+        "oosN": 36
+      },
+      {
+        "holdoutMonth": "2026-05",
+        "inSampleEV": 3.699,
+        "oosEV": 4.941,
+        "oosN": 39
+      },
+      {
+        "holdoutMonth": "2026-06",
+        "inSampleEV": 4.539,
+        "oosEV": 3.179,
+        "oosN": 28
+      }
+    ]
+  },
+  "comboGrid": [
+    {
+      "picksCut": 10,
+      "volCut": 1.0,
+      "passDays": 4,
+      "passTrades": 9,
+      "passWinRate": 55.6,
+      "passEV": 4.932,
+      "passTotalPct": 44.39,
+      "blockEV": 1.974
+    },
+    {
+      "picksCut": 10,
+      "volCut": 1.5,
+      "passDays": 9,
+      "passTrades": 27,
+      "passWinRate": 63.0,
+      "passEV": 4.348,
+      "passTotalPct": 117.4,
+      "blockEV": 1.822
+    },
+    {
+      "picksCut": 10,
+      "volCut": 2.0,
+      "passDays": 14,
+      "passTrades": 36,
+      "passWinRate": 66.7,
+      "passEV": 4.328,
+      "passTotalPct": 155.8,
+      "blockEV": 1.73
+    },
+    {
+      "picksCut": 15,
+      "volCut": 1.0,
+      "passDays": 8,
+      "passTrades": 28,
+      "passWinRate": 67.9,
+      "passEV": 6.248,
+      "passTotalPct": 174.95,
+      "blockEV": 1.596
+    },
+    {
+      "picksCut": 15,
+      "volCut": 1.5,
+      "passDays": 15,
+      "passTrades": 60,
+      "passWinRate": 68.3,
+      "passEV": 5.029,
+      "passTotalPct": 301.72,
+      "blockEV": 1.242
+    },
+    {
+      "picksCut": 15,
+      "volCut": 2.0,
+      "passDays": 22,
+      "passTrades": 80,
+      "passWinRate": 65.0,
+      "passEV": 3.937,
+      "passTotalPct": 314.98,
+      "blockEV": 1.301
+    },
+    {
+      "picksCut": 20,
+      "volCut": 1.0,
+      "passDays": 8,
+      "passTrades": 28,
+      "passWinRate": 67.9,
+      "passEV": 6.248,
+      "passTotalPct": 174.95,
+      "blockEV": 1.596
+    },
+    {
+      "picksCut": 20,
+      "volCut": 1.5,
+      "passDays": 15,
+      "passTrades": 60,
+      "passWinRate": 68.3,
+      "passEV": 5.029,
+      "passTotalPct": 301.72,
+      "blockEV": 1.242
+    },
+    {
+      "picksCut": 20,
+      "volCut": 2.0,
+      "passDays": 22,
+      "passTrades": 80,
+      "passWinRate": 65.0,
+      "passEV": 3.937,
+      "passTotalPct": 314.98,
+      "blockEV": 1.301
+    }
+  ],
+  "pickDates": {
+    "2026-03-25": 0,
+    "2026-03-26": 0,
+    "2026-03-27": 0,
+    "2026-03-30": 1,
+    "2026-04-01": 1,
+    "2026-04-02": 0,
+    "2026-04-07": 0,
+    "2026-04-08": 1,
+    "2026-04-09": 1,
+    "2026-04-10": 7,
+    "2026-04-13": 9,
+    "2026-04-14": 4,
+    "2026-04-15": 5,
+    "2026-04-16": 6,
+    "2026-04-17": 7,
+    "2026-04-20": 8,
+    "2026-04-21": 13,
+    "2026-04-22": 9,
+    "2026-04-23": 5,
+    "2026-04-24": 4,
+    "2026-04-27": 7,
+    "2026-04-28": 5,
+    "2026-04-29": 0,
+    "2026-04-30": 5,
+    "2026-05-04": 10,
+    "2026-05-05": 10,
+    "2026-05-06": 7,
+    "2026-05-07": 6,
+    "2026-05-08": 15,
+    "2026-05-11": 35,
+    "2026-05-12": 23,
+    "2026-05-13": 13,
+    "2026-05-14": 21,
+    "2026-05-15": 15,
+    "2026-05-18": 11,
+    "2026-05-20": 12,
+    "2026-05-22": 29,
+    "2026-05-25": 35,
+    "2026-05-27": 9,
+    "2026-05-28": 5,
+    "2026-05-29": 23,
+    "2026-06-01": 28,
+    "2026-06-04": 14,
+    "2026-06-05": 5,
+    "2026-06-08": 8,
+    "2026-06-09": 21,
+    "2026-06-10": 8,
+    "2026-06-11": 13,
+    "2026-06-12": 21,
+    "2026-06-15": 34,
+    "2026-06-16": 4,
+    "2026-06-17": 14,
+    "2026-06-18": 22,
+    "2026-06-22": 35,
+    "2026-06-23": 9,
+    "2026-06-24": 10
+  },
+  "vol5dByDate": {
+    "2026-03-20": null,
+    "2026-03-23": 1.01,
+    "2026-03-24": 0.974,
+    "2026-03-25": 1.778,
+    "2026-03-26": 1.591,
+    "2026-03-27": 1.601,
+    "2026-03-30": 1.435,
+    "2026-03-31": 1.72,
+    "2026-04-01": 2.477,
+    "2026-04-02": 2.571,
+    "2026-04-07": 2.741,
+    "2026-04-08": 3.033,
+    "2026-04-09": 2.489,
+    "2026-04-10": 2.112,
+    "2026-04-13": 1.618,
+    "2026-04-14": 1.637,
+    "2026-04-15": 0.837,
+    "2026-04-16": 0.734,
+    "2026-04-17": 1.095,
+    "2026-04-20": 1.064,
+    "2026-04-21": 0.903,
+    "2026-04-22": 0.875,
+    "2026-04-23": 0.919,
+    "2026-04-24": 1.256,
+    "2026-04-27": 1.216,
+    "2026-04-28": 1.357,
+    "2026-04-29": 1.499,
+    "2026-04-30": 1.595,
+    "2026-05-04": 2.053,
+    "2026-05-05": 2.021,
+    "2026-05-06": 1.977,
+    "2026-05-07": 1.879,
+    "2026-05-08": 1.838,
+    "2026-05-11": 0.893,
+    "2026-05-12": 0.886,
+    "2026-05-13": 1.105,
+    "2026-05-14": 0.806,
+    "2026-05-15": 0.936,
+    "2026-05-18": 0.886,
+    "2026-05-20": 0.821,
+    "2026-05-22": 1.269,
+    "2026-05-25": 1.797,
+    "2026-05-27": 1.516,
+    "2026-05-28": 1.711,
+    "2026-05-29": 1.607,
+    "2026-06-01": 1.586,
+    "2026-06-04": 1.704,
+    "2026-06-05": 1.71,
+    "2026-06-08": 2.165,
+    "2026-06-09": 2.236,
+    "2026-06-10": 2.252,
+    "2026-06-11": 2.296,
+    "2026-06-12": 2.668,
+    "2026-06-15": 2.367,
+    "2026-06-16": 2.182,
+    "2026-06-17": 1.178,
+    "2026-06-18": 0.959,
+    "2026-06-22": 1.039,
+    "2026-06-23": 1.344,
+    "2026-06-24": 1.787,
+    "2026-06-25": 1.787
+  }
+}

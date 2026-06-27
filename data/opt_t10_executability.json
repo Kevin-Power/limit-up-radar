@@ -1,0 +1,246 @@
+{
+  "strategy": "T+10 close exit (持有 10 個交易日後收盤賣)",
+  "claimed_effect": {
+    "winRate": 49.4,
+    "meanNet": 3.85
+  },
+  "actual_data_from_exit_timing": {
+    "sameSample_T2_n438": {
+      "winRate": 49.4,
+      "meanNet": 3.848,
+      "sd": 19.414,
+      "mdd": 99.96,
+      "maxLoss": -36.36,
+      "actual_n_with_T10_data": 324
+    },
+    "T+2_baseline_sameSample_T2_n438": {
+      "winRate": 45.2,
+      "meanNet": -0.125,
+      "sd": 7.248,
+      "mdd": 97.32,
+      "maxLoss": -21.97
+    }
+  },
+  "monthly_breakdown_T10_vs_T2": {
+    "2026-04": {
+      "T10": {
+        "n": 38,
+        "winRate": 52.6,
+        "meanNet": 7.687,
+        "totalNet": 292.12
+      },
+      "T2": {
+        "n": 39,
+        "winRate": 56.4,
+        "meanNet": 1.202,
+        "totalNet": 46.88
+      }
+    },
+    "2026-05": {
+      "T10": {
+        "n": 202,
+        "winRate": 52.0,
+        "meanNet": 3.948,
+        "totalNet": 797.55
+      },
+      "T2": {
+        "n": 200,
+        "winRate": 47.5,
+        "meanNet": 0.539,
+        "totalNet": 107.72
+      }
+    },
+    "2026-06": {
+      "T10": {
+        "n": 86,
+        "winRate": 43.0,
+        "meanNet": 2.238,
+        "totalNet": 192.5
+      },
+      "T2": {
+        "n": 199,
+        "winRate": 40.7,
+        "meanNet": -1.051,
+        "totalNet": -209.16
+      }
+    }
+  },
+  "executability_analysis": {
+    "Q1_data_available_before_T1_open_call": {
+      "verdict": "PASS",
+      "detail": "進場規則只需 T+0 收盤後算出的 score；T+10 出場決定不影響進場行為。T+1 09:00 競價可下單。"
+    },
+    "Q2_can_we_actually_buy": {
+      "verdict": "PASS (與 T+2 同等限制)",
+      "detail": "進場時點 (T+1 開盤) 與 T+2 策略完全一致 → 流動性/漲跌停限制問題與基線同。但 T+10 出場可能遇到連續漲跌停 → 出場滑價風險高 5 倍。"
+    },
+    "Q3_lookahead_bias": {
+      "verdict": "PASS",
+      "detail": "T+10 收盤出場用的是當下收盤集合競價 (13:25-13:30) → 無前視。但要注意：報告期間 2026-04-01~06-24 含 T+10 出場日超過資料邊界的 trades 被排除 (full-sample 326 vs T+2 sample 438) — 樣本本身已有 survivor 性質。"
+    },
+    "Q4_auction_open_entry": {
+      "verdict": "PASS",
+      "detail": "與基線一致，無新增風險。"
+    },
+    "Q5_concurrent_positions": {
+      "verdict": "FAIL (KILLER)",
+      "max_concurrent_T10": 173,
+      "max_concurrent_T10_date": "2026-05-27",
+      "avg_concurrent_T10": 63.8,
+      "max_concurrent_T2_baseline": 50,
+      "ratio_vs_T2": 3.5,
+      "detail": "T+10 持倉時間是 T+2 的 5 倍，同步持倉檔數爆增。T+2 baseline 同時最多持 50 檔，T+10 同時最多 173 檔。若每筆 50 萬 → T+10 需備 8650 萬可用資金。"
+    },
+    "Q6_data_boundary_cutoff": {
+      "verdict": "FAIL (severe)",
+      "T10_coverage": 326,
+      "T2_coverage": 438,
+      "loss_rate": 25.6,
+      "june_T10_n": 86,
+      "june_T2_n": 199,
+      "june_loss_rate": 56.8,
+      "detail": "T+10 因資料邊界損失 25%+ 樣本，且 6 月損失 57% — 6 月後段選的標的根本沒進入統計，數字嚴重美化。若 6 月 86 筆的 EV +2.24% 套用到全 199 筆，可能反向。"
+    },
+    "Q7_drawdown_killer": {
+      "verdict": "FAIL (KILLER)",
+      "mdd": 99.96,
+      "max_single_loss": -36.36,
+      "sd": 19.414,
+      "detail": "MDD 99.96% — 數學上等同破產。單筆 -36% 已超出漲停股 5 個跌停下限 (-32%)，代表持倉中遭連續跌停。波動 19.4% vs T+2 的 7.25%，2.7 倍 — 凱利公式下單筆部位需減到 1/7。"
+    },
+    "Q8_no_stop_loss": {
+      "verdict": "FAIL",
+      "detail": "純 T+10 收盤出場 = 無停損 = 任由單筆崩跌。漲停股回落往往是連續跌停，無法 09:00 後執行停損。trailing_SL 在同數據集 winRate 只 34.8%，已證明被動停損反而虧。"
+    },
+    "Q9_psychological_executability": {
+      "verdict": "FAIL",
+      "detail": "持倉 10 天看盤心理壓力 = T+2 的 5 倍。中位數 -0.43% 代表多數時間在虧，等少數大贏家 (max +76.8%) 翻盤 — 散戶幾乎不可能拿穩。"
+    }
+  },
+  "concurrent_position_series_sample": [
+    {
+      "date": "2026-05-07",
+      "concurrent": 31
+    },
+    {
+      "date": "2026-05-08",
+      "concurrent": 30
+    },
+    {
+      "date": "2026-05-11",
+      "concurrent": 37
+    },
+    {
+      "date": "2026-05-12",
+      "concurrent": 66
+    },
+    {
+      "date": "2026-05-13",
+      "concurrent": 83
+    },
+    {
+      "date": "2026-05-14",
+      "concurrent": 91
+    },
+    {
+      "date": "2026-05-15",
+      "concurrent": 109
+    },
+    {
+      "date": "2026-05-18",
+      "concurrent": 121
+    },
+    {
+      "date": "2026-05-20",
+      "concurrent": 125
+    },
+    {
+      "date": "2026-05-22",
+      "concurrent": 129
+    },
+    {
+      "date": "2026-05-25",
+      "concurrent": 151
+    },
+    {
+      "date": "2026-05-27",
+      "concurrent": 173
+    },
+    {
+      "date": "2026-05-28",
+      "concurrent": 169
+    },
+    {
+      "date": "2026-05-29",
+      "concurrent": 140
+    },
+    {
+      "date": "2026-06-01",
+      "concurrent": 141
+    },
+    {
+      "date": "2026-06-04",
+      "concurrent": 154
+    },
+    {
+      "date": "2026-06-05",
+      "concurrent": 147
+    },
+    {
+      "date": "2026-06-08",
+      "concurrent": 138
+    },
+    {
+      "date": "2026-06-09",
+      "concurrent": 133
+    },
+    {
+      "date": "2026-06-10",
+      "concurrent": 140
+    },
+    {
+      "date": "2026-06-11",
+      "concurrent": 122
+    },
+    {
+      "date": "2026-06-12",
+      "concurrent": 104
+    },
+    {
+      "date": "2026-06-15",
+      "concurrent": 112
+    },
+    {
+      "date": "2026-06-16",
+      "concurrent": 135
+    },
+    {
+      "date": "2026-06-17",
+      "concurrent": 117
+    },
+    {
+      "date": "2026-06-18",
+      "concurrent": 106
+    },
+    {
+      "date": "2026-06-22",
+      "concurrent": 110
+    },
+    {
+      "date": "2026-06-23",
+      "concurrent": 133
+    },
+    {
+      "date": "2026-06-24",
+      "concurrent": 137
+    },
+    {
+      "date": "2026-06-25",
+      "concurrent": 127
+    }
+  ],
+  "verdict": {
+    "is_robust": false,
+    "summary": "T+10 收盤出場數字看起來漂亮 (EV +3.85% vs T+2 -0.12%)，但有 3 個 KILLER：(1) 同步持倉爆增 5x → 資金 / 注意力不足；(2) 6 月樣本損失 57% → 衰退期數據被切除，EV 被美化；(3) MDD 99.96% + 單筆 -36% + 無停損 → 任一次連續跌停就資金歸零。更穩健替代：T+3 開盤出場 (winRate 49.1%, EV +0.85%, MDD 98.57%, SD 10.09 — Sharpe 仍 1.34)，或 dynamic_TP3 (winRate 54.7%, EV +0.78%, SD 8.87 — 同樣本 Sharpe 1.39)。"
+  }
+}

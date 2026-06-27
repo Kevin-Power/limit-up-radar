@@ -1,0 +1,407 @@
+{
+  "meta": {
+    "scoreMin": 75,
+    "costRtPct": 0.3798,
+    "nominalTwdPerTrade": 1000000,
+    "dateRange": {
+      "from": "2026-04-13",
+      "to": "2026-06-24"
+    },
+    "nEntryDays": 36,
+    "calendarTradingDays": 52,
+    "ruleDescriptions": {
+      "R1": "gap 0-5% → 09:15 出場；其它 → T+2 open (出場規則，非過濾)",
+      "R2": "排除 score 90-99 OR D-1 vol≥20k張 OR close<30元",
+      "R3": "排除同日同族群 ≥8 檔的擁擠類股",
+      "R4": "D-1 turnover ≥1億 (排除極低流動性)",
+      "R5": "當日 ≥75 分精選 ≤15 檔才開倉"
+    },
+    "verifiedRules": [
+      "R1"
+    ],
+    "candidateRules": [
+      "R2",
+      "R3",
+      "R4",
+      "R5"
+    ]
+  },
+  "baseline": {
+    "n": 207,
+    "winRate": 58.0,
+    "evPct": 1.916,
+    "median": 1.434,
+    "ciLow": 51.2,
+    "ciHigh": 64.5,
+    "totalPct": 396.56,
+    "totalTWD": 3965611,
+    "maxDrawdownPct": 51.18,
+    "sharpe": 3.931,
+    "label": "score≥75, T+2 open (基線)"
+  },
+  "thresholdCompare": [
+    {
+      "n": 659,
+      "winRate": 59.8,
+      "evPct": 2.138,
+      "median": 1.649,
+      "ciLow": 56.0,
+      "ciHigh": 63.5,
+      "totalPct": 1408.64,
+      "totalTWD": 14086368,
+      "maxDrawdownPct": 80.22,
+      "sharpe": 7.879,
+      "label": "score≥50, T+2 open"
+    },
+    {
+      "n": 274,
+      "winRate": 59.1,
+      "evPct": 2.071,
+      "median": 1.575,
+      "ciLow": 53.2,
+      "ciHigh": 64.8,
+      "totalPct": 567.51,
+      "totalTWD": 5675080,
+      "maxDrawdownPct": 60.74,
+      "sharpe": 4.993,
+      "label": "score≥70, T+2 open"
+    },
+    {
+      "n": 207,
+      "winRate": 58.0,
+      "evPct": 1.916,
+      "median": 1.434,
+      "ciLow": 51.2,
+      "ciHigh": 64.5,
+      "totalPct": 396.56,
+      "totalTWD": 3965611,
+      "maxDrawdownPct": 51.18,
+      "sharpe": 3.931,
+      "label": "score≥75, T+2 open"
+    }
+  ],
+  "thresholdCompareWithR1": [
+    {
+      "n": 659,
+      "winRate": 67.4,
+      "evPct": 2.117,
+      "median": 1.887,
+      "ciLow": 63.7,
+      "ciHigh": 70.8,
+      "totalPct": 1395.06,
+      "totalTWD": 13950642,
+      "maxDrawdownPct": 40.69,
+      "sharpe": 10.645,
+      "label": "score≥50 + R1 動態出場"
+    },
+    {
+      "n": 274,
+      "winRate": 68.2,
+      "evPct": 2.139,
+      "median": 1.886,
+      "ciLow": 62.5,
+      "ciHigh": 73.5,
+      "totalPct": 586.2,
+      "totalTWD": 5861953,
+      "maxDrawdownPct": 45.68,
+      "sharpe": 7.005,
+      "label": "score≥70 + R1 動態出場"
+    },
+    {
+      "n": 207,
+      "winRate": 66.2,
+      "evPct": 2.179,
+      "median": 2.138,
+      "ciLow": 59.5,
+      "ciHigh": 72.3,
+      "totalPct": 451.14,
+      "totalTWD": 4511449,
+      "maxDrawdownPct": 42.77,
+      "sharpe": 5.968,
+      "label": "score≥75 + R1 動態出場"
+    }
+  ],
+  "layeredStack": [
+    {
+      "n": 207,
+      "winRate": 58.0,
+      "evPct": 1.916,
+      "median": 1.434,
+      "ciLow": 51.2,
+      "ciHigh": 64.5,
+      "totalPct": 396.56,
+      "totalTWD": 3965611,
+      "maxDrawdownPct": 51.18,
+      "sharpe": 3.931,
+      "excludedByFilter": {},
+      "label": "L0 baseline (score≥75, T+2 open)"
+    },
+    {
+      "n": 207,
+      "winRate": 66.2,
+      "evPct": 2.179,
+      "median": 2.138,
+      "ciLow": 59.5,
+      "ciHigh": 72.3,
+      "totalPct": 451.14,
+      "totalTWD": 4511449,
+      "maxDrawdownPct": 42.77,
+      "sharpe": 5.968,
+      "excludedByFilter": {},
+      "label": "L1 +R1 動態出場"
+    },
+    {
+      "n": 106,
+      "winRate": 70.8,
+      "evPct": 2.358,
+      "median": 2.276,
+      "ciLow": 61.5,
+      "ciHigh": 78.6,
+      "totalPct": 249.93,
+      "totalTWD": 2499282,
+      "maxDrawdownPct": 29.57,
+      "sharpe": 4.413,
+      "excludedByFilter": {
+        "R2 黑名單(score90+/巨量/低價)": 101
+      },
+      "label": "L2 L1 +R2 黑名單"
+    },
+    {
+      "n": 22,
+      "winRate": 77.3,
+      "evPct": 2.148,
+      "median": 2.376,
+      "ciLow": 56.6,
+      "ciHigh": 89.9,
+      "totalPct": 47.25,
+      "totalTWD": 472512,
+      "maxDrawdownPct": 11.64,
+      "sharpe": 2.404,
+      "excludedByFilter": {
+        "R2 黑名單(score90+/巨量/低價)": 101,
+        "R3 族群擁擠 ≤7": 84
+      },
+      "label": "L3 L2 +R3 族群擁擠 ≤7"
+    },
+    {
+      "n": 20,
+      "winRate": 80.0,
+      "evPct": 2.045,
+      "median": 2.376,
+      "ciLow": 58.4,
+      "ciHigh": 91.9,
+      "totalPct": 40.9,
+      "totalTWD": 408979,
+      "maxDrawdownPct": 11.64,
+      "sharpe": 2.205,
+      "excludedByFilter": {
+        "R2 黑名單(score90+/巨量/低價)": 101,
+        "R3 族群擁擠 ≤7": 84,
+        "R4 D-1 turnover ≥1億": 2
+      },
+      "label": "L4 L3 +R4 turnover ≥1億"
+    },
+    {
+      "n": 12,
+      "winRate": 91.7,
+      "evPct": 2.875,
+      "median": 3.03,
+      "ciLow": 64.6,
+      "ciHigh": 98.5,
+      "totalPct": 34.5,
+      "totalTWD": 345027,
+      "maxDrawdownPct": 10.91,
+      "sharpe": 2.06,
+      "excludedByFilter": {
+        "R2 黑名單(score90+/巨量/低價)": 101,
+        "R3 族群擁擠 ≤7": 84,
+        "R5 regime: dayPicks75≤15": 8,
+        "R4 D-1 turnover ≥1億": 2
+      },
+      "label": "L5 L4 +R5 regime dayPicks≤15"
+    }
+  ],
+  "extraCombos": [
+    {
+      "n": 39,
+      "winRate": 69.2,
+      "evPct": 1.83,
+      "median": 2.252,
+      "ciLow": 53.6,
+      "ciHigh": 81.4,
+      "totalPct": 71.36,
+      "totalTWD": 713614,
+      "maxDrawdownPct": 20.45,
+      "sharpe": 2.388,
+      "excludedByFilter": {
+        "R3 族群擁擠 ≤7": 168
+      },
+      "label": "R1+R3 只動態出場+族群擁擠"
+    },
+    {
+      "n": 69,
+      "winRate": 73.9,
+      "evPct": 3.518,
+      "median": 2.729,
+      "ciLow": 62.5,
+      "ciHigh": 82.8,
+      "totalPct": 242.73,
+      "totalTWD": 2427324,
+      "maxDrawdownPct": 23.7,
+      "sharpe": 4.665,
+      "excludedByFilter": {
+        "R5 regime: dayPicks75≤15": 138
+      },
+      "label": "R1+R5 只動態出場+regime"
+    },
+    {
+      "n": 106,
+      "winRate": 70.8,
+      "evPct": 2.358,
+      "median": 2.276,
+      "ciLow": 61.5,
+      "ciHigh": 78.6,
+      "totalPct": 249.93,
+      "totalTWD": 2499282,
+      "maxDrawdownPct": 29.57,
+      "sharpe": 4.413,
+      "excludedByFilter": {
+        "R2 黑名單(score90+/巨量/低價)": 101
+      },
+      "label": "R1+R2 只動態出場+黑名單"
+    },
+    {
+      "n": 40,
+      "winRate": 82.5,
+      "evPct": 3.751,
+      "median": 2.982,
+      "ciLow": 68.0,
+      "ciHigh": 91.3,
+      "totalPct": 150.05,
+      "totalTWD": 1500491,
+      "maxDrawdownPct": 13.78,
+      "sharpe": 3.556,
+      "excludedByFilter": {
+        "R2 黑名單(score90+/巨量/低價)": 101,
+        "R5 regime: dayPicks75≤15": 66
+      },
+      "label": "R1+R2+R5 (穩健三件套)"
+    },
+    {
+      "n": 22,
+      "winRate": 77.3,
+      "evPct": 2.148,
+      "median": 2.376,
+      "ciLow": 56.6,
+      "ciHigh": 89.9,
+      "totalPct": 47.25,
+      "totalTWD": 472512,
+      "maxDrawdownPct": 11.64,
+      "sharpe": 2.404,
+      "excludedByFilter": {
+        "R2 黑名單(score90+/巨量/低價)": 101,
+        "R3 族群擁擠 ≤7": 84
+      },
+      "label": "R1+R2+R3 (反擁擠三件套)"
+    }
+  ],
+  "bestPick": {
+    "label": "L1 +R1 動態出場",
+    "stats": {
+      "n": 207,
+      "winRate": 66.2,
+      "evPct": 2.179,
+      "median": 2.138,
+      "ciLow": 59.5,
+      "ciHigh": 72.3,
+      "totalPct": 451.14,
+      "totalTWD": 4511449,
+      "maxDrawdownPct": 42.77,
+      "sharpe": 5.968,
+      "excludedByFilter": {},
+      "label": "L1 +R1 動態出場"
+    },
+    "annualizedPctLinear": 549.2,
+    "vsBaselineDeltaTWD": 545838
+  },
+  "annualizedBaselineLinear": 482.8,
+  "avgTradesPerEntryDay": 5.75,
+  "monthly": {
+    "baseline": {
+      "2026-04": {
+        "n": 14,
+        "winRate": 64.3,
+        "evPct": 3.853,
+        "median": 4.285,
+        "ciLow": 38.8,
+        "ciHigh": 83.7,
+        "totalPct": 53.94,
+        "totalTWD": 539414,
+        "maxDrawdownPct": 12.49,
+        "sharpe": 1.61
+      },
+      "2026-05": {
+        "n": 87,
+        "winRate": 67.8,
+        "evPct": 3.03,
+        "median": 2.86,
+        "ciLow": 57.4,
+        "ciHigh": 76.7,
+        "totalPct": 263.6,
+        "totalTWD": 2636010,
+        "maxDrawdownPct": 18.46,
+        "sharpe": 4.114
+      },
+      "2026-06": {
+        "n": 106,
+        "winRate": 49.1,
+        "evPct": 0.745,
+        "median": -0.223,
+        "ciLow": 39.7,
+        "ciHigh": 58.4,
+        "totalPct": 79.02,
+        "totalTWD": 790187,
+        "maxDrawdownPct": 51.18,
+        "sharpe": 1.16
+      }
+    },
+    "best": {
+      "2026-04": {
+        "n": 14,
+        "winRate": 71.4,
+        "evPct": 2.596,
+        "median": 2.493,
+        "ciLow": 45.4,
+        "ciHigh": 88.3,
+        "totalPct": 36.34,
+        "totalTWD": 363406,
+        "maxDrawdownPct": 7.88,
+        "sharpe": 2.037
+      },
+      "2026-05": {
+        "n": 87,
+        "winRate": 69.0,
+        "evPct": 2.642,
+        "median": 2.494,
+        "ciLow": 58.6,
+        "ciHigh": 77.7,
+        "totalPct": 229.86,
+        "totalTWD": 2298613,
+        "maxDrawdownPct": 18.46,
+        "sharpe": 4.348
+      },
+      "2026-06": {
+        "n": 106,
+        "winRate": 63.2,
+        "evPct": 1.745,
+        "median": 1.609,
+        "ciLow": 53.7,
+        "ciHigh": 71.8,
+        "totalPct": 184.94,
+        "totalTWD": 1849430,
+        "maxDrawdownPct": 42.77,
+        "sharpe": 3.654
+      }
+    }
+  }
+}

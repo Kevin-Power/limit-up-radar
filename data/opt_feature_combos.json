@@ -1,0 +1,145 @@
+{
+  "baseline": {
+    "n": 274,
+    "winRate": 58.0,
+    "ev": 1.866,
+    "total": 511.28
+  },
+  "combos": [
+    {
+      "n": 13,
+      "winRate": 84.6,
+      "ev": 6.4395,
+      "total": 83.71,
+      "label": "出現>=7 AND 主力=0",
+      "delta_ev": 4.5735,
+      "delta_total_vs_base": -427.57
+    },
+    {
+      "n": 98,
+      "winRate": 62.2,
+      "ev": 2.8073,
+      "total": 275.12,
+      "label": "70-89 ∧ 出現>=4 ∧ 大族群>=9",
+      "delta_ev": 0.9413,
+      "delta_total_vs_base": -236.16
+    },
+    {
+      "n": 109,
+      "winRate": 64.2,
+      "ev": 2.677,
+      "total": 291.79,
+      "label": "70-89 ∧ 排除巨量低價 ∧ 出現>=4",
+      "delta_ev": 0.811,
+      "delta_total_vs_base": -219.49
+    },
+    {
+      "n": 197,
+      "winRate": 62.9,
+      "ev": 2.5009,
+      "total": 492.67,
+      "label": "排除 90-99分 ∪ 前日巨量 ∪ 低價",
+      "delta_ev": 0.6349,
+      "delta_total_vs_base": -18.61
+    },
+    {
+      "n": 197,
+      "winRate": 62.9,
+      "ev": 2.5009,
+      "total": 492.67,
+      "label": "排除 90-99分 ∪ 巨量 ∪ 低價 ∪ streak>=3",
+      "delta_ev": 0.6349,
+      "delta_total_vs_base": -18.61
+    },
+    {
+      "n": 99,
+      "winRate": 63.6,
+      "ev": 2.4983,
+      "total": 247.33,
+      "label": "70-89 ∧ 排除巨量低價權值 ∧ 出現>=4",
+      "delta_ev": 0.6323,
+      "delta_total_vs_base": -263.95
+    },
+    {
+      "n": 169,
+      "winRate": 63.9,
+      "ev": 2.4662,
+      "total": 416.79,
+      "label": "排除 90-99分 ∪ 巨量 ∪ 低價 ∪ 權值股",
+      "delta_ev": 0.6002,
+      "delta_total_vs_base": -94.49
+    },
+    {
+      "n": 172,
+      "winRate": 64.5,
+      "ev": 2.4516,
+      "total": 421.67,
+      "label": "70-89分 ∧ 排除巨量 ∧ 排除低價",
+      "delta_ev": 0.5856,
+      "delta_total_vs_base": -89.61
+    },
+    {
+      "n": 160,
+      "winRate": 64.4,
+      "ev": 2.3679,
+      "total": 378.86,
+      "label": "70-89 ∧ 排除巨量低價權值",
+      "delta_ev": 0.5019,
+      "delta_total_vs_base": -132.42
+    },
+    {
+      "n": 221,
+      "winRate": 60.2,
+      "ev": 2.27,
+      "total": 501.66,
+      "label": "排除 90-99 分",
+      "delta_ev": 0.404,
+      "delta_total_vs_base": -9.62
+    },
+    {
+      "n": 136,
+      "winRate": 61.8,
+      "ev": 2.2531,
+      "total": 306.42,
+      "label": "70-89 ∧ 排除巨量低價 ∧ 大族群",
+      "delta_ev": 0.3871,
+      "delta_total_vs_base": -204.86
+    },
+    {
+      "n": 193,
+      "winRate": 61.7,
+      "ev": 2.2041,
+      "total": 425.39,
+      "label": "70-89分 (排除 90+陷阱)",
+      "delta_ev": 0.3381,
+      "delta_total_vs_base": -85.89
+    },
+    {
+      "n": 175,
+      "winRate": 59.4,
+      "ev": 2.1976,
+      "total": 384.57,
+      "label": "出現>=4 (常客+死忠)",
+      "delta_ev": 0.3316,
+      "delta_total_vs_base": -126.71
+    },
+    {
+      "n": 258,
+      "winRate": 59.7,
+      "ev": 1.9941,
+      "total": 514.47,
+      "label": "排除 前日量>=2萬張",
+      "delta_ev": 0.1281,
+      "delta_total_vs_base": 3.19
+    },
+    {
+      "n": 259,
+      "winRate": 59.1,
+      "ev": 1.9626,
+      "total": 508.31,
+      "label": "排除 價位<30",
+      "delta_ev": 0.0966,
+      "delta_total_vs_base": -2.97
+    }
+  ]
+}

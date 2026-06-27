@@ -1,0 +1,860 @@
+{
+  "baseline": {
+    "scoreMin": 70,
+    "entryType": "open_price",
+    "cost": 0.585,
+    "windowStart": "2026-03-20",
+    "windowEnd": "2026-06-25",
+    "userQuotedTWD": 1860000,
+    "twdPerPct": 3638.0,
+    "n": 274,
+    "winRate": 58.0,
+    "ev": 1.866,
+    "total": 511.28,
+    "median": 1.3699
+  },
+  "cohorts": {
+    "price": [
+      {
+        "label": ">=500 高價",
+        "n": 51,
+        "winRate": 64.7,
+        "ev": 2.3781,
+        "total": 121.28,
+        "median": 2.1394,
+        "evDelta": 0.5121,
+        "confidence": "medium",
+        "twdTotal": 441208.0
+      },
+      {
+        "label": "100-200 中價",
+        "n": 68,
+        "winRate": 60.3,
+        "ev": 2.3015,
+        "total": 156.5,
+        "median": 2.19,
+        "evDelta": 0.4355,
+        "confidence": "medium",
+        "twdTotal": 569336.0
+      },
+      {
+        "label": "30-100 中低",
+        "n": 94,
+        "winRate": 57.4,
+        "ev": 1.8257,
+        "total": 171.62,
+        "median": 1.4208,
+        "evDelta": -0.0403,
+        "confidence": "high",
+        "twdTotal": 624341.0
+      },
+      {
+        "label": "200-500 中高",
+        "n": 46,
+        "winRate": 54.3,
+        "ev": 1.2806,
+        "total": 58.91,
+        "median": 0.3331,
+        "evDelta": -0.5854,
+        "confidence": "medium",
+        "twdTotal": 214310.0
+      },
+      {
+        "label": "<30 低價",
+        "n": 15,
+        "winRate": 40.0,
+        "ev": 0.1984,
+        "total": 2.98,
+        "median": -1.2942,
+        "evDelta": -1.6676,
+        "confidence": "low",
+        "twdTotal": 10841.0
+      }
+    ],
+    "market": [
+      {
+        "label": "OTC",
+        "n": 115,
+        "winRate": 60.0,
+        "ev": 1.9175,
+        "total": 220.51,
+        "median": 1.2285,
+        "evDelta": 0.0515,
+        "confidence": "high",
+        "twdTotal": 802200.0
+      },
+      {
+        "label": "TWSE",
+        "n": 159,
+        "winRate": 56.6,
+        "ev": 1.8287,
+        "total": 290.77,
+        "median": 1.5158,
+        "evDelta": -0.0373,
+        "confidence": "high",
+        "twdTotal": 1057800.0
+      }
+    ],
+    "industry": [
+      {
+        "label": "光通訊",
+        "n": 14,
+        "winRate": 71.4,
+        "ev": 4.5212,
+        "total": 63.3,
+        "median": 2.4871,
+        "evDelta": 2.6552,
+        "confidence": "low",
+        "twdTotal": 230281.0
+      },
+      {
+        "label": "(空)",
+        "n": 64,
+        "winRate": 64.1,
+        "ev": 2.6853,
+        "total": 171.86,
+        "median": 2.0408,
+        "evDelta": 0.8193,
+        "confidence": "medium",
+        "twdTotal": 625214.0
+      },
+      {
+        "label": "電子",
+        "n": 150,
+        "winRate": 52.7,
+        "ev": 1.5146,
+        "total": 227.2,
+        "median": 0.5108,
+        "evDelta": -0.3514,
+        "confidence": "high",
+        "twdTotal": 826537.0
+      },
+      {
+        "label": "生技",
+        "n": 20,
+        "winRate": 65.0,
+        "ev": 1.1923,
+        "total": 23.85,
+        "median": 1.1805,
+        "evDelta": -0.6737,
+        "confidence": "low",
+        "twdTotal": 86765.0
+      },
+      {
+        "label": "IC設計",
+        "n": 11,
+        "winRate": 54.5,
+        "ev": 0.6774,
+        "total": 7.45,
+        "median": 2.6552,
+        "evDelta": -1.1886,
+        "confidence": "low",
+        "twdTotal": 27103.0
+      }
+    ],
+    "industry_full": [
+      {
+        "label": "PCB",
+        "n": 2,
+        "winRate": 100.0,
+        "ev": 6.6982,
+        "total": 13.4,
+        "median": 6.6982,
+        "evDelta": 4.8322,
+        "confidence": "low"
+      },
+      {
+        "label": "光通訊",
+        "n": 14,
+        "winRate": 71.4,
+        "ev": 4.5212,
+        "total": 63.3,
+        "median": 2.4871,
+        "evDelta": 2.6552,
+        "confidence": "low",
+        "twdTotal": 230281.0
+      },
+      {
+        "label": "AI伺服器",
+        "n": 1,
+        "winRate": 100.0,
+        "ev": 2.8514,
+        "total": 2.85,
+        "median": 2.8514,
+        "evDelta": 0.9854,
+        "confidence": "low"
+      },
+      {
+        "label": "(空)",
+        "n": 64,
+        "winRate": 64.1,
+        "ev": 2.6853,
+        "total": 171.86,
+        "median": 2.0408,
+        "evDelta": 0.8193,
+        "confidence": "medium",
+        "twdTotal": 625214.0
+      },
+      {
+        "label": "航太",
+        "n": 1,
+        "winRate": 100.0,
+        "ev": 2.0466,
+        "total": 2.05,
+        "median": 2.0466,
+        "evDelta": 0.1806,
+        "confidence": "low"
+      },
+      {
+        "label": "電子",
+        "n": 150,
+        "winRate": 52.7,
+        "ev": 1.5146,
+        "total": 227.2,
+        "median": 0.5108,
+        "evDelta": -0.3514,
+        "confidence": "high",
+        "twdTotal": 826537.0
+      },
+      {
+        "label": "生技",
+        "n": 20,
+        "winRate": 65.0,
+        "ev": 1.1923,
+        "total": 23.85,
+        "median": 1.1805,
+        "evDelta": -0.6737,
+        "confidence": "low",
+        "twdTotal": 86765.0
+      },
+      {
+        "label": "鋼鐵",
+        "n": 5,
+        "winRate": 80.0,
+        "ev": 0.89,
+        "total": 4.45,
+        "median": 1.1073,
+        "evDelta": -0.976,
+        "confidence": "low"
+      },
+      {
+        "label": "IC設計",
+        "n": 11,
+        "winRate": 54.5,
+        "ev": 0.6774,
+        "total": 7.45,
+        "median": 2.6552,
+        "evDelta": -1.1886,
+        "confidence": "low",
+        "twdTotal": 27103.0
+      },
+      {
+        "label": "塑化",
+        "n": 5,
+        "winRate": 40.0,
+        "ev": -0.604,
+        "total": -3.02,
+        "median": -2.3868,
+        "evDelta": -2.47,
+        "confidence": "low"
+      },
+      {
+        "label": "營建",
+        "n": 1,
+        "winRate": 0.0,
+        "ev": -2.0904,
+        "total": -2.09,
+        "median": -2.0904,
+        "evDelta": -3.9564,
+        "confidence": "low"
+      }
+    ],
+    "appearances": [
+      {
+        "label": ">=7 死忠",
+        "n": 51,
+        "winRate": 68.6,
+        "ev": 4.3381,
+        "total": 221.24,
+        "median": 4.5835,
+        "evDelta": 2.4721,
+        "confidence": "medium",
+        "twdTotal": 804855.0
+      },
+      {
+        "label": "2-3 偶發",
+        "n": 87,
+        "winRate": 55.2,
+        "ev": 1.4808,
+        "total": 128.83,
+        "median": 1.2285,
+        "evDelta": -0.3852,
+        "confidence": "high",
+        "twdTotal": 468674.0
+      },
+      {
+        "label": "4-6 常客",
+        "n": 124,
+        "winRate": 55.6,
+        "ev": 1.3172,
+        "total": 163.33,
+        "median": 0.8228,
+        "evDelta": -0.5488,
+        "confidence": "high",
+        "twdTotal": 594183.0
+      },
+      {
+        "label": "1 突發",
+        "n": 12,
+        "winRate": 58.3,
+        "ev": -0.1765,
+        "total": -2.12,
+        "median": 0.218,
+        "evDelta": -2.0425,
+        "confidence": "low",
+        "twdTotal": -7712.0
+      }
+    ],
+    "score": [
+      {
+        "label": ">=100",
+        "n": 28,
+        "winRate": 50.0,
+        "ev": 2.7241,
+        "total": 76.27,
+        "median": -0.0799,
+        "evDelta": 0.8581,
+        "confidence": "low",
+        "twdTotal": 277465.0
+      },
+      {
+        "label": "70-74",
+        "n": 67,
+        "winRate": 61.2,
+        "ev": 2.3462,
+        "total": 157.2,
+        "median": 1.398,
+        "evDelta": 0.4802,
+        "confidence": "medium",
+        "twdTotal": 571882.0
+      },
+      {
+        "label": "80-89",
+        "n": 91,
+        "winRate": 64.8,
+        "ev": 2.1908,
+        "total": 199.36,
+        "median": 2.0076,
+        "evDelta": 0.3248,
+        "confidence": "high",
+        "twdTotal": 725257.0
+      },
+      {
+        "label": "75-79",
+        "n": 35,
+        "winRate": 54.3,
+        "ev": 1.9665,
+        "total": 68.83,
+        "median": 1.0384,
+        "evDelta": 0.1005,
+        "confidence": "medium",
+        "twdTotal": 250399.0
+      },
+      {
+        "label": "90-99",
+        "n": 53,
+        "winRate": 49.1,
+        "ev": 0.1815,
+        "total": 9.62,
+        "median": -0.4392,
+        "evDelta": -1.6845,
+        "confidence": "medium",
+        "twdTotal": 34997.0
+      }
+    ],
+    "heavyweight": [
+      {
+        "label": "非權值股",
+        "n": 232,
+        "winRate": 59.5,
+        "ev": 2.0329,
+        "total": 471.62,
+        "median": 1.4208,
+        "evDelta": 0.1669,
+        "confidence": "high",
+        "twdTotal": 1715720.0
+      },
+      {
+        "label": "權值股",
+        "n": 42,
+        "winRate": 50.0,
+        "ev": 0.9443,
+        "total": 39.66,
+        "median": -0.378,
+        "evDelta": -0.9217,
+        "confidence": "medium",
+        "twdTotal": 144280.0
+      }
+    ],
+    "prevVolume": [
+      {
+        "label": "500-2000張 中量",
+        "n": 12,
+        "winRate": 75.0,
+        "ev": 3.4277,
+        "total": 41.13,
+        "median": 4.8679,
+        "evDelta": 1.5617,
+        "confidence": "low",
+        "twdTotal": 149628.0
+      },
+      {
+        "label": "2000-5000張 高量",
+        "n": 14,
+        "winRate": 57.1,
+        "ev": 2.3964,
+        "total": 33.55,
+        "median": 1.0705,
+        "evDelta": 0.5304,
+        "confidence": "low",
+        "twdTotal": 122052.0
+      },
+      {
+        "label": "5000-2萬張 爆量",
+        "n": 16,
+        "winRate": 56.2,
+        "ev": 2.2257,
+        "total": 35.61,
+        "median": 1.5692,
+        "evDelta": 0.3597,
+        "confidence": "low",
+        "twdTotal": 129547.0
+      },
+      {
+        "label": ">=2萬張 巨量",
+        "n": 16,
+        "winRate": 31.2,
+        "ev": -0.1992,
+        "total": -3.19,
+        "median": -1.1887,
+        "evDelta": -2.0652,
+        "confidence": "low",
+        "twdTotal": -11605.0
+      },
+      {
+        "label": "<500張 低量",
+        "n": 3,
+        "winRate": 66.7,
+        "ev": -1.0832,
+        "total": -3.25,
+        "median": 0.2625,
+        "evDelta": -2.9492,
+        "confidence": "low",
+        "twdTotal": -11823.0
+      }
+    ],
+    "prevChange": [
+      {
+        "label": ">=9.5 漲停",
+        "n": 61,
+        "winRate": 54.1,
+        "ev": 1.7026,
+        "total": 103.86,
+        "median": 0.9495,
+        "evDelta": -0.1634,
+        "confidence": "medium",
+        "twdTotal": 377835.0
+      }
+    ],
+    "streak": [
+      {
+        "label": "1 單根",
+        "n": 213,
+        "winRate": 59.2,
+        "ev": 1.9128,
+        "total": 407.43,
+        "median": 1.4944,
+        "evDelta": 0.0468,
+        "confidence": "high",
+        "twdTotal": 1482201.0
+      },
+      {
+        "label": "2 連二",
+        "n": 60,
+        "winRate": 55.0,
+        "ev": 1.8628,
+        "total": 111.77,
+        "median": 1.0443,
+        "evDelta": -0.0032,
+        "confidence": "medium",
+        "twdTotal": 406611.0
+      },
+      {
+        "label": "3 連三",
+        "n": 1,
+        "winRate": 0.0,
+        "ev": -7.9098,
+        "total": -7.91,
+        "median": -7.9098,
+        "evDelta": -9.7758,
+        "confidence": "low",
+        "twdTotal": -28776.0
+      }
+    ],
+    "majorNet": [
+      {
+        "label": "0 中性",
+        "n": 65,
+        "winRate": 69.2,
+        "ev": 3.8166,
+        "total": 248.08,
+        "median": 3.3014,
+        "evDelta": 1.9506,
+        "confidence": "medium",
+        "twdTotal": 902497.0
+      },
+      {
+        "label": "0~5000 小買超",
+        "n": 6,
+        "winRate": 50.0,
+        "ev": 1.4512,
+        "total": 8.71,
+        "median": -0.0224,
+        "evDelta": -0.4148,
+        "confidence": "low",
+        "twdTotal": 31686.0
+      },
+      {
+        "label": ">+5000 重壓",
+        "n": 199,
+        "winRate": 54.8,
+        "ev": 1.3008,
+        "total": 258.85,
+        "median": 1.0384,
+        "evDelta": -0.5652,
+        "confidence": "high",
+        "twdTotal": 941678.0
+      },
+      {
+        "label": "<-5000 重砍",
+        "n": 4,
+        "winRate": 50.0,
+        "ev": -1.0888,
+        "total": -4.36,
+        "median": -1.415,
+        "evDelta": -2.9548,
+        "confidence": "low",
+        "twdTotal": -15861.0
+      }
+    ],
+    "groupSize": [
+      {
+        "label": "3-4 小族",
+        "n": 13,
+        "winRate": 69.2,
+        "ev": 4.9735,
+        "total": 64.65,
+        "median": 2.8782,
+        "evDelta": 3.1075,
+        "confidence": "low",
+        "twdTotal": 235192.0
+      },
+      {
+        "label": "2 對",
+        "n": 10,
+        "winRate": 70.0,
+        "ev": 2.2833,
+        "total": 22.83,
+        "median": 1.6017,
+        "evDelta": 0.4173,
+        "confidence": "low",
+        "twdTotal": 83054.0
+      },
+      {
+        "label": ">=9 大族",
+        "n": 219,
+        "winRate": 56.2,
+        "ev": 1.8412,
+        "total": 403.23,
+        "median": 1.3418,
+        "evDelta": -0.0248,
+        "confidence": "high",
+        "twdTotal": 1466922.0
+      },
+      {
+        "label": "1 獨股",
+        "n": 12,
+        "winRate": 58.3,
+        "ev": 0.9536,
+        "total": 11.44,
+        "median": 2.0187,
+        "evDelta": -0.9124,
+        "confidence": "low",
+        "twdTotal": 41618.0
+      },
+      {
+        "label": "5-8 中族",
+        "n": 20,
+        "winRate": 65.0,
+        "ev": 0.4561,
+        "total": 9.12,
+        "median": 1.1593,
+        "evDelta": -1.4099,
+        "confidence": "low",
+        "twdTotal": 33178.0
+      }
+    ],
+    "prevLimit": [
+      {
+        "label": "前日非漲停",
+        "n": 213,
+        "winRate": 59.2,
+        "ev": 1.9128,
+        "total": 407.43,
+        "median": 1.4944,
+        "evDelta": 0.0468,
+        "confidence": "high",
+        "twdTotal": 1482201.0
+      },
+      {
+        "label": "前日漲停",
+        "n": 61,
+        "winRate": 54.1,
+        "ev": 1.7026,
+        "total": 103.86,
+        "median": 0.9495,
+        "evDelta": -0.1634,
+        "confidence": "medium",
+        "twdTotal": 377835.0
+      }
+    ]
+  },
+  "whitelist": [
+    {
+      "dim": "appearances",
+      "rule": "出現次數=>=7 死忠",
+      "n": 51,
+      "winRate": 68.6,
+      "ev": 4.3381,
+      "total": 221.24,
+      "evDelta": 2.4721,
+      "confidence": "medium"
+    },
+    {
+      "dim": "majorNet",
+      "rule": "主力=0 中性",
+      "n": 65,
+      "winRate": 69.2,
+      "ev": 3.8166,
+      "total": 248.08,
+      "evDelta": 1.9506,
+      "confidence": "medium"
+    },
+    {
+      "dim": "score",
+      "rule": "評分=>=100",
+      "n": 28,
+      "winRate": 50.0,
+      "ev": 2.7241,
+      "total": 76.27,
+      "evDelta": 0.8581,
+      "confidence": "low"
+    },
+    {
+      "dim": "industry",
+      "rule": "行業=(空)",
+      "n": 64,
+      "winRate": 64.1,
+      "ev": 2.6853,
+      "total": 171.86,
+      "evDelta": 0.8193,
+      "confidence": "medium"
+    },
+    {
+      "dim": "price",
+      "rule": "價位=>=500 高價",
+      "n": 51,
+      "winRate": 64.7,
+      "ev": 2.3781,
+      "total": 121.28,
+      "evDelta": 0.5121,
+      "confidence": "medium"
+    },
+    {
+      "dim": "score",
+      "rule": "評分=70-74",
+      "n": 67,
+      "winRate": 61.2,
+      "ev": 2.3462,
+      "total": 157.2,
+      "evDelta": 0.4802,
+      "confidence": "medium"
+    },
+    {
+      "dim": "price",
+      "rule": "價位=100-200 中價",
+      "n": 68,
+      "winRate": 60.3,
+      "ev": 2.3015,
+      "total": 156.5,
+      "evDelta": 0.4355,
+      "confidence": "medium"
+    },
+    {
+      "dim": "prevVolume",
+      "rule": "前日量=5000-2萬張 爆量",
+      "n": 16,
+      "winRate": 56.2,
+      "ev": 2.2257,
+      "total": 35.61,
+      "evDelta": 0.3597,
+      "confidence": "low"
+    },
+    {
+      "dim": "score",
+      "rule": "評分=80-89",
+      "n": 91,
+      "winRate": 64.8,
+      "ev": 2.1908,
+      "total": 199.36,
+      "evDelta": 0.3248,
+      "confidence": "high"
+    },
+    {
+      "dim": "heavyweight",
+      "rule": "權值=非權值股",
+      "n": 232,
+      "winRate": 59.5,
+      "ev": 2.0329,
+      "total": 471.62,
+      "evDelta": 0.1669,
+      "confidence": "high"
+    },
+    {
+      "dim": "score",
+      "rule": "評分=75-79",
+      "n": 35,
+      "winRate": 54.3,
+      "ev": 1.9665,
+      "total": 68.83,
+      "evDelta": 0.1005,
+      "confidence": "medium"
+    },
+    {
+      "dim": "market",
+      "rule": "市場=OTC",
+      "n": 115,
+      "winRate": 60.0,
+      "ev": 1.9175,
+      "total": 220.51,
+      "evDelta": 0.0515,
+      "confidence": "high"
+    },
+    {
+      "dim": "streak",
+      "rule": "連續=1 單根",
+      "n": 213,
+      "winRate": 59.2,
+      "ev": 1.9128,
+      "total": 407.43,
+      "evDelta": 0.0468,
+      "confidence": "high"
+    },
+    {
+      "dim": "prevLimit",
+      "rule": "前日漲停=前日非漲停",
+      "n": 213,
+      "winRate": 59.2,
+      "ev": 1.9128,
+      "total": 407.43,
+      "evDelta": 0.0468,
+      "confidence": "high"
+    }
+  ],
+  "blacklist": [
+    {
+      "dim": "prevVolume",
+      "rule": "前日量=>=2萬張 巨量",
+      "n": 16,
+      "winRate": 31.2,
+      "ev": -0.1992,
+      "total": -3.19,
+      "evDelta": -2.0652,
+      "confidence": "low"
+    }
+  ],
+  "combinedFilters": [
+    {
+      "rule": "TWSE 上市 AND 價位<200",
+      "n": 92,
+      "winRate": 51.1,
+      "ev": 1.5812,
+      "total": 145.47,
+      "median": 0.7308,
+      "twdTotal": 529209.0
+    },
+    {
+      "rule": "前日非漲停 AND streak<=2",
+      "n": 213,
+      "winRate": 59.2,
+      "ev": 1.9128,
+      "total": 407.43,
+      "median": 1.4944,
+      "twdTotal": 1482201.0
+    },
+    {
+      "rule": "前日量<2萬張",
+      "n": 45,
+      "winRate": 62.2,
+      "ev": 2.3787,
+      "total": 107.04,
+      "median": 2.2452,
+      "twdTotal": 389404.0
+    },
+    {
+      "rule": "價位<30 AND 出現>=2",
+      "n": 14,
+      "winRate": 42.9,
+      "ev": 0.6238,
+      "total": 8.73,
+      "median": -0.6531,
+      "twdTotal": 31759.0
+    },
+    {
+      "rule": "排除「中低價且前日漲停」",
+      "n": 253,
+      "winRate": 58.5,
+      "ev": 1.9788,
+      "total": 500.65,
+      "median": 1.4436,
+      "twdTotal": 1821329.0
+    },
+    {
+      "rule": "score>=80 AND TWSE AND 前日非漲停",
+      "n": 93,
+      "winRate": 54.8,
+      "ev": 1.1985,
+      "total": 111.46,
+      "median": 1.1694,
+      "twdTotal": 405483.0
+    },
+    {
+      "rule": "族群>=3 AND TWSE",
+      "n": 144,
+      "winRate": 56.9,
+      "ev": 2.0736,
+      "total": 298.6,
+      "median": 1.9703,
+      "twdTotal": 1086285.0
+    },
+    {
+      "rule": "排除「上櫃且前日漲停」",
+      "n": 274,
+      "winRate": 58.0,
+      "ev": 1.866,
+      "total": 511.28,
+      "median": 1.3699,
+      "twdTotal": 1860000.0
+    }
+  ]
+}

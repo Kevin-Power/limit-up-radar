@@ -1,0 +1,1239 @@
+{
+  "dimension": "category/group",
+  "method": "基線：score>=75, T+1 open buy, T+2 open sell, 2.8 折成本(round-trip=0.3798%). 一檔股票若屬多族群 → 計入每個族群統計（重複計算，避免片面歸屬偏誤）。但「篩選規則」上，使用 OR 邏輯（任一族群通過即進場），避免雙重剔除偏誤。",
+  "costPctRoundTrip": 0.3798,
+  "window": {
+    "from": "2026-03-20",
+    "to": "2026-06-25",
+    "tradingDays": 61
+  },
+  "baseline": {
+    "n": 207,
+    "winRate": 58.0,
+    "evPct": 1.916,
+    "median": 1.434,
+    "totalPct": 396.56,
+    "totalTWD": 3965611.0,
+    "maxWin": 30.97,
+    "maxLoss": -12.49
+  },
+  "categories": [
+    {
+      "n": 1,
+      "winRate": 100.0,
+      "evPct": 11.462,
+      "median": 11.462,
+      "totalPct": 11.46,
+      "totalTWD": 114623.0,
+      "maxWin": 11.46,
+      "maxLoss": 11.46,
+      "category": "PCB / CCL基板"
+    },
+    {
+      "n": 9,
+      "winRate": 77.8,
+      "evPct": 4.626,
+      "median": 3.083,
+      "totalPct": 41.63,
+      "totalTWD": 416336.0,
+      "maxWin": 15.38,
+      "maxLoss": -5.78,
+      "category": "光通訊 / 矽光子"
+    },
+    {
+      "n": 43,
+      "winRate": 65.1,
+      "evPct": 3.128,
+      "median": 2.354,
+      "totalPct": 134.49,
+      "totalTWD": 1344930.0,
+      "maxWin": 30.97,
+      "maxLoss": -12.49,
+      "category": "個股亮點"
+    },
+    {
+      "n": 1,
+      "winRate": 100.0,
+      "evPct": 3.057,
+      "median": 3.057,
+      "totalPct": 3.06,
+      "totalTWD": 30566.0,
+      "maxWin": 3.06,
+      "maxLoss": 3.06,
+      "category": "AI伺服器 / 散熱"
+    },
+    {
+      "n": 1,
+      "winRate": 100.0,
+      "evPct": 2.252,
+      "median": 2.252,
+      "totalPct": 2.25,
+      "totalTWD": 22518.0,
+      "maxWin": 2.25,
+      "maxLoss": 2.25,
+      "category": "航太 / 國防"
+    },
+    {
+      "n": 121,
+      "winRate": 52.9,
+      "evPct": 1.603,
+      "median": 0.47,
+      "totalPct": 194.02,
+      "totalTWD": 1940214.0,
+      "maxWin": 17.76,
+      "maxLoss": -11.18,
+      "category": "電子 / 半導體"
+    },
+    {
+      "n": 14,
+      "winRate": 71.4,
+      "evPct": 1.191,
+      "median": 1.512,
+      "totalPct": 16.68,
+      "totalTWD": 166752.0,
+      "maxWin": 10.17,
+      "maxLoss": -10.91,
+      "category": "生技 / 醫療器材"
+    },
+    {
+      "n": 4,
+      "winRate": 75.0,
+      "evPct": 1.041,
+      "median": 1.401,
+      "totalPct": 4.16,
+      "totalTWD": 41635.0,
+      "maxWin": 2.45,
+      "maxLoss": -1.09,
+      "category": "鋼鐵 / 金屬"
+    },
+    {
+      "n": 5,
+      "winRate": 40.0,
+      "evPct": -0.399,
+      "median": -2.182,
+      "totalPct": -1.99,
+      "totalTWD": -19942.0,
+      "maxWin": 10.68,
+      "maxLoss": -7.7,
+      "category": "塑化 / 化工"
+    },
+    {
+      "n": 8,
+      "winRate": 37.5,
+      "evPct": -1.15,
+      "median": -3.173,
+      "totalPct": -9.2,
+      "totalTWD": -92021.0,
+      "maxWin": 12.48,
+      "maxLoss": -11.43,
+      "category": "IC設計 / AI邊緣運算"
+    }
+  ],
+  "clusterEffect": {
+    "byBucket": {
+      "solo(1)": {
+        "n": 63,
+        "winRate": 61.9,
+        "evPct": 2.636,
+        "median": 2.252,
+        "totalPct": 166.05,
+        "totalTWD": 1660537.0,
+        "maxWin": 30.97,
+        "maxLoss": -12.49
+      },
+      "pair(2)": {
+        "n": 22,
+        "winRate": 68.2,
+        "evPct": 2.461,
+        "median": 1.646,
+        "totalPct": 54.14,
+        "totalTWD": 541410.0,
+        "maxWin": 17.58,
+        "maxLoss": -8.62
+      },
+      "small(3-4)": {
+        "n": 24,
+        "winRate": 66.7,
+        "evPct": 3.442,
+        "median": 3.943,
+        "totalPct": 82.6,
+        "totalTWD": 826038.0,
+        "maxWin": 17.33,
+        "maxLoss": -7.7
+      },
+      "large(8+)": {
+        "n": 61,
+        "winRate": 41.0,
+        "evPct": -0.119,
+        "median": -2.0,
+        "totalPct": -7.24,
+        "totalTWD": -72439.0,
+        "maxWin": 16.26,
+        "maxLoss": -10.49
+      },
+      "mid(5-7)": {
+        "n": 37,
+        "winRate": 67.6,
+        "evPct": 2.73,
+        "median": 2.434,
+        "totalPct": 101.01,
+        "totalTWD": 1010065.0,
+        "maxWin": 17.76,
+        "maxLoss": -11.18
+      }
+    },
+    "ruleClusterLE7": {
+      "n": 146,
+      "winRate": 65.1,
+      "evPct": 2.766,
+      "median": 2.276,
+      "totalPct": 403.81,
+      "totalTWD": 4038050.0,
+      "maxWin": 30.97,
+      "maxLoss": -12.49
+    },
+    "ruleClusterLE4": {
+      "n": 109,
+      "winRate": 64.2,
+      "evPct": 2.778,
+      "median": 2.252,
+      "totalPct": 302.8,
+      "totalTWD": 3027985.0,
+      "maxWin": 30.97,
+      "maxLoss": -12.49
+    }
+  },
+  "momentumGrid": [
+    {
+      "lookback": 10,
+      "minEV": -1.0,
+      "kept": {
+        "n": 189,
+        "winRate": 57.1,
+        "evPct": 1.804,
+        "median": 1.216,
+        "totalPct": 340.98,
+        "totalTWD": 3409835.0,
+        "maxWin": 30.97,
+        "maxLoss": -12.49
+      },
+      "dropped": {
+        "n": 18,
+        "winRate": 66.7,
+        "evPct": 3.088,
+        "median": 2.958,
+        "totalPct": 55.58,
+        "totalTWD": 555776.0,
+        "maxWin": 14.71,
+        "maxLoss": -11.43
+      },
+      "lookbackDays": 10,
+      "minEVThreshold": -1.0
+    },
+    {
+      "lookback": 10,
+      "minEV": 0.0,
+      "kept": {
+        "n": 187,
+        "winRate": 57.2,
+        "evPct": 1.802,
+        "median": 1.216,
+        "totalPct": 336.99,
+        "totalTWD": 3369923.0,
+        "maxWin": 30.97,
+        "maxLoss": -12.49
+      },
+      "dropped": {
+        "n": 20,
+        "winRate": 65.0,
+        "evPct": 2.978,
+        "median": 2.958,
+        "totalPct": 59.57,
+        "totalTWD": 595688.0,
+        "maxWin": 14.71,
+        "maxLoss": -11.43
+      },
+      "lookbackDays": 10,
+      "minEVThreshold": 0.0
+    },
+    {
+      "lookback": 10,
+      "minEV": -0.5,
+      "kept": {
+        "n": 188,
+        "winRate": 56.9,
+        "evPct": 1.76,
+        "median": 1.185,
+        "totalPct": 330.82,
+        "totalTWD": 3308154.0,
+        "maxWin": 30.97,
+        "maxLoss": -12.49
+      },
+      "dropped": {
+        "n": 19,
+        "winRate": 68.4,
+        "evPct": 3.46,
+        "median": 3.057,
+        "totalPct": 65.75,
+        "totalTWD": 657457.0,
+        "maxWin": 14.71,
+        "maxLoss": -11.43
+      },
+      "lookbackDays": 10,
+      "minEVThreshold": -0.5
+    },
+    {
+      "lookback": 5,
+      "minEV": -1.0,
+      "kept": {
+        "n": 185,
+        "winRate": 56.8,
+        "evPct": 1.763,
+        "median": 1.155,
+        "totalPct": 326.21,
+        "totalTWD": 3262062.0,
+        "maxWin": 30.97,
+        "maxLoss": -12.49
+      },
+      "dropped": {
+        "n": 22,
+        "winRate": 68.2,
+        "evPct": 3.198,
+        "median": 3.622,
+        "totalPct": 70.35,
+        "totalTWD": 703549.0,
+        "maxWin": 14.71,
+        "maxLoss": -11.43
+      },
+      "lookbackDays": 5,
+      "minEVThreshold": -1.0
+    },
+    {
+      "lookback": 7,
+      "minEV": -1.0,
+      "kept": {
+        "n": 188,
+        "winRate": 56.9,
+        "evPct": 1.649,
+        "median": 1.185,
+        "totalPct": 310.02,
+        "totalTWD": 3100167.0,
+        "maxWin": 17.76,
+        "maxLoss": -12.49
+      },
+      "dropped": {
+        "n": 19,
+        "winRate": 68.4,
+        "evPct": 4.555,
+        "median": 3.057,
+        "totalPct": 86.54,
+        "totalTWD": 865444.0,
+        "maxWin": 30.97,
+        "maxLoss": -11.43
+      },
+      "lookbackDays": 7,
+      "minEVThreshold": -1.0
+    },
+    {
+      "lookback": 7,
+      "minEV": -0.5,
+      "kept": {
+        "n": 187,
+        "winRate": 56.7,
+        "evPct": 1.603,
+        "median": 1.155,
+        "totalPct": 299.85,
+        "totalTWD": 2998486.0,
+        "maxWin": 17.76,
+        "maxLoss": -12.49
+      },
+      "dropped": {
+        "n": 20,
+        "winRate": 70.0,
+        "evPct": 4.836,
+        "median": 3.622,
+        "totalPct": 96.71,
+        "totalTWD": 967125.0,
+        "maxWin": 30.97,
+        "maxLoss": -11.43
+      },
+      "lookbackDays": 7,
+      "minEVThreshold": -0.5
+    },
+    {
+      "lookback": 5,
+      "minEV": -0.5,
+      "kept": {
+        "n": 177,
+        "winRate": 55.9,
+        "evPct": 1.659,
+        "median": 1.012,
+        "totalPct": 293.73,
+        "totalTWD": 2937292.0,
+        "maxWin": 30.97,
+        "maxLoss": -12.49
+      },
+      "dropped": {
+        "n": 30,
+        "winRate": 70.0,
+        "evPct": 3.428,
+        "median": 3.523,
+        "totalPct": 102.83,
+        "totalTWD": 1028319.0,
+        "maxWin": 14.71,
+        "maxLoss": -11.43
+      },
+      "lookbackDays": 5,
+      "minEVThreshold": -0.5
+    },
+    {
+      "lookback": 10,
+      "minEV": 0.5,
+      "kept": {
+        "n": 181,
+        "winRate": 55.8,
+        "evPct": 1.588,
+        "median": 1.044,
+        "totalPct": 287.35,
+        "totalTWD": 2873503.0,
+        "maxWin": 30.97,
+        "maxLoss": -12.49
+      },
+      "dropped": {
+        "n": 26,
+        "winRate": 73.1,
+        "evPct": 4.2,
+        "median": 3.763,
+        "totalPct": 109.21,
+        "totalTWD": 1092108.0,
+        "maxWin": 17.33,
+        "maxLoss": -11.43
+      },
+      "lookbackDays": 10,
+      "minEVThreshold": 0.5
+    },
+    {
+      "lookback": 3,
+      "minEV": -1.0,
+      "kept": {
+        "n": 173,
+        "winRate": 54.9,
+        "evPct": 1.624,
+        "median": 0.63,
+        "totalPct": 280.9,
+        "totalTWD": 2809014.0,
+        "maxWin": 30.97,
+        "maxLoss": -12.49
+      },
+      "dropped": {
+        "n": 34,
+        "winRate": 73.5,
+        "evPct": 3.402,
+        "median": 2.675,
+        "totalPct": 115.66,
+        "totalTWD": 1156597.0,
+        "maxWin": 14.71,
+        "maxLoss": -11.43
+      },
+      "lookbackDays": 3,
+      "minEVThreshold": -1.0
+    },
+    {
+      "lookback": 3,
+      "minEV": 0.0,
+      "kept": {
+        "n": 168,
+        "winRate": 54.8,
+        "evPct": 1.607,
+        "median": 0.621,
+        "totalPct": 269.97,
+        "totalTWD": 2699710.0,
+        "maxWin": 30.97,
+        "maxLoss": -12.49
+      },
+      "dropped": {
+        "n": 39,
+        "winRate": 71.8,
+        "evPct": 3.246,
+        "median": 2.86,
+        "totalPct": 126.59,
+        "totalTWD": 1265901.0,
+        "maxWin": 14.71,
+        "maxLoss": -11.43
+      },
+      "lookbackDays": 3,
+      "minEVThreshold": 0.0
+    },
+    {
+      "lookback": 3,
+      "minEV": -0.5,
+      "kept": {
+        "n": 171,
+        "winRate": 54.4,
+        "evPct": 1.576,
+        "median": 0.612,
+        "totalPct": 269.41,
+        "totalTWD": 2694119.0,
+        "maxWin": 30.97,
+        "maxLoss": -12.49
+      },
+      "dropped": {
+        "n": 36,
+        "winRate": 75.0,
+        "evPct": 3.532,
+        "median": 2.958,
+        "totalPct": 127.15,
+        "totalTWD": 1271492.0,
+        "maxWin": 14.71,
+        "maxLoss": -11.43
+      },
+      "lookbackDays": 3,
+      "minEVThreshold": -0.5
+    },
+    {
+      "lookback": 10,
+      "minEV": 1.5,
+      "kept": {
+        "n": 147,
+        "winRate": 56.5,
+        "evPct": 1.803,
+        "median": 1.244,
+        "totalPct": 265.11,
+        "totalTWD": 2651087.0,
+        "maxWin": 17.76,
+        "maxLoss": -12.49
+      },
+      "dropped": {
+        "n": 60,
+        "winRate": 61.7,
+        "evPct": 2.191,
+        "median": 1.541,
+        "totalPct": 131.45,
+        "totalTWD": 1314524.0,
+        "maxWin": 30.97,
+        "maxLoss": -11.43
+      },
+      "lookbackDays": 10,
+      "minEVThreshold": 1.5
+    },
+    {
+      "lookback": 3,
+      "minEV": 0.5,
+      "kept": {
+        "n": 137,
+        "winRate": 56.9,
+        "evPct": 1.928,
+        "median": 1.375,
+        "totalPct": 264.18,
+        "totalTWD": 2641820.0,
+        "maxWin": 17.76,
+        "maxLoss": -12.49
+      },
+      "dropped": {
+        "n": 70,
+        "winRate": 60.0,
+        "evPct": 1.891,
+        "median": 1.93,
+        "totalPct": 132.38,
+        "totalTWD": 1323791.0,
+        "maxWin": 30.97,
+        "maxLoss": -11.43
+      },
+      "lookbackDays": 3,
+      "minEVThreshold": 0.5
+    },
+    {
+      "lookback": 10,
+      "minEV": 2.0,
+      "kept": {
+        "n": 135,
+        "winRate": 57.0,
+        "evPct": 1.919,
+        "median": 1.7,
+        "totalPct": 259.09,
+        "totalTWD": 2590867.0,
+        "maxWin": 17.76,
+        "maxLoss": -12.49
+      },
+      "dropped": {
+        "n": 72,
+        "winRate": 59.7,
+        "evPct": 1.909,
+        "median": 1.404,
+        "totalPct": 137.47,
+        "totalTWD": 1374744.0,
+        "maxWin": 30.97,
+        "maxLoss": -11.43
+      },
+      "lookbackDays": 10,
+      "minEVThreshold": 2.0
+    },
+    {
+      "lookback": 10,
+      "minEV": 1.0,
+      "kept": {
+        "n": 178,
+        "winRate": 55.1,
+        "evPct": 1.376,
+        "median": 0.863,
+        "totalPct": 244.89,
+        "totalTWD": 2448940.0,
+        "maxWin": 17.76,
+        "maxLoss": -12.49
+      },
+      "dropped": {
+        "n": 29,
+        "winRate": 75.9,
+        "evPct": 5.23,
+        "median": 4.188,
+        "totalPct": 151.67,
+        "totalTWD": 1516671.0,
+        "maxWin": 30.97,
+        "maxLoss": -11.43
+      },
+      "lookbackDays": 10,
+      "minEVThreshold": 1.0
+    },
+    {
+      "lookback": 5,
+      "minEV": 1.0,
+      "kept": {
+        "n": 137,
+        "winRate": 57.7,
+        "evPct": 1.75,
+        "median": 1.216,
+        "totalPct": 239.69,
+        "totalTWD": 2396914.0,
+        "maxWin": 17.76,
+        "maxLoss": -12.49
+      },
+      "dropped": {
+        "n": 70,
+        "winRate": 58.6,
+        "evPct": 2.241,
+        "median": 2.303,
+        "totalPct": 156.87,
+        "totalTWD": 1568697.0,
+        "maxWin": 30.97,
+        "maxLoss": -11.43
+      },
+      "lookbackDays": 5,
+      "minEVThreshold": 1.0
+    },
+    {
+      "lookback": 7,
+      "minEV": 0.0,
+      "kept": {
+        "n": 179,
+        "winRate": 55.3,
+        "evPct": 1.327,
+        "median": 0.715,
+        "totalPct": 237.58,
+        "totalTWD": 2375831.0,
+        "maxWin": 17.76,
+        "maxLoss": -12.49
+      },
+      "dropped": {
+        "n": 28,
+        "winRate": 75.0,
+        "evPct": 5.678,
+        "median": 5.97,
+        "totalPct": 158.98,
+        "totalTWD": 1589780.0,
+        "maxWin": 30.97,
+        "maxLoss": -11.43
+      },
+      "lookbackDays": 7,
+      "minEVThreshold": 0.0
+    },
+    {
+      "lookback": 5,
+      "minEV": 0.0,
+      "kept": {
+        "n": 159,
+        "winRate": 56.6,
+        "evPct": 1.473,
+        "median": 1.044,
+        "totalPct": 234.17,
+        "totalTWD": 2341733.0,
+        "maxWin": 17.76,
+        "maxLoss": -12.49
+      },
+      "dropped": {
+        "n": 48,
+        "winRate": 62.5,
+        "evPct": 3.383,
+        "median": 2.675,
+        "totalPct": 162.39,
+        "totalTWD": 1623878.0,
+        "maxWin": 30.97,
+        "maxLoss": -11.43
+      },
+      "lookbackDays": 5,
+      "minEVThreshold": 0.0
+    },
+    {
+      "lookback": 5,
+      "minEV": 0.5,
+      "kept": {
+        "n": 155,
+        "winRate": 56.1,
+        "evPct": 1.495,
+        "median": 1.044,
+        "totalPct": 231.79,
+        "totalTWD": 2317899.0,
+        "maxWin": 17.76,
+        "maxLoss": -12.49
+      },
+      "dropped": {
+        "n": 52,
+        "winRate": 63.5,
+        "evPct": 3.169,
+        "median": 2.675,
+        "totalPct": 164.77,
+        "totalTWD": 1647712.0,
+        "maxWin": 30.97,
+        "maxLoss": -11.43
+      },
+      "lookbackDays": 5,
+      "minEVThreshold": 0.5
+    },
+    {
+      "lookback": 7,
+      "minEV": 2.0,
+      "kept": {
+        "n": 115,
+        "winRate": 57.4,
+        "evPct": 1.978,
+        "median": 1.7,
+        "totalPct": 227.42,
+        "totalTWD": 2274225.0,
+        "maxWin": 17.76,
+        "maxLoss": -12.49
+      },
+      "dropped": {
+        "n": 92,
+        "winRate": 58.7,
+        "evPct": 1.838,
+        "median": 1.404,
+        "totalPct": 169.14,
+        "totalTWD": 1691386.0,
+        "maxWin": 30.97,
+        "maxLoss": -11.43
+      },
+      "lookbackDays": 7,
+      "minEVThreshold": 2.0
+    },
+    {
+      "lookback": 7,
+      "minEV": 0.5,
+      "kept": {
+        "n": 158,
+        "winRate": 55.7,
+        "evPct": 1.389,
+        "median": 1.028,
+        "totalPct": 219.54,
+        "totalTWD": 2195409.0,
+        "maxWin": 17.76,
+        "maxLoss": -12.49
+      },
+      "dropped": {
+        "n": 49,
+        "winRate": 65.3,
+        "evPct": 3.613,
+        "median": 3.057,
+        "totalPct": 177.02,
+        "totalTWD": 1770202.0,
+        "maxWin": 30.97,
+        "maxLoss": -11.43
+      },
+      "lookbackDays": 7,
+      "minEVThreshold": 0.5
+    },
+    {
+      "lookback": 7,
+      "minEV": 1.0,
+      "kept": {
+        "n": 157,
+        "winRate": 55.4,
+        "evPct": 1.374,
+        "median": 1.012,
+        "totalPct": 215.7,
+        "totalTWD": 2157019.0,
+        "maxWin": 17.76,
+        "maxLoss": -12.49
+      },
+      "dropped": {
+        "n": 50,
+        "winRate": 66.0,
+        "evPct": 3.617,
+        "median": 3.197,
+        "totalPct": 180.86,
+        "totalTWD": 1808592.0,
+        "maxWin": 30.97,
+        "maxLoss": -11.43
+      },
+      "lookbackDays": 7,
+      "minEVThreshold": 1.0
+    },
+    {
+      "lookback": 5,
+      "minEV": 1.5,
+      "kept": {
+        "n": 127,
+        "winRate": 56.7,
+        "evPct": 1.642,
+        "median": 1.044,
+        "totalPct": 208.56,
+        "totalTWD": 2085628.0,
+        "maxWin": 17.76,
+        "maxLoss": -12.49
+      },
+      "dropped": {
+        "n": 80,
+        "winRate": 60.0,
+        "evPct": 2.35,
+        "median": 2.402,
+        "totalPct": 188.0,
+        "totalTWD": 1879983.0,
+        "maxWin": 30.97,
+        "maxLoss": -11.43
+      },
+      "lookbackDays": 5,
+      "minEVThreshold": 1.5
+    },
+    {
+      "lookback": 3,
+      "minEV": 1.0,
+      "kept": {
+        "n": 123,
+        "winRate": 56.9,
+        "evPct": 1.663,
+        "median": 1.216,
+        "totalPct": 204.5,
+        "totalTWD": 2044962.0,
+        "maxWin": 17.76,
+        "maxLoss": -12.49
+      },
+      "dropped": {
+        "n": 84,
+        "winRate": 59.5,
+        "evPct": 2.286,
+        "median": 2.195,
+        "totalPct": 192.06,
+        "totalTWD": 1920649.0,
+        "maxWin": 30.97,
+        "maxLoss": -11.43
+      },
+      "lookbackDays": 3,
+      "minEVThreshold": 1.0
+    },
+    {
+      "lookback": 7,
+      "minEV": 1.5,
+      "kept": {
+        "n": 140,
+        "winRate": 54.3,
+        "evPct": 1.445,
+        "median": 0.621,
+        "totalPct": 202.26,
+        "totalTWD": 2022646.0,
+        "maxWin": 17.76,
+        "maxLoss": -12.49
+      },
+      "dropped": {
+        "n": 67,
+        "winRate": 65.7,
+        "evPct": 2.9,
+        "median": 2.489,
+        "totalPct": 194.3,
+        "totalTWD": 1942965.0,
+        "maxWin": 30.97,
+        "maxLoss": -11.43
+      },
+      "lookbackDays": 7,
+      "minEVThreshold": 1.5
+    },
+    {
+      "lookback": 5,
+      "minEV": 2.0,
+      "kept": {
+        "n": 110,
+        "winRate": 55.5,
+        "evPct": 1.678,
+        "median": 0.837,
+        "totalPct": 184.58,
+        "totalTWD": 1845791.0,
+        "maxWin": 17.76,
+        "maxLoss": -12.49
+      },
+      "dropped": {
+        "n": 97,
+        "winRate": 60.8,
+        "evPct": 2.185,
+        "median": 2.196,
+        "totalPct": 211.98,
+        "totalTWD": 2119820.0,
+        "maxWin": 30.97,
+        "maxLoss": -11.43
+      },
+      "lookbackDays": 5,
+      "minEVThreshold": 2.0
+    },
+    {
+      "lookback": 3,
+      "minEV": 1.5,
+      "kept": {
+        "n": 118,
+        "winRate": 55.9,
+        "evPct": 1.517,
+        "median": 0.837,
+        "totalPct": 179.03,
+        "totalTWD": 1790306.0,
+        "maxWin": 17.76,
+        "maxLoss": -12.49
+      },
+      "dropped": {
+        "n": 89,
+        "winRate": 60.7,
+        "evPct": 2.444,
+        "median": 2.301,
+        "totalPct": 217.53,
+        "totalTWD": 2175305.0,
+        "maxWin": 30.97,
+        "maxLoss": -11.43
+      },
+      "lookbackDays": 3,
+      "minEVThreshold": 1.5
+    },
+    {
+      "lookback": 3,
+      "minEV": 2.0,
+      "kept": {
+        "n": 103,
+        "winRate": 58.3,
+        "evPct": 1.722,
+        "median": 1.216,
+        "totalPct": 177.4,
+        "totalTWD": 1774013.0,
+        "maxWin": 17.76,
+        "maxLoss": -12.49
+      },
+      "dropped": {
+        "n": 104,
+        "winRate": 57.7,
+        "evPct": 2.107,
+        "median": 2.167,
+        "totalPct": 219.16,
+        "totalTWD": 2191598.0,
+        "maxWin": 30.97,
+        "maxLoss": -11.43
+      },
+      "lookbackDays": 3,
+      "minEVThreshold": 2.0
+    }
+  ],
+  "blacklistTopWorst5": {
+    "blacklist": [
+      "IC設計 / AI邊緣運算",
+      "塑化 / 化工",
+      "生技 / 醫療器材",
+      "電子 / 半導體",
+      "個股亮點"
+    ],
+    "kept": {
+      "n": 16,
+      "winRate": 81.2,
+      "evPct": 3.91,
+      "median": 2.376,
+      "totalPct": 62.57,
+      "totalTWD": 625678.0,
+      "maxWin": 15.38,
+      "maxLoss": -5.78
+    },
+    "dropped": {
+      "n": 191,
+      "winRate": 56.0,
+      "evPct": 1.749,
+      "median": 1.216,
+      "totalPct": 333.99,
+      "totalTWD": 3339933.0,
+      "maxWin": 30.97,
+      "maxLoss": -12.49
+    }
+  },
+  "whitelistTopBest5": {
+    "whitelist": [
+      "光通訊 / 矽光子",
+      "個股亮點",
+      "電子 / 半導體",
+      "生技 / 醫療器材",
+      "塑化 / 化工"
+    ],
+    "kept": {
+      "n": 192,
+      "winRate": 57.8,
+      "evPct": 2.004,
+      "median": 1.404,
+      "totalPct": 384.83,
+      "totalTWD": 3848290.0,
+      "maxWin": 30.97,
+      "maxLoss": -12.49
+    },
+    "dropped": {
+      "n": 15,
+      "winRate": 60.0,
+      "evPct": 0.782,
+      "median": 2.196,
+      "totalPct": 11.73,
+      "totalTWD": 117321.0,
+      "maxWin": 12.48,
+      "maxLoss": -11.43
+    }
+  },
+  "comboClusterLE7": {
+    "rule": "cluster<=7 only",
+    "kept": {
+      "n": 146,
+      "winRate": 65.1,
+      "evPct": 2.766,
+      "median": 2.276,
+      "totalPct": 403.81,
+      "totalTWD": 4038050.0,
+      "maxWin": 30.97,
+      "maxLoss": -12.49
+    }
+  },
+  "monthlyByCategory": {
+    "光通訊 / 矽光子": {
+      "2026-04": {
+        "n": 2,
+        "winRate": 100.0,
+        "evPct": 9.29,
+        "median": 9.29,
+        "totalPct": 18.58,
+        "totalTWD": 185810.0,
+        "maxWin": 14.39,
+        "maxLoss": 4.19
+      },
+      "2026-05": {
+        "n": 5,
+        "winRate": 60.0,
+        "evPct": 1.074,
+        "median": 0.63,
+        "totalPct": 5.37,
+        "totalTWD": 53714.0,
+        "maxWin": 7.82,
+        "maxLoss": -5.78
+      },
+      "2026-06": {
+        "n": 2,
+        "winRate": 100.0,
+        "evPct": 8.841,
+        "median": 8.841,
+        "totalPct": 17.68,
+        "totalTWD": 176812.0,
+        "maxWin": 15.38,
+        "maxLoss": 2.3
+      }
+    },
+    "電子 / 半導體": {
+      "2026-04": {
+        "n": 6,
+        "winRate": 50.0,
+        "evPct": 3.605,
+        "median": 2.921,
+        "totalPct": 21.63,
+        "totalTWD": 216300.0,
+        "maxWin": 17.58,
+        "maxLoss": -8.0
+      },
+      "2026-05": {
+        "n": 58,
+        "winRate": 63.8,
+        "evPct": 2.865,
+        "median": 2.877,
+        "totalPct": 166.16,
+        "totalTWD": 1661584.0,
+        "maxWin": 17.76,
+        "maxLoss": -11.18
+      },
+      "2026-06": {
+        "n": 57,
+        "winRate": 42.1,
+        "evPct": 0.109,
+        "median": -1.035,
+        "totalPct": 6.23,
+        "totalTWD": 62330.0,
+        "maxWin": 17.33,
+        "maxLoss": -10.49
+      }
+    },
+    "IC設計 / AI邊緣運算": {
+      "2026-04": {
+        "n": 1,
+        "winRate": 0.0,
+        "evPct": -1.021,
+        "median": -1.021,
+        "totalPct": -1.02,
+        "totalTWD": -10208.0,
+        "maxWin": -1.02,
+        "maxLoss": -1.02
+      },
+      "2026-05": {
+        "n": 3,
+        "winRate": 33.3,
+        "evPct": -4.632,
+        "median": -5.325,
+        "totalPct": -13.9,
+        "totalTWD": -138958.0,
+        "maxWin": 2.86,
+        "maxLoss": -11.43
+      },
+      "2026-06": {
+        "n": 4,
+        "winRate": 50.0,
+        "evPct": 1.429,
+        "median": 1.267,
+        "totalPct": 5.71,
+        "totalTWD": 57145.0,
+        "maxWin": 12.48,
+        "maxLoss": -9.3
+      }
+    },
+    "個股亮點": {
+      "2026-04": {
+        "n": 3,
+        "winRate": 66.7,
+        "evPct": 2.202,
+        "median": 4.382,
+        "totalPct": 6.61,
+        "totalTWD": 66061.0,
+        "maxWin": 14.71,
+        "maxLoss": -12.49
+      },
+      "2026-05": {
+        "n": 18,
+        "winRate": 72.2,
+        "evPct": 4.758,
+        "median": 5.369,
+        "totalPct": 85.65,
+        "totalTWD": 856499.0,
+        "maxWin": 30.97,
+        "maxLoss": -8.62
+      },
+      "2026-06": {
+        "n": 22,
+        "winRate": 59.1,
+        "evPct": 1.92,
+        "median": 1.588,
+        "totalPct": 42.24,
+        "totalTWD": 422370.0,
+        "maxWin": 15.59,
+        "maxLoss": -6.71
+      }
+    },
+    "生技 / 醫療器材": {
+      "2026-04": {
+        "n": 1,
+        "winRate": 100.0,
+        "evPct": 5.893,
+        "median": 5.893,
+        "totalPct": 5.89,
+        "totalTWD": 58933.0,
+        "maxWin": 5.89,
+        "maxLoss": 5.89
+      },
+      "2026-05": {
+        "n": 7,
+        "winRate": 57.1,
+        "evPct": 0.088,
+        "median": 0.468,
+        "totalPct": 0.61,
+        "totalTWD": 6139.0,
+        "maxWin": 4.23,
+        "maxLoss": -7.72
+      },
+      "2026-06": {
+        "n": 6,
+        "winRate": 83.3,
+        "evPct": 1.695,
+        "median": 1.512,
+        "totalPct": 10.17,
+        "totalTWD": 101680.0,
+        "maxWin": 10.17,
+        "maxLoss": -10.91
+      }
+    },
+    "航太 / 國防": {
+      "2026-04": {
+        "n": 1,
+        "winRate": 100.0,
+        "evPct": 2.252,
+        "median": 2.252,
+        "totalPct": 2.25,
+        "totalTWD": 22518.0,
+        "maxWin": 2.25,
+        "maxLoss": 2.25
+      }
+    },
+    "PCB / CCL基板": {
+      "2026-05": {
+        "n": 1,
+        "winRate": 100.0,
+        "evPct": 11.462,
+        "median": 11.462,
+        "totalPct": 11.46,
+        "totalTWD": 114623.0,
+        "maxWin": 11.46,
+        "maxLoss": 11.46
+      }
+    },
+    "AI伺服器 / 散熱": {
+      "2026-05": {
+        "n": 1,
+        "winRate": 100.0,
+        "evPct": 3.057,
+        "median": 3.057,
+        "totalPct": 3.06,
+        "totalTWD": 30566.0,
+        "maxWin": 3.06,
+        "maxLoss": 3.06
+      }
+    },
+    "鋼鐵 / 金屬": {
+      "2026-05": {
+        "n": 3,
+        "winRate": 100.0,
+        "evPct": 1.751,
+        "median": 2.196,
+        "totalPct": 5.25,
+        "totalTWD": 52525.0,
+        "maxWin": 2.45,
+        "maxLoss": 0.61
+      },
+      "2026-06": {
+        "n": 1,
+        "winRate": 0.0,
+        "evPct": -1.089,
+        "median": -1.089,
+        "totalPct": -1.09,
+        "totalTWD": -10890.0,
+        "maxWin": -1.09,
+        "maxLoss": -1.09
+      }
+    },
+    "塑化 / 化工": {
+      "2026-06": {
+        "n": 5,
+        "winRate": 40.0,
+        "evPct": -0.399,
+        "median": -2.182,
+        "totalPct": -1.99,
+        "totalTWD": -19942.0,
+        "maxWin": 10.68,
+        "maxLoss": -7.7
+      }
+    }
+  }
+}

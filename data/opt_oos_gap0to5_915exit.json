@@ -1,0 +1,227 @@
+{
+  "meta": {
+    "scoreMin": 75,
+    "gapBucket": [
+      0.0,
+      5.0
+    ],
+    "exitTime": "09:15",
+    "costRtPct": 0.3798,
+    "totalTradesAvailable": 207,
+    "dateRange": {
+      "from": "2026-04-13",
+      "to": "2026-06-24"
+    }
+  },
+  "claim": {
+    "n": 99,
+    "winRate": 72.7,
+    "evPct": 2.066
+  },
+  "inSampleReplication": {
+    "n": 99,
+    "winRate": 72.7,
+    "evPct": 2.066,
+    "median": 2.116,
+    "ciLow": 63.2,
+    "ciHigh": 80.5,
+    "totalNetPct": 204.57
+  },
+  "controls": {
+    "baseline_all_score75_T2open": {
+      "n": 207,
+      "winRate": 58.0,
+      "evPct": 1.916,
+      "median": 1.434,
+      "ciLow": 51.2,
+      "ciHigh": 64.5,
+      "totalNetPct": 396.56
+    },
+    "gap0to5_T2open": {
+      "n": 99,
+      "winRate": 55.6,
+      "evPct": 1.515,
+      "median": 1.012,
+      "ciLow": 45.7,
+      "ciHigh": 65.0,
+      "totalNetPct": 149.98
+    },
+    "allGap_915exit": {
+      "n": 207,
+      "winRate": 64.7,
+      "evPct": 1.501,
+      "median": 1.396,
+      "ciLow": 58.0,
+      "ciHigh": 70.9,
+      "totalNetPct": 310.8
+    },
+    "rule_T1close_exit": {
+      "n": 99,
+      "winRate": 50.5,
+      "evPct": 0.73,
+      "median": 0.943,
+      "ciLow": 40.8,
+      "ciHigh": 60.1,
+      "totalNetPct": 72.29
+    },
+    "rule_T2open_exit": {
+      "n": 99,
+      "winRate": 55.6,
+      "evPct": 1.515,
+      "median": 1.012,
+      "ciLow": 45.7,
+      "ciHigh": 65.0,
+      "totalNetPct": 149.98
+    }
+  },
+  "split7030": {
+    "trainDateRange": [
+      "2026-04-13",
+      "2026-06-15"
+    ],
+    "testDateRange": [
+      "2026-06-15",
+      "2026-06-24"
+    ],
+    "train": {
+      "n": 58,
+      "winRate": 74.1,
+      "evPct": 2.192,
+      "median": 2.349,
+      "ciLow": 61.6,
+      "ciHigh": 83.7,
+      "totalNetPct": 127.12
+    },
+    "test": {
+      "n": 41,
+      "winRate": 70.7,
+      "evPct": 1.889,
+      "median": 1.714,
+      "ciLow": 55.5,
+      "ciHigh": 82.4,
+      "totalNetPct": 77.44
+    },
+    "winRateGapPp": 3.4,
+    "evGapPp": 0.303
+  },
+  "monthly": {
+    "rule_915": {
+      "2026-04": {
+        "n": 10,
+        "winRate": 70.0,
+        "evPct": 2.319,
+        "median": 2.092,
+        "ciLow": 39.7,
+        "ciHigh": 89.2,
+        "totalNetPct": 23.19
+      },
+      "2026-05": {
+        "n": 37,
+        "winRate": 70.3,
+        "evPct": 2.056,
+        "median": 2.116,
+        "ciLow": 54.2,
+        "ciHigh": 82.5,
+        "totalNetPct": 76.06
+      },
+      "2026-06": {
+        "n": 52,
+        "winRate": 75.0,
+        "evPct": 2.025,
+        "median": 1.968,
+        "ciLow": 61.8,
+        "ciHigh": 84.8,
+        "totalNetPct": 105.31
+      }
+    },
+    "baseline_t2open": {
+      "2026-04": {
+        "n": 14,
+        "winRate": 64.3,
+        "evPct": 3.853,
+        "median": 4.285,
+        "ciLow": 38.8,
+        "ciHigh": 83.7,
+        "totalNetPct": 53.94
+      },
+      "2026-05": {
+        "n": 87,
+        "winRate": 67.8,
+        "evPct": 3.03,
+        "median": 2.86,
+        "ciLow": 57.4,
+        "ciHigh": 76.7,
+        "totalNetPct": 263.6
+      },
+      "2026-06": {
+        "n": 106,
+        "winRate": 49.1,
+        "evPct": 0.745,
+        "median": -0.223,
+        "ciLow": 39.7,
+        "ciHigh": 58.4,
+        "totalNetPct": 79.02
+      }
+    },
+    "allGap_915": {
+      "2026-04": {
+        "n": 14,
+        "winRate": 71.4,
+        "evPct": 1.991,
+        "median": 1.36,
+        "ciLow": 45.4,
+        "ciHigh": 88.3,
+        "totalNetPct": 27.87
+      },
+      "2026-05": {
+        "n": 87,
+        "winRate": 62.1,
+        "evPct": 1.371,
+        "median": 1.604,
+        "ciLow": 51.6,
+        "ciHigh": 71.5,
+        "totalNetPct": 119.26
+      },
+      "2026-06": {
+        "n": 106,
+        "winRate": 66.0,
+        "evPct": 1.544,
+        "median": 1.351,
+        "ciLow": 56.6,
+        "ciHigh": 74.4,
+        "totalNetPct": 163.67
+      }
+    }
+  },
+  "june2026_special_check": {
+    "rule_915": {
+      "n": 52,
+      "winRate": 75.0,
+      "evPct": 2.025,
+      "median": 1.968,
+      "ciLow": 61.8,
+      "ciHigh": 84.8,
+      "totalNetPct": 105.31
+    },
+    "baseline_t2open": {
+      "n": 106,
+      "winRate": 49.1,
+      "evPct": 0.745,
+      "median": -0.223,
+      "ciLow": 39.7,
+      "ciHigh": 58.4,
+      "totalNetPct": 79.02
+    },
+    "allGap_915": {
+      "n": 106,
+      "winRate": 66.0,
+      "evPct": 1.544,
+      "median": 1.351,
+      "ciLow": 56.6,
+      "ciHigh": 74.4,
+      "totalNetPct": 163.67
+    },
+    "verdict": "rule SAVES June"
+  },
+  "walkForward": []
+}

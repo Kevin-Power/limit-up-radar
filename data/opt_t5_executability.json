@@ -1,0 +1,238 @@
+{
+  "totalPicks": 449,
+  "barsCoverage": {
+    "hasBars": 448,
+    "noBars": 1
+  },
+  "openingAuctionLimitUp": 25,
+  "t5LimitDown": 8,
+  "byEntryDate": {
+    "2026-04-13": 7,
+    "2026-04-14": 4,
+    "2026-04-16": 2,
+    "2026-04-17": 3,
+    "2026-04-20": 1
+  },
+  "concurrentHoldings": [],
+  "extremeWinners": [
+    {
+      "code": "3090",
+      "ret": 62.87,
+      "entryDate": "2026-05-18"
+    },
+    {
+      "code": "2327",
+      "ret": 49.19,
+      "entryDate": "2026-05-15"
+    },
+    {
+      "code": "6658",
+      "ret": 44.77,
+      "entryDate": "2026-04-24"
+    },
+    {
+      "code": "2327",
+      "ret": 43.98,
+      "entryDate": "2026-05-20"
+    },
+    {
+      "code": "3577",
+      "ret": 41.21,
+      "entryDate": "2026-05-15"
+    },
+    {
+      "code": "1303",
+      "ret": 40.17,
+      "entryDate": "2026-06-15"
+    },
+    {
+      "code": "2464",
+      "ret": 39.54,
+      "entryDate": "2026-05-18"
+    },
+    {
+      "code": "2344",
+      "ret": 39.04,
+      "entryDate": "2026-05-25"
+    },
+    {
+      "code": "3441",
+      "ret": 36.49,
+      "entryDate": "2026-06-11"
+    },
+    {
+      "code": "8042",
+      "ret": 36.11,
+      "entryDate": "2026-05-20"
+    }
+  ],
+  "extremeLosers": [
+    {
+      "code": "6217",
+      "ret": -25.96,
+      "entryDate": "2026-05-14"
+    },
+    {
+      "code": "6217",
+      "ret": -25.92,
+      "entryDate": "2026-05-13"
+    },
+    {
+      "code": "5475",
+      "ret": -23.7,
+      "entryDate": "2026-06-04"
+    },
+    {
+      "code": "6770",
+      "ret": -23.66,
+      "entryDate": "2026-06-01"
+    },
+    {
+      "code": "2464",
+      "ret": -23.26,
+      "entryDate": "2026-06-01"
+    },
+    {
+      "code": "5464",
+      "ret": -20.72,
+      "entryDate": "2026-06-01"
+    },
+    {
+      "code": "3312",
+      "ret": -20.21,
+      "entryDate": "2026-06-05"
+    },
+    {
+      "code": "1503",
+      "ret": -20.16,
+      "entryDate": "2026-06-05"
+    },
+    {
+      "code": "1597",
+      "ret": -20.15,
+      "entryDate": "2026-05-27"
+    },
+    {
+      "code": "1514",
+      "ret": -19.28,
+      "entryDate": "2026-06-05"
+    }
+  ],
+  "gapdownAtT1Open": 76,
+  "missingT5Data": 60,
+  "examples": [
+    {
+      "type": "limit_up_at_open",
+      "code": "1785",
+      "date": "2026-04-13",
+      "prevClose": 115.5,
+      "open": 127.0,
+      "openingVolume": null
+    },
+    {
+      "type": "limit_up_at_open",
+      "code": "8043",
+      "date": "2026-04-14",
+      "prevClose": 81.8,
+      "open": 89.9,
+      "openingVolume": null
+    },
+    {
+      "type": "limit_up_at_open",
+      "code": "2454",
+      "date": "2026-05-06",
+      "prevClose": 3155.0,
+      "open": 3470.0,
+      "openingVolume": null
+    },
+    {
+      "type": "limit_up_at_open",
+      "code": "8150",
+      "date": "2026-05-06",
+      "prevClose": 84.1,
+      "open": 92.5,
+      "openingVolume": null
+    },
+    {
+      "type": "limit_up_at_open",
+      "code": "8040",
+      "date": "2026-05-06",
+      "prevClose": 81.8,
+      "open": 89.9,
+      "openingVolume": null
+    },
+    {
+      "type": "limit_up_at_open",
+      "code": "3036",
+      "date": "2026-05-11",
+      "prevClose": 240.5,
+      "open": 264.5,
+      "openingVolume": null
+    },
+    {
+      "type": "limit_up_at_open",
+      "code": "5215",
+      "date": "2026-05-14",
+      "prevClose": 46.3,
+      "open": 50.9,
+      "openingVolume": null
+    },
+    {
+      "type": "limit_up_at_open",
+      "code": "4916",
+      "date": "2026-05-22",
+      "prevClose": 89.9,
+      "open": 100.0,
+      "openingVolume": null
+    },
+    {
+      "type": "limit_up_at_open",
+      "code": "8040",
+      "date": "2026-05-22",
+      "prevClose": 98.7,
+      "open": 119.0,
+      "openingVolume": null
+    },
+    {
+      "type": "limit_up_at_open",
+      "code": "6209",
+      "date": "2026-05-22",
+      "prevClose": 78.9,
+      "open": 89.0,
+      "openingVolume": null
+    }
+  ],
+  "returnsAnalysis": {
+    "n": 389,
+    "mean": 2.906,
+    "median": 0.988,
+    "winRate": 51.4,
+    "stdev": 14.3,
+    "maxWin": 62.87,
+    "maxLoss": -25.96,
+    "totalNet": 1130.26,
+    "top5pctContribution": 62.9,
+    "top5pctN": 19,
+    "top5pctSum": 710.7,
+    "evWithoutTop5pct": 1.134
+  },
+  "dailyPicksDistribution": {
+    "tradingDays": 45,
+    "totalPicks": 449,
+    "mean": 9.98,
+    "median": 8,
+    "max": 31,
+    "p90": 24,
+    "daysWith10plus": 17,
+    "daysWith5plus": 30
+  },
+  "concurrentHoldingsDist": {
+    "days": 47,
+    "mean": 41.4,
+    "median": 41,
+    "max": 90,
+    "p90": 78,
+    "p75": 67,
+    "note": "T+1 進場、T+5 出場 → 持倉時長 5 個交易日，任一時點疊加的部位數"
+  }
+}

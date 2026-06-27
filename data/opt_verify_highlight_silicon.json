@@ -1,0 +1,238 @@
+{
+  "rule": "個股亮點 OR 光通訊/矽光子, cluster<=7",
+  "claim": {
+    "ev": 3.39,
+    "winRate": 67.3,
+    "n": 52
+  },
+  "actual": {
+    "baseline_all": {
+      "n": 274,
+      "winRate": 59.12,
+      "ev": 2.071,
+      "total": 567.45,
+      "median": 1.5749
+    },
+    "rule_combined": {
+      "n": 13,
+      "winRate": 69.23,
+      "ev": 4.7676,
+      "total": 61.98,
+      "median": 2.301
+    },
+    "group_only_no_cluster": {
+      "n": 78,
+      "winRate": 65.38,
+      "ev": 3.2198,
+      "total": 251.15,
+      "median": 2.3273
+    },
+    "per_group_no_cluster": {
+      "個股亮點": {
+        "n": 64,
+        "winRate": 64.06,
+        "ev": 2.8903,
+        "total": 184.98,
+        "median": 2.2458
+      },
+      "光通訊 / 矽光子": {
+        "n": 14,
+        "winRate": 71.43,
+        "ev": 4.7262,
+        "total": 66.17,
+        "median": 2.6921
+      }
+    },
+    "per_group_with_cluster": {
+      "光通訊 / 矽光子": {
+        "n": 13,
+        "winRate": 69.23,
+        "ev": 4.7676,
+        "total": 61.98,
+        "median": 2.301
+      }
+    }
+  },
+  "sensitivity": {
+    "cluster_sweep": {
+      "3": {
+        "n": 8,
+        "winRate": 75.0,
+        "ev": 5.3765,
+        "total": 43.01,
+        "median": 2.6921
+      },
+      "4": {
+        "n": 9,
+        "winRate": 66.67,
+        "ev": 4.762,
+        "total": 42.86,
+        "median": 2.301
+      },
+      "5": {
+        "n": 12,
+        "winRate": 66.67,
+        "ev": 3.9655,
+        "total": 47.59,
+        "median": 1.8276
+      },
+      "6": {
+        "n": 13,
+        "winRate": 69.23,
+        "ev": 4.7676,
+        "total": 61.98,
+        "median": 2.301
+      },
+      "7": {
+        "n": 13,
+        "winRate": 69.23,
+        "ev": 4.7676,
+        "total": 61.98,
+        "median": 2.301
+      },
+      "8": {
+        "n": 13,
+        "winRate": 69.23,
+        "ev": 4.7676,
+        "total": 61.98,
+        "median": 2.301
+      },
+      "9": {
+        "n": 14,
+        "winRate": 71.43,
+        "ev": 4.7262,
+        "total": 66.17,
+        "median": 2.6921
+      },
+      "10": {
+        "n": 14,
+        "winRate": 71.43,
+        "ev": 4.7262,
+        "total": 66.17,
+        "median": 2.6921
+      },
+      "12": {
+        "n": 15,
+        "winRate": 66.67,
+        "ev": 3.5784,
+        "total": 53.68,
+        "median": 2.301
+      },
+      "15": {
+        "n": 18,
+        "winRate": 66.67,
+        "ev": 3.8384,
+        "total": 69.09,
+        "median": 2.6921
+      },
+      "20": {
+        "n": 30,
+        "winRate": 66.67,
+        "ev": 3.3803,
+        "total": 101.41,
+        "median": 2.6921
+      },
+      "999": {
+        "n": 78,
+        "winRate": 65.38,
+        "ev": 3.2198,
+        "total": 251.15,
+        "median": 2.3273
+      }
+    },
+    "leave_one_group_out": {
+      "exclude_光通訊 / 矽光子": {
+        "n": 0,
+        "winRate": null,
+        "ev": null,
+        "total": null,
+        "median": null
+      }
+    }
+  },
+  "robustness": {
+    "first_half": {
+      "n": 6,
+      "winRate": 83.33,
+      "ev": 7.8437,
+      "total": 47.06,
+      "median": 6.1183
+    },
+    "second_half": {
+      "n": 7,
+      "winRate": 57.14,
+      "ev": 2.1309,
+      "total": 14.92,
+      "median": 1.3541
+    },
+    "first_half_baseline": {
+      "n": 137,
+      "winRate": 68.61,
+      "ev": 3.3778,
+      "total": 462.76,
+      "median": 3.0411
+    },
+    "second_half_baseline": {
+      "n": 137,
+      "winRate": 49.64,
+      "ev": 0.7642,
+      "total": 104.7,
+      "median": -0.0659
+    },
+    "monthly": {
+      "2026-04": {
+        "n": 3,
+        "winRate": 66.67,
+        "ev": 7.7973,
+        "total": 23.39,
+        "median": 9.1535
+      },
+      "2026-05": {
+        "n": 7,
+        "winRate": 71.43,
+        "ev": 3.8116,
+        "total": 26.68,
+        "median": 1.3541
+      },
+      "2026-06": {
+        "n": 3,
+        "winRate": 66.67,
+        "ev": 3.9684,
+        "total": 11.91,
+        "median": 2.301
+      }
+    },
+    "consistent_across_halves": true
+  },
+  "bootstrap": {
+    "rule": {
+      "iterations": 1000,
+      "mean": 4.6408,
+      "ci5": 1.2808,
+      "ci25": 3.2645,
+      "ci50": 4.6299,
+      "ci75": 6.039,
+      "ci95": 7.9682,
+      "pPositive": 99.1,
+      "pAboveCost": 98.2
+    },
+    "group_only": {
+      "iterations": 1000,
+      "mean": 3.1833,
+      "ci5": 1.7895,
+      "ci25": 2.6201,
+      "ci50": 3.1784,
+      "ci75": 3.7719,
+      "ci95": 4.529,
+      "pPositive": 100.0,
+      "pAboveCost": 100.0
+    }
+  },
+  "diagnostics": {
+    "matched_group_names": {
+      "光通訊 / 矽光子": 14,
+      "個股亮點": 64
+    },
+    "n_target_groups": 1
+  }
+}

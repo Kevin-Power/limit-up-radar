@@ -1,0 +1,265 @@
+{
+  "rule_under_test": "T+10_close (持有10交易日後賣出)",
+  "n_trades_total": 449,
+  "adjacent_holds": {
+    "T+2_close": {
+      "n": 438,
+      "winRate": 42.92,
+      "meanNet": -0.472,
+      "medianNet": -1.576,
+      "sd": 8.17,
+      "totalNet": -206.64,
+      "minRet": -25.61,
+      "maxRet": 30.97
+    },
+    "T+3_close": {
+      "n": 429,
+      "winRate": 48.25,
+      "meanNet": 0.41,
+      "medianNet": -0.38,
+      "sd": 10.466,
+      "totalNet": 175.94,
+      "minRet": -23.57,
+      "maxRet": 51.56
+    },
+    "T+5_close": {
+      "n": 389,
+      "winRate": 51.41,
+      "meanNet": 2.906,
+      "medianNet": 0.988,
+      "sd": 14.3,
+      "totalNet": 1130.26,
+      "minRet": -25.96,
+      "maxRet": 62.87
+    },
+    "T+7_close": {
+      "n": 375,
+      "winRate": 52.8,
+      "meanNet": 3.716,
+      "medianNet": 1.358,
+      "sd": 16.832,
+      "totalNet": 1393.38,
+      "minRet": -31.28,
+      "maxRet": 61.46
+    },
+    "T+9_close": {
+      "n": 334,
+      "winRate": 52.4,
+      "meanNet": 4.429,
+      "medianNet": 0.671,
+      "sd": 18.997,
+      "totalNet": 1479.33,
+      "minRet": -31.78,
+      "maxRet": 70.62
+    },
+    "T+10_close": {
+      "n": 326,
+      "winRate": 49.69,
+      "meanNet": 3.933,
+      "medianNet": -0.19,
+      "sd": 19.397,
+      "totalNet": 1282.17,
+      "minRet": -36.36,
+      "maxRet": 76.8
+    },
+    "T+11_close": {
+      "n": 320,
+      "winRate": 50.0,
+      "meanNet": 4.884,
+      "medianNet": 0.29,
+      "sd": 20.238,
+      "totalNet": 1562.99,
+      "minRet": -40.83,
+      "maxRet": 79.36
+    },
+    "T+12_close": {
+      "n": 295,
+      "winRate": 52.2,
+      "meanNet": 6.17,
+      "medianNet": 1.564,
+      "sd": 21.997,
+      "totalNet": 1820.03,
+      "minRet": -39.93,
+      "maxRet": 89.88
+    },
+    "T+15_close": {
+      "n": 260,
+      "winRate": 53.46,
+      "meanNet": 7.396,
+      "medianNet": 3.037,
+      "sd": 24.94,
+      "totalNet": 1923.08,
+      "minRet": -38.49,
+      "maxRet": 101.61
+    }
+  },
+  "time_split_t10": {
+    "first_half": {
+      "n": 163,
+      "winRate": 59.51,
+      "meanNet": 8.585,
+      "medianNet": 4.403,
+      "sd": 20.036,
+      "totalNet": 1399.28,
+      "minRet": -28.8,
+      "maxRet": 76.8,
+      "dateRange": [
+        "2026-04-13",
+        "2026-05-20"
+      ]
+    },
+    "second_half": {
+      "n": 163,
+      "winRate": 39.88,
+      "meanNet": -0.718,
+      "medianNet": -3.295,
+      "sd": 17.603,
+      "totalNet": -117.1,
+      "minRet": -36.36,
+      "maxRet": 67.8,
+      "dateRange": [
+        "2026-05-20",
+        "2026-06-11"
+      ]
+    }
+  },
+  "monthly_t10": {
+    "2026-04": {
+      "n": 38,
+      "winRate": 52.63,
+      "meanNet": 7.687,
+      "medianNet": 1.703,
+      "sd": 20.447,
+      "totalNet": 292.12,
+      "minRet": -28.8,
+      "maxRet": 55.45
+    },
+    "2026-05": {
+      "n": 202,
+      "winRate": 51.98,
+      "meanNet": 3.948,
+      "medianNet": 1.12,
+      "sd": 19.657,
+      "totalNet": 797.55,
+      "minRet": -36.36,
+      "maxRet": 76.8
+    },
+    "2026-06": {
+      "n": 86,
+      "winRate": 43.02,
+      "meanNet": 2.238,
+      "medianNet": -1.572,
+      "sd": 18.269,
+      "totalNet": 192.5,
+      "minRet": -28.55,
+      "maxRet": 67.8
+    }
+  },
+  "bootstrap_t10": {
+    "mean_lo": 2.011,
+    "mean_hi": 6.035,
+    "mean_median": 3.911,
+    "win_lo": 44.48,
+    "win_hi": 54.91,
+    "n_boot": 1000,
+    "pct_negative_mean": 0.0
+  },
+  "bootstrap_adjacent": {
+    "T+5_close": {
+      "mean_lo": 1.391,
+      "mean_hi": 4.309,
+      "mean_median": 2.821,
+      "win_lo": 46.27,
+      "win_hi": 56.04,
+      "n_boot": 500,
+      "pct_negative_mean": 0.0
+    },
+    "T+7_close": {
+      "mean_lo": 2.011,
+      "mean_hi": 5.345,
+      "mean_median": 3.687,
+      "win_lo": 46.93,
+      "win_hi": 57.87,
+      "n_boot": 500,
+      "pct_negative_mean": 0.0
+    },
+    "T+9_close": {
+      "mean_lo": 2.329,
+      "mean_hi": 6.264,
+      "mean_median": 4.43,
+      "win_lo": 46.41,
+      "win_hi": 57.49,
+      "n_boot": 500,
+      "pct_negative_mean": 0.0
+    },
+    "T+10_close": {
+      "mean_lo": 1.706,
+      "mean_hi": 5.968,
+      "mean_median": 3.921,
+      "win_lo": 43.87,
+      "win_hi": 55.21,
+      "n_boot": 500,
+      "pct_negative_mean": 0.0
+    },
+    "T+11_close": {
+      "mean_lo": 2.749,
+      "mean_hi": 6.919,
+      "mean_median": 4.889,
+      "win_lo": 44.69,
+      "win_hi": 55.31,
+      "n_boot": 500,
+      "pct_negative_mean": 0.0
+    },
+    "T+12_close": {
+      "mean_lo": 3.511,
+      "mean_hi": 8.896,
+      "mean_median": 6.114,
+      "win_lo": 46.44,
+      "win_hi": 57.97,
+      "n_boot": 500,
+      "pct_negative_mean": 0.0
+    }
+  },
+  "data_boundary": {
+    "with_t10": 322,
+    "missing_t10": 127,
+    "tail_skewed": 2
+  },
+  "t10_distribution": {
+    "n": 326,
+    "mean": 3.933,
+    "median": -0.19,
+    "p10": -16.491,
+    "p25": -10.156,
+    "p75": 14.216,
+    "p90": 30.31,
+    "p95": 39.296,
+    "max": 76.8,
+    "min": -36.365,
+    "top5_contribution_pct": 26.37,
+    "top10_contribution_pct": 47.11
+  },
+  "same_sample_t2_vs_t10": {
+    "n": 324,
+    "T+2": {
+      "n": 324,
+      "winRate": 43.21,
+      "meanNet": -0.506,
+      "medianNet": -1.576,
+      "sd": 8.465,
+      "totalNet": -163.85,
+      "minRet": -25.61,
+      "maxRet": 30.97
+    },
+    "T+10": {
+      "n": 324,
+      "winRate": 49.38,
+      "meanNet": 3.848,
+      "medianNet": -0.433,
+      "sd": 19.414,
+      "totalNet": 1246.72,
+      "minRet": -36.36,
+      "maxRet": 76.8
+    }
+  }
+}

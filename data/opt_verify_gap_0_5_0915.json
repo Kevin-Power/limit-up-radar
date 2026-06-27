@@ -1,0 +1,815 @@
+{
+  "claim": {
+    "rule": "score≥75 AND 0≤gap<5% → T+1 09:15 出場",
+    "claimedN": 99,
+    "claimedWinRate": 72.7,
+    "claimedEvPct": 2.066,
+    "claimedDeltaTwd": 2045000
+  },
+  "reproduce": {
+    "main": {
+      "n": 99,
+      "winRate": 72.7,
+      "evPct": 2.066,
+      "median": 2.116,
+      "totalDeltaTWD": 2045653
+    },
+    "bootstrapCI": {
+      "evLo": 1.523,
+      "evHi": 2.63,
+      "wrLo": 63.6,
+      "wrHi": 81.8,
+      "evNegProb": 0.0,
+      "evCostNegProb": 0.0
+    },
+    "blockBootstrap": {
+      "evLo": 1.529,
+      "evHi": 2.736,
+      "evNegProb": 0.0
+    }
+  },
+  "baseline_score75_T2open": {
+    "n": 207,
+    "winRate": 58.0,
+    "evPct": 1.916,
+    "median": 1.434,
+    "totalDeltaTWD": 3965611
+  },
+  "robustness": {
+    "gapBoundaryScan": [
+      {
+        "gapLo": -2,
+        "gapHi": 3,
+        "n": 85,
+        "winRate": 71.8,
+        "evPct": 2.13,
+        "median": 2.13,
+        "totalDeltaTWD": 1810628
+      },
+      {
+        "gapLo": -2,
+        "gapHi": 4,
+        "n": 106,
+        "winRate": 73.6,
+        "evPct": 2.188,
+        "median": 2.186,
+        "totalDeltaTWD": 2318885
+      },
+      {
+        "gapLo": -2,
+        "gapHi": 4.5,
+        "n": 112,
+        "winRate": 73.2,
+        "evPct": 2.109,
+        "median": 2.123,
+        "totalDeltaTWD": 2362108
+      },
+      {
+        "gapLo": -2,
+        "gapHi": 5,
+        "n": 118,
+        "winRate": 72.9,
+        "evPct": 2.108,
+        "median": 2.123,
+        "totalDeltaTWD": 2487179
+      },
+      {
+        "gapLo": -2,
+        "gapHi": 5.5,
+        "n": 133,
+        "winRate": 70.7,
+        "evPct": 1.997,
+        "median": 2.116,
+        "totalDeltaTWD": 2655832
+      },
+      {
+        "gapLo": -2,
+        "gapHi": 6,
+        "n": 139,
+        "winRate": 70.5,
+        "evPct": 1.936,
+        "median": 2.116,
+        "totalDeltaTWD": 2690416
+      },
+      {
+        "gapLo": -2,
+        "gapHi": 7,
+        "n": 154,
+        "winRate": 70.1,
+        "evPct": 1.86,
+        "median": 2.052,
+        "totalDeltaTWD": 2864339
+      },
+      {
+        "gapLo": -1,
+        "gapHi": 3,
+        "n": 79,
+        "winRate": 70.9,
+        "evPct": 2.124,
+        "median": 2.13,
+        "totalDeltaTWD": 1678336
+      },
+      {
+        "gapLo": -1,
+        "gapHi": 4,
+        "n": 100,
+        "winRate": 73.0,
+        "evPct": 2.187,
+        "median": 2.186,
+        "totalDeltaTWD": 2186593
+      },
+      {
+        "gapLo": -1,
+        "gapHi": 4.5,
+        "n": 106,
+        "winRate": 72.6,
+        "evPct": 2.104,
+        "median": 2.123,
+        "totalDeltaTWD": 2229816
+      },
+      {
+        "gapLo": -1,
+        "gapHi": 5,
+        "n": 112,
+        "winRate": 72.3,
+        "evPct": 2.103,
+        "median": 2.123,
+        "totalDeltaTWD": 2354887
+      },
+      {
+        "gapLo": -1,
+        "gapHi": 5.5,
+        "n": 127,
+        "winRate": 70.1,
+        "evPct": 1.987,
+        "median": 2.116,
+        "totalDeltaTWD": 2523540
+      },
+      {
+        "gapLo": -1,
+        "gapHi": 6,
+        "n": 133,
+        "winRate": 69.9,
+        "evPct": 1.923,
+        "median": 2.116,
+        "totalDeltaTWD": 2558124
+      },
+      {
+        "gapLo": -1,
+        "gapHi": 7,
+        "n": 148,
+        "winRate": 69.6,
+        "evPct": 1.846,
+        "median": 2.052,
+        "totalDeltaTWD": 2732047
+      },
+      {
+        "gapLo": 0,
+        "gapHi": 3,
+        "n": 66,
+        "winRate": 71.2,
+        "evPct": 2.074,
+        "median": 2.11,
+        "totalDeltaTWD": 1369102
+      },
+      {
+        "gapLo": 0,
+        "gapHi": 4,
+        "n": 87,
+        "winRate": 73.6,
+        "evPct": 2.158,
+        "median": 2.168,
+        "totalDeltaTWD": 1877359
+      },
+      {
+        "gapLo": 0,
+        "gapHi": 4.5,
+        "n": 93,
+        "winRate": 73.1,
+        "evPct": 2.065,
+        "median": 2.116,
+        "totalDeltaTWD": 1920582
+      },
+      {
+        "gapLo": 0,
+        "gapHi": 5,
+        "n": 99,
+        "winRate": 72.7,
+        "evPct": 2.066,
+        "median": 2.116,
+        "totalDeltaTWD": 2045653
+      },
+      {
+        "gapLo": 0,
+        "gapHi": 5.5,
+        "n": 114,
+        "winRate": 70.2,
+        "evPct": 1.942,
+        "median": 2.103,
+        "totalDeltaTWD": 2214306
+      },
+      {
+        "gapLo": 0,
+        "gapHi": 6,
+        "n": 120,
+        "winRate": 70.0,
+        "evPct": 1.874,
+        "median": 2.103,
+        "totalDeltaTWD": 2248890
+      },
+      {
+        "gapLo": 0,
+        "gapHi": 7,
+        "n": 135,
+        "winRate": 69.6,
+        "evPct": 1.795,
+        "median": 2.015,
+        "totalDeltaTWD": 2422813
+      },
+      {
+        "gapLo": 1,
+        "gapHi": 3,
+        "n": 41,
+        "winRate": 75.6,
+        "evPct": 2.163,
+        "median": 2.089,
+        "totalDeltaTWD": 886821
+      },
+      {
+        "gapLo": 1,
+        "gapHi": 4,
+        "n": 62,
+        "winRate": 77.4,
+        "evPct": 2.25,
+        "median": 2.149,
+        "totalDeltaTWD": 1395078
+      },
+      {
+        "gapLo": 1,
+        "gapHi": 4.5,
+        "n": 68,
+        "winRate": 76.5,
+        "evPct": 2.115,
+        "median": 2.103,
+        "totalDeltaTWD": 1438301
+      },
+      {
+        "gapLo": 1,
+        "gapHi": 5,
+        "n": 74,
+        "winRate": 75.7,
+        "evPct": 2.113,
+        "median": 2.103,
+        "totalDeltaTWD": 1563372
+      },
+      {
+        "gapLo": 1,
+        "gapHi": 5.5,
+        "n": 89,
+        "winRate": 71.9,
+        "evPct": 1.946,
+        "median": 2.089,
+        "totalDeltaTWD": 1732025
+      },
+      {
+        "gapLo": 1,
+        "gapHi": 6,
+        "n": 95,
+        "winRate": 71.6,
+        "evPct": 1.86,
+        "median": 2.089,
+        "totalDeltaTWD": 1766609
+      },
+      {
+        "gapLo": 1,
+        "gapHi": 7,
+        "n": 110,
+        "winRate": 70.9,
+        "evPct": 1.764,
+        "median": 2.008,
+        "totalDeltaTWD": 1940532
+      },
+      {
+        "gapLo": 2,
+        "gapHi": 3,
+        "n": 21,
+        "winRate": 76.2,
+        "evPct": 2.494,
+        "median": 2.168,
+        "totalDeltaTWD": 523728
+      },
+      {
+        "gapLo": 2,
+        "gapHi": 4,
+        "n": 42,
+        "winRate": 78.6,
+        "evPct": 2.457,
+        "median": 2.614,
+        "totalDeltaTWD": 1031985
+      },
+      {
+        "gapLo": 2,
+        "gapHi": 4.5,
+        "n": 48,
+        "winRate": 77.1,
+        "evPct": 2.24,
+        "median": 2.149,
+        "totalDeltaTWD": 1075208
+      },
+      {
+        "gapLo": 2,
+        "gapHi": 5,
+        "n": 54,
+        "winRate": 75.9,
+        "evPct": 2.223,
+        "median": 2.149,
+        "totalDeltaTWD": 1200279
+      },
+      {
+        "gapLo": 2,
+        "gapHi": 5.5,
+        "n": 69,
+        "winRate": 71.0,
+        "evPct": 1.984,
+        "median": 2.13,
+        "totalDeltaTWD": 1368932
+      },
+      {
+        "gapLo": 2,
+        "gapHi": 6,
+        "n": 75,
+        "winRate": 70.7,
+        "evPct": 1.871,
+        "median": 2.13,
+        "totalDeltaTWD": 1403516
+      },
+      {
+        "gapLo": 2,
+        "gapHi": 7,
+        "n": 90,
+        "winRate": 70.0,
+        "evPct": 1.753,
+        "median": 2.091,
+        "totalDeltaTWD": 1577439
+      }
+    ],
+    "gapTopRanked": [
+      {
+        "gapLo": 2,
+        "gapHi": 4,
+        "n": 42,
+        "winRate": 78.6,
+        "evPct": 2.457,
+        "median": 2.614,
+        "totalDeltaTWD": 1031985
+      },
+      {
+        "gapLo": 1,
+        "gapHi": 4,
+        "n": 62,
+        "winRate": 77.4,
+        "evPct": 2.25,
+        "median": 2.149,
+        "totalDeltaTWD": 1395078
+      },
+      {
+        "gapLo": 2,
+        "gapHi": 4.5,
+        "n": 48,
+        "winRate": 77.1,
+        "evPct": 2.24,
+        "median": 2.149,
+        "totalDeltaTWD": 1075208
+      },
+      {
+        "gapLo": 2,
+        "gapHi": 5,
+        "n": 54,
+        "winRate": 75.9,
+        "evPct": 2.223,
+        "median": 2.149,
+        "totalDeltaTWD": 1200279
+      },
+      {
+        "gapLo": -2,
+        "gapHi": 4,
+        "n": 106,
+        "winRate": 73.6,
+        "evPct": 2.188,
+        "median": 2.186,
+        "totalDeltaTWD": 2318885
+      },
+      {
+        "gapLo": -1,
+        "gapHi": 4,
+        "n": 100,
+        "winRate": 73.0,
+        "evPct": 2.187,
+        "median": 2.186,
+        "totalDeltaTWD": 2186593
+      },
+      {
+        "gapLo": 1,
+        "gapHi": 3,
+        "n": 41,
+        "winRate": 75.6,
+        "evPct": 2.163,
+        "median": 2.089,
+        "totalDeltaTWD": 886821
+      },
+      {
+        "gapLo": 0,
+        "gapHi": 4,
+        "n": 87,
+        "winRate": 73.6,
+        "evPct": 2.158,
+        "median": 2.168,
+        "totalDeltaTWD": 1877359
+      },
+      {
+        "gapLo": -2,
+        "gapHi": 3,
+        "n": 85,
+        "winRate": 71.8,
+        "evPct": 2.13,
+        "median": 2.13,
+        "totalDeltaTWD": 1810628
+      },
+      {
+        "gapLo": -1,
+        "gapHi": 3,
+        "n": 79,
+        "winRate": 70.9,
+        "evPct": 2.124,
+        "median": 2.13,
+        "totalDeltaTWD": 1678336
+      }
+    ],
+    "mainGapRank": 18,
+    "exitTimeScan": [
+      {
+        "exit": "09:01",
+        "n": 99,
+        "winRate": 70.7,
+        "evPct": 0.621,
+        "median": 0.61,
+        "totalDeltaTWD": 614621
+      },
+      {
+        "exit": "09:03",
+        "n": 99,
+        "winRate": 86.9,
+        "evPct": 1.62,
+        "median": 1.6,
+        "totalDeltaTWD": 1603741
+      },
+      {
+        "exit": "09:05",
+        "n": 99,
+        "winRate": 87.9,
+        "evPct": 1.975,
+        "median": 2.042,
+        "totalDeltaTWD": 1954827
+      },
+      {
+        "exit": "09:10",
+        "n": 99,
+        "winRate": 73.7,
+        "evPct": 1.849,
+        "median": 1.679,
+        "totalDeltaTWD": 1830365
+      },
+      {
+        "exit": "09:15",
+        "n": 99,
+        "winRate": 72.7,
+        "evPct": 2.066,
+        "median": 2.116,
+        "totalDeltaTWD": 2045653
+      },
+      {
+        "exit": "09:20",
+        "n": 99,
+        "winRate": 69.7,
+        "evPct": 1.774,
+        "median": 1.696,
+        "totalDeltaTWD": 1756091
+      },
+      {
+        "exit": "09:30",
+        "n": 99,
+        "winRate": 75.8,
+        "evPct": 1.893,
+        "median": 1.651,
+        "totalDeltaTWD": 1874564
+      },
+      {
+        "exit": "10:00",
+        "n": 99,
+        "winRate": 66.7,
+        "evPct": 1.6,
+        "median": 1.35,
+        "totalDeltaTWD": 1584039
+      },
+      {
+        "exit": "11:30",
+        "n": 99,
+        "winRate": 59.6,
+        "evPct": 1.726,
+        "median": 1.296,
+        "totalDeltaTWD": 1708883
+      },
+      {
+        "exit": "T1_close",
+        "n": 99,
+        "winRate": 50.5,
+        "evPct": 0.73,
+        "median": 0.943,
+        "totalDeltaTWD": 722938
+      },
+      {
+        "exit": "T2_open",
+        "n": 99,
+        "winRate": 55.6,
+        "evPct": 1.515,
+        "median": 1.012,
+        "totalDeltaTWD": 1499815
+      }
+    ],
+    "scoreThresholdScan": [
+      {
+        "scoreMin": 70,
+        "n": 138,
+        "winRate": 74.6,
+        "evPct": 1.972,
+        "median": 1.846,
+        "totalDeltaTWD": 2721052
+      },
+      {
+        "scoreMin": 72,
+        "n": 99,
+        "winRate": 72.7,
+        "evPct": 2.066,
+        "median": 2.116,
+        "totalDeltaTWD": 2045653
+      },
+      {
+        "scoreMin": 74,
+        "n": 99,
+        "winRate": 72.7,
+        "evPct": 2.066,
+        "median": 2.116,
+        "totalDeltaTWD": 2045653
+      },
+      {
+        "scoreMin": 75,
+        "n": 99,
+        "winRate": 72.7,
+        "evPct": 2.066,
+        "median": 2.116,
+        "totalDeltaTWD": 2045653
+      },
+      {
+        "scoreMin": 76,
+        "n": 86,
+        "winRate": 72.1,
+        "evPct": 2.051,
+        "median": 2.103,
+        "totalDeltaTWD": 1763711
+      },
+      {
+        "scoreMin": 78,
+        "n": 86,
+        "winRate": 72.1,
+        "evPct": 2.051,
+        "median": 2.103,
+        "totalDeltaTWD": 1763711
+      },
+      {
+        "scoreMin": 80,
+        "n": 86,
+        "winRate": 72.1,
+        "evPct": 2.051,
+        "median": 2.103,
+        "totalDeltaTWD": 1763711
+      },
+      {
+        "scoreMin": 82,
+        "n": 53,
+        "winRate": 73.6,
+        "evPct": 2.372,
+        "median": 2.734,
+        "totalDeltaTWD": 1257236
+      },
+      {
+        "scoreMin": 85,
+        "n": 53,
+        "winRate": 73.6,
+        "evPct": 2.372,
+        "median": 2.734,
+        "totalDeltaTWD": 1257236
+      }
+    ],
+    "halfSplit": {
+      "h1": {
+        "n": 49,
+        "winRate": 71.4,
+        "evPct": 2.095,
+        "median": 2.116,
+        "totalDeltaTWD": 1026599
+      },
+      "h2": {
+        "n": 50,
+        "winRate": 74.0,
+        "evPct": 2.038,
+        "median": 1.968,
+        "totalDeltaTWD": 1019054
+      },
+      "h1Dates": [
+        "2026-04-13",
+        "2026-06-04"
+      ],
+      "h2Dates": [
+        "2026-06-04",
+        "2026-06-24"
+      ]
+    },
+    "monthly": {
+      "2026-04": {
+        "n": 10,
+        "winRate": 70.0,
+        "evPct": 2.319,
+        "median": 2.092,
+        "totalDeltaTWD": 231936
+      },
+      "2026-05": {
+        "n": 37,
+        "winRate": 70.3,
+        "evPct": 2.056,
+        "median": 2.116,
+        "totalDeltaTWD": 760613
+      },
+      "2026-06": {
+        "n": 52,
+        "winRate": 75.0,
+        "evPct": 2.025,
+        "median": 1.968,
+        "totalDeltaTWD": 1053104
+      }
+    },
+    "leaveOneMonthOut": [
+      {
+        "holdout": "2026-04",
+        "n": 10,
+        "winRate": 70.0,
+        "evPct": 2.319,
+        "median": 2.092,
+        "totalDeltaTWD": 231936
+      },
+      {
+        "holdout": "2026-05",
+        "n": 37,
+        "winRate": 70.3,
+        "evPct": 2.056,
+        "median": 2.116,
+        "totalDeltaTWD": 760613
+      },
+      {
+        "holdout": "2026-06",
+        "n": 52,
+        "winRate": 75.0,
+        "evPct": 2.025,
+        "median": 1.968,
+        "totalDeltaTWD": 1053104
+      }
+    ],
+    "rolling10dayWindow": [
+      {
+        "from": "2026-04-13",
+        "to": "2026-05-11",
+        "n": 17,
+        "evPct": 2.306,
+        "winRate": 70.6
+      },
+      {
+        "from": "2026-04-14",
+        "to": "2026-05-12",
+        "n": 26,
+        "evPct": 1.891,
+        "winRate": 69.2
+      },
+      {
+        "from": "2026-04-16",
+        "to": "2026-05-13",
+        "n": 27,
+        "evPct": 2.314,
+        "winRate": 70.4
+      },
+      {
+        "from": "2026-04-17",
+        "to": "2026-05-15",
+        "n": 32,
+        "evPct": 2.486,
+        "winRate": 75.0
+      },
+      {
+        "from": "2026-04-20",
+        "to": "2026-05-18",
+        "n": 34,
+        "evPct": 2.334,
+        "winRate": 73.5
+      },
+      {
+        "from": "2026-04-22",
+        "to": "2026-05-25",
+        "n": 38,
+        "evPct": 2.057,
+        "winRate": 71.1
+      },
+      {
+        "from": "2026-04-24",
+        "to": "2026-05-27",
+        "n": 40,
+        "evPct": 2.077,
+        "winRate": 72.5
+      },
+      {
+        "from": "2026-04-28",
+        "to": "2026-06-04",
+        "n": 41,
+        "evPct": 1.885,
+        "winRate": 70.7
+      },
+      {
+        "from": "2026-05-05",
+        "to": "2026-06-09",
+        "n": 41,
+        "evPct": 1.926,
+        "winRate": 70.7
+      },
+      {
+        "from": "2026-05-11",
+        "to": "2026-06-10",
+        "n": 41,
+        "evPct": 2.08,
+        "winRate": 73.2
+      },
+      {
+        "from": "2026-05-12",
+        "to": "2026-06-12",
+        "n": 40,
+        "evPct": 2.081,
+        "winRate": 75.0
+      },
+      {
+        "from": "2026-05-13",
+        "to": "2026-06-15",
+        "n": 35,
+        "evPct": 2.311,
+        "winRate": 80.0
+      },
+      {
+        "from": "2026-05-15",
+        "to": "2026-06-16",
+        "n": 44,
+        "evPct": 1.619,
+        "winRate": 70.5
+      },
+      {
+        "from": "2026-05-18",
+        "to": "2026-06-17",
+        "n": 39,
+        "evPct": 1.594,
+        "winRate": 69.2
+      },
+      {
+        "from": "2026-05-25",
+        "to": "2026-06-18",
+        "n": 41,
+        "evPct": 1.789,
+        "winRate": 70.7
+      },
+      {
+        "from": "2026-05-27",
+        "to": "2026-06-22",
+        "n": 43,
+        "evPct": 2.101,
+        "winRate": 76.7
+      },
+      {
+        "from": "2026-06-04",
+        "to": "2026-06-23",
+        "n": 51,
+        "evPct": 2.012,
+        "winRate": 74.5
+      },
+      {
+        "from": "2026-06-09",
+        "to": "2026-06-24",
+        "n": 49,
+        "evPct": 2.15,
+        "winRate": 75.5
+      }
+    ]
+  }
+}
