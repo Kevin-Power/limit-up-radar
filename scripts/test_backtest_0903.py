@@ -326,3 +326,34 @@ def test_build_report_emits_r1_and_baseline_stats():
     # entry=104, t1_open=100 → gap=(100/104-1)*100≈-3.85% < 0 → T2 open=107
     assert t["r1Rule"] == "T2_open"
     assert t["r1ExitPrice"] == 107
+
+
+# ── run_backtest_0903 console summary 不可 KeyError（regression）─────
+def test_run_backtest_console_summary_uses_valid_funnel_keys(capsys):
+    """run_backtest_0903.main 的 print 不可引用 funnel 不存在的 key。
+    確保 funnel 只用 totalPicks/noData/notEntered/passedFilter，
+    成交數改由 len(report['trades']) 取得（避免 KeyError）。"""
+    pick_days = [{
+        "pickDate": "2026-06-23", "entryDate": "2026-06-24", "nextDate": "2026-06-25",
+        "picks": [
+            {"code": "AAA", "name": "進場檔", "score": 80, "prevClose": 100.0},
+        ],
+    }]
+
+    def provider(code, date):
+        if code == "AAA" and date == "2026-06-24":
+            return [{"time": "09:01", "open": 100, "high": 101, "low": 100, "close": 100.5},
+                    {"time": "09:03", "open": 100.5, "high": 105, "low": 100.5, "close": 104},
+                    {"time": "13:30", "open": 104, "high": 106, "low": 103, "close": 105}]
+        if code == "AAA" and date == "2026-06-25":
+            return [{"time": "09:01", "open": 107, "high": 108, "low": 106, "close": 107.5}]
+        return []
+
+    rep = bt.build_report(pick_days, provider, min_trades=0)
+    f = rep["funnel"]
+    # 完整跑 run_backtest_0903 print 邏輯 — 不可 KeyError
+    traded = len(rep.get("trades", []))
+    line = (f"漏斗：精選 {f['totalPicks']} → 無資料 {f['noData']} → "
+            f"通過 {f['passedFilter']} → 成交 {traded}")
+    assert "成交 1" in line   # AAA 進場成功
+    assert "精選 1" in line
