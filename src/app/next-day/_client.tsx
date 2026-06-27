@@ -658,7 +658,7 @@ export default function NextDayPage() {
                       <td className="px-3 py-2.5 text-right"><PriceCell price={s.nextOpen} pct={s.nextOpenPct} /></td>
                       <td className="px-3 py-2.5 text-right"><PriceCell price={s.nextAvg} pct={s.nextAvgPct} /></td>
                       <td className="px-3 py-2.5 text-right"><PriceCell price={s.nextClose} pct={s.nextClosePct} /></td>
-                      <td className={`px-3 py-2.5 text-right font-semibold tabular-nums ${s.weightedReturn > 0 ? "text-green" : s.weightedReturn < 0 ? "text-red" : "text-txt-3"}`}>
+                      <td className={`px-3 py-2.5 text-right font-semibold tabular-nums ${s.weightedReturn > 0 ? "text-red" : s.weightedReturn < 0 ? "text-green" : "text-txt-3"}`}>
                         {formatPct(s.weightedReturn)}
                       </td>
                       <td className="px-3 py-2.5 text-center"><LabelBadge label={s.label} /></td>
