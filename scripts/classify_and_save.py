@@ -24,6 +24,7 @@ import requests
 
 from scraper.twse import fetch_daily_quotes
 from scraper.tpex import fetch_tpex_quotes
+from honest_stats import SCORING_VERSION
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -1166,6 +1167,7 @@ def main():
     # ---- Build output JSON (matches DailyData TypeScript type) ----
     daily_data = {
         "date": date,
+        "scoringVersion": SCORING_VERSION,
         "market_summary": {
             "taiex_close": taiex_close,
             "taiex_change_pct": taiex_change_pct,
