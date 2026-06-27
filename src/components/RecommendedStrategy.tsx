@@ -15,6 +15,8 @@ interface TradeRow {
   r1Rule?: "T1_0915" | "T2_open" | null;
   r1GapPct?: number | null;
   r1ExitPrice?: number | null;
+  group?: string | null;
+  inTop3?: boolean | null;
 }
 interface MonthRow { trades: number; winRate: number; ev: number; total: number }
 interface Report {
@@ -30,6 +32,11 @@ interface Report {
   baselineStats?: RuleAgg & { lowConfidence?: boolean; caveat?: string };
   monthlyR1?: Record<string, MonthRow>;
   monthlyBaseline?: Record<string, MonthRow>;
+  // Top-3 大族群子集
+  r1StatsTop3?: RuleAgg & { rule: string; label: string };
+  baselineStatsTop3?: RuleAgg & { lowConfidence?: boolean; caveat?: string };
+  monthlyR1Top3?: Record<string, MonthRow>;
+  monthlyBaselineTop3?: Record<string, MonthRow>;
 }
 
 function pf(v: number | null) { return v === null ? "∞" : v.toFixed(2); }
@@ -39,6 +46,7 @@ export default function RecommendedStrategy() {
   const [data, setData] = useState<Report | null>(null);
   const [error, setError] = useState(false);
   const [view, setView] = useState<'baseline' | 'r1'>('r1');
+  const [groupFilter, setGroupFilter] = useState<'all' | 'top3'>('all');
 
   useEffect(() => {
     fetch("/api/strategy-recommended")
@@ -62,9 +70,14 @@ export default function RecommendedStrategy() {
     );
   }
 
+  // 依「全部 / Top-3 大族群」+「baseline / r1」雙軸選資料源
+  const useTop3 = groupFilter === 'top3';
   const activeStats = view === 'r1'
-    ? (data.r1Stats ?? data.best)
-    : (data.baselineStats ?? data.best);
+    ? (useTop3 ? data.r1StatsTop3 : data.r1Stats) ?? data.best
+    : (useTop3 ? data.baselineStatsTop3 : data.baselineStats) ?? data.best;
+  const activeMonthlyR1 = (useTop3 ? data.monthlyR1Top3 : data.monthlyR1) ?? data.monthlyR1;
+  const activeMonthlyBaseline = (useTop3 ? data.monthlyBaselineTop3 : data.monthlyBaseline) ?? data.monthlyBaseline;
+  const filteredTrades = useTop3 ? data.trades.filter(t => t.inTop3) : data.trades;
   const b = activeStats;
   const f = data.funnel;
 
@@ -90,6 +103,24 @@ export default function RecommendedStrategy() {
             onClick={() => setView('r1')}
             className={`px-3 py-1 rounded text-xs ${view === 'r1' ? 'bg-red text-white' : 'bg-bg-2 text-txt-3'}`}
           >R1 動態出場（已驗證 alpha）★</button>
+        </div>
+      )}
+
+      {/* 族群過濾 Toggle（資訊用，數據顯示 EV 不變、總賺 -18%）*/}
+      {data.r1StatsTop3 && (
+        <div className="flex items-center gap-2 mb-3 flex-wrap">
+          <span className="text-[10px] text-txt-4">族群篩選：</span>
+          <button
+            onClick={() => setGroupFilter('all')}
+            className={`px-2 py-0.5 rounded text-[11px] ${groupFilter === 'all' ? 'bg-blue text-white' : 'bg-bg-2 text-txt-3'}`}
+          >全部</button>
+          <button
+            onClick={() => setGroupFilter('top3')}
+            className={`px-2 py-0.5 rounded text-[11px] ${groupFilter === 'top3' ? 'bg-blue text-white' : 'bg-bg-2 text-txt-3'}`}
+          >只看 Top-3 大族群</button>
+          <span className="text-[10px] text-txt-4">
+            （Top-3 = 當日精選股數最多的前 3 族；歷史數據顯示 EV 持平、總賺降 18%，僅供焦點觀察）
+          </span>
         </div>
       )}
 
@@ -168,9 +199,9 @@ export default function RecommendedStrategy() {
       </div>
 
       {/* 月度並排表（baseline vs R1）*/}
-      {data.monthlyR1 && data.monthlyBaseline && (
+      {activeMonthlyR1 && activeMonthlyBaseline && (
         <div className="bg-bg-1 border border-border rounded-xl p-4 mb-4">
-          <h3 className="text-xs font-semibold text-txt-2 mb-3">月度表現對比（baseline vs R1）</h3>
+          <h3 className="text-xs font-semibold text-txt-2 mb-3">月度表現對比（baseline vs R1）{useTop3 && <span className="text-amber"> · Top-3 大族群</span>}</h3>
           <div className="overflow-x-auto">
             <table className="w-full text-xs">
               <thead>
@@ -184,9 +215,9 @@ export default function RecommendedStrategy() {
                 </tr>
               </thead>
               <tbody>
-                {Object.keys(data.monthlyR1).sort().map(ym => {
-                  const r = data.monthlyR1![ym];
-                  const bm = data.monthlyBaseline![ym] ?? { trades: 0, ev: 0, winRate: 0, total: 0 };
+                {Object.keys(activeMonthlyR1).sort().map(ym => {
+                  const r = activeMonthlyR1![ym];
+                  const bm = activeMonthlyBaseline![ym] ?? { trades: 0, ev: 0, winRate: 0, total: 0 };
                   const diff = (r.ev ?? 0) - (bm.ev ?? 0);
                   return (
                     <tr key={ym} className="border-b border-border/50">
@@ -233,7 +264,7 @@ export default function RecommendedStrategy() {
               </tr>
             </thead>
             <tbody>
-              {[...data.trades]
+              {[...filteredTrades]
                 .sort((a, c) => {
                   const av = view === 'r1' ? (a.r1Ret ?? a.bestReturnNet ?? -99) : (a.bestReturnNet ?? -99);
                   const cv = view === 'r1' ? (c.r1Ret ?? c.bestReturnNet ?? -99) : (c.bestReturnNet ?? -99);

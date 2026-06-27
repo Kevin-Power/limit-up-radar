@@ -4,7 +4,7 @@
     "start": "2026-04-13",
     "end": "2026-06-24"
   },
-  "tradingDays": 54,
+  "tradingDays": 55,
   "pickThreshold": 75,
   "pickCap": null,
   "fees": {
@@ -12,8 +12,8 @@
     "overnightCostPct": 0.585
   },
   "funnel": {
-    "totalPicks": 301,
-    "noData": 170,
+    "totalPicks": 305,
+    "noData": 174,
     "notEntered": 0,
     "passedFilter": 131,
     "traded": 131
@@ -129,6 +129,74 @@
       "total": 121.57
     }
   },
+  "r1StatsTop3": {
+    "trades": 104,
+    "winRate": 62.5,
+    "meanNet": 1.525,
+    "medianNet": 1.313,
+    "totalNet": 158.61,
+    "profitFactor": 4.14,
+    "maxDrawdown": 8.49,
+    "maxWin": 9.68,
+    "maxLoss": -4.14,
+    "rule": "R1_dynamic_top3",
+    "label": "R1 動態（Top-3 大族群）"
+  },
+  "baselineStatsTop3": {
+    "trades": 107,
+    "winRate": 63.6,
+    "meanNet": 2.478,
+    "medianNet": 2.229,
+    "totalNet": 265.12,
+    "profitFactor": 2.42,
+    "maxDrawdown": 39.39,
+    "maxWin": 17.56,
+    "maxLoss": -12.7,
+    "key": "baseline_t2_open_top3",
+    "label": "T+2 開盤（Top-3 大族群）",
+    "lowConfidence": false,
+    "caveat": ""
+  },
+  "monthlyR1Top3": {
+    "2026-04": {
+      "trades": 10,
+      "winRate": 60.0,
+      "ev": 1.554,
+      "total": 15.54
+    },
+    "2026-05": {
+      "trades": 41,
+      "winRate": 53.7,
+      "ev": 0.857,
+      "total": 35.13
+    },
+    "2026-06": {
+      "trades": 53,
+      "winRate": 69.8,
+      "ev": 2.037,
+      "total": 107.94
+    }
+  },
+  "monthlyBaselineTop3": {
+    "2026-04": {
+      "trades": 10,
+      "winRate": 60.0,
+      "ev": 3.037,
+      "total": 30.37
+    },
+    "2026-05": {
+      "trades": 41,
+      "winRate": 68.3,
+      "ev": 2.874,
+      "total": 117.85
+    },
+    "2026-06": {
+      "trades": 56,
+      "winRate": 60.7,
+      "ev": 2.087,
+      "total": 116.9
+    }
+  },
   "robustness": {
     "firstHalfBest": "baseline_t2_open",
     "secondHalfBest": "r1_dynamic",
@@ -150,7 +218,9 @@
       "r1Ret": -1.079,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 80.6
+      "r1ExitPrice": 80.6,
+      "group": "光通訊 / 矽光子",
+      "inTop3": true
     },
     {
       "pickDate": "2026-04-13",
@@ -167,7 +237,9 @@
       "r1Ret": 1.244,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 334.0
+      "r1ExitPrice": 334.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-04-15",
@@ -184,7 +256,9 @@
       "r1Ret": -0.745,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 62.3
+      "r1ExitPrice": 62.3,
+      "group": "IC設計 / AI邊緣運算",
+      "inTop3": false
     },
     {
       "pickDate": "2026-04-16",
@@ -201,7 +275,9 @@
       "r1Ret": 5.075,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 196.0
+      "r1ExitPrice": 196.0,
+      "group": "個股亮點",
+      "inTop3": true
     },
     {
       "pickDate": "2026-04-16",
@@ -218,7 +294,9 @@
       "r1Ret": 3.96,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 644.0
+      "r1ExitPrice": 644.0,
+      "group": "光通訊 / 矽光子",
+      "inTop3": false
     },
     {
       "pickDate": "2026-04-17",
@@ -235,7 +313,9 @@
       "r1Ret": 6.008,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 582.0
+      "r1ExitPrice": 582.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-04-21",
@@ -252,7 +332,9 @@
       "r1Ret": 5.319,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 143.5
+      "r1ExitPrice": 143.5,
+      "group": "生技 / 醫療器材",
+      "inTop3": false
     },
     {
       "pickDate": "2026-04-21",
@@ -269,7 +351,9 @@
       "r1Ret": -1.089,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 493.5
+      "r1ExitPrice": 493.5,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-04-21",
@@ -286,7 +370,9 @@
       "r1Ret": 0.919,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 135.0
+      "r1ExitPrice": 135.0,
+      "group": "航太 / 國防",
+      "inTop3": false
     },
     {
       "pickDate": "2026-04-23",
@@ -303,7 +389,9 @@
       "r1Ret": 2.529,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 149.0
+      "r1ExitPrice": 149.0,
+      "group": "個股亮點",
+      "inTop3": true
     },
     {
       "pickDate": "2026-04-23",
@@ -320,7 +408,9 @@
       "r1Ret": 2.813,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 106.5
+      "r1ExitPrice": 106.5,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-04-23",
@@ -337,7 +427,9 @@
       "r1Ret": -0.042,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 46.25
+      "r1ExitPrice": 46.25,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-04-27",
@@ -354,7 +446,9 @@
       "r1Ret": 1.065,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 154.0
+      "r1ExitPrice": 154.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-04-28",
@@ -371,7 +465,9 @@
       "r1Ret": -0.982,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 125.5
+      "r1ExitPrice": 125.5,
+      "group": "個股亮點",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-04",
@@ -388,7 +484,9 @@
       "r1Ret": 6.522,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 105.5
+      "r1ExitPrice": 105.5,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-04",
@@ -405,7 +503,9 @@
       "r1Ret": 1.884,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 249.0
+      "r1ExitPrice": 249.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-04",
@@ -422,7 +522,9 @@
       "r1Ret": 1.608,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 1165.0
+      "r1ExitPrice": 1165.0,
+      "group": "PCB / CCL基板",
+      "inTop3": false
     },
     {
       "pickDate": "2026-05-04",
@@ -439,7 +541,9 @@
       "r1Ret": 2.92,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 94.5
+      "r1ExitPrice": 94.5,
+      "group": "個股亮點",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-08",
@@ -456,7 +560,9 @@
       "r1Ret": 5.944,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 1550.0
+      "r1ExitPrice": 1550.0,
+      "group": "AI伺服器 / 散熱",
+      "inTop3": false
     },
     {
       "pickDate": "2026-05-11",
@@ -473,7 +579,9 @@
       "r1Ret": 3.203,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 205.5
+      "r1ExitPrice": 205.5,
+      "group": "光通訊 / 矽光子",
+      "inTop3": false
     },
     {
       "pickDate": "2026-05-11",
@@ -490,7 +598,9 @@
       "r1Ret": -3.609,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 240.5
+      "r1ExitPrice": 240.5,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-11",
@@ -507,7 +617,9 @@
       "r1Ret": -0.163,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 119.0
+      "r1ExitPrice": 119.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-11",
@@ -524,7 +636,9 @@
       "r1Ret": -0.585,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 115.5
+      "r1ExitPrice": 115.5,
+      "group": "光通訊 / 矽光子",
+      "inTop3": false
     },
     {
       "pickDate": "2026-05-11",
@@ -541,7 +655,9 @@
       "r1Ret": 1.809,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 363.5
+      "r1ExitPrice": 363.5,
+      "group": "鋼鐵 / 金屬",
+      "inTop3": false
     },
     {
       "pickDate": "2026-05-11",
@@ -558,7 +674,9 @@
       "r1Ret": 0.135,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 34.95
+      "r1ExitPrice": 34.95,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-12",
@@ -575,7 +693,9 @@
       "r1Ret": 8.707,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 123.5
+      "r1ExitPrice": 123.5,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-12",
@@ -592,7 +712,9 @@
       "r1Ret": -0.059,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 382.0
+      "r1ExitPrice": 382.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-12",
@@ -609,7 +731,9 @@
       "r1Ret": -3.024,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 1000.0
+      "r1ExitPrice": 1000.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-12",
@@ -626,7 +750,9 @@
       "r1Ret": -1.306,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 206.5
+      "r1ExitPrice": 206.5,
+      "group": "個股亮點",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-12",
@@ -643,7 +769,9 @@
       "r1Ret": 1.915,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 45.1
+      "r1ExitPrice": 45.1,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-13",
@@ -660,7 +788,9 @@
       "r1Ret": -1.363,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 44.65
+      "r1ExitPrice": 44.65,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-13",
@@ -677,7 +807,9 @@
       "r1Ret": 2.492,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 804.0
+      "r1ExitPrice": 804.0,
+      "group": "生技 / 醫療器材",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-13",
@@ -694,7 +826,9 @@
       "r1Ret": 2.24,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 182.0
+      "r1ExitPrice": 182.0,
+      "group": "生技 / 醫療器材",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-14",
@@ -711,7 +845,9 @@
       "r1Ret": -1.526,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 84.2
+      "r1ExitPrice": 84.2,
+      "group": "個股亮點",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-14",
@@ -728,7 +864,9 @@
       "r1Ret": 4.826,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 487.0
+      "r1ExitPrice": 487.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-14",
@@ -745,7 +883,9 @@
       "r1Ret": 4.037,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 249.0
+      "r1ExitPrice": 249.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-14",
@@ -762,7 +902,9 @@
       "r1Ret": 4.126,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 3445.0
+      "r1ExitPrice": 3445.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-14",
@@ -779,7 +921,9 @@
       "r1Ret": 3.908,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 50.0
+      "r1ExitPrice": 50.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-14",
@@ -796,7 +940,9 @@
       "r1Ret": -0.406,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 56.1
+      "r1ExitPrice": 56.1,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-14",
@@ -813,7 +959,9 @@
       "r1Ret": -1.911,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 260.5
+      "r1ExitPrice": 260.5,
+      "group": "個股亮點",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-15",
@@ -830,7 +978,9 @@
       "r1Ret": -4.144,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 56.9
+      "r1ExitPrice": 56.9,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-15",
@@ -847,7 +997,9 @@
       "r1Ret": 3.874,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 164.0
+      "r1ExitPrice": 164.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-20",
@@ -864,7 +1016,9 @@
       "r1Ret": 1.415,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 102.0
+      "r1ExitPrice": 102.0,
+      "group": "光通訊 / 矽光子",
+      "inTop3": false
     },
     {
       "pickDate": "2026-05-20",
@@ -881,7 +1035,9 @@
       "r1Ret": 2.916,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 44.35
+      "r1ExitPrice": 44.35,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-22",
@@ -898,7 +1054,9 @@
       "r1Ret": -3.643,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 63.4
+      "r1ExitPrice": 63.4,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-22",
@@ -915,7 +1073,9 @@
       "r1Ret": -3.041,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 49.65
+      "r1ExitPrice": 49.65,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-22",
@@ -932,7 +1092,9 @@
       "r1Ret": -0.801,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 231.0
+      "r1ExitPrice": 231.0,
+      "group": "光通訊 / 矽光子",
+      "inTop3": false
     },
     {
       "pickDate": "2026-05-22",
@@ -949,7 +1111,9 @@
       "r1Ret": 3.572,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 463.5
+      "r1ExitPrice": 463.5,
+      "group": "個股亮點",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-22",
@@ -966,7 +1130,9 @@
       "r1Ret": -0.38,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 24.4
+      "r1ExitPrice": 24.4,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-22",
@@ -983,7 +1149,9 @@
       "r1Ret": -0.7,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 434.5
+      "r1ExitPrice": 434.5,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-22",
@@ -1000,7 +1168,9 @@
       "r1Ret": -0.144,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 114.0
+      "r1ExitPrice": 114.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-22",
@@ -1017,7 +1187,9 @@
       "r1Ret": 0.168,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 669.0
+      "r1ExitPrice": 669.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-22",
@@ -1034,7 +1206,9 @@
       "r1Ret": -0.585,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 58.3
+      "r1ExitPrice": 58.3,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-22",
@@ -1051,7 +1225,9 @@
       "r1Ret": 1.888,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 145.0
+      "r1ExitPrice": 145.0,
+      "group": "個股亮點",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-22",
@@ -1068,7 +1244,9 @@
       "r1Ret": 0.34,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 873.0
+      "r1ExitPrice": 873.0,
+      "group": "光通訊 / 矽光子",
+      "inTop3": false
     },
     {
       "pickDate": "2026-05-25",
@@ -1085,7 +1263,9 @@
       "r1Ret": 2.815,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 258.5
+      "r1ExitPrice": 258.5,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-25",
@@ -1102,7 +1282,9 @@
       "r1Ret": -2.713,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 46.0
+      "r1ExitPrice": 46.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-25",
@@ -1119,7 +1301,9 @@
       "r1Ret": 1.345,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 58.1
+      "r1ExitPrice": 58.1,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-25",
@@ -1136,7 +1320,9 @@
       "r1Ret": -1.923,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 88.5
+      "r1ExitPrice": 88.5,
+      "group": "個股亮點",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-25",
@@ -1153,7 +1339,9 @@
       "r1Ret": 0.49,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 141.0
+      "r1ExitPrice": 141.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-25",
@@ -1170,7 +1358,9 @@
       "r1Ret": 1.911,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 657.0
+      "r1ExitPrice": 657.0,
+      "group": "個股亮點",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-27",
@@ -1187,7 +1377,9 @@
       "r1Ret": 3.666,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 103.0
+      "r1ExitPrice": 103.0,
+      "group": "個股亮點",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-27",
@@ -1204,7 +1396,9 @@
       "r1Ret": null,
       "r1Rule": null,
       "r1GapPct": null,
-      "r1ExitPrice": null
+      "r1ExitPrice": null,
+      "group": "光通訊 / 矽光子",
+      "inTop3": false
     },
     {
       "pickDate": "2026-05-28",
@@ -1221,7 +1415,9 @@
       "r1Ret": -0.585,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 22.8
+      "r1ExitPrice": 22.8,
+      "group": "個股亮點",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-29",
@@ -1238,7 +1434,9 @@
       "r1Ret": -0.585,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 174.0
+      "r1ExitPrice": 174.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-29",
@@ -1255,7 +1453,9 @@
       "r1Ret": -0.585,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 38.7
+      "r1ExitPrice": 38.7,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-29",
@@ -1272,7 +1472,9 @@
       "r1Ret": 1.191,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 372.5
+      "r1ExitPrice": 372.5,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-29",
@@ -1289,7 +1491,9 @@
       "r1Ret": -3.053,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 90.9
+      "r1ExitPrice": 90.9,
+      "group": "IC設計 / AI邊緣運算",
+      "inTop3": false
     },
     {
       "pickDate": "2026-05-29",
@@ -1306,7 +1510,9 @@
       "r1Ret": -0.585,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 837.0
+      "r1ExitPrice": 837.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-29",
@@ -1323,7 +1529,9 @@
       "r1Ret": -0.459,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 39.8
+      "r1ExitPrice": 39.8,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-29",
@@ -1340,7 +1548,9 @@
       "r1Ret": -3.488,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 150.5
+      "r1ExitPrice": 150.5,
+      "group": "個股亮點",
+      "inTop3": true
     },
     {
       "pickDate": "2026-05-29",
@@ -1357,7 +1567,9 @@
       "r1Ret": -0.585,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 115.0
+      "r1ExitPrice": 115.0,
+      "group": "生技 / 醫療器材",
+      "inTop3": false
     },
     {
       "pickDate": "2026-06-01",
@@ -1374,7 +1586,9 @@
       "r1Ret": -2.332,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 900.0
+      "r1ExitPrice": 900.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-01",
@@ -1391,7 +1605,9 @@
       "r1Ret": -1.331,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 399.0
+      "r1ExitPrice": 399.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-01",
@@ -1408,7 +1624,9 @@
       "r1Ret": 0.426,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 399.5
+      "r1ExitPrice": 399.5,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-01",
@@ -1425,7 +1643,9 @@
       "r1Ret": 1.762,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 65.4
+      "r1ExitPrice": 65.4,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-01",
@@ -1442,7 +1662,9 @@
       "r1Ret": null,
       "r1Rule": null,
       "r1GapPct": null,
-      "r1ExitPrice": null
+      "r1ExitPrice": null,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-01",
@@ -1459,7 +1681,9 @@
       "r1Ret": 1.281,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 136.5
+      "r1ExitPrice": 136.5,
+      "group": "個股亮點",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-01",
@@ -1476,7 +1700,9 @@
       "r1Ret": 8.191,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 266.5
+      "r1ExitPrice": 266.5,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-01",
@@ -1493,7 +1719,9 @@
       "r1Ret": 2.568,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 114.5
+      "r1ExitPrice": 114.5,
+      "group": "塑化 / 化工",
+      "inTop3": false
     },
     {
       "pickDate": "2026-06-04",
@@ -1510,7 +1738,9 @@
       "r1Ret": 5.499,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 279.0
+      "r1ExitPrice": 279.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-05",
@@ -1527,7 +1757,9 @@
       "r1Ret": -0.23,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 14.15
+      "r1ExitPrice": 14.15,
+      "group": "鋼鐵 / 金屬",
+      "inTop3": false
     },
     {
       "pickDate": "2026-06-08",
@@ -1544,7 +1776,9 @@
       "r1Ret": 2.74,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 40.4
+      "r1ExitPrice": 40.4,
+      "group": "個股亮點",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-08",
@@ -1561,7 +1795,9 @@
       "r1Ret": 3.525,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 76.0
+      "r1ExitPrice": 76.0,
+      "group": "生技 / 醫療器材",
+      "inTop3": false
     },
     {
       "pickDate": "2026-06-09",
@@ -1578,7 +1814,9 @@
       "r1Ret": 4.775,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 57.0
+      "r1ExitPrice": 57.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-09",
@@ -1595,7 +1833,9 @@
       "r1Ret": -0.243,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 44.05
+      "r1ExitPrice": 44.05,
+      "group": "個股亮點",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-09",
@@ -1612,7 +1852,9 @@
       "r1Ret": 3.569,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 514.0
+      "r1ExitPrice": 514.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-09",
@@ -1629,7 +1871,9 @@
       "r1Ret": 9.683,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 123.5
+      "r1ExitPrice": 123.5,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-11",
@@ -1646,7 +1890,9 @@
       "r1Ret": 1.18,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 69.2
+      "r1ExitPrice": 69.2,
+      "group": "個股亮點",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-12",
@@ -1663,7 +1909,9 @@
       "r1Ret": 0.251,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 181.0
+      "r1ExitPrice": 181.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-12",
@@ -1680,7 +1928,9 @@
       "r1Ret": 0.941,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 49.9
+      "r1ExitPrice": 49.9,
+      "group": "個股亮點",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-12",
@@ -1697,7 +1947,9 @@
       "r1Ret": -1.315,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 136.0
+      "r1ExitPrice": 136.0,
+      "group": "個股亮點",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-12",
@@ -1714,7 +1966,9 @@
       "r1Ret": 2.133,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 359.0
+      "r1ExitPrice": 359.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-12",
@@ -1731,7 +1985,9 @@
       "r1Ret": null,
       "r1Rule": null,
       "r1GapPct": null,
-      "r1ExitPrice": null
+      "r1ExitPrice": null,
+      "group": "生技 / 醫療器材",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-12",
@@ -1748,7 +2004,9 @@
       "r1Ret": 4.484,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 114.0
+      "r1ExitPrice": 114.0,
+      "group": "塑化 / 化工",
+      "inTop3": false
     },
     {
       "pickDate": "2026-06-15",
@@ -1765,7 +2023,9 @@
       "r1Ret": -1.0,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 120.0
+      "r1ExitPrice": 120.0,
+      "group": "塑化 / 化工",
+      "inTop3": false
     },
     {
       "pickDate": "2026-06-15",
@@ -1782,7 +2042,9 @@
       "r1Ret": -0.379,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 972.0
+      "r1ExitPrice": 972.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-15",
@@ -1799,7 +2061,9 @@
       "r1Ret": -4.279,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 75.6
+      "r1ExitPrice": 75.6,
+      "group": "IC設計 / AI邊緣運算",
+      "inTop3": false
     },
     {
       "pickDate": "2026-06-15",
@@ -1816,7 +2080,9 @@
       "r1Ret": 5.069,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 149.5
+      "r1ExitPrice": 149.5,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-15",
@@ -1833,7 +2099,9 @@
       "r1Ret": -0.685,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 49.75
+      "r1ExitPrice": 49.75,
+      "group": "個股亮點",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-15",
@@ -1850,7 +2118,9 @@
       "r1Ret": 2.54,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 4620.0
+      "r1ExitPrice": 4620.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-15",
@@ -1867,7 +2137,9 @@
       "r1Ret": -0.585,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 174.0
+      "r1ExitPrice": 174.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-15",
@@ -1884,7 +2156,9 @@
       "r1Ret": 4.196,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 131.5
+      "r1ExitPrice": 131.5,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-15",
@@ -1901,7 +2175,9 @@
       "r1Ret": 4.013,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 182.0
+      "r1ExitPrice": 182.0,
+      "group": "個股亮點",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-16",
@@ -1918,7 +2194,9 @@
       "r1Ret": 7.268,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 103.0
+      "r1ExitPrice": 103.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-17",
@@ -1935,7 +2213,9 @@
       "r1Ret": -1.048,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 107.5
+      "r1ExitPrice": 107.5,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-17",
@@ -1952,7 +2232,9 @@
       "r1Ret": 5.129,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 814.0
+      "r1ExitPrice": 814.0,
+      "group": "IC設計 / AI邊緣運算",
+      "inTop3": false
     },
     {
       "pickDate": "2026-06-17",
@@ -1969,7 +2251,9 @@
       "r1Ret": 1.796,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 215.0
+      "r1ExitPrice": 215.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-17",
@@ -1986,7 +2270,9 @@
       "r1Ret": 6.446,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 205.5
+      "r1ExitPrice": 205.5,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-18",
@@ -2003,7 +2289,9 @@
       "r1Ret": 3.197,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 247.0
+      "r1ExitPrice": 247.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-18",
@@ -2020,7 +2308,9 @@
       "r1Ret": 6.082,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 896.0
+      "r1ExitPrice": 896.0,
+      "group": "IC設計 / AI邊緣運算",
+      "inTop3": false
     },
     {
       "pickDate": "2026-06-18",
@@ -2037,7 +2327,9 @@
       "r1Ret": 2.524,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 199.0
+      "r1ExitPrice": 199.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-18",
@@ -2054,7 +2346,9 @@
       "r1Ret": 3.077,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 325.5
+      "r1ExitPrice": 325.5,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-18",
@@ -2071,7 +2365,9 @@
       "r1Ret": 1.509,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 585.0
+      "r1ExitPrice": 585.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-18",
@@ -2088,7 +2384,9 @@
       "r1Ret": 1.054,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 248.0
+      "r1ExitPrice": 248.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-22",
@@ -2105,7 +2403,9 @@
       "r1Ret": 0.985,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 84.1
+      "r1ExitPrice": 84.1,
+      "group": "IC設計 / AI邊緣運算",
+      "inTop3": false
     },
     {
       "pickDate": "2026-06-22",
@@ -2122,7 +2422,9 @@
       "r1Ret": -0.798,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 234.0
+      "r1ExitPrice": 234.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-22",
@@ -2139,7 +2441,9 @@
       "r1Ret": -1.117,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 187.0
+      "r1ExitPrice": 187.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-22",
@@ -2156,7 +2460,9 @@
       "r1Ret": 2.066,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 697.0
+      "r1ExitPrice": 697.0,
+      "group": "個股亮點",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-22",
@@ -2173,7 +2479,9 @@
       "r1Ret": 3.599,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 124.5
+      "r1ExitPrice": 124.5,
+      "group": "個股亮點",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-22",
@@ -2190,7 +2498,9 @@
       "r1Ret": 2.221,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 348.0
+      "r1ExitPrice": 348.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-22",
@@ -2207,7 +2517,9 @@
       "r1Ret": -0.585,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 64.0
+      "r1ExitPrice": 64.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-22",
@@ -2224,7 +2536,9 @@
       "r1Ret": 1.796,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 301.0
+      "r1ExitPrice": 301.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-22",
@@ -2241,7 +2555,9 @@
       "r1Ret": 1.601,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 280.5
+      "r1ExitPrice": 280.5,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-22",
@@ -2258,7 +2574,9 @@
       "r1Ret": 5.537,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 104.0
+      "r1ExitPrice": 104.0,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-22",
@@ -2275,7 +2593,9 @@
       "r1Ret": 6.33,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 100.5
+      "r1ExitPrice": 100.5,
+      "group": "個股亮點",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-22",
@@ -2292,7 +2612,9 @@
       "r1Ret": 4.238,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 32.6
+      "r1ExitPrice": 32.6,
+      "group": "電子 / 半導體",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-22",
@@ -2309,7 +2631,9 @@
       "r1Ret": 1.112,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 41.95
+      "r1ExitPrice": 41.95,
+      "group": "個股亮點",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-23",
@@ -2326,7 +2650,9 @@
       "r1Ret": 3.197,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 123.5
+      "r1ExitPrice": 123.5,
+      "group": "個股亮點",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-23",
@@ -2343,7 +2669,9 @@
       "r1Ret": 6.052,
       "r1Rule": "T1_0915",
       "r1GapPct": 0.0,
-      "r1ExitPrice": 120.5
+      "r1ExitPrice": 120.5,
+      "group": "個股亮點",
+      "inTop3": true
     },
     {
       "pickDate": "2026-06-23",
@@ -2360,7 +2688,9 @@
       "r1Ret": null,
       "r1Rule": null,
       "r1GapPct": null,
-      "r1ExitPrice": null
+      "r1ExitPrice": null,
+      "group": "生技 / 醫療器材",
+      "inTop3": true
     }
   ],
   "methodology": "推薦策略：score≥75 精選 · 隔日 09:00 競價開盤進場（T+1 開盤）· R1 動態出場（gap 0~5% → T+1 09:15 出，否則 T+2 開盤出）· 永豐 Shioaji 真實 1 分 K（cache-only）· 成本：隔日 0.585%（扣百分點）· 已通過對抗驗證的真實 alpha：勝率約 66%、EV +2.18%、Sharpe 5.97。"

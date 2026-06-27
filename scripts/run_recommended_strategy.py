@@ -179,8 +179,30 @@ def aggregate_monthly(trades_with_ret):
     return out
 
 
+# ── 族群來源（給 Top-3 大族群過濾用）─────────────────────────
+def build_code_to_group(days):
+    """{(date, code): group_name}。同碼出現多族取第一個（同 reconstruct_picks 慣例）。"""
+    m = {}
+    for d in days:
+        for g in d.get("groups", []):
+            for s in g.get("stocks", []):
+                key = (d["date"], s["code"])
+                if key not in m:
+                    m[key] = g["name"]
+    return m
+
+
+def build_top_groups_per_date(days, n=3):
+    """{date: set(top-N group names by stock count)}。"""
+    out = {}
+    for d in days:
+        groups = sorted(d.get("groups", []), key=lambda g: -len(g.get("stocks", [])))
+        out[d["date"]] = {g["name"] for g in groups[:n]}
+    return out
+
+
 # ── 主流程 ──────────────────────────────────────────────────────
-def build_trades(pick_days, score_min):
+def build_trades(pick_days, score_min, code_to_group=None, top3_per_date=None):
     """收集每筆候選 trade 並算入場 + R1/baseline 出場。
 
     pick_days 結構（來自 build_pick_days）：
@@ -219,6 +241,9 @@ def build_trades(pick_days, score_min):
             passed += 1
             exits = compute_exits_for_trade(entry, p["code"], entry_date, next_date)
 
+            group_name = (code_to_group or {}).get((d["pickDate"], p["code"]))
+            in_top3 = group_name in (top3_per_date or {}).get(d["pickDate"], set()) \
+                if top3_per_date is not None else None
             trades.append({
                 "pickDate": d["pickDate"],
                 "dEntry": entry_date,
@@ -235,6 +260,8 @@ def build_trades(pick_days, score_min):
                 "r1Rule": exits["r1Rule"],
                 "r1GapPct": exits["r1GapPct"],
                 "r1ExitPrice": exits["r1ExitPrice"],
+                "group": group_name,
+                "inTop3": in_top3,
             })
 
     funnel = {
@@ -247,9 +274,9 @@ def build_trades(pick_days, score_min):
     return trades, funnel
 
 
-def build_report(pick_days, score_min):
-    """組出 Backtest0903 相容的完整 Report dict。"""
-    trades, funnel = build_trades(pick_days, score_min)
+def build_report(pick_days, score_min, code_to_group=None, top3_per_date=None):
+    """組出 Backtest0903 相容的完整 Report dict（含 Top-3 大族群子集統計）。"""
+    trades, funnel = build_trades(pick_days, score_min, code_to_group, top3_per_date)
 
     r1_rets = [t["r1Ret"] for t in trades]
     base_rets = [t["bestReturnNet"] for t in trades]
@@ -299,6 +326,21 @@ def build_report(pick_days, score_min):
         [{"dEntry": t["dEntry"], "ret": t["bestReturnNet"]} for t in trades]
     )
 
+    # ── Top-3 大族群子集統計 ──────────────────────────────────
+    top3_trades = [t for t in trades if t.get("inTop3")] if top3_per_date else []
+    r1_stats_top3 = {**aggregate_stats([t["r1Ret"] for t in top3_trades]),
+                     "rule": "R1_dynamic_top3",
+                     "label": "R1 動態（Top-3 大族群）"}
+    baseline_stats_top3 = {**aggregate_stats([t["bestReturnNet"] for t in top3_trades]),
+                           "key": "baseline_t2_open_top3",
+                           "label": "T+2 開盤（Top-3 大族群）",
+                           "lowConfidence": len(top3_trades) < 50,
+                           "caveat": ""}
+    monthly_r1_top3 = aggregate_monthly(
+        [{"dEntry": t["dEntry"], "ret": t["r1Ret"]} for t in top3_trades])
+    monthly_baseline_top3 = aggregate_monthly(
+        [{"dEntry": t["dEntry"], "ret": t["bestReturnNet"]} for t in top3_trades])
+
     # 穩健性：前後半各自挑「R1 vs baseline」哪個 meanNet 較高
     ordered = sorted(trades, key=lambda t: (t["dEntry"], t["code"]))
     half = len(ordered) // 2
@@ -336,6 +378,11 @@ def build_report(pick_days, score_min):
         "r1Stats": r1_stats,
         "monthlyBaseline": monthly_baseline,
         "monthlyR1": monthly_r1,
+        # Top-3 大族群子集（同樣資料、不同視角）
+        "r1StatsTop3": r1_stats_top3,
+        "baselineStatsTop3": baseline_stats_top3,
+        "monthlyR1Top3": monthly_r1_top3,
+        "monthlyBaselineTop3": monthly_baseline_top3,
         "robustness": robustness,
         "trades": trades,
         "methodology": (
@@ -366,8 +413,10 @@ def main():
     pick_days = build_pick_days(days, rev_maps, hw, disp)
     print(f"選股日 {len(pick_days)} 天")
 
+    code_to_group = build_code_to_group(days)
+    top3_per_date = build_top_groups_per_date(days, n=3)
     print(f"建構交易 (score≥{args.score_min}, T+1 開盤進場, R1 動態出場) ...")
-    report = build_report(pick_days, args.score_min)
+    report = build_report(pick_days, args.score_min, code_to_group, top3_per_date)
 
     f = report["funnel"]
     print(f"\n漏斗：候選 {f['totalPicks']} → 無 1 分 K {f['noData']} → 進場 {f['passedFilter']} → 成交 {f['traded']}")
@@ -380,6 +429,9 @@ def main():
     print(f"baseline (T+2 開)：n={bs['trades']} 勝率 {bs['winRate']}% "
           f"EV {bs['meanNet']}% 總淨 {bs['totalNet']}% "
           f"MDD {bs['maxDrawdown']}% PF {bs['profitFactor']}")
+    r1_t3 = report["r1StatsTop3"]
+    print(f"\n[Top-3 大族群子集] R1: n={r1_t3['trades']} 勝率 {r1_t3['winRate']}% "
+          f"EV {r1_t3['meanNet']}% 總淨 {r1_t3['totalNet']}%")
 
     with open(OUT_PATH, "w", encoding="utf-8") as fp:
         json.dump(report, fp, ensure_ascii=False, indent=2)
