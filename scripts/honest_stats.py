@@ -118,8 +118,13 @@ def score_stock_full(stock, *, group_name, trending, leader_code, rev_yoy,
         score += 25
         if rev_yoy > 50:
             score += 10
-    if stock["major_net"] > 0:
-        score += 20
+    # P1-3: 對齊 scoring.ts —— 法人三級制，無「小買 +5」
+    if stock["major_net"] >= 1_000_000:
+        score += 25
+    elif stock["major_net"] >= 200_000:
+        score += 15
+    elif stock["major_net"] <= -500_000:
+        score -= 20
     if stock.get("streak", 1) >= 2:
         score += 15
     if stock["volume"] > 5_000_000:
