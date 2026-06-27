@@ -115,6 +115,10 @@ export interface StatsData {
   honestStats: HonestStats | null;
 }
 
+// Cache the aggregated stats response for 5 minutes; daily data only changes
+// once per trading day, so re-reading 60+ JSON files on every request is wasteful.
+export const revalidate = 300;
+
 export async function GET() {
   const dataDir = path.join(process.cwd(), "data", "daily");
 
@@ -160,20 +164,22 @@ export async function GET() {
   // Group stats aggregation
   const groupMap: Map<string, { color: string; counts: number[]; total: number; days: number }> = new Map();
   const allDates = dailyFiles.map((d) => d.date);
+  // O(1) date -> index lookup instead of allDates.indexOf() inside the nested loop
+  const dateIndex = new Map<string, number>();
+  allDates.forEach((date, i) => dateIndex.set(date, i));
 
   for (const day of dailyFiles) {
+    const dayIdx = dateIndex.get(day.date) ?? -1;
+    if (dayIdx < 0) continue;
     for (const g of day.groups) {
       const key = g.name;
       if (!groupMap.has(key)) {
         groupMap.set(key, { color: g.color, counts: new Array(allDates.length).fill(0), total: 0, days: 0 });
       }
       const entry = groupMap.get(key)!;
-      const dayIdx = allDates.indexOf(day.date);
-      if (dayIdx >= 0) {
-        entry.counts[dayIdx] = g.stocks.length;
-        entry.total += g.stocks.length;
-        entry.days += 1;
-      }
+      entry.counts[dayIdx] = g.stocks.length;
+      entry.total += g.stocks.length;
+      entry.days += 1;
     }
   }
 
@@ -217,17 +223,24 @@ export async function GET() {
     // file absent until first honest_stats.py run — render nothing client-side
   }
 
-  return NextResponse.json({
-    dailyTrend,
-    groupStats,
-    totalDays: dailyFiles.length,
-    totalLimitUps,
-    avgLimitUpsPerDay: dailyFiles.length > 0 ? +(totalLimitUps / dailyFiles.length).toFixed(1) : 0,
-    bestDay: { date: sortedByCount[0]?.date ?? "-", count: sortedByCount[0]?.count ?? 0 },
-    worstDay: { date: sortedByCount[sortedByCount.length - 1]?.date ?? "-", count: sortedByCount[sortedByCount.length - 1]?.count ?? 0 },
-    heatmap,
-    honestStats,
-    // dates array for heatmap x-axis
-    dates: dailyTrend.map((d) => d.date),
-  } as StatsData & { dates: string[] });
+  return NextResponse.json(
+    {
+      dailyTrend,
+      groupStats,
+      totalDays: dailyFiles.length,
+      totalLimitUps,
+      avgLimitUpsPerDay: dailyFiles.length > 0 ? +(totalLimitUps / dailyFiles.length).toFixed(1) : 0,
+      bestDay: { date: sortedByCount[0]?.date ?? "-", count: sortedByCount[0]?.count ?? 0 },
+      worstDay: { date: sortedByCount[sortedByCount.length - 1]?.date ?? "-", count: sortedByCount[sortedByCount.length - 1]?.count ?? 0 },
+      heatmap,
+      honestStats,
+      // dates array for heatmap x-axis
+      dates: dailyTrend.map((d) => d.date),
+    } as StatsData & { dates: string[] },
+    {
+      headers: {
+        "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
+      },
+    }
+  );
 }
