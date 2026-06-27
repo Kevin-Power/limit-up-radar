@@ -29,7 +29,7 @@ threshold 依 June 診斷實證（不是直覺）：
 - 前一日大盤 ≤ -1.5%   → red（最重要的單一訊號）
 - 前一日大盤 -1.5~-0.5 → amber
 """
-import argparse, json, os, sys
+import argparse, bisect, json, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 BACKTEST_FILE = "data/backtest_0903.json"
@@ -92,15 +92,14 @@ def build_kill_switch_data(trades, taiex, window=10):
     taiex_map = {t["date"]: t["chgPct"] for t in taiex}
 
     # 找每筆 trade 進場前一日的大盤漲跌
+    # 用 bisect 在 sorted_dates 上做 O(log N) lookup（避免 O(trades × dates) 線性掃描）
     sorted_dates = sorted(taiex_map.keys())
     def prev_taiex(d):
-        prev = None
-        for dt in sorted_dates:
-            if dt < d:
-                prev = taiex_map[dt]
-            else:
-                break
-        return prev
+        # bisect_left 回傳第一個 >= d 的 index；前一個（idx-1）即為 < d 的最後一筆
+        idx = bisect.bisect_left(sorted_dates, d) - 1
+        if idx < 0:
+            return None
+        return taiex_map[sorted_dates[idx]]
 
     timeline = []
     for i, t in enumerate(trades):
@@ -153,10 +152,11 @@ def main():
 
     with open(BACKTEST_FILE, encoding="utf-8") as fp:
         bt = json.load(fp)
-    if "r1Stats" not in bt:
-        print("ERROR: backtest_0903.json 缺 r1Stats，請先跑 P0-2 backtest", file=sys.stderr)
-        sys.exit(1)
+    # 直接檢查真實依賴 trades（避免「代理 key」與真實依賴脫鉤）
     trades = bt.get("trades", [])
+    if not trades:
+        print("ERROR: backtest_0903.json 無 trades 資料，請先跑 P0-2 backtest", file=sys.stderr)
+        sys.exit(1)
     taiex = _load_taiex_chg()
     data = build_kill_switch_data(trades, taiex, window=args.window)
     data["updatedAt"] = trades[-1]["dEntry"] if trades else None
