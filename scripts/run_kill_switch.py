@@ -38,7 +38,8 @@ threshold 依 June 診斷實證（不是直覺）：
 import argparse, bisect, json, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-BACKTEST_FILE = "data/backtest_0903.json"
+BACKTEST_FILE = "data/strategy_recommended.json"   # 主推策略：score≥75 + 開盤進場 + R1
+BACKTEST_FALLBACK = "data/backtest_0903.json"      # 退路：舊版 09:03 紅K + R1
 OUT_FILE = "data/kill_switch.json"
 
 # 警示嚴重度 — 與 UI 端 src/app/strategy-monitor/_client.tsx 對應
@@ -164,13 +165,15 @@ def main():
     project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     os.chdir(project_root)
 
-    with open(BACKTEST_FILE, encoding="utf-8") as fp:
+    # 主推：strategy_recommended.json (開盤+R1)；缺則退到 backtest_0903.json (09:03+R1)
+    src_file = BACKTEST_FILE if os.path.exists(BACKTEST_FILE) else BACKTEST_FALLBACK
+    with open(src_file, encoding="utf-8") as fp:
         bt = json.load(fp)
-    # 直接檢查真實依賴 trades（避免「代理 key」與真實依賴脫鉤）
     trades = bt.get("trades", [])
     if not trades:
-        print("ERROR: backtest_0903.json 無 trades 資料，請先跑 P0-2 backtest", file=sys.stderr)
+        print(f"ERROR: {src_file} 無 trades 資料", file=sys.stderr)
         sys.exit(1)
+    print(f"source: {src_file}")
     taiex = _load_taiex_chg()
     data = build_kill_switch_data(trades, taiex, window=args.window)
     data["updatedAt"] = trades[-1]["dEntry"] if trades else None

@@ -1,0 +1,1030 @@
+{
+  "window": 10,
+  "timeline": [
+    {
+      "date": "2026-04-13",
+      "ret": -1.079,
+      "rollingEv10": null,
+      "rollingEv20": null,
+      "marketYesterdayChg": 1.6,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-04-14",
+      "ret": 1.244,
+      "rollingEv10": null,
+      "rollingEv20": null,
+      "marketYesterdayChg": 0.11,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-04-16",
+      "ret": -0.745,
+      "rollingEv10": null,
+      "rollingEv20": null,
+      "marketYesterdayChg": 1.17,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-04-17",
+      "ret": 5.075,
+      "rollingEv10": null,
+      "rollingEv20": null,
+      "marketYesterdayChg": 1.12,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-04-17",
+      "ret": 3.96,
+      "rollingEv10": null,
+      "rollingEv20": null,
+      "marketYesterdayChg": 1.12,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-04-20",
+      "ret": 6.008,
+      "rollingEv10": null,
+      "rollingEv20": null,
+      "marketYesterdayChg": -0.88,
+      "marketStatus": "amber"
+    },
+    {
+      "date": "2026-04-22",
+      "ret": 5.319,
+      "rollingEv10": null,
+      "rollingEv20": null,
+      "marketYesterdayChg": 1.75,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-04-22",
+      "ret": -1.089,
+      "rollingEv10": null,
+      "rollingEv20": null,
+      "marketYesterdayChg": 1.75,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-04-22",
+      "ret": 0.919,
+      "rollingEv10": null,
+      "rollingEv20": null,
+      "marketYesterdayChg": 1.75,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-04-24",
+      "ret": 2.529,
+      "rollingEv10": 2.214,
+      "rollingEv20": null,
+      "marketYesterdayChg": -0.43,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-04-24",
+      "ret": 2.813,
+      "rollingEv10": 2.603,
+      "rollingEv20": null,
+      "marketYesterdayChg": -0.43,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-04-24",
+      "ret": -0.042,
+      "rollingEv10": 2.475,
+      "rollingEv20": null,
+      "marketYesterdayChg": -0.43,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-04-28",
+      "ret": 1.065,
+      "rollingEv10": 2.656,
+      "rollingEv20": null,
+      "marketYesterdayChg": 1.76,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-04-29",
+      "ret": -0.982,
+      "rollingEv10": 2.05,
+      "rollingEv20": null,
+      "marketYesterdayChg": -0.24,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-05",
+      "ret": 6.522,
+      "rollingEv10": 2.306,
+      "rollingEv20": null,
+      "marketYesterdayChg": 4.57,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-05",
+      "ret": 1.884,
+      "rollingEv10": 1.894,
+      "rollingEv20": null,
+      "marketYesterdayChg": 4.57,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-05",
+      "ret": 1.608,
+      "rollingEv10": 1.523,
+      "rollingEv20": null,
+      "marketYesterdayChg": 4.57,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-05",
+      "ret": 2.92,
+      "rollingEv10": 1.924,
+      "rollingEv20": null,
+      "marketYesterdayChg": 4.57,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-11",
+      "ret": 5.944,
+      "rollingEv10": 2.426,
+      "rollingEv20": null,
+      "marketYesterdayChg": -0.79,
+      "marketStatus": "amber"
+    },
+    {
+      "date": "2026-05-12",
+      "ret": 3.203,
+      "rollingEv10": 2.494,
+      "rollingEv20": 2.354,
+      "marketYesterdayChg": 0.45,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-12",
+      "ret": -3.609,
+      "rollingEv10": 1.851,
+      "rollingEv20": 2.227,
+      "marketYesterdayChg": 0.45,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-12",
+      "ret": -0.163,
+      "rollingEv10": 1.839,
+      "rollingEv20": 2.157,
+      "marketYesterdayChg": 0.45,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-12",
+      "ret": -0.585,
+      "rollingEv10": 1.674,
+      "rollingEv20": 2.165,
+      "marketYesterdayChg": 0.45,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-12",
+      "ret": 1.809,
+      "rollingEv10": 1.953,
+      "rollingEv20": 2.002,
+      "marketYesterdayChg": 0.45,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-12",
+      "ret": 0.135,
+      "rollingEv10": 1.315,
+      "rollingEv20": 1.81,
+      "marketYesterdayChg": 0.45,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-13",
+      "ret": 8.707,
+      "rollingEv10": 1.997,
+      "rollingEv20": 1.945,
+      "marketYesterdayChg": 0.26,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-13",
+      "ret": -0.059,
+      "rollingEv10": 1.83,
+      "rollingEv20": 1.676,
+      "marketYesterdayChg": 0.26,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-13",
+      "ret": -3.024,
+      "rollingEv10": 1.236,
+      "rollingEv20": 1.58,
+      "marketYesterdayChg": 0.26,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-13",
+      "ret": -1.306,
+      "rollingEv10": 0.511,
+      "rollingEv20": 1.468,
+      "marketYesterdayChg": 0.26,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-13",
+      "ret": 1.915,
+      "rollingEv10": 0.382,
+      "rollingEv20": 1.438,
+      "marketYesterdayChg": 0.26,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-14",
+      "ret": -1.363,
+      "rollingEv10": 0.607,
+      "rollingEv20": 1.229,
+      "marketYesterdayChg": -1.25,
+      "marketStatus": "amber"
+    },
+    {
+      "date": "2026-05-14",
+      "ret": 2.492,
+      "rollingEv10": 0.872,
+      "rollingEv20": 1.356,
+      "marketYesterdayChg": -1.25,
+      "marketStatus": "amber"
+    },
+    {
+      "date": "2026-05-14",
+      "ret": 2.24,
+      "rollingEv10": 1.155,
+      "rollingEv20": 1.414,
+      "marketYesterdayChg": -1.25,
+      "marketStatus": "amber"
+    },
+    {
+      "date": "2026-05-15",
+      "ret": -1.526,
+      "rollingEv10": 0.821,
+      "rollingEv20": 1.387,
+      "marketYesterdayChg": 0.91,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-15",
+      "ret": 4.826,
+      "rollingEv10": 1.29,
+      "rollingEv20": 1.302,
+      "marketYesterdayChg": 0.91,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-15",
+      "ret": 4.037,
+      "rollingEv10": 0.823,
+      "rollingEv20": 1.41,
+      "marketYesterdayChg": 0.91,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-15",
+      "ret": 4.126,
+      "rollingEv10": 1.242,
+      "rollingEv20": 1.536,
+      "marketYesterdayChg": 0.91,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-15",
+      "ret": 3.908,
+      "rollingEv10": 1.935,
+      "rollingEv20": 1.585,
+      "marketYesterdayChg": 0.91,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-15",
+      "ret": -0.406,
+      "rollingEv10": 2.025,
+      "rollingEv20": 1.268,
+      "marketYesterdayChg": 0.91,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-15",
+      "ret": -1.911,
+      "rollingEv10": 1.642,
+      "rollingEv20": 1.012,
+      "marketYesterdayChg": 0.91,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-18",
+      "ret": -4.144,
+      "rollingEv10": 1.364,
+      "rollingEv20": 0.985,
+      "marketYesterdayChg": -1.39,
+      "marketStatus": "amber"
+    },
+    {
+      "date": "2026-05-18",
+      "ret": 3.874,
+      "rollingEv10": 1.502,
+      "rollingEv20": 1.187,
+      "marketYesterdayChg": -1.39,
+      "marketStatus": "amber"
+    },
+    {
+      "date": "2026-05-22",
+      "ret": 1.415,
+      "rollingEv10": 1.42,
+      "rollingEv20": 1.287,
+      "marketYesterdayChg": -0.39,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-22",
+      "ret": 2.916,
+      "rollingEv10": 1.864,
+      "rollingEv20": 1.343,
+      "marketYesterdayChg": -0.39,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-25",
+      "ret": -3.643,
+      "rollingEv10": 1.017,
+      "rollingEv20": 1.154,
+      "marketYesterdayChg": 2.18,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-25",
+      "ret": -3.041,
+      "rollingEv10": 0.309,
+      "rollingEv20": 0.566,
+      "marketYesterdayChg": 2.18,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-25",
+      "ret": -0.801,
+      "rollingEv10": -0.183,
+      "rollingEv20": 0.529,
+      "marketYesterdayChg": 2.18,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-25",
+      "ret": 3.572,
+      "rollingEv10": -0.217,
+      "rollingEv20": 0.859,
+      "marketYesterdayChg": 2.18,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-25",
+      "ret": -0.38,
+      "rollingEv10": -0.214,
+      "rollingEv20": 0.905,
+      "marketYesterdayChg": 2.18,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-25",
+      "ret": -0.7,
+      "rollingEv10": -0.093,
+      "rollingEv20": 0.775,
+      "marketYesterdayChg": 2.18,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-25",
+      "ret": -0.144,
+      "rollingEv10": 0.307,
+      "rollingEv20": 0.836,
+      "marketYesterdayChg": 2.18,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-25",
+      "ret": 0.168,
+      "rollingEv10": -0.064,
+      "rollingEv20": 0.719,
+      "marketYesterdayChg": 2.18,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-25",
+      "ret": -0.585,
+      "rollingEv10": -0.264,
+      "rollingEv20": 0.578,
+      "marketYesterdayChg": 2.18,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-25",
+      "ret": 1.888,
+      "rollingEv10": -0.367,
+      "rollingEv20": 0.749,
+      "marketYesterdayChg": 2.18,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-25",
+      "ret": 0.34,
+      "rollingEv10": 0.032,
+      "rollingEv20": 0.524,
+      "marketYesterdayChg": 2.18,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-27",
+      "ret": 2.815,
+      "rollingEv10": 0.617,
+      "rollingEv20": 0.463,
+      "marketYesterdayChg": 3.26,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-27",
+      "ret": -2.713,
+      "rollingEv10": 0.426,
+      "rollingEv20": 0.121,
+      "marketYesterdayChg": 3.26,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-27",
+      "ret": 1.345,
+      "rollingEv10": 0.203,
+      "rollingEv20": -0.007,
+      "marketYesterdayChg": 3.26,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-27",
+      "ret": -1.923,
+      "rollingEv10": 0.049,
+      "rollingEv20": -0.083,
+      "marketYesterdayChg": 3.26,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-27",
+      "ret": 0.49,
+      "rollingEv10": 0.168,
+      "rollingEv20": 0.037,
+      "marketYesterdayChg": 3.26,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-27",
+      "ret": 1.911,
+      "rollingEv10": 0.374,
+      "rollingEv20": 0.34,
+      "marketYesterdayChg": 3.26,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-28",
+      "ret": 3.666,
+      "rollingEv10": 0.723,
+      "rollingEv20": 0.33,
+      "marketYesterdayChg": 1.68,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-05-29",
+      "ret": -0.585,
+      "rollingEv10": 0.723,
+      "rollingEv20": 0.23,
+      "marketYesterdayChg": -1.4,
+      "marketStatus": "amber"
+    },
+    {
+      "date": "2026-06-01",
+      "ret": -0.585,
+      "rollingEv10": 0.476,
+      "rollingEv20": 0.055,
+      "marketYesterdayChg": 2.51,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-01",
+      "ret": -0.585,
+      "rollingEv10": 0.384,
+      "rollingEv20": 0.208,
+      "marketYesterdayChg": 2.51,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-01",
+      "ret": 1.191,
+      "rollingEv10": 0.221,
+      "rollingEv20": 0.419,
+      "marketYesterdayChg": 2.51,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-01",
+      "ret": -3.053,
+      "rollingEv10": 0.187,
+      "rollingEv20": 0.307,
+      "marketYesterdayChg": 2.51,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-01",
+      "ret": -0.585,
+      "rollingEv10": -0.006,
+      "rollingEv20": 0.099,
+      "marketYesterdayChg": 2.51,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-01",
+      "ret": -0.459,
+      "rollingEv10": 0.141,
+      "rollingEv20": 0.095,
+      "marketYesterdayChg": 2.51,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-01",
+      "ret": -3.488,
+      "rollingEv10": -0.257,
+      "rollingEv20": -0.045,
+      "marketYesterdayChg": 2.51,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-01",
+      "ret": -0.585,
+      "rollingEv10": -0.507,
+      "rollingEv20": -0.067,
+      "marketYesterdayChg": 2.51,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-04",
+      "ret": -2.332,
+      "rollingEv10": -1.107,
+      "rollingEv20": -0.192,
+      "marketYesterdayChg": 1.35,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-04",
+      "ret": -1.331,
+      "rollingEv10": -1.181,
+      "rollingEv20": -0.229,
+      "marketYesterdayChg": 1.35,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-04",
+      "ret": 0.426,
+      "rollingEv10": -1.08,
+      "rollingEv20": -0.302,
+      "marketYesterdayChg": 1.35,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-04",
+      "ret": 1.762,
+      "rollingEv10": -0.845,
+      "rollingEv20": -0.231,
+      "marketYesterdayChg": 1.35,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-04",
+      "ret": 1.281,
+      "rollingEv10": -0.836,
+      "rollingEv20": -0.308,
+      "marketYesterdayChg": 1.35,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-04",
+      "ret": 8.191,
+      "rollingEv10": 0.288,
+      "rollingEv20": 0.238,
+      "marketYesterdayChg": 1.35,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-04",
+      "ret": 2.568,
+      "rollingEv10": 0.603,
+      "rollingEv20": 0.299,
+      "marketYesterdayChg": 1.35,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-05",
+      "ret": 5.499,
+      "rollingEv10": 1.199,
+      "rollingEv20": 0.67,
+      "marketYesterdayChg": -1.68,
+      "marketStatus": "red"
+    },
+    {
+      "date": "2026-06-08",
+      "ret": -0.23,
+      "rollingEv10": 1.525,
+      "rollingEv20": 0.634,
+      "marketYesterdayChg": -1.33,
+      "marketStatus": "amber"
+    },
+    {
+      "date": "2026-06-09",
+      "ret": 2.74,
+      "rollingEv10": 1.857,
+      "rollingEv20": 0.675,
+      "marketYesterdayChg": -3.48,
+      "marketStatus": "red"
+    },
+    {
+      "date": "2026-06-09",
+      "ret": 3.525,
+      "rollingEv10": 2.443,
+      "rollingEv20": 0.668,
+      "marketYesterdayChg": -3.48,
+      "marketStatus": "red"
+    },
+    {
+      "date": "2026-06-10",
+      "ret": 4.775,
+      "rollingEv10": 3.054,
+      "rollingEv20": 0.936,
+      "marketYesterdayChg": 2.76,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-10",
+      "ret": -0.243,
+      "rollingEv10": 2.987,
+      "rollingEv20": 0.953,
+      "marketYesterdayChg": 2.76,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-10",
+      "ret": 3.569,
+      "rollingEv10": 3.167,
+      "rollingEv20": 1.161,
+      "marketYesterdayChg": 2.76,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-10",
+      "ret": 9.683,
+      "rollingEv10": 4.008,
+      "rollingEv20": 1.586,
+      "marketYesterdayChg": 2.76,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-12",
+      "ret": 1.18,
+      "rollingEv10": 3.307,
+      "rollingEv20": 1.797,
+      "marketYesterdayChg": -0.18,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-15",
+      "ret": 0.251,
+      "rollingEv10": 3.075,
+      "rollingEv20": 1.839,
+      "marketYesterdayChg": 2.36,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-15",
+      "ret": 0.941,
+      "rollingEv10": 2.619,
+      "rollingEv20": 1.909,
+      "marketYesterdayChg": 2.36,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-15",
+      "ret": -1.315,
+      "rollingEv10": 2.511,
+      "rollingEv20": 2.018,
+      "marketYesterdayChg": 2.36,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-15",
+      "ret": 2.133,
+      "rollingEv10": 2.45,
+      "rollingEv20": 2.154,
+      "marketYesterdayChg": 2.36,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-15",
+      "ret": 4.484,
+      "rollingEv10": 2.546,
+      "rollingEv20": 2.494,
+      "marketYesterdayChg": 2.36,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-16",
+      "ret": -1.0,
+      "rollingEv10": 1.968,
+      "rollingEv20": 2.511,
+      "marketYesterdayChg": 2.78,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-16",
+      "ret": -0.379,
+      "rollingEv10": 1.955,
+      "rollingEv20": 2.471,
+      "marketYesterdayChg": 2.78,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-16",
+      "ret": -4.279,
+      "rollingEv10": 1.17,
+      "rollingEv20": 2.169,
+      "marketYesterdayChg": 2.78,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-16",
+      "ret": 5.069,
+      "rollingEv10": 0.709,
+      "rollingEv20": 2.358,
+      "marketYesterdayChg": 2.78,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-16",
+      "ret": -0.685,
+      "rollingEv10": 0.522,
+      "rollingEv20": 1.914,
+      "marketYesterdayChg": 2.78,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-16",
+      "ret": 2.54,
+      "rollingEv10": 0.751,
+      "rollingEv20": 1.913,
+      "marketYesterdayChg": 2.78,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-16",
+      "ret": -0.585,
+      "rollingEv10": 0.598,
+      "rollingEv20": 1.609,
+      "marketYesterdayChg": 2.78,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-16",
+      "ret": 4.196,
+      "rollingEv10": 1.149,
+      "rollingEv20": 1.83,
+      "marketYesterdayChg": 2.78,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-16",
+      "ret": 4.013,
+      "rollingEv10": 1.337,
+      "rollingEv20": 1.894,
+      "marketYesterdayChg": 2.78,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-17",
+      "ret": 7.268,
+      "rollingEv10": 1.616,
+      "rollingEv20": 2.081,
+      "marketYesterdayChg": 0.91,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-18",
+      "ret": -1.048,
+      "rollingEv10": 1.611,
+      "rollingEv20": 1.79,
+      "marketYesterdayChg": 0.15,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-18",
+      "ret": 5.129,
+      "rollingEv10": 2.162,
+      "rollingEv20": 2.058,
+      "marketYesterdayChg": 0.15,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-18",
+      "ret": 1.796,
+      "rollingEv10": 2.769,
+      "rollingEv20": 1.97,
+      "marketYesterdayChg": 0.15,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-18",
+      "ret": 6.446,
+      "rollingEv10": 2.907,
+      "rollingEv20": 1.808,
+      "marketYesterdayChg": 0.15,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-22",
+      "ret": 3.197,
+      "rollingEv10": 3.295,
+      "rollingEv20": 1.909,
+      "marketYesterdayChg": 1.28,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-22",
+      "ret": 6.082,
+      "rollingEv10": 3.649,
+      "rollingEv20": 2.2,
+      "marketYesterdayChg": 1.28,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-22",
+      "ret": 2.524,
+      "rollingEv10": 3.96,
+      "rollingEv20": 2.279,
+      "marketYesterdayChg": 1.28,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-22",
+      "ret": 3.077,
+      "rollingEv10": 3.848,
+      "rollingEv20": 2.499,
+      "marketYesterdayChg": 1.28,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-22",
+      "ret": 1.509,
+      "rollingEv10": 3.598,
+      "rollingEv20": 2.468,
+      "marketYesterdayChg": 1.28,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-22",
+      "ret": 1.054,
+      "rollingEv10": 2.977,
+      "rollingEv20": 2.296,
+      "marketYesterdayChg": 1.28,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-23",
+      "ret": 0.985,
+      "rollingEv10": 3.18,
+      "rollingEv20": 2.395,
+      "marketYesterdayChg": 2.75,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-23",
+      "ret": -0.798,
+      "rollingEv10": 2.587,
+      "rollingEv20": 2.375,
+      "marketYesterdayChg": 2.75,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-23",
+      "ret": -1.117,
+      "rollingEv10": 2.296,
+      "rollingEv20": 2.533,
+      "marketYesterdayChg": 2.75,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-23",
+      "ret": 2.066,
+      "rollingEv10": 1.858,
+      "rollingEv20": 2.382,
+      "marketYesterdayChg": 2.75,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-23",
+      "ret": 3.599,
+      "rollingEv10": 1.898,
+      "rollingEv20": 2.597,
+      "marketYesterdayChg": 2.75,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-23",
+      "ret": 2.221,
+      "rollingEv10": 1.512,
+      "rollingEv20": 2.581,
+      "marketYesterdayChg": 2.75,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-23",
+      "ret": -0.585,
+      "rollingEv10": 1.201,
+      "rollingEv20": 2.581,
+      "marketYesterdayChg": 2.75,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-23",
+      "ret": 1.796,
+      "rollingEv10": 1.073,
+      "rollingEv20": 2.461,
+      "marketYesterdayChg": 2.75,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-23",
+      "ret": 1.601,
+      "rollingEv10": 1.082,
+      "rollingEv20": 2.34,
+      "marketYesterdayChg": 2.75,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-23",
+      "ret": 5.537,
+      "rollingEv10": 1.53,
+      "rollingEv20": 2.254,
+      "marketYesterdayChg": 2.75,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-23",
+      "ret": 6.33,
+      "rollingEv10": 2.065,
+      "rollingEv20": 2.622,
+      "marketYesterdayChg": 2.75,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-23",
+      "ret": 4.238,
+      "rollingEv10": 2.569,
+      "rollingEv20": 2.578,
+      "marketYesterdayChg": 2.75,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-23",
+      "ret": 1.112,
+      "rollingEv10": 2.792,
+      "rollingEv20": 2.544,
+      "marketYesterdayChg": 2.75,
+      "marketStatus": "green"
+    },
+    {
+      "date": "2026-06-24",
+      "ret": 3.197,
+      "rollingEv10": 2.905,
+      "rollingEv20": 2.381,
+      "marketYesterdayChg": -1.34,
+      "marketStatus": "amber"
+    },
+    {
+      "date": "2026-06-24",
+      "ret": 6.052,
+      "rollingEv10": 3.15,
+      "rollingEv20": 2.524,
+      "marketYesterdayChg": -1.34,
+      "marketStatus": "amber"
+    }
+  ],
+  "latest": {
+    "rollingEv10": 3.15,
+    "rollingEv20": 2.524,
+    "streakLosses": 0,
+    "marketStatus": "amber",
+    "marketYesterdayChg": -1.34
+  },
+  "warnings": [],
+  "updatedAt": "2026-06-24"
+}
