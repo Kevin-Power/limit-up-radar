@@ -83,12 +83,22 @@ jobs:
         run: |
           python scripts/run_backtest.py
 
+      - name: Run kill switch calc
+        if: steps.classify.outputs.data_found == 'true'
+        continue-on-error: true
+        run: |
+          if [ -f data/backtest_0903.json ]; then
+            python scripts/run_kill_switch.py
+          else
+            echo "::warning::backtest_0903.json 不存在，skip kill_switch"
+          fi
+
       - name: Commit and push data
         if: steps.classify.outputs.data_found == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/daily/*.json data/backtest.json
+          git add data/daily/*.json data/backtest.json data/kill_switch.json
           DATE_PART=$(basename "${{ steps.classify.outputs.json_file }}" .json)
           git commit -m "data: add daily data for ${DATE_PART}" || echo "No changes to commit"
           git push
