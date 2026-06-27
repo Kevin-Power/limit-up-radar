@@ -132,7 +132,7 @@ def score_stock_full(stock, *, group_name, trending, leader_code, rev_yoy,
     if leader_code == stock["code"]:
         score += 10
     if is_heavyweight:
-        score += 25
+        score += 10
     return score
 
 

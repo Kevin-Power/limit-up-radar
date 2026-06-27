@@ -113,10 +113,10 @@ def test_major_net_small_buy_no_bonus():
                          SCORING), "法人小買超 +5 應移除"
 
 
-@pytest.mark.xfail(reason="P1-4 尚未實作：權值股仍 +25", strict=False)
 def test_heavyweight_bonus_downgraded():
     """權值股加分從 +25 降為 +10（cohort win 50%，原 +25 過度推升至 90+）。"""
-    assert re.search(r"isHeavyweight\s*\)\s*\{\s*score\s*\+=\s*10",
+    # 允許 if (isHeavyweight) { 與 score += 10 之間有註解或空白
+    assert re.search(r"isHeavyweight\s*\)\s*\{[\s\S]*?score\s*\+=\s*10",
                      SCORING), "isHeavyweight 加分應為 +10"
-    assert not re.search(r"isHeavyweight\s*\)\s*\{\s*score\s*\+=\s*25",
+    assert not re.search(r"isHeavyweight\s*\)\s*\{[\s\S]*?score\s*\+=\s*25",
                          SCORING), "isHeavyweight 不應再 +25"

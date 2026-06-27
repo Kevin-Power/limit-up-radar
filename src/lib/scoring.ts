@@ -49,7 +49,7 @@ export interface ScoreResult {
  *   - 連板 (streak >= 1): +streak*6 (cap 30); streak >= 5: -10 高追風險
  *   - 大量 (volume > 5M shares = 5,000 lots): +5
  *   - 族群龍頭 (top volume in group): +10
- *   - 權值股漲停 (isHeavyweight=true): +25 (TWSE 50 成分股漲停為強訊號，較罕見)
+ *   - 權值股漲停 (isHeavyweight=true): +10 (TWSE 50 成分股漲停為提示性訊號)
  *
  * Negative signals (liquidity / risk filters):
  *   - 流動性極低 (volume < 500 lots): -30 (essentially excluded from picks)
@@ -151,7 +151,8 @@ export function scoreStock(input: ScoreInput & {
   }
   // === 權值股漲停 = 重大訊號 (TWSE 50 龍頭很少漲停，一旦發生通常帶領大盤) ===
   if (isHeavyweight) {
-    score += 25;
+    // 屍體解剖：權值股漲停 cohort win 50%（非權值股 55.5%）—— tag 保留但加分降低
+    score += 10;
     tags.push("⭐權值股");
   }
 
