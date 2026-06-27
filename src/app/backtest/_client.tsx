@@ -6,6 +6,7 @@ import NavBar from "@/components/NavBar";
 import { formatPrice, getTodayString } from "@/lib/utils";
 import type { BacktestResult as RealBacktestResult, Trade } from "@/app/api/backtest/route";
 import Backtest0903 from "@/components/Backtest0903";
+import RecommendedStrategy from "@/components/RecommendedStrategy";
 
 /* ================================================================
    STRATEGIES & TYPES
@@ -184,7 +185,13 @@ export default function BacktestPage() {
           <p className="text-xs text-txt-3 mt-1">歷史數據驗證交易策略表現</p>
         </div>
 
-        {/* 09:03 紅K進場策略（精選標的實戰回測）*/}
+        {/* ★ 推薦策略：開盤+R1 動態出場（已驗證真實 alpha）*/}
+        <RecommendedStrategy />
+
+        {/* 09:03 紅K進場策略（舊版回測，已知失效，僅供對比）*/}
+        <div className="mb-2 text-[11px] text-txt-4 border-l-2 border-amber pl-2">
+          ↓ 舊版回測（09:03 紅K 入場，已知失效，僅供對比）
+        </div>
         <Backtest0903 />
 
         {/* 以下：技術指標互動回測器 */}
