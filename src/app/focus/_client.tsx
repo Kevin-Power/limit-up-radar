@@ -210,7 +210,7 @@ export default function FocusClient() {
     <>
       <TopNav />
       <NavBar />
-      <main id="main" className="max-w-[1200px] mx-auto px-4 md:px-6 py-6 space-y-6">
+      <main id="main" className="container-page py-6 space-y-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>

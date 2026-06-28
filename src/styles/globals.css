@@ -120,6 +120,34 @@ body {
   color: var(--text-0);
 }
 
+/* ─── Page container width tokens (P2-10) ─────────────────────
+   統一頁面容器寬度/padding，取代散落的 max-w-[1100px]/[1200px]/6xl 等。
+   三級：
+     .container-page         標準資料頁（族群/觀察/回測…）  1152px
+     .container-page-wide    密集表格/網格頁（全球/螢幕…）  1280px
+     .container-page-narrow  閱讀/文章型頁（報告/比較/個股） 1024px
+   水平 padding 一致：px-4 → md:px-6；垂直 padding 由各頁自訂。 */
+.container-page,
+.container-page-wide,
+.container-page-narrow {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+@media (min-width: 768px) {
+  .container-page,
+  .container-page-wide,
+  .container-page-narrow {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+.container-page { max-width: 72rem; }       /* 1152px (= max-w-6xl) */
+.container-page-wide { max-width: 80rem; }  /* 1280px (= max-w-7xl) */
+.container-page-narrow { max-width: 64rem; }/* 1024px (= max-w-5xl) */
+
 /* ─── Page fade-in ─────────────────────────────────────────── */
 @keyframes fadeIn {
   from {

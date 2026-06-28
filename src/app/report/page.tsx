@@ -210,7 +210,7 @@ export default function ReportPage() {
       <TopNav />
       <NavBar />
 
-      <main id="main" className="max-w-5xl mx-auto px-4 py-6 space-y-6 animate-fade-in">
+      <main id="main" className="container-page-narrow py-6 space-y-6 animate-fade-in">
         {/* ── Header ── */}
         <div className="flex items-center justify-between flex-wrap gap-3">
           <div>

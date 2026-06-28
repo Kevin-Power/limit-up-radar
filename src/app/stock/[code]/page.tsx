@@ -231,7 +231,7 @@ export default function StockDetailPage({ params }: PageProps) {
       <TopNav stocks={stock ? [stock] : []} />
       <NavBar />
       <main id="main" className="flex-1 overflow-y-auto">
-        <div className="max-w-5xl mx-auto px-4 md:px-5 py-5 animate-fade-in">
+        <div className="container-page-narrow py-5 animate-fade-in">
           {/* Back link */}
           <Link
             href="/"

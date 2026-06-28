@@ -185,7 +185,7 @@ export default function BacktestPage() {
       <TopNav />
       <NavBar />
 
-      <main id="main" className="max-w-[1100px] mx-auto px-4 sm:px-6 py-6 animate-fade-in">
+      <main id="main" className="container-page py-6 animate-fade-in">
         {/* Header */}
         <div className="mb-6">
           <h1 className="text-xl font-bold text-txt-0 tracking-tight">策略回測</h1>

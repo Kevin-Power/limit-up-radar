@@ -281,7 +281,7 @@ export default function GlobalPage() {
       <TopNav />
       <NavBar />
 
-      <main id="main" className="max-w-7xl mx-auto px-4 py-6 space-y-6 animate-fade-in">
+      <main id="main" className="container-page-wide py-6 space-y-6 animate-fade-in">
         {/* ── Header ── */}
         <div>
           <h1 className="text-xl md:text-2xl font-bold text-txt-0 tracking-tight">國際市場</h1>
