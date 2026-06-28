@@ -23,6 +23,7 @@ export const NAV_ITEMS: NavItem[] = [
   { label: "供應鏈", href: "/supply-chain" },
   { label: "營收速報", href: "/revenue" },
   { label: "交易教室", href: "/learn" },
+  { label: "進階教室", href: "/advanced" },
   { label: "國際市場", href: "/global" },
   { label: "市場情資", href: "/news" },
   { label: "盤後報告", href: "/report" },
