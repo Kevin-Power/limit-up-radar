@@ -6,6 +6,7 @@ import { fetcher } from "@/lib/fetcher";
 import Link from "next/link";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
+import { SkeletonCardList } from "@/components/Skeleton";
 import { signColor } from "@/lib/format";
 
 interface FocusStock {
@@ -82,7 +83,7 @@ export default function TodayPlanClient() {
         {/* === Loading === */}
         {isLoading && (
           <div className="space-y-3">
-            <div className="text-center py-20 text-txt-3">分析中...</div>
+            <SkeletonCardList count={4} height="h-28" />
           </div>
         )}
 

@@ -5,6 +5,7 @@ import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
+import { SkeletonCardList } from "@/components/Skeleton";
 import { IndustryFlowHeatmap, type IndustryFlow } from "../focus/_heatmap";
 
 interface FocusStock {
@@ -191,7 +192,7 @@ export default function SectorsClient() {
 
         {/* Loading */}
         {isLoading && (
-          <div className="text-center py-20 text-txt-3">載入族群資料中...</div>
+          <SkeletonCardList count={5} height="h-20" />
         )}
 
         {/* Error */}

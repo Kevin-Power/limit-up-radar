@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
+import { SkeletonStatCards, SkeletonCardList } from "@/components/Skeleton";
 import {
   FilterBar,
   passesFilter,
@@ -231,7 +232,12 @@ export default function FocusClient() {
           </div>
         )}
 
-        {!error && isLoading && <div className="text-center py-20 text-txt-3">分析中...</div>}
+        {!error && isLoading && (
+          <div className="space-y-6">
+            <SkeletonStatCards count={4} />
+            <SkeletonCardList count={3} height="h-32" />
+          </div>
+        )}
 
         {data && (
           <>

@@ -6,6 +6,7 @@ import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
+import { SkeletonStatCards, SkeletonCardList } from "@/components/Skeleton";
 import { formatPct, formatPrice } from "@/lib/utils";
 import { signColor } from "@/lib/format";
 import type { NextDayData } from "@/app/api/next-day/route";
@@ -470,8 +471,11 @@ export default function NextDayPage() {
       <div className="flex flex-col h-dvh overflow-hidden">
         <TopNav currentDate="" />
         <NavBar />
-        <main id="main" className="flex-1 flex items-center justify-center">
-          <p className="text-txt-3 text-sm animate-pulse">載入隔日表現資料中...</p>
+        <main id="main" className="flex-1 overflow-y-auto">
+          <div className="max-w-[1400px] mx-auto px-4 md:px-6 py-6 space-y-6">
+            <SkeletonStatCards count={4} />
+            <SkeletonCardList count={6} height="h-14" />
+          </div>
         </main>
       </div>
     );

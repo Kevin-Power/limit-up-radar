@@ -1,8 +1,47 @@
-function SkeletonBox({ className }: { className?: string }) {
+export function SkeletonBox({ className }: { className?: string }) {
   return (
     <div
       className={`bg-bg-3 rounded animate-pulse ${className ?? ""}`}
     />
+  );
+}
+
+/** A row of stat cards (e.g. market overview / KPI strip). */
+export function SkeletonStatCards({ count = 4 }: { count?: number }) {
+  return (
+    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      {Array.from({ length: count }).map((_, i) => (
+        <div
+          key={i}
+          className="bg-bg-1 border border-border rounded-lg px-4 py-3 flex flex-col items-center gap-2"
+        >
+          <SkeletonBox className="w-16 h-5" />
+          <SkeletonBox className="w-12 h-2.5" />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/** A generic vertical list of card placeholders. */
+export function SkeletonCardList({
+  count = 3,
+  height = "h-24",
+}: {
+  count?: number;
+  height?: string;
+}) {
+  return (
+    <div className="space-y-3">
+      {Array.from({ length: count }).map((_, i) => (
+        <div
+          key={i}
+          className={`bg-bg-1 border border-border rounded-lg ${height}`}
+        >
+          <div className="animate-pulse h-full" />
+        </div>
+      ))}
+    </div>
   );
 }
 
