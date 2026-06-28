@@ -1,8 +1,12 @@
+// 選擇權四種基本部位的損益圖型態（進階教室用；交易教室不使用）。
+export type PayoffType = "long-call" | "long-put" | "short-call" | "short-put";
+
 export interface Section {
   heading: string;
   paragraphs: string[];
   highlight?: string;
   link?: { text: string; href: string };
+  payoffs?: PayoffType[];
 }
 
 export interface Lesson {

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
+import PayoffChart from "@/components/PayoffChart";
 import {
   getAdvancedLessonBySlug,
   getAdjacentAdvancedLessons,
@@ -69,6 +70,14 @@ export default function AdvancedLessonClient({ slug }: { slug: string }) {
                     {p}
                   </p>
                 ))}
+
+                {sec.payoffs && sec.payoffs.length > 0 && (
+                  <div className={`grid gap-3 my-4 ${sec.payoffs.length > 1 ? "sm:grid-cols-2" : "max-w-sm"}`}>
+                    {sec.payoffs.map((pt) => (
+                      <PayoffChart key={pt} type={pt} />
+                    ))}
+                  </div>
+                )}
 
                 {sec.highlight && (
                   <div className="bg-red/5 border-l-4 border-red rounded-r-lg p-4 my-4">
