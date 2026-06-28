@@ -872,7 +872,7 @@ export default function StatsPage() {
       <TopNav />
       <NavBar />
 
-      <main className="flex-1 overflow-y-auto p-4 md:p-5 animate-fade-in">
+      <main id="main" className="flex-1 overflow-y-auto p-4 md:p-5 animate-fade-in">
         {/* Data source banner */}
         <div className={`mb-5 px-3 py-2 border rounded-lg flex items-center gap-2 text-xs font-medium ${
           hasRealData

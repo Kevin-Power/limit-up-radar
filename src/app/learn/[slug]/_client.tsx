@@ -14,7 +14,7 @@ export default function LessonClient({ slug }: { slug: string }) {
       <>
         <TopNav />
         <NavBar />
-        <main className="max-w-3xl mx-auto px-4 py-20 text-center">
+        <main id="main" className="max-w-3xl mx-auto px-4 py-20 text-center">
           <h1 className="text-xl font-bold text-txt-0">找不到這堂課</h1>
           <Link href="/learn" className="mt-4 inline-block text-sm text-red hover:underline">
             &larr; 返回課程總覽
@@ -30,7 +30,7 @@ export default function LessonClient({ slug }: { slug: string }) {
       <NavBar />
       <div className="max-w-6xl mx-auto px-4 md:px-6 py-8 lg:flex lg:gap-8">
         {/* Main content */}
-        <main className="flex-1 min-w-0">
+        <main id="main" className="flex-1 min-w-0">
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-xs text-txt-4 mb-6">
             <Link href="/learn" className="hover:text-txt-2 transition-colors">交易教室</Link>

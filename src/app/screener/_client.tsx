@@ -140,7 +140,7 @@ export default function ScreenerPage() {
       <TopNav />
       <NavBar />
 
-      <main className="max-w-7xl mx-auto px-4 pt-20 pb-16 space-y-6 animate-fade-in">
+      <main id="main" className="max-w-7xl mx-auto px-4 pt-20 pb-16 space-y-6 animate-fade-in">
         {/* Header */}
         <div>
           <h1 className="text-xl font-bold text-txt-0 tracking-tight">進階選股</h1>

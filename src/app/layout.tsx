@@ -92,6 +92,12 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-md focus:bg-bg-1 focus:text-txt-0 focus:border focus:border-border focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-red"
+        >
+          跳至主要內容
+        </a>
         {children}
         <Analytics />
         <SpeedInsights />

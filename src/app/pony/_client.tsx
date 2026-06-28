@@ -254,7 +254,7 @@ export default function PonyPage() {
       <TopNav />
       <NavBar />
 
-      <main className="max-w-7xl mx-auto px-4 py-8 animate-fade-in">
+      <main id="main" className="max-w-7xl mx-auto px-4 py-8 animate-fade-in">
         {/* ── Header ─────────────────────────────────── */}
         <div className="mb-8">
           <h1 className="text-xl md:text-3xl font-bold text-txt-0 flex items-center gap-2">

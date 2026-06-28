@@ -161,7 +161,7 @@ export default function RevenueClient() {
       <>
         <TopNav />
         <NavBar />
-        <main className="max-w-3xl mx-auto px-4 md:px-6 py-20 text-center">
+        <main id="main" className="max-w-3xl mx-auto px-4 md:px-6 py-20 text-center">
           <h1 className="text-xl font-bold text-red mb-2">營收資料無法載入</h1>
           <p className="text-sm text-txt-3">請稍後再試或檢查網路連線</p>
         </main>
@@ -173,7 +173,7 @@ export default function RevenueClient() {
     <>
       <TopNav />
       <NavBar />
-      <main className="max-w-[1400px] mx-auto px-4 md:px-6 py-6 space-y-5">
+      <main id="main" className="max-w-[1400px] mx-auto px-4 md:px-6 py-6 space-y-5">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>

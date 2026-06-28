@@ -64,7 +64,7 @@ export default function TodayPlanClient() {
     <>
       <TopNav />
       <NavBar />
-      <main className="max-w-[1000px] mx-auto px-4 md:px-6 py-6 space-y-6">
+      <main id="main" className="max-w-[1000px] mx-auto px-4 md:px-6 py-6 space-y-6">
         {/* Header */}
         <div>
           <h1 className="text-xl font-bold text-txt-0">

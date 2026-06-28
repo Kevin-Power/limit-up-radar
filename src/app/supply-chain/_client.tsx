@@ -133,7 +133,7 @@ export default function SupplyChainClient() {
     <>
       <TopNav />
       <NavBar />
-      <main className="max-w-[1400px] mx-auto px-4 md:px-6 py-6 space-y-5">
+      <main id="main" className="max-w-[1400px] mx-auto px-4 md:px-6 py-6 space-y-5">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
           <div>

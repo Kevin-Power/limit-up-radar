@@ -16,7 +16,7 @@ export default function Page() {
       <TopNav />
       <NavBar />
 
-      <main className="max-w-6xl mx-auto px-4 pt-20 pb-16">
+      <main id="main" className="max-w-6xl mx-auto px-4 pt-20 pb-16">
         <h1 className="text-2xl font-bold mb-2">策略監控儀表板</h1>
         <p className="text-xs text-txt-3 mb-6">
           rolling EV、連敗、市場 regime 警示。指標為資訊型，不自動切策略。

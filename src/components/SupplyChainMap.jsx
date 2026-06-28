@@ -1402,6 +1402,7 @@ export default function SupplyChainMap() {
 
   return (
     <div
+      id="main"
       className="w-full h-screen flex flex-col"
       style={{
         background: '#000',
@@ -1409,6 +1410,7 @@ export default function SupplyChainMap() {
         fontFamily: "'JetBrains Mono', ui-monospace, 'Menlo', 'Monaco', 'Courier New', monospace",
       }}
     >
+      <h1 className="sr-only">AI 半導體供應鏈地圖</h1>
 
       {/* ============== TOP BAR ============== */}
       <div

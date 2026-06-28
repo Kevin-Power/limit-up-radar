@@ -150,7 +150,7 @@ export default function Home() {
       ) : null}
       <NavBar />
       <div className="flex flex-col md:flex-row flex-1 overflow-hidden animate-fade-in">
-        <main className="flex-1 overflow-y-auto p-5">
+        <main id="main" className="flex-1 overflow-y-auto p-5">
           <h1 className="sr-only">股文觀指 — 每日漲停族群總覽</h1>
           {displayDate && (
             <DateNav

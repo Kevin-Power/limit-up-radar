@@ -241,7 +241,7 @@ export default function DisposalPage() {
     <div className="flex flex-col h-screen overflow-hidden">
       <TopNav />
       <NavBar />
-      <main className="flex-1 overflow-y-auto p-4 md:p-5 max-w-6xl mx-auto w-full space-y-6 animate-fade-in">
+      <main id="main" className="flex-1 overflow-y-auto p-4 md:p-5 max-w-6xl mx-auto w-full space-y-6 animate-fade-in">
 
         {/* Data status banner */}
         {!realCandidates && (

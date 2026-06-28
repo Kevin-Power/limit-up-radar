@@ -140,7 +140,7 @@ export default function NewsPage() {
       <TopNav />
       <NavBar />
 
-      <main className="max-w-4xl mx-auto px-4 pt-20 pb-16 space-y-6 animate-fade-in">
+      <main id="main" className="max-w-4xl mx-auto px-4 pt-20 pb-16 space-y-6 animate-fade-in">
         {/* Header */}
         <div>
           <div className="flex items-center gap-2">

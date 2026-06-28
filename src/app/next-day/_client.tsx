@@ -470,7 +470,7 @@ export default function NextDayPage() {
       <div className="flex flex-col h-screen overflow-hidden">
         <TopNav currentDate="" />
         <NavBar />
-        <main className="flex-1 flex items-center justify-center">
+        <main id="main" className="flex-1 flex items-center justify-center">
           <p className="text-txt-3 text-sm animate-pulse">載入隔日表現資料中...</p>
         </main>
       </div>
@@ -482,7 +482,7 @@ export default function NextDayPage() {
       <div className="flex flex-col h-screen overflow-hidden">
         <TopNav currentDate="" />
         <NavBar />
-        <main className="flex-1 flex items-center justify-center">
+        <main id="main" className="flex-1 flex items-center justify-center">
           <p className="text-txt-4 text-sm">尚無隔日表現資料</p>
         </main>
       </div>
@@ -494,7 +494,7 @@ export default function NextDayPage() {
       <TopNav currentDate={day.nextDate} />
       <NavBar />
 
-      <main className="flex-1 overflow-y-auto animate-fade-in">
+      <main id="main" className="flex-1 overflow-y-auto animate-fade-in">
         {/* ─── Hero Header ─── */}
         <div className="relative border-b border-border">
           <div className="absolute inset-0 bg-gradient-to-b from-accent/[0.03] to-transparent pointer-events-none" />

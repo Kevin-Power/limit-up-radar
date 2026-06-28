@@ -22,7 +22,7 @@ export default function SopClient() {
       <>
         <TopNav />
         <NavBar />
-        <main className="max-w-3xl mx-auto px-4 md:px-6 py-20 text-center">
+        <main id="main" className="max-w-3xl mx-auto px-4 md:px-6 py-20 text-center">
           <h1 className="text-xl font-bold text-red mb-2">回測資料無法載入</h1>
           <p className="text-sm text-txt-3">請稍後再試或檢查網路連線</p>
         </main>
@@ -34,7 +34,7 @@ export default function SopClient() {
       <>
         <TopNav />
         <NavBar />
-        <main className="max-w-3xl mx-auto px-4 md:px-6 py-20 text-center text-txt-3">
+        <main id="main" className="max-w-3xl mx-auto px-4 md:px-6 py-20 text-center text-txt-3">
           載入中...
         </main>
       </>
@@ -45,7 +45,7 @@ export default function SopClient() {
     <>
       <TopNav />
       <NavBar />
-      <main className="max-w-3xl mx-auto px-4 md:px-6 py-8 space-y-8">
+      <main id="main" className="max-w-3xl mx-auto px-4 md:px-6 py-8 space-y-8">
         {/* Hero */}
         <div className="text-center">
           <div className="inline-block px-3 py-1 rounded-full bg-red/10 text-red text-xs font-bold mb-3">

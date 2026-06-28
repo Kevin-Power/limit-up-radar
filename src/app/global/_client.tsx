@@ -268,7 +268,7 @@ export default function GlobalPage() {
       <div className="min-h-screen bg-bg-0 text-txt-1 animate-fade-in">
         <TopNav />
         <NavBar />
-        <main className="max-w-3xl mx-auto px-4 py-20 text-center">
+        <main id="main" className="max-w-3xl mx-auto px-4 py-20 text-center">
           <h1 className="text-xl font-bold text-red mb-2">國際市場資料無法載入</h1>
           <p className="text-sm text-txt-3">請稍後再試或檢查網路連線</p>
         </main>
@@ -281,7 +281,7 @@ export default function GlobalPage() {
       <TopNav />
       <NavBar />
 
-      <main className="max-w-7xl mx-auto px-4 py-6 space-y-6 animate-fade-in">
+      <main id="main" className="max-w-7xl mx-auto px-4 py-6 space-y-6 animate-fade-in">
         {/* ── Header ── */}
         <div>
           <h1 className="text-xl md:text-2xl font-bold text-txt-0 tracking-tight">國際市場</h1>

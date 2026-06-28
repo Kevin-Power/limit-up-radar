@@ -464,7 +464,8 @@ export default function WorkspacePage() {
       <TopNav stocks={flatStocks} />
       <NavBar />
 
-      <div className="flex flex-1 overflow-hidden">
+      <main id="main" className="flex flex-1 overflow-hidden">
+        <h1 className="sr-only">漲停股工作台</h1>
         {/* ── Left Panel: Stock List ── */}
         <div className="w-[260px] flex-shrink-0 bg-bg-1 border-r border-border flex flex-col overflow-hidden">
           {/* Header */}
@@ -571,7 +572,7 @@ export default function WorkspacePage() {
             </div>
           )}
         </div>
-      </div>
+      </main>
     </div>
   );
 }

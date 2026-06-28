@@ -339,7 +339,7 @@ export default function ComparePage() {
     <div className="min-h-screen bg-bg-0 text-txt-1">
       <TopNav />
       <NavBar />
-      <main className="max-w-5xl mx-auto px-4 py-6 space-y-6">
+      <main id="main" className="max-w-5xl mx-auto px-4 py-6 space-y-6">
         {/* Header */}
         <div>
           <h1 className="text-lg font-bold text-txt-0">股票比較</h1>

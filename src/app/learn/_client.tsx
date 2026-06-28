@@ -19,7 +19,7 @@ export default function LearnClient() {
     <>
       <TopNav />
       <NavBar />
-      <main className="max-w-4xl mx-auto px-4 md:px-6 py-10">
+      <main id="main" className="max-w-4xl mx-auto px-4 md:px-6 py-10">
         {/* Hero */}
         <div className="text-center mb-12">
           <div className="inline-block px-3 py-1 rounded-full bg-red/10 text-red text-xs font-semibold mb-4">
