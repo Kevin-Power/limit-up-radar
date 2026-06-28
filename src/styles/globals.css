@@ -157,10 +157,16 @@ button {
 }
 
 /* ─── Focus-visible ring for accessibility ─────────────────── */
+/* 雙環：實心亮靛藍外框 + 白色內襯，確保在深淺背景上對比皆 ≥ 3:1 */
 :focus-visible {
-  outline: 2px solid rgba(99, 102, 241, 0.6);
+  outline: 3px solid rgb(99, 102, 241);
   outline-offset: 2px;
   border-radius: 4px;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 5px rgb(99, 102, 241);
+}
+
+[data-theme="dark"] :focus-visible {
+  box-shadow: 0 0 0 2px #000, 0 0 0 5px rgb(129, 140, 248);
 }
 
 /* ─── Theme transition on all themed elements ─────────────── */
