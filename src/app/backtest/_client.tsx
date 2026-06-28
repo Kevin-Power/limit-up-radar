@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect, useCallback } from "react";
+import { useState, useMemo, useEffect, useCallback, type KeyboardEvent } from "react";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import { formatPrice } from "@/lib/utils";
@@ -115,6 +115,13 @@ export default function BacktestPage() {
     if (sortField !== field) return "";
     return sortAsc ? " ^" : " v";
   }
+
+  const ariaSort = (field: SortField): "ascending" | "descending" | "none" =>
+    sortField === field ? (sortAsc ? "ascending" : "descending") : "none";
+
+  const sortKeyDown = (field: SortField) => (e: KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleSort(field); }
+  };
 
   // SVG chart dimensions
   const chartW = 760;
@@ -418,22 +425,22 @@ export default function BacktestPage() {
             <table className="w-full text-xs">
               <thead>
                 <tr className="border-b border-border bg-bg-2 text-txt-3">
-                  <th className="py-2 px-2 text-left font-medium cursor-pointer hover:text-txt-1 select-none" onClick={() => handleSort("entryDate")}>
+                  <th tabIndex={0} role="button" aria-sort={ariaSort("entryDate")} onKeyDown={sortKeyDown("entryDate")} className="py-2 px-2 text-left font-medium cursor-pointer hover:text-txt-1 select-none" onClick={() => handleSort("entryDate")}>
                     進場日期{sortIcon("entryDate")}
                   </th>
-                  <th className="py-2 px-2 text-right font-medium cursor-pointer hover:text-txt-1 select-none" onClick={() => handleSort("entryPrice")}>
+                  <th tabIndex={0} role="button" aria-sort={ariaSort("entryPrice")} onKeyDown={sortKeyDown("entryPrice")} className="py-2 px-2 text-right font-medium cursor-pointer hover:text-txt-1 select-none" onClick={() => handleSort("entryPrice")}>
                     進場價{sortIcon("entryPrice")}
                   </th>
-                  <th className="py-2 px-2 text-left font-medium cursor-pointer hover:text-txt-1 select-none" onClick={() => handleSort("exitDate")}>
+                  <th tabIndex={0} role="button" aria-sort={ariaSort("exitDate")} onKeyDown={sortKeyDown("exitDate")} className="py-2 px-2 text-left font-medium cursor-pointer hover:text-txt-1 select-none" onClick={() => handleSort("exitDate")}>
                     出場日期{sortIcon("exitDate")}
                   </th>
-                  <th className="py-2 px-2 text-right font-medium cursor-pointer hover:text-txt-1 select-none" onClick={() => handleSort("exitPrice")}>
+                  <th tabIndex={0} role="button" aria-sort={ariaSort("exitPrice")} onKeyDown={sortKeyDown("exitPrice")} className="py-2 px-2 text-right font-medium cursor-pointer hover:text-txt-1 select-none" onClick={() => handleSort("exitPrice")}>
                     出場價{sortIcon("exitPrice")}
                   </th>
-                  <th className="py-2 px-2 text-right font-medium cursor-pointer hover:text-txt-1 select-none" onClick={() => handleSort("returnPct")}>
+                  <th tabIndex={0} role="button" aria-sort={ariaSort("returnPct")} onKeyDown={sortKeyDown("returnPct")} className="py-2 px-2 text-right font-medium cursor-pointer hover:text-txt-1 select-none" onClick={() => handleSort("returnPct")}>
                     報酬%{sortIcon("returnPct")}
                   </th>
-                  <th className="py-2 px-2 text-right font-medium cursor-pointer hover:text-txt-1 select-none" onClick={() => handleSort("holdDays")}>
+                  <th tabIndex={0} role="button" aria-sort={ariaSort("holdDays")} onKeyDown={sortKeyDown("holdDays")} className="py-2 px-2 text-right font-medium cursor-pointer hover:text-txt-1 select-none" onClick={() => handleSort("holdDays")}>
                     持有天數{sortIcon("holdDays")}
                   </th>
                   <th className="py-2 px-2 text-center font-medium">結果</th>

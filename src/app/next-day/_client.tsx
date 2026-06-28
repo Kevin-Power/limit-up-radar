@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useMemo } from "react";
+import { useState, useMemo, type KeyboardEvent } from "react";
 import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
 import TopNav from "@/components/TopNav";
@@ -457,6 +457,13 @@ export default function NextDayPage() {
   const SortIcon = ({ k }: { k: string }) =>
     sortKey === k ? <span className="ml-0.5 text-accent">{sortAsc ? "▲" : "▼"}</span> : null;
 
+  const ariaSort = (k: string): "ascending" | "descending" | "none" =>
+    sortKey === k ? (sortAsc ? "ascending" : "descending") : "none";
+
+  const sortKeyDown = (k: string) => (e: KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleSort(k); }
+  };
+
   /* Loading / empty state */
   if (isLoading || !realData) {
     return (
@@ -659,29 +666,29 @@ export default function NextDayPage() {
                 <thead>
                   <tr className="border-b border-border bg-bg-3/50">
                     <th className="text-center px-2 py-2.5 text-[10px] font-medium text-txt-4 w-10">所</th>
-                    <th onClick={() => handleSort("code")}
+                    <th onClick={() => handleSort("code")} tabIndex={0} role="button" aria-sort={ariaSort("code")} onKeyDown={sortKeyDown("code")}
                       className="text-left px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase cursor-pointer hover:text-txt-2 w-16">
                       代號<SortIcon k="code" />
                     </th>
                     <th className="text-left px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase">名稱</th>
                     <th className="text-right px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase">漲停價</th>
-                    <th onClick={() => handleSort("volumeWan")}
+                    <th onClick={() => handleSort("volumeWan")} tabIndex={0} role="button" aria-sort={ariaSort("volumeWan")} onKeyDown={sortKeyDown("volumeWan")}
                       className="text-center px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase cursor-pointer hover:text-txt-2">
                       量比<SortIcon k="volumeWan" />
                     </th>
-                    <th onClick={() => handleSort("nextOpenPct")}
+                    <th onClick={() => handleSort("nextOpenPct")} tabIndex={0} role="button" aria-sort={ariaSort("nextOpenPct")} onKeyDown={sortKeyDown("nextOpenPct")}
                       className="text-right px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase cursor-pointer hover:text-txt-2">
                       隔日開<SortIcon k="nextOpenPct" />
                     </th>
-                    <th onClick={() => handleSort("nextAvgPct")}
+                    <th onClick={() => handleSort("nextAvgPct")} tabIndex={0} role="button" aria-sort={ariaSort("nextAvgPct")} onKeyDown={sortKeyDown("nextAvgPct")}
                       className="text-right px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase cursor-pointer hover:text-txt-2">
                       隔日均價<SortIcon k="nextAvgPct" />
                     </th>
-                    <th onClick={() => handleSort("nextClosePct")}
+                    <th onClick={() => handleSort("nextClosePct")} tabIndex={0} role="button" aria-sort={ariaSort("nextClosePct")} onKeyDown={sortKeyDown("nextClosePct")}
                       className="text-right px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase cursor-pointer hover:text-txt-2">
                       隔日收<SortIcon k="nextClosePct" />
                     </th>
-                    <th onClick={() => handleSort("weightedReturn")}
+                    <th onClick={() => handleSort("weightedReturn")} tabIndex={0} role="button" aria-sort={ariaSort("weightedReturn")} onKeyDown={sortKeyDown("weightedReturn")}
                       className="text-right px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase cursor-pointer hover:text-txt-2">
                       加權<SortIcon k="weightedReturn" />
                     </th>

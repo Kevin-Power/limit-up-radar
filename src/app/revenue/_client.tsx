@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, type KeyboardEvent } from "react";
 import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
 import Link from "next/link";
@@ -132,6 +132,13 @@ export default function RevenueClient() {
     if (sortKey !== key) return "";
     return sortAsc ? " ↑" : " ↓";
   }
+
+  const ariaSort = (key: SortKey): "ascending" | "descending" | "none" =>
+    sortKey === key ? (sortAsc ? "ascending" : "descending") : "none";
+
+  const sortKeyDown = (key: SortKey) => (e: KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleSort(key); }
+  };
 
   // Summary stats
   const summary = useMemo(() => {
@@ -265,15 +272,15 @@ export default function RevenueClient() {
                 <thead>
                   <tr className="bg-bg-2 text-txt-3 border-b border-border">
                     <th className="text-left px-3 py-2 sticky left-0 bg-bg-2 z-10 min-w-[120px]">股票</th>
-                    <th className="text-right px-2 py-2 cursor-pointer hover:text-txt-1 whitespace-nowrap" onClick={() => toggleSort("revMonth")}>月營收(百萬){sortIcon("revMonth")}</th>
-                    <th className="text-right px-2 py-2 cursor-pointer hover:text-txt-1 whitespace-nowrap" onClick={() => toggleSort("revYoY")}>YoY{sortIcon("revYoY")}</th>
-                    <th className="text-right px-2 py-2 cursor-pointer hover:text-txt-1 whitespace-nowrap" onClick={() => toggleSort("revMoM")}>MoM{sortIcon("revMoM")}</th>
-                    <th className="text-right px-2 py-2 cursor-pointer hover:text-txt-1 whitespace-nowrap" onClick={() => toggleSort("revCum")}>累計(百萬){sortIcon("revCum")}</th>
-                    <th className="text-right px-2 py-2 cursor-pointer hover:text-txt-1 whitespace-nowrap" onClick={() => toggleSort("revCumYoY")}>累計YoY{sortIcon("revCumYoY")}</th>
-                    <th className="text-right px-2 py-2 cursor-pointer hover:text-txt-1 whitespace-nowrap" onClick={() => toggleSort("price")}>股價{sortIcon("price")}</th>
-                    <th className="text-right px-2 py-2 cursor-pointer hover:text-txt-1 whitespace-nowrap" onClick={() => toggleSort("chg1d")}>1日%{sortIcon("chg1d")}</th>
-                    <th className="text-right px-2 py-2 cursor-pointer hover:text-txt-1 whitespace-nowrap" onClick={() => toggleSort("chg5d")}>5日%{sortIcon("chg5d")}</th>
-                    <th className="text-right px-2 py-2 cursor-pointer hover:text-txt-1 whitespace-nowrap" onClick={() => toggleSort("chg20d")}>20日%{sortIcon("chg20d")}</th>
+                    <th tabIndex={0} role="button" aria-sort={ariaSort("revMonth")} onKeyDown={sortKeyDown("revMonth")} className="text-right px-2 py-2 cursor-pointer hover:text-txt-1 whitespace-nowrap" onClick={() => toggleSort("revMonth")}>月營收(百萬){sortIcon("revMonth")}</th>
+                    <th tabIndex={0} role="button" aria-sort={ariaSort("revYoY")} onKeyDown={sortKeyDown("revYoY")} className="text-right px-2 py-2 cursor-pointer hover:text-txt-1 whitespace-nowrap" onClick={() => toggleSort("revYoY")}>YoY{sortIcon("revYoY")}</th>
+                    <th tabIndex={0} role="button" aria-sort={ariaSort("revMoM")} onKeyDown={sortKeyDown("revMoM")} className="text-right px-2 py-2 cursor-pointer hover:text-txt-1 whitespace-nowrap" onClick={() => toggleSort("revMoM")}>MoM{sortIcon("revMoM")}</th>
+                    <th tabIndex={0} role="button" aria-sort={ariaSort("revCum")} onKeyDown={sortKeyDown("revCum")} className="text-right px-2 py-2 cursor-pointer hover:text-txt-1 whitespace-nowrap" onClick={() => toggleSort("revCum")}>累計(百萬){sortIcon("revCum")}</th>
+                    <th tabIndex={0} role="button" aria-sort={ariaSort("revCumYoY")} onKeyDown={sortKeyDown("revCumYoY")} className="text-right px-2 py-2 cursor-pointer hover:text-txt-1 whitespace-nowrap" onClick={() => toggleSort("revCumYoY")}>累計YoY{sortIcon("revCumYoY")}</th>
+                    <th tabIndex={0} role="button" aria-sort={ariaSort("price")} onKeyDown={sortKeyDown("price")} className="text-right px-2 py-2 cursor-pointer hover:text-txt-1 whitespace-nowrap" onClick={() => toggleSort("price")}>股價{sortIcon("price")}</th>
+                    <th tabIndex={0} role="button" aria-sort={ariaSort("chg1d")} onKeyDown={sortKeyDown("chg1d")} className="text-right px-2 py-2 cursor-pointer hover:text-txt-1 whitespace-nowrap" onClick={() => toggleSort("chg1d")}>1日%{sortIcon("chg1d")}</th>
+                    <th tabIndex={0} role="button" aria-sort={ariaSort("chg5d")} onKeyDown={sortKeyDown("chg5d")} className="text-right px-2 py-2 cursor-pointer hover:text-txt-1 whitespace-nowrap" onClick={() => toggleSort("chg5d")}>5日%{sortIcon("chg5d")}</th>
+                    <th tabIndex={0} role="button" aria-sort={ariaSort("chg20d")} onKeyDown={sortKeyDown("chg20d")} className="text-right px-2 py-2 cursor-pointer hover:text-txt-1 whitespace-nowrap" onClick={() => toggleSort("chg20d")}>20日%{sortIcon("chg20d")}</th>
                     <th className="text-left px-2 py-2 whitespace-nowrap">產業</th>
                   </tr>
                 </thead>
@@ -328,13 +335,13 @@ export default function RevenueClient() {
                   <tr className="bg-bg-2 text-txt-3 border-b border-border">
                     <th className="text-left px-3 py-2 sticky left-0 bg-bg-2 z-10 min-w-[160px]">產業</th>
                     <th className="text-right px-2 py-2">家數</th>
-                    <th className="text-right px-2 py-2 cursor-pointer hover:text-txt-1" onClick={() => toggleSort("revMonth")}>月營收(億){sortIcon("revMonth")}</th>
-                    <th className="text-right px-2 py-2 cursor-pointer hover:text-txt-1" onClick={() => toggleSort("revYoY")}>YoY{sortIcon("revYoY")}</th>
-                    <th className="text-right px-2 py-2 cursor-pointer hover:text-txt-1" onClick={() => toggleSort("revCum")}>累計(億){sortIcon("revCum")}</th>
-                    <th className="text-right px-2 py-2 cursor-pointer hover:text-txt-1" onClick={() => toggleSort("revCumYoY")}>累計YoY{sortIcon("revCumYoY")}</th>
-                    <th className="text-right px-2 py-2 cursor-pointer hover:text-txt-1" onClick={() => toggleSort("chg1d")}>1日%{sortIcon("chg1d")}</th>
-                    <th className="text-right px-2 py-2 cursor-pointer hover:text-txt-1" onClick={() => toggleSort("chg5d")}>5日%{sortIcon("chg5d")}</th>
-                    <th className="text-right px-2 py-2 cursor-pointer hover:text-txt-1" onClick={() => toggleSort("chg20d")}>20日%{sortIcon("chg20d")}</th>
+                    <th tabIndex={0} role="button" aria-sort={ariaSort("revMonth")} onKeyDown={sortKeyDown("revMonth")} className="text-right px-2 py-2 cursor-pointer hover:text-txt-1" onClick={() => toggleSort("revMonth")}>月營收(億){sortIcon("revMonth")}</th>
+                    <th tabIndex={0} role="button" aria-sort={ariaSort("revYoY")} onKeyDown={sortKeyDown("revYoY")} className="text-right px-2 py-2 cursor-pointer hover:text-txt-1" onClick={() => toggleSort("revYoY")}>YoY{sortIcon("revYoY")}</th>
+                    <th tabIndex={0} role="button" aria-sort={ariaSort("revCum")} onKeyDown={sortKeyDown("revCum")} className="text-right px-2 py-2 cursor-pointer hover:text-txt-1" onClick={() => toggleSort("revCum")}>累計(億){sortIcon("revCum")}</th>
+                    <th tabIndex={0} role="button" aria-sort={ariaSort("revCumYoY")} onKeyDown={sortKeyDown("revCumYoY")} className="text-right px-2 py-2 cursor-pointer hover:text-txt-1" onClick={() => toggleSort("revCumYoY")}>累計YoY{sortIcon("revCumYoY")}</th>
+                    <th tabIndex={0} role="button" aria-sort={ariaSort("chg1d")} onKeyDown={sortKeyDown("chg1d")} className="text-right px-2 py-2 cursor-pointer hover:text-txt-1" onClick={() => toggleSort("chg1d")}>1日%{sortIcon("chg1d")}</th>
+                    <th tabIndex={0} role="button" aria-sort={ariaSort("chg5d")} onKeyDown={sortKeyDown("chg5d")} className="text-right px-2 py-2 cursor-pointer hover:text-txt-1" onClick={() => toggleSort("chg5d")}>5日%{sortIcon("chg5d")}</th>
+                    <th tabIndex={0} role="button" aria-sort={ariaSort("chg20d")} onKeyDown={sortKeyDown("chg20d")} className="text-right px-2 py-2 cursor-pointer hover:text-txt-1" onClick={() => toggleSort("chg20d")}>20日%{sortIcon("chg20d")}</th>
                   </tr>
                 </thead>
                 <tbody>
