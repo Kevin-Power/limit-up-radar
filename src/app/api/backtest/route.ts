@@ -245,21 +245,60 @@ async function fetchBars(code: string): Promise<OHLCVBar[]> {
 
 // ── Route handler ────────────────────────────────────────────────────────────
 
+// ── Param validation helpers ──────────────────────────────────────────────────
+
+// Parse an integer query param, returning the default when absent.
+// Returns null when present but not a finite number (caller rejects with 400).
+function parseIntParam(raw: string | null, def: number): number | null {
+  if (raw === null || raw === "") return def;
+  const n = parseInt(raw, 10);
+  return Number.isFinite(n) ? n : null;
+}
+
+function clamp(n: number, min: number, max: number): number {
+  return Math.min(max, Math.max(min, n));
+}
+
 export async function GET(req: NextRequest) {
   const p = req.nextUrl.searchParams;
   const code = p.get("code") || "2330";
   const strategy = p.get("strategy") || "ema";
 
-  const emaFast = parseInt(p.get("emaFast") || "11");
-  const emaSlow = parseInt(p.get("emaSlow") || "24");
-  const kdBuy = parseInt(p.get("kdBuy") || "20");
-  const kdSell = parseInt(p.get("kdSell") || "80");
-  const macdFast = parseInt(p.get("macdFast") || "12");
-  const macdSlow = parseInt(p.get("macdSlow") || "26");
-  const macdSig = parseInt(p.get("macdSignal") || "9");
-  const rsiPeriod = parseInt(p.get("rsiPeriod") || "14");
-  const rsiOB = parseInt(p.get("rsiOverbought") || "80");
-  const rsiOS = parseInt(p.get("rsiOversold") || "20");
+  let emaFast = parseIntParam(p.get("emaFast"), 11);
+  let emaSlow = parseIntParam(p.get("emaSlow"), 24);
+  let kdBuy = parseIntParam(p.get("kdBuy"), 20);
+  let kdSell = parseIntParam(p.get("kdSell"), 80);
+  let macdFast = parseIntParam(p.get("macdFast"), 12);
+  let macdSlow = parseIntParam(p.get("macdSlow"), 26);
+  let macdSig = parseIntParam(p.get("macdSignal"), 9);
+  let rsiPeriod = parseIntParam(p.get("rsiPeriod"), 14);
+  let rsiOB = parseIntParam(p.get("rsiOverbought"), 80);
+  let rsiOS = parseIntParam(p.get("rsiOversold"), 20);
+
+  // Reject non-numeric params explicitly.
+  if (
+    emaFast === null || emaSlow === null || kdBuy === null || kdSell === null ||
+    macdFast === null || macdSlow === null || macdSig === null ||
+    rsiPeriod === null || rsiOB === null || rsiOS === null
+  ) {
+    return NextResponse.json({ error: "invalid numeric parameter" }, { status: 400 });
+  }
+
+  // Clamp each param to a sane range (period 1~250 etc.) to bound compute cost.
+  emaFast = clamp(emaFast, 1, 250);
+  emaSlow = clamp(emaSlow, 1, 250);
+  kdBuy = clamp(kdBuy, 0, 100);
+  kdSell = clamp(kdSell, 0, 100);
+  macdFast = clamp(macdFast, 1, 250);
+  macdSlow = clamp(macdSlow, 1, 250);
+  macdSig = clamp(macdSig, 1, 250);
+  rsiPeriod = clamp(rsiPeriod, 1, 250);
+  rsiOB = clamp(rsiOB, 0, 100);
+  rsiOS = clamp(rsiOS, 0, 100);
+
+  // Enforce fast < slow for crossover strategies.
+  if (emaFast >= emaSlow) emaFast = Math.max(1, emaSlow - 1);
+  if (macdFast >= macdSlow) macdFast = Math.max(1, macdSlow - 1);
 
   const bars = await fetchBars(code);
 
