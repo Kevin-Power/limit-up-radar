@@ -665,12 +665,12 @@ export default function NextDayPage() {
               <table className="w-full text-xs min-w-[1100px]">
                 <thead>
                   <tr className="border-b border-border bg-bg-3/50">
-                    <th className="text-center px-2 py-2.5 text-[10px] font-medium text-txt-4 w-10">所</th>
+                    <th className="sticky left-0 z-20 bg-bg-3 text-center px-2 py-2.5 text-[10px] font-medium text-txt-4 w-10">所</th>
                     <th onClick={() => handleSort("code")} tabIndex={0} role="button" aria-sort={ariaSort("code")} onKeyDown={sortKeyDown("code")}
-                      className="relative text-left px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase cursor-pointer hover:text-txt-2 w-16 before:absolute before:left-0 before:right-0 before:top-1/2 before:-translate-y-1/2 before:min-h-[44px] before:content-['']">
+                      className="sticky left-10 z-20 bg-bg-3 text-left px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase cursor-pointer hover:text-txt-2 w-16 before:absolute before:left-0 before:right-0 before:top-1/2 before:-translate-y-1/2 before:min-h-[44px] before:content-['']">
                       代號<SortIcon k="code" />
                     </th>
-                    <th className="text-left px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase">名稱</th>
+                    <th className="sticky left-[104px] z-20 bg-bg-3 text-left px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase w-24">名稱</th>
                     <th className="text-right px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase">漲停價</th>
                     <th onClick={() => handleSort("volumeWan")} tabIndex={0} role="button" aria-sort={ariaSort("volumeWan")} onKeyDown={sortKeyDown("volumeWan")}
                       className="relative text-center px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase cursor-pointer hover:text-txt-2 before:absolute before:left-0 before:right-0 before:top-1/2 before:-translate-y-1/2 before:min-h-[44px] before:content-['']">
@@ -699,13 +699,13 @@ export default function NextDayPage() {
                 <tbody>
                   {displayStocks.map((s) => (
                     <tr key={s.code} className="border-b border-border/50 last:border-0 hover:bg-bg-3/30 transition-colors row-hover">
-                      <td className="px-2 py-2.5 text-center"><MarketBadge market={s.market} /></td>
-                      <td className="px-3 py-2.5 font-mono text-txt-3 text-[11px]">
+                      <td className="sticky left-0 z-10 bg-bg-2 w-10 px-2 py-2.5 text-center"><MarketBadge market={s.market} /></td>
+                      <td className="sticky left-10 z-10 bg-bg-2 w-16 px-3 py-2.5 font-mono text-txt-3 text-[11px]">
                         <Link href={`/stock/${s.code}`} className="hover:text-txt-0 hover:underline underline-offset-2 transition-colors">
                           {s.code}
                         </Link>
                       </td>
-                      <td className="px-3 py-2.5 font-medium text-txt-1">
+                      <td className="sticky left-[104px] z-10 bg-bg-2 w-24 px-3 py-2.5 font-medium text-txt-1">
                         <Link href={`/stock/${s.code}`} className="hover:text-txt-0 transition-colors">{s.name}</Link>
                       </td>
                       <td className="px-3 py-2.5 text-right text-txt-2 tabular-nums">{formatPrice(s.limitPrice)}</td>
