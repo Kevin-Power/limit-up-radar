@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useMemo, type MouseEvent } from "react";
+import { useState, useCallback, useMemo, type MouseEvent, type TouchEvent } from "react";
 
 /* ═══════════════════════════════════════════════════════════════════════
    Types
@@ -252,15 +252,14 @@ export default function KLineChart({
   /* ── KD scale (0-100, but give some pad) ── */
   const kdRange = { min: -5, max: 105 };
 
-  /* ── Mouse handling ── */
-  const handleMouseMove = useCallback(
-    (e: MouseEvent<SVGSVGElement>) => {
-      const svg = e.currentTarget;
+  /* ── Pointer handling (mouse + touch share coordinate logic) ── */
+  const updateHoverFromClient = useCallback(
+    (svg: SVGSVGElement, clientX: number, clientY: number) => {
       const rect = svg.getBoundingClientRect();
       const scaleX = W / rect.width;
       const sY = totalH / rect.height;
-      const mx = (e.clientX - rect.left) * scaleX;
-      const my = (e.clientY - rect.top) * sY;
+      const mx = (clientX - rect.left) * scaleX;
+      const my = (clientY - rect.top) * sY;
       const idx = Math.round((mx - padL) / step);
       if (idx >= 0 && idx < n) {
         setHover({ x: mx, y: my, index: idx });
@@ -269,7 +268,25 @@ export default function KLineChart({
     [n, step, totalH],
   );
 
+  const handleMouseMove = useCallback(
+    (e: MouseEvent<SVGSVGElement>) => {
+      updateHoverFromClient(e.currentTarget, e.clientX, e.clientY);
+    },
+    [updateHoverFromClient],
+  );
+
   const handleMouseLeave = useCallback(() => setHover(null), []);
+
+  const handleTouchMove = useCallback(
+    (e: TouchEvent<SVGSVGElement>) => {
+      const t = e.touches[0];
+      if (!t) return;
+      updateHoverFromClient(e.currentTarget, t.clientX, t.clientY);
+    },
+    [updateHoverFromClient],
+  );
+
+  const handleTouchEnd = useCallback(() => setHover(null), []);
 
   /* ── Grid lines (price) ── */
   const gridLines = useMemo(() => {
@@ -399,9 +416,13 @@ export default function KLineChart({
         width="100%"
         role="img"
         aria-label={ariaLabel}
-        style={{ display: "block", background: C.bg, cursor: "crosshair" }}
+        style={{ display: "block", background: C.bg, cursor: "crosshair", touchAction: "pan-y" }}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
+        onTouchStart={handleTouchMove}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        onTouchCancel={handleTouchEnd}
       >
         {/* ──── Main chart grid ──── */}
         {gridLines.map((gl, i) => (
