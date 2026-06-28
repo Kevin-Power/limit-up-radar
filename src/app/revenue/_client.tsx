@@ -7,6 +7,7 @@ import Link from "next/link";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import { formatPct } from "@/lib/utils";
+import { signColor } from "@/lib/format";
 
 interface RevStock {
   code: string;
@@ -54,7 +55,7 @@ function fmt(v: number | null): string {
 
 function pctCell(v: number | null) {
   if (v == null) return <span className="text-txt-4">-</span>;
-  const color = v > 0 ? "text-red" : v < 0 ? "text-green" : "text-txt-3";
+  const color = signColor(v);
   return <span className={color}>{v > 0 ? "+" : ""}{v.toFixed(2)}%</span>;
 }
 

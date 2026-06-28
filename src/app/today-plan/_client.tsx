@@ -6,6 +6,7 @@ import { fetcher } from "@/lib/fetcher";
 import Link from "next/link";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
+import { signColor } from "@/lib/format";
 
 interface FocusStock {
   code: string;
@@ -190,9 +191,7 @@ export default function TodayPlanClient() {
                         <span className="text-txt-2">
                           今日漲跌{" "}
                           <span
-                            className={`font-semibold tabular-nums ${
-                              s.changePct > 0 ? "text-red" : s.changePct < 0 ? "text-green" : "text-txt-3"
-                            }`}
+                            className={`font-semibold tabular-nums ${signColor(s.changePct)}`}
                           >
                             {s.changePct > 0 ? "+" : ""}
                             {s.changePct.toFixed(2)}%

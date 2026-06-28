@@ -11,6 +11,7 @@ import StarButton from "@/components/StarButton";
 import { useWatchlist, todayISO } from "@/lib/useWatchlist";
 import { EmaResult, getSignalLabel, getSignalColor } from "@/lib/ema";
 import { formatPrice, formatPct } from "@/lib/utils";
+import { signColor } from "@/lib/format";
 import {
   Candle,
   findEntryClose,
@@ -252,7 +253,7 @@ export default function WatchlistClient() {
                         {/* Today change % — 台股漲紅跌綠 */}
                         <td className="text-right px-2 py-2 tabular-nums">
                           {r.changePct != null ? (
-                            <span className={r.changePct > 0 ? "text-red" : r.changePct < 0 ? "text-green" : "text-txt-3"}>
+                            <span className={signColor(r.changePct)}>
                               {formatPct(r.changePct)}
                             </span>
                           ) : (
@@ -276,7 +277,7 @@ export default function WatchlistClient() {
                         {/* Return since added */}
                         <td className="text-right px-2 py-2 tabular-nums">
                           {r.returnPct != null ? (
-                            <span className={r.returnPct > 0 ? "text-red" : r.returnPct < 0 ? "text-green" : "text-txt-3"}>
+                            <span className={signColor(r.returnPct)}>
                               {formatPct(r.returnPct)}
                             </span>
                           ) : r.histLoading ? (

@@ -7,6 +7,7 @@ import { fetcher } from "@/lib/fetcher";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import { formatPct, formatPrice } from "@/lib/utils";
+import { signColor } from "@/lib/format";
 import type { NextDayData } from "@/app/api/next-day/route";
 
 /* ═══════════════════════════════════════════════════════════════
@@ -155,7 +156,7 @@ function fmtPctOrDash(n: number | null): string {
 // 缺值報酬不上色（中性灰）；有值才依台股慣例 正→紅 負→綠
 function pctColor(n: number | null): string {
   if (n === null) return "text-txt-4";
-  return n > 0 ? "text-red" : n < 0 ? "text-green" : "text-txt-3";
+  return signColor(n);
 }
 
 const ALL_LABELS: StockLabel[] = ["續漲停", "強漲", "強勢漲", "銘碼漲", "開高走低", "直接跌"];
@@ -300,7 +301,7 @@ function PriceCell({ price, pct }: { price: number | null; pct: number | null })
   if (pct === null || price === null) {
     return <span className="text-txt-4 tabular-nums">—</span>;
   }
-  const color = pct > 0 ? "text-red" : pct < 0 ? "text-green" : "text-txt-3";
+  const color = signColor(pct);
   return (
     <div className="flex items-baseline justify-end gap-1.5">
       <span className="text-txt-2 tabular-nums">{formatPrice(price)}</span>

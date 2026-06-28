@@ -14,6 +14,7 @@ import {
   filterToParams,
   type FilterState,
 } from "./_filter-bar";
+import { signColor } from "@/lib/format";
 import { NarrativeCard, type Narrative } from "./_narrative";
 import { IndustryFlowHeatmap, type IndustryFlow } from "./_heatmap";
 import { TrackedStockLink } from "./_tracked-link";
@@ -542,7 +543,7 @@ export default function FocusClient() {
                                 <span className="text-txt-4">|</span>
                                 <span className="text-txt-2">
                                   主力{" "}
-                                  <span className={`font-semibold ${s.majorNet > 0 ? "text-red" : "text-green"}`}>
+                                  <span className={`font-semibold ${signColor(s.majorNet)}`}>
                                     {s.majorNet > 0 ? "+" : ""}{(s.majorNet / 1000).toFixed(0)}張
                                   </span>
                                 </span>

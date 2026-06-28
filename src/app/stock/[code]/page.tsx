@@ -7,6 +7,7 @@ import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import { DailyData, Stock, StockGroup } from "@/lib/types";
 import { formatPrice, formatPct, formatNumber, formatNet } from "@/lib/utils";
+import { signColor } from "@/lib/format";
 import { getSignalFullLabel, getSignalColor } from "@/lib/ema";
 import type { EmaResult } from "@/lib/ema";
 import KLineChart, { type CandleData } from "@/components/KLineChart";
@@ -65,7 +66,7 @@ function ChipBar({ values, label }: { values: number[]; label: string }) {
     <div className="mb-3">
       <div className="flex items-center justify-between mb-1">
         <span className="text-[10px] font-semibold text-txt-3 tracking-wider">{label}</span>
-        <span className={`text-xs font-bold tabular-nums ${total > 0 ? "text-red" : total < 0 ? "text-green" : "text-txt-3"}`}>
+        <span className={`text-xs font-bold tabular-nums ${signColor(total)}`}>
           {total > 0 ? "+" : ""}{formatNumber(total)}
         </span>
       </div>
@@ -598,7 +599,7 @@ export default function StockDetailPage({ params }: PageProps) {
                       <div
                         className={`text-xs font-semibold tabular-nums ${
                           entry.nextDayOpenPct != null
-                            ? entry.nextDayOpenPct > 0 ? "text-red" : entry.nextDayOpenPct < 0 ? "text-green" : "text-txt-3"
+                            ? signColor(entry.nextDayOpenPct)
                             : "text-txt-3"
                         }`}
                       >
@@ -609,7 +610,7 @@ export default function StockDetailPage({ params }: PageProps) {
                       <div
                         className={`text-xs font-semibold tabular-nums ${
                           entry.nextDayClosePct != null
-                            ? entry.nextDayClosePct > 0 ? "text-red" : entry.nextDayClosePct < 0 ? "text-green" : "text-txt-3"
+                            ? signColor(entry.nextDayClosePct)
                             : "text-txt-3"
                         }`}
                       >
@@ -649,7 +650,7 @@ export default function StockDetailPage({ params }: PageProps) {
                       <div className="text-xs font-bold tabular-nums text-txt-1">{formatPrice(p.price)}</div>
                       <div
                         className={`text-xs font-semibold tabular-nums ${
-                          p.changePct > 0 ? "text-red" : p.changePct < 0 ? "text-green" : "text-txt-3"
+                          signColor(p.changePct)
                         }`}
                       >
                         {p.changePct > 0 ? "+" : ""}{p.changePct.toFixed(2)}%
