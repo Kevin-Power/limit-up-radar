@@ -114,6 +114,15 @@ interface PageProps {
   params: Promise<{ code: string }>;
 }
 
+// Shared SWR options — cut duplicate requests across the 8 hooks on this page
+// (audit P2-8). Per-stock endpoints are immutable for a session; the two
+// whole-table endpoints (pe/revenue) are identical across every stock page,
+// so a longer dedupingInterval lets SWR's cache serve them without re-fetching.
+const SWR_OPTS = { revalidateOnFocus: false, dedupingInterval: 5 * 60_000 } as const;
+// pe/revenue fetch the entire market table — far heavier and shared by all
+// stock pages, so dedupe over a longer window.
+const SWR_OPTS_TABLE = { revalidateOnFocus: false, dedupingInterval: 30 * 60_000 } as const;
+
 export default function StockDetailPage({ params }: PageProps) {
   const { code } = use(params);
   const { toggle: toggleWatch, isWatched } = useWatchlist();
@@ -144,28 +153,28 @@ export default function StockDetailPage({ params }: PageProps) {
   const { data: realCandles, error: candlesError } = useSWR<CandleData[]>(
     `/api/stock/${code}/history`,
     fetcher,
-    { revalidateOnFocus: false }
+    SWR_OPTS
   );
 
   // Real API data — normalize { code, data: null } to null when signal is absent
   const { data: emaRaw } = useSWR<EmaResult & { code: string }>(
-    `/api/ema/${code}`, fetcher
+    `/api/ema/${code}`, fetcher, SWR_OPTS
   );
   const emaResult = emaRaw?.signal ? emaRaw : null;
   const { data: techData } = useSWR(
-    `/api/stock/${code}/technicals`, fetcher
+    `/api/stock/${code}/technicals`, fetcher, SWR_OPTS
   );
   const { data: chipData } = useSWR(
-    `/api/stock/${code}/chip`, fetcher
+    `/api/stock/${code}/chip`, fetcher, SWR_OPTS
   );
   const { data: limitUpHistory } = useSWR(
-    `/api/stock/${code}/limitup-history`, fetcher
+    `/api/stock/${code}/limitup-history`, fetcher, SWR_OPTS
   );
   const { data: peData } = useSWR<Record<string, { pe: number; pb: number }>>(
-    "/api/pe", fetcher
+    "/api/pe", fetcher, SWR_OPTS_TABLE
   );
   const { data: revData } = useSWR<{ stocks: { code: string; revMonth: number | null; revYoY: number | null; revMoM: number | null; revCum: number | null; revCumYoY: number | null }[] }>(
-    "/api/revenue", fetcher
+    "/api/revenue", fetcher, SWR_OPTS_TABLE
   );
   const stockRev = useMemo(() => {
     if (!revData?.stocks) return null;
