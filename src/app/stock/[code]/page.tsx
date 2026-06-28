@@ -130,7 +130,7 @@ export default function StockDetailPage({ params }: PageProps) {
   }, [code]);
 
   // Real K-line history from TWSE/TPEx
-  const { data: realCandles } = useSWR<CandleData[]>(
+  const { data: realCandles, error: candlesError } = useSWR<CandleData[]>(
     `/api/stock/${code}/history`,
     fetcher,
     { revalidateOnFocus: false }
@@ -322,13 +322,20 @@ export default function StockDetailPage({ params }: PageProps) {
                   ============================================================ */}
               <div className="mb-6">
                 <SectionLabel>技術分析圖表</SectionLabel>
-                <KLineChart
-                  data={realCandles ?? []}
-                  showMA={true}
-                  showVolume={true}
-                  showMACD={true}
-                  showKD={true}
-                />
+                {candlesError ? (
+                  <div className="bg-bg-1 border border-border rounded-lg py-16 text-center">
+                    <p className="text-sm font-bold text-red mb-1">K 線資料無法載入</p>
+                    <p className="text-xs text-txt-3">請稍後再試或檢查網路連線</p>
+                  </div>
+                ) : (
+                  <KLineChart
+                    data={realCandles ?? []}
+                    showMA={true}
+                    showVolume={true}
+                    showMACD={true}
+                    showKD={true}
+                  />
+                )}
               </div>
 
               {/* ============================================================

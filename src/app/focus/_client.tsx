@@ -159,7 +159,7 @@ function ScoreBar({ score }: { score: number }) {
 }
 
 export default function FocusClient() {
-  const { data, isLoading } = useSWR<FocusData>("/api/focus", fetcher);
+  const { data, error, isLoading } = useSWR<FocusData>("/api/focus", fetcher);
   const { data: narrative } = useSWR<Narrative>("/api/narrative/latest", fetcher, {
     revalidateOnFocus: false,
     shouldRetryOnError: false,
@@ -223,7 +223,14 @@ export default function FocusClient() {
           <CopyReportButton />
         </div>
 
-        {isLoading && <div className="text-center py-20 text-txt-3">分析中...</div>}
+        {error && (
+          <div className="text-center py-20">
+            <p className="text-base font-bold text-red mb-1">焦點資料無法載入</p>
+            <p className="text-sm text-txt-3">請稍後再試或檢查網路連線</p>
+          </div>
+        )}
+
+        {!error && isLoading && <div className="text-center py-20 text-txt-3">分析中...</div>}
 
         {data && (
           <>

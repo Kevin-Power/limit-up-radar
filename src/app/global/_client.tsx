@@ -230,7 +230,7 @@ function realToIndexData(r: GlobalIndex): IndexData {
 export default function GlobalPage() {
   const [activeRegion, setActiveRegion] = useState<Region | "all">("all");
 
-  const { data: realData } = useSWR<GlobalIndex[]>(
+  const { data: realData, error } = useSWR<GlobalIndex[]>(
     "/api/market/global",
     fetcher,
     { revalidateOnFocus: false, dedupingInterval: 900000 }
@@ -261,6 +261,20 @@ export default function GlobalPage() {
     activeRegion === "all"
       ? displayIndices
       : displayIndices.filter((i) => i.region === activeRegion);
+
+  // Fetch failed — show explicit, retryable error instead of an empty page
+  if (error) {
+    return (
+      <div className="min-h-screen bg-bg-0 text-txt-1 animate-fade-in">
+        <TopNav />
+        <NavBar />
+        <main className="max-w-3xl mx-auto px-4 py-20 text-center">
+          <h1 className="text-xl font-bold text-red mb-2">國際市場資料無法載入</h1>
+          <p className="text-sm text-txt-3">請稍後再試或檢查網路連線</p>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-bg-0 text-txt-1 animate-fade-in">

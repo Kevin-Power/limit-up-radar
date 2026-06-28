@@ -88,12 +88,21 @@ export default function NewsPage() {
   const [visibleCount, setVisibleCount] = useState(8);
 
   const [realNews, setRealNews] = useState<NewsArticle[] | null>(null);
+  const [newsError, setNewsError] = useState(false);
 
   useEffect(() => {
     fetch("/api/news", { cache: "no-store" })
-      .then((r) => r.json())
+      .then((r) => {
+        if (!r.ok) throw new Error(`Request failed with status ${r.status}`);
+        return r.json();
+      })
       .then((d: NewsArticle[]) => setRealNews(d))
-      .catch(() => setRealNews([]));
+      .catch(() => {
+        // Distinguish a failed fetch from a genuinely empty feed so the UI can
+        // show a retryable error instead of the misleading "暫無新聞資料"
+        setNewsError(true);
+        setRealNews([]);
+      });
   }, []);
 
   const NEWS: NewsItem[] = useMemo(() => {
@@ -207,7 +216,13 @@ export default function NewsPage() {
           {visible.length === 0 && !realNews && (
             <div className="text-center py-12 text-txt-3 text-sm">載入新聞中...</div>
           )}
-          {visible.length === 0 && realNews && realNews.length === 0 && (
+          {visible.length === 0 && newsError && (
+            <div className="text-center py-12">
+              <p className="text-sm font-bold text-red mb-1">新聞資料無法載入</p>
+              <p className="text-xs text-txt-3">請稍後再試或檢查網路連線</p>
+            </div>
+          )}
+          {visible.length === 0 && !newsError && realNews && realNews.length === 0 && (
             <div className="text-center py-12 text-txt-3 text-sm">暫無新聞資料</div>
           )}
           {visible.length === 0 && realNews && realNews.length > 0 && (

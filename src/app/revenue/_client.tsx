@@ -67,7 +67,7 @@ function YoYBadge({ v }: { v: number | null }) {
 }
 
 export default function RevenueClient() {
-  const { data, isLoading } = useSWR<RevData>("/api/revenue", fetcher);
+  const { data, error, isLoading } = useSWR<RevData>("/api/revenue", fetcher);
   const { data: dailyData } = useSWR("/api/daily/latest", fetcher);
 
   const [tab, setTab] = useState<"stocks" | "industries">("stocks");
@@ -146,6 +146,20 @@ export default function RevenueClient() {
       limitUpWithRev: data.stocks.filter((s) => limitUpCodes.has(s.code) && s.revYoY != null && s.revYoY > 20).length,
     };
   }, [data, limitUpCodes]);
+
+  // Fetch failed — show explicit, retryable error instead of an endless spinner
+  if (error) {
+    return (
+      <>
+        <TopNav />
+        <NavBar />
+        <main className="max-w-3xl mx-auto px-4 md:px-6 py-20 text-center">
+          <h1 className="text-xl font-bold text-red mb-2">營收資料無法載入</h1>
+          <p className="text-sm text-txt-3">請稍後再試或檢查網路連線</p>
+        </main>
+      </>
+    );
+  }
 
   return (
     <>
