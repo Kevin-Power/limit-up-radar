@@ -6,6 +6,7 @@
 import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import { listDailyFiles, loadDailyFile } from "@/lib/data-files";
 
 interface Related {
   code: string;
@@ -30,7 +31,6 @@ interface AnchorEntry {
 }
 
 const ANCHORS_PATH = path.join(process.cwd(), "data", "supply-chain", "anchors.json");
-const DAILY_DIR = path.join(process.cwd(), "data", "daily");
 
 function loadAnchors(): Record<string, AnchorEntry> {
   try {
@@ -44,9 +44,10 @@ function loadAnchors(): Record<string, AnchorEntry> {
 
 function loadLatestDaily(): { date: string; stockMap: Map<string, { close: number; change_pct: number; volume: number; group: string; isLimitUp: boolean }> } | null {
   try {
-    const files = fs.readdirSync(DAILY_DIR).filter((f) => f.endsWith(".json")).sort().reverse();
+    const files = listDailyFiles();
     if (!files.length) return null;
-    const data = JSON.parse(fs.readFileSync(path.join(DAILY_DIR, files[0]), "utf-8"));
+    const data = loadDailyFile<{ date: string; groups?: { name: string; stocks?: { code: string; close: number; change_pct: number; volume: number }[] }[] }>(files[0]);
+    if (!data) return null;
     const map = new Map<string, { close: number; change_pct: number; volume: number; group: string; isLimitUp: boolean }>();
     for (const g of data.groups ?? []) {
       for (const s of g.stocks ?? []) {

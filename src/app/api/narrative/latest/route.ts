@@ -1,19 +1,9 @@
 import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import { DAILY_DIR, latestDateInDir } from "@/lib/data-files";
 
 const NARRATIVE_DIR = path.join(process.cwd(), "data", "narrative");
-const DAILY_DIR = path.join(process.cwd(), "data", "daily");
-
-function latestDateInDir(dir: string): string | null {
-  if (!fs.existsSync(dir)) return null;
-  const files = fs.readdirSync(dir)
-    .filter((f) => /^\d{4}-\d{2}-\d{2}\.json$/.test(f))
-    .sort()
-    .reverse();
-  if (files.length === 0) return null;
-  return files[0].replace(/\.json$/, "");
-}
 
 export async function GET() {
   const narrativeDate = latestDateInDir(NARRATIVE_DIR);

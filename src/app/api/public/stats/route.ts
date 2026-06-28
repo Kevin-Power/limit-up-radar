@@ -1,16 +1,16 @@
 // Public-readable headline stats — no specific picks.
 // Safe to expose: aggregate numbers only, no per-stock data.
 import { NextResponse } from "next/server";
-import fs from "fs";
 import path from "path";
+import {
+  REVENUE_DIR,
+  listDailyFiles,
+  listJsonFiles,
+  loadDailyFile,
+  safeReadJSON,
+} from "@/lib/data-files";
 
-const DAILY_DIR = path.join(process.cwd(), "data", "daily");
 const BACKTEST_FILE = path.join(process.cwd(), "data", "backtest.json");
-const REV_DIR = path.join(process.cwd(), "data", "revenue");
-
-function readJSON(p: string) {
-  try { return JSON.parse(fs.readFileSync(p, "utf-8")); } catch { return null; }
-}
 
 export async function GET() {
   const out: {
@@ -34,10 +34,14 @@ export async function GET() {
 
   // Latest daily
   try {
-    const files = fs.readdirSync(DAILY_DIR).filter((f) => f.endsWith(".json")).sort().reverse();
+    const files = listDailyFiles();
     out.totalTradingDays = files.length;
     if (files.length > 0) {
-      const latest = readJSON(path.join(DAILY_DIR, files[0]));
+      const latest = loadDailyFile<{
+        date: string;
+        market_summary?: { taiex_close?: number; taiex_change_pct?: number };
+        groups?: { stocks?: unknown[] }[];
+      }>(files[0]);
       if (latest) {
         out.date = latest.date;
         out.taiex = latest.market_summary?.taiex_close ?? null;
@@ -52,7 +56,7 @@ export async function GET() {
   } catch { /* ignore */ }
 
   // Backtest
-  const bt = readJSON(BACKTEST_FILE);
+  const bt = safeReadJSON<Record<string, number>>(BACKTEST_FILE);
   if (bt) {
     out.backtest = {
       winRate: bt.avgOpenWinRate ?? null,
@@ -64,9 +68,9 @@ export async function GET() {
 
   // Revenue coverage
   try {
-    const revFiles = fs.readdirSync(REV_DIR).filter((f) => f.endsWith(".json")).sort().reverse();
+    const revFiles = listJsonFiles(REVENUE_DIR);
     if (revFiles.length > 0) {
-      const rev = readJSON(path.join(REV_DIR, revFiles[0]));
+      const rev = safeReadJSON<{ stocks?: unknown[] }>(path.join(REVENUE_DIR, revFiles[0]));
       if (rev?.stocks) out.revenueStocks = rev.stocks.length;
     }
   } catch { /* ignore */ }

@@ -1,34 +1,32 @@
 import { NextResponse } from "next/server";
-import fs from "fs";
 import path from "path";
 import { scoreStock, calculateTrendingGroups, calculatePriceLevels } from "@/lib/scoring";
+import {
+  REVENUE_DIR,
+  listDailyFiles,
+  listJsonFiles,
+  loadDailyFile,
+  safeReadJSON,
+} from "@/lib/data-files";
 
-const DAILY_DIR = path.join(process.cwd(), "data", "daily");
-const REV_DIR = path.join(process.cwd(), "data", "revenue");
-
-function loadJSON(filePath: string) {
-  try {
-    return JSON.parse(fs.readFileSync(filePath, "utf-8"));
-  } catch {
-    return null;
-  }
-}
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type DailyJSON = any;
 
 export async function GET() {
-  const files = fs.readdirSync(DAILY_DIR).filter((f) => f.endsWith(".json")).sort().reverse();
+  const files = listDailyFiles();
   if (!files.length) return NextResponse.json({ error: "no data" }, { status: 404 });
 
-  const today = loadJSON(path.join(DAILY_DIR, files[0]));
-  const yesterday = files.length > 1 ? loadJSON(path.join(DAILY_DIR, files[1])) : null;
-  const dayBefore = files.length > 2 ? loadJSON(path.join(DAILY_DIR, files[2])) : null;
+  const today = loadDailyFile<DailyJSON>(files[0]);
+  const yesterday = files.length > 1 ? loadDailyFile<DailyJSON>(files[1]) : null;
+  const dayBefore = files.length > 2 ? loadDailyFile<DailyJSON>(files[2]) : null;
   if (!today) return NextResponse.json({ error: "no data" }, { status: 404 });
 
   // Revenue map
   const revMap: Record<string, { revYoY: number | null }> = {};
   try {
-    const revFiles = fs.readdirSync(REV_DIR).filter((f) => f.endsWith(".json")).sort().reverse();
+    const revFiles = listJsonFiles(REVENUE_DIR);
     if (revFiles.length) {
-      const rev = loadJSON(path.join(REV_DIR, revFiles[0]));
+      const rev = safeReadJSON<{ stocks?: { code: string; revYoY: number | null }[] }>(path.join(REVENUE_DIR, revFiles[0]));
       if (rev?.stocks) for (const s of rev.stocks) revMap[s.code] = { revYoY: s.revYoY };
     }
   } catch { /* ignore */ }
@@ -47,7 +45,7 @@ export async function GET() {
   // Per-stock risk metrics (consistent with focus API): 6-day window
   const last6: Array<{ date: string; groups: { stocks: { code: string }[] }[] }> = [];
   for (let i = 0; i < Math.min(files.length, 6); i++) {
-    const d = loadJSON(path.join(DAILY_DIR, files[i]));
+    const d = loadDailyFile<DailyJSON>(files[i]);
     if (d) last6.push(d);
   }
   const stockDates = new Map<string, string[]>();

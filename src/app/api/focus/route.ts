@@ -2,9 +2,12 @@ import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 import { scoreStock, calculatePriceLevels } from "@/lib/scoring";
-
-const DAILY_DIR = path.join(process.cwd(), "data", "daily");
-const REV_DIR = path.join(process.cwd(), "data", "revenue");
+import {
+  DAILY_DIR,
+  listDailyFiles,
+  loadDailyFile,
+  loadLatestRevenue,
+} from "@/lib/data-files";
 
 interface DailyStock {
   code: string;
@@ -29,12 +32,7 @@ interface DailyData {
 }
 
 function loadDaily(file: string): DailyData | null {
-  try {
-    const p = path.join(DAILY_DIR, file);
-    return JSON.parse(fs.readFileSync(p, "utf-8"));
-  } catch {
-    return null;
-  }
+  return loadDailyFile<DailyData>(file);
 }
 
 function loadRealBacktest(): unknown {
@@ -48,9 +46,8 @@ function loadRealBacktest(): unknown {
 
 function loadRevenue(): Record<string, { revYoY: number | null; revCumYoY: number | null; revMonth: number | null }> {
   try {
-    const files = fs.readdirSync(REV_DIR).filter((f) => f.endsWith(".json")).sort().reverse();
-    if (!files.length) return {};
-    const data = JSON.parse(fs.readFileSync(path.join(REV_DIR, files[0]), "utf-8"));
+    const data = loadLatestRevenue<{ stocks: { code: string; revYoY: number | null; revCumYoY: number | null; revMonth: number | null }[] }>();
+    if (!data) return {};
     const map: Record<string, { revYoY: number | null; revCumYoY: number | null; revMonth: number | null }> = {};
     for (const s of data.stocks) {
       map[s.code] = { revYoY: s.revYoY, revCumYoY: s.revCumYoY, revMonth: s.revMonth };
@@ -93,10 +90,7 @@ export async function GET() {
   // Get last 3 trading days
   let files: string[];
   try {
-    files = fs.readdirSync(DAILY_DIR)
-      .filter((f) => f.endsWith(".json"))
-      .sort()
-      .reverse();
+    files = listDailyFiles();
   } catch {
     return NextResponse.json({ error: "no data" }, { status: 404 });
   }
