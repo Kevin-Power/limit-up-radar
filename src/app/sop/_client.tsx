@@ -4,15 +4,7 @@ import Link from "next/link";
 import useSWR from "swr";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
-
-interface RealBacktest {
-  totalDays: number;
-  totalSamples: number;
-  avgOpenWinRate: number;
-  avgCloseWinRate: number;
-  avgOpenReturn: number;
-  avgCloseReturn: number;
-}
+import type { RealBacktest } from "@/lib/types";
 
 const fetcher = async (url: string) => {
   const res = await fetch(url);

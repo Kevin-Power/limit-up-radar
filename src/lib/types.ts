@@ -37,3 +37,25 @@ export interface DailyData {
   market_summary: MarketSummary;
   groups: StockGroup[];
 }
+
+export interface RealBacktest {
+  updatedAt: string;
+  totalDays: number;
+  totalSamples: number;
+  avgOpenWinRate: number;
+  avgCloseWinRate: number;
+  avgOpenReturn: number;
+  avgCloseReturn: number;
+  methodology: string;
+  history: {
+    date: string;
+    nextDate: string;
+    picks: number;
+    fetched: number;
+    openWinRate: number;
+    closeWinRate: number;
+    avgOpenPct: number;
+    avgClosePct: number;
+    bestStock: { code: string; name: string; closePct: number } | null;
+  }[];
+}

@@ -16,6 +16,7 @@ import {
 import { NarrativeCard, type Narrative } from "./_narrative";
 import { IndustryFlowHeatmap, type IndustryFlow } from "./_heatmap";
 import { TrackedStockLink } from "./_tracked-link";
+import type { RealBacktest } from "@/lib/types";
 
 interface FocusStock {
   code: string;
@@ -59,28 +60,6 @@ interface PerformanceDay {
   nextLimitUpCount: number;
   nextLimitUpRate: number;
   bestStock: { code: string; name: string } | null;
-}
-
-interface RealBacktest {
-  updatedAt: string;
-  totalDays: number;
-  totalSamples: number;
-  avgOpenWinRate: number;
-  avgCloseWinRate: number;
-  avgOpenReturn: number;
-  avgCloseReturn: number;
-  methodology: string;
-  history: {
-    date: string;
-    nextDate: string;
-    picks: number;
-    fetched: number;
-    openWinRate: number;
-    closeWinRate: number;
-    avgOpenPct: number;
-    avgClosePct: number;
-    bestStock: { code: string; name: string; closePct: number } | null;
-  }[];
 }
 
 interface FocusData {
