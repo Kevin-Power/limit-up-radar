@@ -24,8 +24,17 @@ export default function StockRow({ stock, groupColor, isWatched = false, onToggl
   return (
     <div>
       <div
+        role="button"
+        tabIndex={0}
+        aria-pressed={isSelected}
         onClick={() => onSelectStock?.(s.code)}
-        className={`flex items-center gap-3 px-4 py-2.5 border-b border-white/[0.02] last:border-b-0 cursor-pointer transition-colors group ${
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onSelectStock?.(s.code);
+          }
+        }}
+        className={`flex items-center gap-3 px-4 py-2.5 border-b border-white/[0.02] last:border-b-0 cursor-pointer transition-colors group focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-red/60 ${
           isSelected
             ? "bg-white/[0.05] border-l-2 border-l-red/60"
             : "hover:bg-white/[0.02]"
