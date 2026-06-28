@@ -6,6 +6,7 @@ import Link from "next/link";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import { formatPrice, getTodaySlash } from "@/lib/utils";
+import { signColor } from "@/lib/format";
 
 /* ================================================================
    SUB-COMPONENTS
@@ -54,14 +55,14 @@ function BreadthBar({ advances, declines, unchanged }: { advances: number; decli
   return (
     <div>
       <div className="flex items-center justify-between text-xs text-txt-3 mb-1">
-        <span className="text-green font-medium">{advances} 漲</span>
+        <span className="text-red font-medium">{advances} 漲</span>
         <span className="text-txt-4">{unchanged} 平</span>
-        <span className="text-red font-medium">{declines} 跌</span>
+        <span className="text-green font-medium">{declines} 跌</span>
       </div>
       <div className="w-full h-3 rounded-full overflow-hidden flex">
-        <div className="h-full bg-green" style={{ width: `${advPct}%` }} />
+        <div className="h-full bg-red" style={{ width: `${advPct}%` }} />
         <div className="h-full bg-bg-3" style={{ width: `${unchPct}%` }} />
-        <div className="h-full bg-red" style={{ width: `${100 - advPct - unchPct}%` }} />
+        <div className="h-full bg-green" style={{ width: `${100 - advPct - unchPct}%` }} />
       </div>
     </div>
   );
@@ -88,11 +89,11 @@ function SectorBars({ top, bottom }: { top: { name: string; pct: number }[]; bot
             <div className="w-24 md:w-40 text-xs text-txt-2 truncate text-right shrink-0">{s.name}</div>
             <div className="flex-1 h-5 bg-bg-2 rounded overflow-hidden">
               <div
-                className="h-full bg-green/70 rounded"
+                className="h-full bg-red/70 rounded"
                 style={{ width: `${(s.pct / maxPct) * 100}%` }}
               />
             </div>
-            <div className="w-14 text-xs text-green font-mono text-right shrink-0 tabular-nums">
+            <div className="w-14 text-xs text-red font-mono text-right shrink-0 tabular-nums">
               +{s.pct.toFixed(2)}%
             </div>
           </div>
@@ -108,11 +109,11 @@ function SectorBars({ top, bottom }: { top: { name: string; pct: number }[]; bot
             <div className="w-24 md:w-40 text-xs text-txt-2 truncate text-right shrink-0">{s.name}</div>
             <div className="flex-1 h-5 bg-bg-2 rounded overflow-hidden">
               <div
-                className="h-full bg-red/70 rounded"
+                className="h-full bg-green/70 rounded"
                 style={{ width: `${(Math.abs(s.pct) / maxPct) * 100}%` }}
               />
             </div>
-            <div className="w-14 text-xs text-red font-mono text-right shrink-0 tabular-nums">
+            <div className="w-14 text-xs text-green font-mono text-right shrink-0 tabular-nums">
               {s.pct.toFixed(2)}%
             </div>
           </div>
@@ -200,9 +201,9 @@ export default function ReportPage() {
 
   const regimeColor =
     regime === "偏多"
-      ? "text-green bg-green-bg"
-      : regime === "偏空"
       ? "text-red bg-red-bg"
+      : regime === "偏空"
+      ? "text-green bg-green-bg"
       : "text-amber bg-amber-bg";
 
   return (
@@ -290,7 +291,7 @@ export default function ReportPage() {
                     <td className="py-2.5 text-txt-3 font-mono">{s.code}</td>
                     <td className="py-2.5 text-txt-0 font-medium">{s.name}</td>
                     <td className="py-2.5 text-right text-txt-1 font-mono tabular-nums">{formatPrice(s.price)}</td>
-                    <td className={`py-2.5 text-right font-mono tabular-nums ${s.changePct >= 0 ? "text-green" : "text-red"}`}>
+                    <td className={`py-2.5 text-right font-mono tabular-nums ${signColor(s.changePct)}`}>
                       {s.changePct >= 0 ? "+" : ""}{s.changePct.toFixed(2)}%
                     </td>
                     <td className="py-2.5 text-right">
