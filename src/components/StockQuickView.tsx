@@ -5,8 +5,7 @@ import Link from "next/link";
 import { Stock } from "@/lib/types";
 import { EmaResult, getSignalLabel, getSignalColor } from "@/lib/ema";
 import { formatPrice, formatPct, formatNumber } from "@/lib/utils";
-
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
+import { fetcher } from "@/lib/fetcher";
 
 interface ChipData {
   foreign3d: number[];

@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useMemo } from "react";
 import useSWR from "swr";
+import { fetcher } from "@/lib/fetcher";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { DailyData, Stock, StockGroup } from "@/lib/types";
@@ -20,8 +21,6 @@ import BackToTop from "@/components/BackToTop";
 import NavBar from "@/components/NavBar";
 import { useWatchlist } from "@/lib/useWatchlist";
 import StarButton from "@/components/StarButton";
-
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 export default function Home() {
   const [currentDate, setCurrentDate] = useState<string | null>(null);

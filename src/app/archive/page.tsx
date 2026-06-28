@@ -8,8 +8,7 @@ import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import { formatPct, formatPrice, getTodayString } from "@/lib/utils";
 import type { StatsData } from "@/app/api/stats/route";
-
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
+import { fetcher } from "@/lib/fetcher";
 
 /* ================================================================
    TYPES

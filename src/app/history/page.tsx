@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import useSWR from "swr";
+import { fetcher } from "@/lib/fetcher";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
@@ -13,8 +14,6 @@ interface DayRecord {
   count: number;
   topGroup: string;
 }
-
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 function getColor(count: number): string {
   if (count === 0) return "bg-bg-3";

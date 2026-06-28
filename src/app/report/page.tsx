@@ -1,6 +1,7 @@
 "use client";
 
 import useSWR from "swr";
+import { fetcher } from "@/lib/fetcher";
 import Link from "next/link";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
@@ -147,7 +148,7 @@ function taiex_close_display(v: number) {
 export default function ReportPage() {
   const { data: dailyData } = useSWR<DailyApiData>(
     "/api/daily/latest",
-    (url: string) => fetch(url).then((r) => r.json()),
+    fetcher,
     { revalidateOnFocus: false }
   );
 

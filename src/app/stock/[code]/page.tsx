@@ -12,8 +12,7 @@ import type { EmaResult } from "@/lib/ema";
 import KLineChart, { type CandleData } from "@/components/KLineChart";
 import StarButton from "@/components/StarButton";
 import { useWatchlist } from "@/lib/useWatchlist";
-
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
+import { fetcher } from "@/lib/fetcher";
 
 // --- Section label component ---
 

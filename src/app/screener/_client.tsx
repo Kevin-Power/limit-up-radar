@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import useSWR from "swr";
+import { fetcher } from "@/lib/fetcher";
 import Link from "next/link";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
@@ -40,8 +41,6 @@ function Card({ children, className = "" }: { children: React.ReactNode; classNa
 /* ================================================================
    MAIN PAGE
    ================================================================ */
-
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 export default function ScreenerPage() {
   const { data: dailyData } = useSWR<DailyData>("/api/daily/latest", fetcher);

@@ -6,8 +6,7 @@ import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import { formatPrice, formatPct, formatNumber } from "@/lib/utils";
 import type { CandleData } from "@/lib/twse-helpers";
-
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
+import { fetcher } from "@/lib/fetcher";
 
 // --- Stock name lookup (display only, not fake prices) ---
 

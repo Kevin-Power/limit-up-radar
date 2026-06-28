@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, useMemo } from "react";
 import useSWR from "swr";
+import { fetcher } from "@/lib/fetcher";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import { formatPct, formatPrice } from "@/lib/utils";
@@ -377,7 +378,7 @@ function mapRealToDay(r: NextDayData): DayData {
 export default function NextDayPage() {
   const { data: realData, isLoading } = useSWR<NextDayData[]>(
     "/api/next-day",
-    (url: string) => fetch(url).then((r) => r.json()),
+    fetcher,
     { revalidateOnFocus: false }
   );
 

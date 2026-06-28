@@ -2,14 +2,13 @@
 
 import { useState, useRef, useEffect } from "react";
 import useSWR from "swr";
+import { fetcher } from "@/lib/fetcher";
 
 interface User {
   userId: string;
   displayName: string;
   pictureUrl: string;
 }
-
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 export default function UserMenu() {
   const { data, mutate } = useSWR<{ user: User | null }>("/api/auth/me", fetcher, {

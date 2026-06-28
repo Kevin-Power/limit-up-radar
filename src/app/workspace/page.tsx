@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useEffect, useCallback } from "react";
 import useSWR from "swr";
+import { fetcher } from "@/lib/fetcher";
 import Link from "next/link";
 import { DailyData, Stock, StockGroup } from "@/lib/types";
 import { EmaResult, getSignalLabel, getSignalColor } from "@/lib/ema";
@@ -11,8 +12,6 @@ import TopNav from "@/components/TopNav";
 import KLineChart, { type CandleData } from "@/components/KLineChart";
 import StarButton from "@/components/StarButton";
 import { useWatchlist } from "@/lib/useWatchlist";
-
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 /* ────────────────────────────── Left Panel ─────────────────────────────── */
 

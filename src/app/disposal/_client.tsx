@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import useSWR from "swr";
+import { fetcher } from "@/lib/fetcher";
 import Link from "next/link";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
@@ -189,7 +190,7 @@ export default function DisposalPage() {
 
   const { data: realCandidates } = useSWR<DisposalCandidate[]>(
     "/api/disposal",
-    (url: string) => fetch(url).then((r) => r.json()),
+    fetcher,
     { revalidateOnFocus: false }
   );
 

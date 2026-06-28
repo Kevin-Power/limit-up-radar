@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import useSWR from "swr";
+import { fetcher } from "@/lib/fetcher";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import type { GlobalIndex } from "@/app/api/market/global/route";
@@ -231,7 +232,7 @@ export default function GlobalPage() {
 
   const { data: realData } = useSWR<GlobalIndex[]>(
     "/api/market/global",
-    (url: string) => fetch(url).then((r) => r.json()),
+    fetcher,
     { revalidateOnFocus: false, dedupingInterval: 900000 }
   );
 

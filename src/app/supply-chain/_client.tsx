@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import useSWR from "swr";
+import { fetcher } from "@/lib/fetcher";
 import Link from "next/link";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
@@ -48,12 +49,6 @@ interface AnchorList {
   anchors: AnchorItem[];
   byTheme: Record<string, AnchorItem[]>;
 }
-
-const fetcher = async (url: string) => {
-  const r = await fetch(url);
-  if (!r.ok) throw new Error(`HTTP ${r.status}`);
-  return r.json();
-};
 
 function StockCard({ s }: { s: RelatedStock }) {
   const hasLive = s.changePct != null;

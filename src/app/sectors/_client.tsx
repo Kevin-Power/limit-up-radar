@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import useSWR from "swr";
+import { fetcher } from "@/lib/fetcher";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import { IndustryFlowHeatmap, type IndustryFlow } from "../focus/_heatmap";
@@ -40,12 +41,6 @@ interface SectorAgg {
   days: number; // 趨勢天數
   strength: number; // 綜合強弱分數
 }
-
-const fetcher = (url: string) =>
-  fetch(url).then((r) => {
-    if (!r.ok) throw new Error(String(r.status));
-    return r.json();
-  });
 
 type SortKey = "strength" | "count" | "avgChangePct" | "netFlow" | "days";
 

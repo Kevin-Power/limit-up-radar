@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 import useSWR from "swr";
+import { fetcher } from "@/lib/fetcher";
 import Link from "next/link";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
@@ -27,8 +28,6 @@ interface FocusData {
   focusStocks: FocusStock[];
   topPicks: FocusStock[];
 }
-
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 const SCORE_THRESHOLD = 75;
 

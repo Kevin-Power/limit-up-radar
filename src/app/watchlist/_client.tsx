@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 import useSWR from "swr";
+import { fetcher } from "@/lib/fetcher";
 import Link from "next/link";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
@@ -46,11 +47,6 @@ interface FocusData {
   topPicks?: FocusPick[];
   focusStocks?: FocusPick[];
 }
-
-const fetcher = (url: string) => fetch(url).then((r) => {
-  if (!r.ok) throw new Error(`HTTP ${r.status}`);
-  return r.json();
-});
 
 // ─── EMA signal badge ──────────────────────────────────────────
 function EmaBadge({ ema }: { ema?: EmaResult }) {

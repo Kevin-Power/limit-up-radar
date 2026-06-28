@@ -2,15 +2,10 @@
 
 import Link from "next/link";
 import useSWR from "swr";
+import { fetcher } from "@/lib/fetcher";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import type { RealBacktest } from "@/lib/types";
-
-const fetcher = async (url: string) => {
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return res.json();
-};
 
 const fmtRtn = (v: number) => `${v >= 0 ? "+" : ""}${v.toFixed(2)}`;
 

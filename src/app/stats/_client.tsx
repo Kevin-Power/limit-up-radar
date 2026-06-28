@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import useSWR from "swr";
+import { fetcher } from "@/lib/fetcher";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import type { StatsData, HonestStats, HonestScenario } from "@/app/api/stats/route";
@@ -860,7 +861,7 @@ function TimePeriodWinRate() {
 export default function StatsPage() {
   const { data: realStats } = useSWR<StatsData & { dates: string[] }>(
     "/api/stats",
-    (url: string) => fetch(url).then((r) => r.json()),
+    fetcher,
     { revalidateOnFocus: false }
   );
 

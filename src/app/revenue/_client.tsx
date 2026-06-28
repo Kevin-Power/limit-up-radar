@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import useSWR from "swr";
+import { fetcher } from "@/lib/fetcher";
 import Link from "next/link";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
@@ -45,8 +46,6 @@ interface RevData {
 }
 
 type SortKey = "revMonth" | "revYoY" | "revMoM" | "revCum" | "revCumYoY" | "price" | "chg1d" | "chg5d" | "chg20d";
-
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 function fmt(v: number | null): string {
   if (v == null) return "-";

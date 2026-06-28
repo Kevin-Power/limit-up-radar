@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useEffect } from "react";
 import useSWR from "swr";
+import { fetcher } from "@/lib/fetcher";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import TopNav from "@/components/TopNav";
@@ -96,8 +97,6 @@ interface BearishEngulfingStock {
   volume: number;
   market: string;
 }
-
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 function CopyReportButton() {
   const [copied, setCopied] = useState(false);

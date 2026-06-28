@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import useSWR from "swr";
+import { fetcher } from "@/lib/fetcher";
 import Link from "next/link";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
@@ -127,8 +128,6 @@ function SortArrow({ active, dir }: { active: boolean; dir: SortDir }) {
 /* ================================================================
    PAGE COMPONENT
    ================================================================ */
-
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 export default function PonyPage() {
   const [filter, setFilter] = useState<FilterKey>("all");
