@@ -467,7 +467,7 @@ export default function NextDayPage() {
   /* Loading / empty state */
   if (isLoading || !realData) {
     return (
-      <div className="flex flex-col h-screen overflow-hidden">
+      <div className="flex flex-col h-dvh overflow-hidden">
         <TopNav currentDate="" />
         <NavBar />
         <main id="main" className="flex-1 flex items-center justify-center">
@@ -479,7 +479,7 @@ export default function NextDayPage() {
 
   if (!day || !stats) {
     return (
-      <div className="flex flex-col h-screen overflow-hidden">
+      <div className="flex flex-col h-dvh overflow-hidden">
         <TopNav currentDate="" />
         <NavBar />
         <main id="main" className="flex-1 flex items-center justify-center">
@@ -490,7 +490,7 @@ export default function NextDayPage() {
   }
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden">
+    <div className="flex flex-col h-dvh overflow-hidden">
       <TopNav currentDate={day.nextDate} />
       <NavBar />
 

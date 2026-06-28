@@ -134,7 +134,7 @@ export default function HistoryPage() {
   const isReal = HISTORY.length > 0;
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden">
+    <div className="flex flex-col h-dvh overflow-hidden">
       <TopNav />
       <NavBar />
 

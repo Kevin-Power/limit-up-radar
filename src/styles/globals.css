@@ -70,6 +70,9 @@ body {
   color: var(--text-1);
   font-variant-numeric: tabular-nums;
   transition: background-color 0.3s ease, color 0.3s ease;
+  /* viewport-fit:cover safe-area padding（瀏海機/圓角/手勢列） */
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
 }
 
 * {

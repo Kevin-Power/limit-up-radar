@@ -460,7 +460,7 @@ export default function WorkspacePage() {
   const totalStocks = daily?.groups?.reduce((n, g) => n + g.stocks.length, 0) ?? 0;
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden">
+    <div className="flex flex-col h-dvh overflow-hidden">
       <TopNav stocks={flatStocks} />
       <NavBar />
 

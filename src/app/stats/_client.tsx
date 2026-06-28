@@ -868,7 +868,7 @@ export default function StatsPage() {
   const hasRealData = realStats && realStats.totalDays > 0;
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden">
+    <div className="flex flex-col h-dvh overflow-hidden">
       <TopNav />
       <NavBar />
 
