@@ -667,29 +667,29 @@ export default function NextDayPage() {
                   <tr className="border-b border-border bg-bg-3/50">
                     <th className="text-center px-2 py-2.5 text-[10px] font-medium text-txt-4 w-10">所</th>
                     <th onClick={() => handleSort("code")} tabIndex={0} role="button" aria-sort={ariaSort("code")} onKeyDown={sortKeyDown("code")}
-                      className="text-left px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase cursor-pointer hover:text-txt-2 w-16">
+                      className="relative text-left px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase cursor-pointer hover:text-txt-2 w-16 before:absolute before:left-0 before:right-0 before:top-1/2 before:-translate-y-1/2 before:min-h-[44px] before:content-['']">
                       代號<SortIcon k="code" />
                     </th>
                     <th className="text-left px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase">名稱</th>
                     <th className="text-right px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase">漲停價</th>
                     <th onClick={() => handleSort("volumeWan")} tabIndex={0} role="button" aria-sort={ariaSort("volumeWan")} onKeyDown={sortKeyDown("volumeWan")}
-                      className="text-center px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase cursor-pointer hover:text-txt-2">
+                      className="relative text-center px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase cursor-pointer hover:text-txt-2 before:absolute before:left-0 before:right-0 before:top-1/2 before:-translate-y-1/2 before:min-h-[44px] before:content-['']">
                       量比<SortIcon k="volumeWan" />
                     </th>
                     <th onClick={() => handleSort("nextOpenPct")} tabIndex={0} role="button" aria-sort={ariaSort("nextOpenPct")} onKeyDown={sortKeyDown("nextOpenPct")}
-                      className="text-right px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase cursor-pointer hover:text-txt-2">
+                      className="relative text-right px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase cursor-pointer hover:text-txt-2 before:absolute before:left-0 before:right-0 before:top-1/2 before:-translate-y-1/2 before:min-h-[44px] before:content-['']">
                       隔日開<SortIcon k="nextOpenPct" />
                     </th>
                     <th onClick={() => handleSort("nextAvgPct")} tabIndex={0} role="button" aria-sort={ariaSort("nextAvgPct")} onKeyDown={sortKeyDown("nextAvgPct")}
-                      className="text-right px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase cursor-pointer hover:text-txt-2">
+                      className="relative text-right px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase cursor-pointer hover:text-txt-2 before:absolute before:left-0 before:right-0 before:top-1/2 before:-translate-y-1/2 before:min-h-[44px] before:content-['']">
                       隔日均價<SortIcon k="nextAvgPct" />
                     </th>
                     <th onClick={() => handleSort("nextClosePct")} tabIndex={0} role="button" aria-sort={ariaSort("nextClosePct")} onKeyDown={sortKeyDown("nextClosePct")}
-                      className="text-right px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase cursor-pointer hover:text-txt-2">
+                      className="relative text-right px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase cursor-pointer hover:text-txt-2 before:absolute before:left-0 before:right-0 before:top-1/2 before:-translate-y-1/2 before:min-h-[44px] before:content-['']">
                       隔日收<SortIcon k="nextClosePct" />
                     </th>
                     <th onClick={() => handleSort("weightedReturn")} tabIndex={0} role="button" aria-sort={ariaSort("weightedReturn")} onKeyDown={sortKeyDown("weightedReturn")}
-                      className="text-right px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase cursor-pointer hover:text-txt-2">
+                      className="relative text-right px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase cursor-pointer hover:text-txt-2 before:absolute before:left-0 before:right-0 before:top-1/2 before:-translate-y-1/2 before:min-h-[44px] before:content-['']">
                       加權<SortIcon k="weightedReturn" />
                     </th>
                     <th className="text-center px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase">標籤</th>

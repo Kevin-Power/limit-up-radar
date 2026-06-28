@@ -65,7 +65,7 @@ export default function NavBar() {
               key={label}
               href={href}
               data-active={isActive}
-              className={`px-3 text-[11px] font-medium tracking-wide border-b-2 transition-all duration-200 flex items-center whitespace-nowrap h-9 flex-shrink-0 ${
+              className={`relative px-3 text-[11px] font-medium tracking-wide border-b-2 transition-all duration-200 flex items-center whitespace-nowrap h-9 flex-shrink-0 before:absolute before:left-0 before:right-0 before:top-1/2 before:-translate-y-1/2 before:min-h-[44px] before:content-[''] ${
                 isActive
                   ? "text-txt-0 border-red"
                   : "text-txt-3 border-transparent hover:text-txt-1 hover:border-txt-3"

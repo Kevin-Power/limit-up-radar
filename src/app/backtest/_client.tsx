@@ -425,22 +425,22 @@ export default function BacktestPage() {
             <table className="w-full text-xs">
               <thead>
                 <tr className="border-b border-border bg-bg-2 text-txt-3">
-                  <th tabIndex={0} role="button" aria-sort={ariaSort("entryDate")} onKeyDown={sortKeyDown("entryDate")} className="py-2 px-2 text-left font-medium cursor-pointer hover:text-txt-1 select-none" onClick={() => handleSort("entryDate")}>
+                  <th tabIndex={0} role="button" aria-sort={ariaSort("entryDate")} onKeyDown={sortKeyDown("entryDate")} className="relative py-2 px-2 text-left font-medium cursor-pointer hover:text-txt-1 select-none before:absolute before:left-0 before:right-0 before:top-1/2 before:-translate-y-1/2 before:min-h-[44px] before:content-['']" onClick={() => handleSort("entryDate")}>
                     進場日期{sortIcon("entryDate")}
                   </th>
-                  <th tabIndex={0} role="button" aria-sort={ariaSort("entryPrice")} onKeyDown={sortKeyDown("entryPrice")} className="py-2 px-2 text-right font-medium cursor-pointer hover:text-txt-1 select-none" onClick={() => handleSort("entryPrice")}>
+                  <th tabIndex={0} role="button" aria-sort={ariaSort("entryPrice")} onKeyDown={sortKeyDown("entryPrice")} className="relative py-2 px-2 text-right font-medium cursor-pointer hover:text-txt-1 select-none before:absolute before:left-0 before:right-0 before:top-1/2 before:-translate-y-1/2 before:min-h-[44px] before:content-['']" onClick={() => handleSort("entryPrice")}>
                     進場價{sortIcon("entryPrice")}
                   </th>
-                  <th tabIndex={0} role="button" aria-sort={ariaSort("exitDate")} onKeyDown={sortKeyDown("exitDate")} className="py-2 px-2 text-left font-medium cursor-pointer hover:text-txt-1 select-none" onClick={() => handleSort("exitDate")}>
+                  <th tabIndex={0} role="button" aria-sort={ariaSort("exitDate")} onKeyDown={sortKeyDown("exitDate")} className="relative py-2 px-2 text-left font-medium cursor-pointer hover:text-txt-1 select-none before:absolute before:left-0 before:right-0 before:top-1/2 before:-translate-y-1/2 before:min-h-[44px] before:content-['']" onClick={() => handleSort("exitDate")}>
                     出場日期{sortIcon("exitDate")}
                   </th>
-                  <th tabIndex={0} role="button" aria-sort={ariaSort("exitPrice")} onKeyDown={sortKeyDown("exitPrice")} className="py-2 px-2 text-right font-medium cursor-pointer hover:text-txt-1 select-none" onClick={() => handleSort("exitPrice")}>
+                  <th tabIndex={0} role="button" aria-sort={ariaSort("exitPrice")} onKeyDown={sortKeyDown("exitPrice")} className="relative py-2 px-2 text-right font-medium cursor-pointer hover:text-txt-1 select-none before:absolute before:left-0 before:right-0 before:top-1/2 before:-translate-y-1/2 before:min-h-[44px] before:content-['']" onClick={() => handleSort("exitPrice")}>
                     出場價{sortIcon("exitPrice")}
                   </th>
-                  <th tabIndex={0} role="button" aria-sort={ariaSort("returnPct")} onKeyDown={sortKeyDown("returnPct")} className="py-2 px-2 text-right font-medium cursor-pointer hover:text-txt-1 select-none" onClick={() => handleSort("returnPct")}>
+                  <th tabIndex={0} role="button" aria-sort={ariaSort("returnPct")} onKeyDown={sortKeyDown("returnPct")} className="relative py-2 px-2 text-right font-medium cursor-pointer hover:text-txt-1 select-none before:absolute before:left-0 before:right-0 before:top-1/2 before:-translate-y-1/2 before:min-h-[44px] before:content-['']" onClick={() => handleSort("returnPct")}>
                     報酬%{sortIcon("returnPct")}
                   </th>
-                  <th tabIndex={0} role="button" aria-sort={ariaSort("holdDays")} onKeyDown={sortKeyDown("holdDays")} className="py-2 px-2 text-right font-medium cursor-pointer hover:text-txt-1 select-none" onClick={() => handleSort("holdDays")}>
+                  <th tabIndex={0} role="button" aria-sort={ariaSort("holdDays")} onKeyDown={sortKeyDown("holdDays")} className="relative py-2 px-2 text-right font-medium cursor-pointer hover:text-txt-1 select-none before:absolute before:left-0 before:right-0 before:top-1/2 before:-translate-y-1/2 before:min-h-[44px] before:content-['']" onClick={() => handleSort("holdDays")}>
                     持有天數{sortIcon("holdDays")}
                   </th>
                   <th className="py-2 px-2 text-center font-medium">結果</th>

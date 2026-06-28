@@ -15,7 +15,7 @@ export default function StarButton({ code, isWatched, onToggle, size = "sm" }: S
         e.preventDefault();
         onToggle(code);
       }}
-      className={`flex-shrink-0 transition-all duration-200 ease-out hover:scale-125 active:scale-95 ${
+      className={`relative flex-shrink-0 transition-all duration-200 ease-out hover:scale-125 active:scale-95 before:absolute before:left-1/2 before:top-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:min-w-[44px] before:min-h-[44px] before:content-[''] ${
         size === "md" ? "w-6 h-6" : "w-4 h-4"
       }`}
       title={isWatched ? "從自選股移除" : "加入自選股"}

@@ -279,14 +279,14 @@ export default function DisposalPage() {
               <div>代號</div>
               <div>名稱</div>
               <div>產業</div>
-              <div role="button" tabIndex={0} aria-sort={ariaSort("streak")} onKeyDown={sortKeyDown("streak")} className="cursor-pointer hover:text-txt-2 select-none" onClick={() => handleSort("streak")} title="10日窗口內最高峰值連板數">
+              <div role="button" tabIndex={0} aria-sort={ariaSort("streak")} onKeyDown={sortKeyDown("streak")} className="relative cursor-pointer hover:text-txt-2 select-none before:absolute before:left-0 before:right-0 before:top-1/2 before:-translate-y-1/2 before:min-h-[44px] before:content-['']" onClick={() => handleSort("streak")} title="10日窗口內最高峰值連板數">
                 峰值連板{sortIndicator("streak")}
               </div>
-              <div role="button" tabIndex={0} aria-sort={ariaSort("gain10d")} onKeyDown={sortKeyDown("gain10d")} className="cursor-pointer hover:text-txt-2 select-none" onClick={() => handleSort("gain10d")} title="自10日窗口首次出現日起算，非漲停前基準價">
+              <div role="button" tabIndex={0} aria-sort={ariaSort("gain10d")} onKeyDown={sortKeyDown("gain10d")} className="relative cursor-pointer hover:text-txt-2 select-none before:absolute before:left-0 before:right-0 before:top-1/2 before:-translate-y-1/2 before:min-h-[44px] before:content-['']" onClick={() => handleSort("gain10d")} title="自10日窗口首次出現日起算，非漲停前基準價">
                 10日漲幅%{sortIndicator("gain10d")}
               </div>
               <div title="10日內漲停次數（≥5次=高危，≥3次=注意）">10日漲停次</div>
-              <div role="button" tabIndex={0} aria-sort={ariaSort("risk")} onKeyDown={sortKeyDown("risk")} className="cursor-pointer hover:text-txt-2 select-none" onClick={() => handleSort("risk")}>
+              <div role="button" tabIndex={0} aria-sort={ariaSort("risk")} onKeyDown={sortKeyDown("risk")} className="relative cursor-pointer hover:text-txt-2 select-none before:absolute before:left-0 before:right-0 before:top-1/2 before:-translate-y-1/2 before:min-h-[44px] before:content-['']" onClick={() => handleSort("risk")}>
                 風險等級{sortIndicator("risk")}
               </div>
               <div>狀態</div>

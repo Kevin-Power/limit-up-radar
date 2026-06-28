@@ -230,7 +230,7 @@ export default function SectorsClient() {
                 <button
                   key={opt.key}
                   onClick={() => setSortKey(opt.key)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors border ${
+                  className={`relative px-3 py-1.5 rounded-lg text-xs font-medium transition-colors border before:absolute before:left-0 before:right-0 before:top-1/2 before:-translate-y-1/2 before:min-h-[44px] before:content-[''] ${
                     sortKey === opt.key
                       ? "bg-red/15 text-red border-red/30"
                       : "bg-bg-2 text-txt-3 border-border hover:text-txt-1"
