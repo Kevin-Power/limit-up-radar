@@ -10,6 +10,7 @@ const QUICK_LINKS = [
   { label: "進階選股", href: "/screener" },
   { label: "營收速報", href: "/revenue" },
   { label: "交易教室", href: "/learn" },
+  { label: "股票比較", href: "/compare" },
 ];
 
 const RESOURCES = [

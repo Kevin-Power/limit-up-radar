@@ -26,6 +26,7 @@ export const NAV_ITEMS: NavItem[] = [
   { label: "國際市場", href: "/global" },
   { label: "市場情資", href: "/news" },
   { label: "盤後報告", href: "/report" },
+  { label: "報告存檔", href: "/archive" },
   { label: "統計分析", href: "/stats" },
   { label: "處置預測", href: "/disposal" },
   { label: "股票比較", href: "/compare" },
