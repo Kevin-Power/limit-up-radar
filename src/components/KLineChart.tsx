@@ -297,6 +297,18 @@ export default function KLineChart({
   const hd = hover ? data[hover.index] : null;
   const prevClose = hover && hover.index > 0 ? data[hover.index - 1].close : null;
 
+  /* ── Accessible description (標的趨勢摘要) ── */
+  const ariaLabel = useMemo(() => {
+    if (isEmpty) return "K線圖，尚無資料";
+    const firstClose = data[0].close;
+    const lastClose = data[n - 1].close;
+    const pct = firstClose !== 0 ? ((lastClose - firstClose) / firstClose) * 100 : 0;
+    const trend = pct > 0.5 ? "上漲" : pct < -0.5 ? "下跌" : "持平";
+    const fromDate = data[0].date;
+    const toDate = data[n - 1].date;
+    return `${period} K線圖，期間 ${fromDate} 至 ${toDate}，共 ${n} 根K棒，收盤 ${fmtPrice(firstClose)} 至 ${fmtPrice(lastClose)}，整體${trend} ${pct >= 0 ? "+" : ""}${pct.toFixed(2)}%`;
+  }, [isEmpty, data, n, period]);
+
   /* ── Generic sub-chart Y scaler factory ── */
   const makeScaler =
     (area: { y: number; h: number }, low: number, high: number) =>
@@ -385,6 +397,8 @@ export default function KLineChart({
       <svg
         viewBox={`0 0 ${W} ${totalH}`}
         width="100%"
+        role="img"
+        aria-label={ariaLabel}
         style={{ display: "block", background: C.bg, cursor: "crosshair" }}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}

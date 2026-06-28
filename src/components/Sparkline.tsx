@@ -7,7 +7,7 @@ export default function Sparkline({ color, data }: SparklineProps) {
   if (!data || data.length < 2) {
     // Flat dashed line when no data
     return (
-      <svg className="w-14 h-[22px]" viewBox="0 0 56 22">
+      <svg className="w-14 h-[22px]" viewBox="0 0 56 22" aria-hidden="true">
         <line x1="2" y1="11" x2="54" y2="11" stroke={color} strokeWidth="1" strokeDasharray="3,3" opacity="0.3" />
       </svg>
     );
@@ -27,7 +27,7 @@ export default function Sparkline({ color, data }: SparklineProps) {
     .join(" ");
 
   return (
-    <svg className="w-14 h-[22px]" viewBox="0 0 56 22">
+    <svg className="w-14 h-[22px]" viewBox="0 0 56 22" aria-hidden="true">
       <polyline points={points} fill="none" stroke={color} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
