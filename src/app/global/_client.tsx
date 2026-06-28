@@ -5,6 +5,7 @@ import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
+import { SkeletonBox, SkeletonStatCards } from "@/components/Skeleton";
 import type { GlobalIndex } from "@/app/api/market/global/route";
 
 function sparklinePath(data: number[], w: number, h: number): string {
@@ -340,7 +341,15 @@ export default function GlobalPage() {
         <section>
           <SectionTitle>指數總覽</SectionTitle>
           {displayIndices.length === 0 && (
-            <div className="text-center py-12 text-txt-3 text-sm">載入國際市場資料中...</div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+              {Array.from({ length: 8 }).map((_, i) => (
+                <div key={i} className="bg-bg-1 border border-border rounded-lg p-4 space-y-2.5">
+                  <SkeletonBox className="w-24 h-3" />
+                  <SkeletonBox className="w-20 h-5" />
+                  <SkeletonBox className="w-16 h-2.5" />
+                </div>
+              ))}
+            </div>
           )}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
             {filteredIndices.map((idx) => (
@@ -388,7 +397,7 @@ export default function GlobalPage() {
             </Card>
           </div>
           ) : (
-            <div className="text-center py-8 text-txt-3 text-sm">載入風險資料中...</div>
+            <SkeletonStatCards count={4} />
           )}
         </section>
       </main>

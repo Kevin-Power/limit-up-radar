@@ -4,6 +4,7 @@ import { useState, useMemo, useEffect } from "react";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
+import { SkeletonCardList } from "@/components/Skeleton";
 import type { NewsArticle } from "@/app/api/news/route";
 
 
@@ -214,7 +215,7 @@ export default function NewsPage() {
         {/* News Cards */}
         <div className="space-y-3">
           {visible.length === 0 && !realNews && (
-            <div className="text-center py-12 text-txt-3 text-sm">載入新聞中...</div>
+            <SkeletonCardList count={5} height="h-28" />
           )}
           {visible.length === 0 && newsError && (
             <div className="text-center py-12">

@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import useSWR from "swr";
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
+import { SkeletonCardList } from "@/components/Skeleton";
 import { formatPrice, formatPct, formatNumber } from "@/lib/utils";
 import type { CandleData } from "@/lib/twse-helpers";
 import { fetcher } from "@/lib/fetcher";
@@ -391,9 +392,7 @@ export default function ComparePage() {
         </div>
 
         {isLoading && (
-          <div className="bg-bg-1 rounded-lg border border-border p-8 text-center">
-            <p className="text-sm text-txt-3">載入中...</p>
-          </div>
+          <SkeletonCardList count={3} height="h-32" />
         )}
 
         {stocks.length >= 2 && (
