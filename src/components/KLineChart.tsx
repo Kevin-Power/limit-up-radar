@@ -102,6 +102,72 @@ function calcKD(data: CandleData[]): { k: number[]; d: number[] } {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
+   Period aggregation (日 → 週/月)
+   open=區間首根開盤, close=區間末根收盤, high/low=區間極值, volume=加總
+   ═══════════════════════════════════════════════════════════════════════ */
+
+// ISO week key, e.g. "2026-W26", so candles in the same calendar week group.
+function isoWeekKey(dateStr: string): string {
+  const d = new Date(dateStr + "T00:00:00Z");
+  if (Number.isNaN(d.getTime())) return dateStr;
+  // Shift to Thursday of current week to get ISO week number.
+  const day = (d.getUTCDay() + 6) % 7; // Mon=0..Sun=6
+  d.setUTCDate(d.getUTCDate() - day + 3);
+  const firstThursday = new Date(Date.UTC(d.getUTCFullYear(), 0, 4));
+  const ftDay = (firstThursday.getUTCDay() + 6) % 7;
+  firstThursday.setUTCDate(firstThursday.getUTCDate() - ftDay + 3);
+  const week =
+    1 + Math.round((d.getTime() - firstThursday.getTime()) / (7 * 24 * 3600 * 1000));
+  return `${d.getUTCFullYear()}-W${String(week).padStart(2, "0")}`;
+}
+
+function monthKey(dateStr: string): string {
+  return dateStr.slice(0, 7); // YYYY-MM
+}
+
+function aggregateCandles(
+  data: CandleData[],
+  keyOf: (dateStr: string) => string,
+): CandleData[] {
+  if (data.length === 0) return data;
+  const out: CandleData[] = [];
+  let curKey: string | null = null;
+  let bucket: CandleData[] = [];
+
+  const flush = () => {
+    if (bucket.length === 0) return;
+    let high = -Infinity;
+    let low = Infinity;
+    let volume = 0;
+    for (const c of bucket) {
+      if (c.high > high) high = c.high;
+      if (c.low < low) low = c.low;
+      volume += c.volume;
+    }
+    out.push({
+      date: bucket[bucket.length - 1].date, // last day of the period
+      open: bucket[0].open,
+      close: bucket[bucket.length - 1].close,
+      high,
+      low,
+      volume,
+    });
+  };
+
+  for (const c of data) {
+    const k = keyOf(c.date);
+    if (k !== curKey) {
+      flush();
+      bucket = [];
+      curKey = k;
+    }
+    bucket.push(c);
+  }
+  flush();
+  return out;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
    Formatting helpers
    ═══════════════════════════════════════════════════════════════════════ */
 
@@ -167,7 +233,12 @@ export default function KLineChart({
   const [hover, setHover] = useState<HoverState | null>(null);
   const [period, setPeriod] = useState<"日K" | "週K" | "月K">("日K");
 
-  const data = dataProp ?? [];
+  const rawData = useMemo(() => dataProp ?? [], [dataProp]);
+  const data = useMemo(() => {
+    if (period === "週K") return aggregateCandles(rawData, isoWeekKey);
+    if (period === "月K") return aggregateCandles(rawData, monthKey);
+    return rawData;
+  }, [rawData, period]);
   const isEmpty = data.length === 0;
 
   /* ── Layout constants ── */
