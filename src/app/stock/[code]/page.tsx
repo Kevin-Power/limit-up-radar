@@ -10,10 +10,20 @@ import { formatPrice, formatPct, formatNumber, formatNet } from "@/lib/utils";
 import { signColor } from "@/lib/format";
 import { getSignalFullLabel, getSignalColor } from "@/lib/ema";
 import type { EmaResult } from "@/lib/ema";
-import KLineChart, { type CandleData } from "@/components/KLineChart";
+import dynamic from "next/dynamic";
+import { type CandleData } from "@/components/KLineChart";
+import { SkeletonBox } from "@/components/Skeleton";
 import StarButton from "@/components/StarButton";
 import { useWatchlist } from "@/lib/useWatchlist";
 import { fetcher } from "@/lib/fetcher";
+
+// Heavy client-only chart — code-split to keep first-load bundle small (audit P2-7)
+const KLineChart = dynamic(() => import("@/components/KLineChart"), {
+  ssr: false,
+  loading: () => (
+    <SkeletonBox className="w-full h-[420px] rounded-lg" />
+  ),
+});
 
 // --- Section label component ---
 

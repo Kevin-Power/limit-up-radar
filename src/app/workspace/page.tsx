@@ -9,9 +9,17 @@ import { EmaResult, getSignalLabel, getSignalColor } from "@/lib/ema";
 import { formatPrice, formatPct, formatNumber } from "@/lib/utils";
 import NavBar from "@/components/NavBar";
 import TopNav from "@/components/TopNav";
-import KLineChart, { type CandleData } from "@/components/KLineChart";
+import dynamic from "next/dynamic";
+import { type CandleData } from "@/components/KLineChart";
 import StarButton from "@/components/StarButton";
 import { useWatchlist } from "@/lib/useWatchlist";
+import { SkeletonBox } from "@/components/Skeleton";
+
+// Heavy client-only chart — code-split to keep first-load bundle small (audit P2-7)
+const KLineChart = dynamic(() => import("@/components/KLineChart"), {
+  ssr: false,
+  loading: () => <SkeletonBox className="w-full h-[420px] rounded-lg" />,
+});
 
 /* ────────────────────────────── Left Panel ─────────────────────────────── */
 

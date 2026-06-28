@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import SupplyChainMap from "@/components/SupplyChainMap";
+import SupplyChainMapClient from "./_client";
 
 export const metadata: Metadata = {
   title: "供應鏈地圖 (Bloomberg SPLC 風格)",
@@ -9,5 +9,5 @@ export const metadata: Metadata = {
 
 export default function Page() {
   // SupplyChainMap is fullscreen — no nav wrapper to preserve UX
-  return <SupplyChainMap />;
+  return <SupplyChainMapClient />;
 }

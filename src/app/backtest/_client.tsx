@@ -4,9 +4,16 @@ import { useState, useMemo, useEffect, useCallback, type KeyboardEvent } from "r
 import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import { formatPrice } from "@/lib/utils";
+import dynamic from "next/dynamic";
 import type { BacktestResult as RealBacktestResult, Trade } from "@/app/api/backtest/route";
-import Backtest0903 from "@/components/Backtest0903";
 import RecommendedStrategy from "@/components/RecommendedStrategy";
+import { SkeletonBox } from "@/components/Skeleton";
+
+// Heavy client-only backtest panel — code-split to keep first-load bundle small (audit P2-7)
+const Backtest0903 = dynamic(() => import("@/components/Backtest0903"), {
+  ssr: false,
+  loading: () => <SkeletonBox className="w-full h-[400px] rounded-lg" />,
+});
 
 /* ================================================================
    STRATEGIES & TYPES
