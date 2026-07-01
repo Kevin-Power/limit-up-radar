@@ -356,7 +356,7 @@ function mapRealToDay(r: NextDayData): DayData {
       name: s.name,
       group: s.group,
       groupColor: s.groupColor,
-      market: "上" as Market,
+      market: (s.market === "OTC" ? "櫃" : "上") as Market,
       limitPrice: s.limitPrice,
       volumeWan: s.volumeWan,
       nextOpen: s.nextOpen,
@@ -533,7 +533,7 @@ export default function NextDayPage() {
             <KpiCard label="開盤均報酬" value={fmtPctOrDash(stats.openAvg)}
               subLabel="正報酬率" subValue={stats.openPositive === null ? "—" : `${stats.openPositive.toFixed(1)}%`}
               accent="#22c55e" />
-            <KpiCard label="均價均報酬" value={fmtPctOrDash(stats.avgAvg)}
+            <KpiCard label="開收均報酬" value={fmtPctOrDash(stats.avgAvg)}
               subLabel="正報酬率" subValue={stats.avgPositive === null ? "—" : `${stats.avgPositive.toFixed(1)}%`}
               accent="#3b82f6" />
             <KpiCard label="收盤均報酬" value={fmtPctOrDash(stats.closeAvg)}
@@ -572,7 +572,7 @@ export default function NextDayPage() {
                       正報酬率 <span className="text-txt-4 cursor-help" title="收盤正報酬的比例">ⓘ</span>
                     </th>
                     <th className="text-right px-3 py-3 text-[10px] font-medium text-txt-4 tracking-wide uppercase">開盤</th>
-                    <th className="text-right px-3 py-3 text-[10px] font-medium text-txt-4 tracking-wide uppercase">均價</th>
+                    <th className="text-right px-3 py-3 text-[10px] font-medium text-txt-4 tracking-wide uppercase">開收均</th>
                     <th className="text-right px-3 py-3 text-[10px] font-medium text-txt-4 tracking-wide uppercase">收盤</th>
                   </tr>
                 </thead>
@@ -686,7 +686,7 @@ export default function NextDayPage() {
                     </th>
                     <th onClick={() => handleSort("nextAvgPct")} tabIndex={0} role="button" aria-sort={ariaSort("nextAvgPct")} onKeyDown={sortKeyDown("nextAvgPct")}
                       className="relative text-right px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase cursor-pointer hover:text-txt-2 before:absolute before:left-0 before:right-0 before:top-1/2 before:-translate-y-1/2 before:min-h-[44px] before:content-['']">
-                      隔日均價<SortIcon k="nextAvgPct" />
+                      隔日開收均<SortIcon k="nextAvgPct" />
                     </th>
                     <th onClick={() => handleSort("nextClosePct")} tabIndex={0} role="button" aria-sort={ariaSort("nextClosePct")} onKeyDown={sortKeyDown("nextClosePct")}
                       className="relative text-right px-3 py-2.5 text-[10px] font-medium text-txt-4 tracking-wide uppercase cursor-pointer hover:text-txt-2 before:absolute before:left-0 before:right-0 before:top-1/2 before:-translate-y-1/2 before:min-h-[44px] before:content-['']">

@@ -41,6 +41,7 @@ export interface NextDayStock {
   label: string;
   open357Level: string;
   closeLabel: string | null;
+  market: string | null; // "TWSE" | "OTC"，供前端正確標示所別（勿再硬編）
 }
 
 export interface NextDayData {
@@ -238,6 +239,7 @@ export async function GET() {
           label: classifyLabel(nextOpenPct, nextClosePct),
           open357Level: get357Level(nextOpenPct),
           closeLabel: getCloseLabel(nextClosePct),
+          market: s.market ?? null,
         });
       }
     }
