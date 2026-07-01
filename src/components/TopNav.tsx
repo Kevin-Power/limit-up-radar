@@ -9,7 +9,7 @@ import { formatPrice, formatPct } from "@/lib/utils";
 import ThemeToggle from "./ThemeToggle";
 import MarketClock from "./MarketClock";
 import UserMenu from "./UserMenu";
-import { NAV_ITEMS } from "@/lib/nav";
+import { NAV_GROUPS } from "@/lib/nav";
 
 // Fetch the latest data date globally so every page gets a freshness indicator.
 function useLatestDate(): string | null {
@@ -226,24 +226,31 @@ export default function TopNav({ currentDate, stocks = [] }: TopNavProps) {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-bg-1 border-t border-border">
-          {NAV_ITEMS.map(({ label, href }) => {
-            const isActive = pathname === href;
-            return (
-              <Link
-                key={label}
-                href={href}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`block px-5 py-2.5 text-[13px] font-medium border-b border-border transition-colors ${
-                  isActive
-                    ? "text-txt-0 bg-bg-2"
-                    : "text-txt-3 hover:text-txt-1 hover:bg-bg-2"
-                }`}
-              >
-                {label}
-              </Link>
-            );
-          })}
+        <div className="md:hidden bg-bg-1 border-t border-border max-h-[70vh] overflow-y-auto">
+          {NAV_GROUPS.map((grp) => (
+            <div key={grp.key}>
+              <div className="px-5 pt-3 pb-1 text-[10px] font-semibold text-txt-4 uppercase tracking-widest bg-bg-2/50">
+                {grp.label} <span className="text-txt-4/60 normal-case tracking-normal font-normal">· {grp.hint}</span>
+              </div>
+              {grp.items.map(({ label, href }) => {
+                const isActive = pathname === href;
+                return (
+                  <Link
+                    key={label}
+                    href={href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`block px-5 py-2.5 text-[13px] font-medium border-b border-border transition-colors ${
+                      isActive
+                        ? "text-txt-0 bg-bg-2"
+                        : "text-txt-3 hover:text-txt-1 hover:bg-bg-2"
+                    }`}
+                  >
+                    {label}
+                  </Link>
+                );
+              })}
+            </div>
+          ))}
         </div>
       )}
     </nav>

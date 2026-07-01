@@ -16,6 +16,37 @@ import { SkeletonBox } from "@/components/Skeleton";
 import StarButton from "@/components/StarButton";
 import { useWatchlist } from "@/lib/useWatchlist";
 import { fetcher } from "@/lib/fetcher";
+import IntradayChart from "@/components/IntradayChart";
+import type { IntradayBar } from "@/lib/data-files";
+
+interface IntradayResp {
+  available: boolean;
+  date?: string;
+  bars?: IntradayBar[];
+  barCount?: number;
+  sparse?: boolean;
+  stats?: {
+    dayOpen: number;
+    last: number;
+    hod: number;
+    hodTime: string;
+    lod: number;
+    lodTime: string;
+    amplitudePct: number;
+    closeVsOpenPct: number;
+    morningPct: number;
+    closePosition: number;
+  } | null;
+}
+
+interface LimitUpEntry {
+  date: string;
+  group: string;
+  nextDayOpenPct: number | null;
+  nextDayClosePct: number | null;
+}
+
+const fmtSignedPct = (v: number) => `${v >= 0 ? "+" : ""}${v.toFixed(2)}%`;
 
 // Heavy client-only chart — code-split to keep first-load bundle small (audit P2-7)
 const KLineChart = dynamic(() => import("@/components/KLineChart"), {
@@ -167,9 +198,26 @@ export default function StockDetailPage({ params }: PageProps) {
   const { data: chipData } = useSWR(
     `/api/stock/${code}/chip`, fetcher, SWR_OPTS
   );
-  const { data: limitUpHistory } = useSWR(
+  const { data: limitUpHistory } = useSWR<LimitUpEntry[]>(
     `/api/stock/${code}/limitup-history`, fetcher, SWR_OPTS
   );
+  const { data: intraday } = useSWR<IntradayResp>(
+    `/api/stock/${code}/intraday`, fetcher, SWR_OPTS
+  );
+
+  // 隔日衝彙總：由歷史漲停紀錄的隔日開盤/收盤%聚合（毛數字、未含成本）
+  const nextDaySummary = useMemo(() => {
+    const arr = (limitUpHistory ?? []).filter((e) => e.nextDayOpenPct != null);
+    if (arr.length === 0) return null;
+    const n = arr.length;
+    const openWin = arr.filter((e) => (e.nextDayOpenPct ?? 0) > 0).length;
+    const avgOpen = arr.reduce((s, e) => s + (e.nextDayOpenPct ?? 0), 0) / n;
+    const closeArr = arr.filter((e) => e.nextDayClosePct != null);
+    const avgClose = closeArr.length
+      ? closeArr.reduce((s, e) => s + (e.nextDayClosePct ?? 0), 0) / closeArr.length
+      : null;
+    return { n, openWinRate: (openWin / n) * 100, avgOpen, avgClose };
+  }, [limitUpHistory]);
   const { data: peData } = useSWR<Record<string, { pe: number; pb: number }>>(
     "/api/pe", fetcher, SWR_OPTS_TABLE
   );
@@ -355,6 +403,51 @@ export default function StockDetailPage({ params }: PageProps) {
                     showMACD={true}
                     showKD={true}
                   />
+                )}
+              </div>
+
+              {/* ============================================================
+                  SECTION 2.6: Intraday / 分時走勢（當沖視角）
+                  ============================================================ */}
+              <div className="mb-6">
+                <SectionLabel>分時走勢 · 當沖視角</SectionLabel>
+                {intraday?.available && intraday.bars && intraday.bars.length > 1 ? (
+                  <div className="bg-bg-1 border border-border rounded-xl p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[11px] text-txt-3">
+                        分時資料日 <span className="text-txt-1 font-semibold tabular-nums">{intraday.date?.replace(/-/g, "/")}</span>
+                      </span>
+                      <span className="text-[10px] text-txt-4">1 分 K · 毛價（未含手續費／稅）</span>
+                    </div>
+                    <IntradayChart bars={intraday.bars} dayOpen={intraday.stats?.dayOpen ?? intraday.bars[0].open} />
+                    {intraday.stats && (
+                      <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 mt-3">
+                        {[
+                          { label: "開盤", value: intraday.stats.dayOpen.toFixed(2), tone: null as boolean | null },
+                          { label: "收/現價", value: intraday.stats.last.toFixed(2), tone: intraday.stats.closeVsOpenPct >= 0 },
+                          { label: "相對開盤", value: fmtSignedPct(intraday.stats.closeVsOpenPct), tone: intraday.stats.closeVsOpenPct >= 0 },
+                          { label: "當日振幅", value: `${intraday.stats.amplitudePct.toFixed(2)}%`, tone: null },
+                          { label: "開盤半小時", value: fmtSignedPct(intraday.stats.morningPct), tone: intraday.stats.morningPct >= 0 },
+                          { label: "尾盤位置", value: `${Math.round(intraday.stats.closePosition * 100)}%`, tone: intraday.stats.closePosition >= 0.5 },
+                        ].map(({ label, value, tone }) => (
+                          <div key={label} className={`rounded-lg px-2.5 py-2 border ${tone === true ? "bg-red-bg border-red/10" : tone === false ? "bg-green-bg border-green/10" : "bg-bg-2 border-border"}`}>
+                            <div className="text-[9px] text-txt-4 mb-0.5">{label}</div>
+                            <div className={`text-[13px] font-bold tabular-nums ${tone === true ? "text-red" : tone === false ? "text-green" : "text-txt-1"}`}>{value}</div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    <p className="mt-3 text-[10px] text-txt-4 leading-relaxed">
+                      分時資料為盤後收錄之精選標的歷史，非即時、未必為最新交易日；尾盤位置＝收盤價落在當日高低區間的位置（越高越強）。僅供型態教育與研究，非投資建議。
+                    </p>
+                  </div>
+                ) : intraday && !intraday.available ? (
+                  <div className="bg-bg-1 border border-border rounded-lg py-10 text-center">
+                    <p className="text-sm text-txt-3">此標的尚無分時資料</p>
+                    <p className="text-[11px] text-txt-4 mt-1">分時走勢僅收錄部分精選漲停標的與交易日</p>
+                  </div>
+                ) : (
+                  <SkeletonBox className="w-full h-[240px] rounded-lg" />
                 )}
               </div>
 
@@ -600,7 +693,28 @@ export default function StockDetailPage({ params }: PageProps) {
                   SECTION 6: Limit-Up History
                   ============================================================ */}
               <div className="mb-6">
-                <SectionLabel>歷史漲停紀錄</SectionLabel>
+                <SectionLabel>歷史漲停紀錄 · 隔日衝彙總</SectionLabel>
+                {nextDaySummary && (
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+                    {[
+                      { label: "樣本數", sub: "筆歷史漲停", value: `${nextDaySummary.n}`, tone: null as boolean | null },
+                      { label: "隔日開盤勝率", sub: "開盤>平盤", value: `${nextDaySummary.openWinRate.toFixed(0)}%`, tone: nextDaySummary.openWinRate >= 50 },
+                      { label: "平均隔日開盤", sub: "毛/未含成本", value: fmtSignedPct(nextDaySummary.avgOpen), tone: nextDaySummary.avgOpen >= 0 },
+                      { label: "平均隔日收盤", sub: "毛/未含成本", value: nextDaySummary.avgClose != null ? fmtSignedPct(nextDaySummary.avgClose) : "—", tone: nextDaySummary.avgClose != null ? nextDaySummary.avgClose >= 0 : null },
+                    ].map(({ label, sub, value, tone }) => (
+                      <div key={label} className={`rounded-lg px-3.5 py-3 border ${tone === true ? "bg-red-bg border-red/10" : tone === false ? "bg-green-bg border-green/10" : "bg-bg-2 border-border"}`}>
+                        <div className="text-[10px] text-txt-4 mb-0.5">{label}</div>
+                        <div className="text-[9px] text-txt-4 mb-1">{sub}</div>
+                        <div className={`text-sm font-bold tabular-nums ${tone === true ? "text-red" : tone === false ? "text-green" : "text-txt-1"}`}>{value}</div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {nextDaySummary && (
+                  <p className="text-[10px] text-txt-4 mb-3 leading-relaxed">
+                    彙總自本檔歷史漲停之隔日表現（{nextDaySummary.n} 筆，毛數字未計手續費／證交稅）。R1 動態出場參考：隔日開盤 gap 0~5% → 09:15 賣；其它 → T+2 開盤賣。此為歷史統計，非投資建議、不代表未來績效。
+                  </p>
+                )}
                 <div className="overflow-x-auto">
                 <div className="border border-border rounded-xl overflow-hidden min-w-[500px]">
                   <div className="grid grid-cols-[1fr_1.2fr_0.8fr_0.8fr] gap-0 px-4 py-2.5 bg-bg-2 border-b border-border">

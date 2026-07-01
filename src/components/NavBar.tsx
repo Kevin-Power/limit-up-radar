@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useRef, useEffect, useState } from "react";
-import { NAV_ITEMS } from "@/lib/nav";
+import { NAV_GROUPS } from "@/lib/nav";
 
 export default function NavBar() {
   const pathname = usePathname();
@@ -58,23 +58,34 @@ export default function NavBar() {
         ref={scrollRef}
         className="flex items-center h-9 px-3 md:px-5 gap-0 overflow-x-auto scrollbar-none"
       >
-        {NAV_ITEMS.map(({ label, href }) => {
-          const isActive = pathname === href;
-          return (
-            <Link
-              key={label}
-              href={href}
-              data-active={isActive}
-              className={`relative px-3 text-[11px] font-medium tracking-wide border-b-2 transition-all duration-200 flex items-center whitespace-nowrap h-9 flex-shrink-0 before:absolute before:left-0 before:right-0 before:top-1/2 before:-translate-y-1/2 before:min-h-[44px] before:content-[''] ${
-                isActive
-                  ? "text-txt-0 border-red"
-                  : "text-txt-3 border-transparent hover:text-txt-1 hover:border-txt-3"
-              }`}
+        {NAV_GROUPS.map((grp, gi) => (
+          <div key={grp.key} className="flex items-center h-9 flex-shrink-0">
+            {gi > 0 && <span className="w-px h-4 bg-border mx-1.5 flex-shrink-0" aria-hidden />}
+            <span
+              className="text-[9px] font-semibold text-txt-4/80 uppercase tracking-widest px-2 flex-shrink-0 select-none"
+              title={grp.hint}
             >
-              {label}
-            </Link>
-          );
-        })}
+              {grp.label}
+            </span>
+            {grp.items.map(({ label, href }) => {
+              const isActive = pathname === href;
+              return (
+                <Link
+                  key={label}
+                  href={href}
+                  data-active={isActive}
+                  className={`relative px-3 text-[11px] font-medium tracking-wide border-b-2 transition-all duration-200 flex items-center whitespace-nowrap h-9 flex-shrink-0 before:absolute before:left-0 before:right-0 before:top-1/2 before:-translate-y-1/2 before:min-h-[44px] before:content-[''] ${
+                    isActive
+                      ? "text-txt-0 border-red"
+                      : "text-txt-3 border-transparent hover:text-txt-1 hover:border-txt-3"
+                  }`}
+                >
+                  {label}
+                </Link>
+              );
+            })}
+          </div>
+        ))}
       </div>
     </div>
   );

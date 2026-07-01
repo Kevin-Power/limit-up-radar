@@ -138,14 +138,16 @@ function signalLabel(s: "golden_cross" | "death_cross" | "neutral"): string {
 }
 
 function signalColor(s: "golden_cross" | "death_cross" | "neutral"): string {
-  if (s === "golden_cross") return "text-green bg-green/10";
-  if (s === "death_cross") return "text-red bg-red/10";
+  // 台股慣例：金叉＝看多＝紅、死叉＝看空＝綠（對齊 ema.ts getSignalColor）
+  if (s === "golden_cross") return "text-red bg-red/10";
+  if (s === "death_cross") return "text-green bg-green/10";
   return "text-amber bg-amber/10";
 }
 
 function rsiColor(rsi: number): string {
-  if (rsi >= 60) return "text-green bg-green/10";
-  if (rsi <= 35) return "text-red bg-red/10";
+  // 高 RSI＝強勢＝紅、低 RSI＝弱勢＝綠（與全站紅漲綠跌一致）
+  if (rsi >= 60) return "text-red bg-red/10";
+  if (rsi <= 35) return "text-green bg-green/10";
   return "text-amber bg-amber/10";
 }
 
@@ -262,7 +264,7 @@ function PriceChart({ stocks, dateLabels }: { stocks: StockCompareData[]; dateLa
             <div key={s.code} className="flex items-center gap-2 text-xs">
               <span className="w-3 h-[3px] rounded-full inline-block" style={{ backgroundColor: LINE_COLORS[i] }} />
               <span className="text-txt-2 font-medium">{s.code} {s.name}</span>
-              <span className={`font-bold tabular-nums ${perf >= 0 ? "text-green" : "text-red"}`}>
+              <span className={`font-bold tabular-nums ${perf >= 0 ? "text-red" : "text-green"}`}>
                 {perf >= 0 ? "+" : ""}{perf.toFixed(1)}%
               </span>
             </div>

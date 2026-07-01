@@ -7,6 +7,8 @@ const nextConfig = {
     "/api/supply-chain/**": ["./data/supply-chain/**/*.json"],
     "/api/focus": ["./data/backtest.json"],
     "/api/stats": ["./data/daily/**/*.json", "./data/analysis/**/*.json"],
+    "/api/stock/[code]/intraday": ["./data/intraday_cache/**/*.json"],
+    "/api/daytrade": ["./data/intraday_cache/**/*.json", "./data/daily/**/*.json"],
   },
   async headers() {
     return [
