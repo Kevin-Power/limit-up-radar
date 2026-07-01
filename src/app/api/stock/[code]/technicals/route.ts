@@ -52,10 +52,23 @@ export async function GET(
       else if (price < ma20 && rsi < 50) overall = "bearish";
     }
 
+    // ── 波段訊號（swing）──
+    // 均線排列：多頭 ma5>ma10>ma20>ma60、空頭反之、其餘糾結
+    let maAlignment: "bull" | "bear" | "mixed" = "mixed";
+    if (![ma5, ma10, ma20, ma60].some((v) => isNaN(v))) {
+      if (ma5 > ma10 && ma10 > ma20 && ma20 > ma60) maAlignment = "bull";
+      else if (ma5 < ma10 && ma10 < ma20 && ma20 < ma60) maAlignment = "bear";
+    }
+    const aboveMA60 = !isNaN(ma60) && price > ma60; // 站上季線
+    const high20 = highs.length >= 20 ? Math.max(...highs.slice(-20)) : NaN;
+    const nearHigh20 = !isNaN(high20) && price >= high20 * 0.99; // 近/創 20 日新高（1% 內）
+    const pctFromHigh20 = !isNaN(high20) && high20 ? Math.round((price / high20 - 1) * 10000) / 100 : null;
+
     const n2n = (v: number) => (isNaN(v) ? null : Math.round(v * 100) / 100);
     return NextResponse.json(
       { ma5: n2n(ma5), ma10: n2n(ma10), ma20: n2n(ma20), ma60: n2n(ma60),
-        rsi: n2n(rsi), macdSignal, kd_k: n2n(kd_k), kd_d: n2n(kd_d), overall, isReal: true },
+        rsi: n2n(rsi), macdSignal, kd_k: n2n(kd_k), kd_d: n2n(kd_d), overall,
+        maAlignment, aboveMA60, nearHigh20, pctFromHigh20, high20: n2n(high20), isReal: true },
       { headers: { "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=7200" } }
     );
   } catch {

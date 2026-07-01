@@ -651,6 +651,26 @@ export default function StockDetailPage({ params }: PageProps) {
                     </div>
                   </div>
 
+                  {/* 波段訊號 (swing) */}
+                  {techData?.maAlignment && (
+                    <div className="mb-4">
+                      <div className="text-[10px] font-semibold text-txt-4 uppercase tracking-wider mb-2">波段訊號</div>
+                      <div className="flex flex-wrap gap-1.5">
+                        <span className={`text-[10px] font-semibold px-2 py-0.5 rounded ${techData.maAlignment === "bull" ? "bg-red-bg text-red" : techData.maAlignment === "bear" ? "bg-green-bg text-green" : "bg-amber-bg text-amber"}`}>
+                          {techData.maAlignment === "bull" ? "均線多頭排列" : techData.maAlignment === "bear" ? "均線空頭排列" : "均線糾結"}
+                        </span>
+                        <span className={`text-[10px] font-semibold px-2 py-0.5 rounded ${techData.aboveMA60 ? "bg-red-bg text-red" : "bg-green-bg text-green"}`}>
+                          {techData.aboveMA60 ? "站上季線" : "季線之下"}
+                        </span>
+                        {techData.nearHigh20 ? (
+                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-red-bg text-red">近 20 日新高</span>
+                        ) : techData.pctFromHigh20 != null ? (
+                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-bg-2 text-txt-3">距 20 日高 {techData.pctFromHigh20}%</span>
+                        ) : null}
+                      </div>
+                    </div>
+                  )}
+
                   {/* Overall Signal */}
                   <div className="pt-3 border-t border-border">
                     <div className="flex items-center justify-between">
