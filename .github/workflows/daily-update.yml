@@ -33,6 +33,11 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Install Python dependencies
         run: pip install requests
 
@@ -77,6 +82,15 @@ jobs:
           DATE_PART=$(basename "${{ steps.classify.outputs.json_file }}" .json)
           python scripts/validate_data.py "$DATE_PART"
 
+      # 前向戰績定格：以凍結公式把當日「明日焦點」定格存檔（forward）。
+      # 非致命：即使失敗也不影響 daily 資料的 commit/deploy。
+      # 註：結算(grade)需 intraday_cache（gitignore、非 CI），仍由本機定期執行。
+      - name: Snapshot 明日焦點 (forward 定格)
+        if: steps.classify.outputs.data_found == 'true'
+        continue-on-error: true
+        run: |
+          npx --yes tsx scripts/snapshot_focus.ts
+
       - name: Run real backtest (fetches TWSE next-day OHLC)
         if: steps.classify.outputs.data_found == 'true'
         continue-on-error: true
@@ -98,7 +112,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/daily/*.json data/backtest.json data/kill_switch.json
+          # daily 一定要加入；附屬檔與定格快照盡力而為（缺檔不致整步失敗、避免靜默遺失 daily）
+          git add data/daily/*.json
+          git add data/backtest.json data/kill_switch.json 2>/dev/null || true
+          git add data/track-record/focus/*.json 2>/dev/null || true
           DATE_PART=$(basename "${{ steps.classify.outputs.json_file }}" .json)
           git commit -m "data: add daily data for ${DATE_PART}" || echo "No changes to commit"
           git push

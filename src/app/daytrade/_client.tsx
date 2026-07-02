@@ -51,16 +51,134 @@ interface WatchRow {
   watchScore: number; grade: "high" | "mid" | "low"; tags: string[];
   histAmplitude: { amplitudePct: number; date: string } | null;
 }
+interface ShortlistRow extends WatchRow {
+  reasons: string[];
+  riskFlags: string[];
+}
 interface WatchResp {
   available: boolean; date: string | null; basedOn: string; count: number;
   rows: WatchRow[]; excluded: { code: string; name: string; reason: "disposal" | "low_liquidity" }[]; disclosure: string;
+  // 精選欄位標 optional：CDN 快取的舊版回應可能沒有，缺欄時只是不顯示精選區
+  shortlist?: ShortlistRow[];
+  shortlistRuleVersion?: string;
+  shortlistCriteria?: string;
+  shortlistDisclosure?: string;
 }
+
+// 固定教育文案（適用所有標的，非個股化操作指示）
+const DISCIPLINE = [
+  "進場前先設定停損價與當日最大虧損金額，觸價即出，不凹單",
+  "日內了結、不留倉——當沖部位過夜即承擔隔日跳空風險",
+  "量縮、轉弱、跌破自設防守價先退，不加碼攤平",
+  "開盤即鎖漲停可能根本買不到；漲停打開瞬間流動性驟變，追價風險高",
+  "現股當沖資格、券源與處置限制以交易所及券商公告為準",
+];
 const GRADE = {
   high: { label: "高觀察", cls: "text-amber font-bold" },
   mid: { label: "中觀察", cls: "text-txt-2 font-semibold" },
   low: { label: "低觀察", cls: "text-txt-4" },
 } as const;
 const WATCH_COLS = "grid grid-cols-[0.4fr_1.5fr_1.1fr_1fr_0.8fr_0.6fr_0.9fr_0.8fr_1.4fr] gap-0";
+
+// ── 明日精選觀察（觀察清單的高匯聚子集，同一份 API 資料）──
+function ShortlistCards({ data }: { data: WatchResp }) {
+  // 舊版 CDN 快取回應可能沒有 shortlist 欄位——此時整個精選區不渲染，
+  // 避免把「快取缺欄」誤顯示成「今日無符合門檻標的」。
+  if (!data.shortlist) return null;
+  const shortlist = data.shortlist;
+
+  return (
+    <section className="mb-10">
+      <div className="flex items-center gap-2 mb-1">
+        <span className="inline-block px-2 py-0.5 rounded-full bg-amber/10 text-amber text-[10px] font-semibold">明日精選觀察</span>
+        <h2 className="text-lg font-bold text-txt-0">高匯聚重點名單</h2>
+      </div>
+      <p className="text-xs text-txt-3 mb-3">
+        以 <span className="text-txt-1 font-semibold tabular-nums">{data.date?.replace(/-/g, "/")}</span> 收盤資料產生 ·
+        入選門檻：<span className="text-txt-2">{data.shortlistCriteria}</span>
+        {data.shortlistRuleVersion && <span className="text-txt-4 font-mono"> · 規則 {data.shortlistRuleVersion}</span>}
+      </p>
+      {data.shortlistDisclosure && (
+        <div className="bg-amber/5 border border-amber/20 rounded-lg p-3 mb-3">
+          <p className="text-[11px] text-txt-3 leading-relaxed">
+            <span className="font-semibold text-amber">精選 ≠ 勝率、不預測方向：</span>{data.shortlistDisclosure}
+          </p>
+        </div>
+      )}
+      {shortlist.length === 0 ? (
+        <div className="bg-bg-1 border border-border rounded-lg py-8 text-center">
+          <p className="text-sm text-txt-3">今日無符合匯聚門檻的標的</p>
+          <p className="text-[11px] text-txt-4 mt-1">門檻固定、寧缺勿濫，不降規則湊數</p>
+        </div>
+      ) : (
+        <div className="grid gap-3 md:grid-cols-2">
+          {shortlist.map((s) => (
+            <Link
+              key={s.code}
+              href={`/stock/${s.code}`}
+              className="block bg-bg-1 border border-border rounded-xl p-4 hover:bg-white/[0.02] transition-colors"
+            >
+              <div className="flex items-start justify-between gap-2 mb-2">
+                <div className="min-w-0">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-sm font-bold text-txt-0 truncate">{s.name}</span>
+                    {s.market && <span className="text-[9px] text-txt-4">{s.market === "OTC" ? "櫃" : "上"}</span>}
+                    <span className="text-[10px] font-mono text-txt-4">{s.code}</span>
+                  </div>
+                  <div className="text-[10px] text-txt-3 mt-0.5 truncate">{s.group || "—"}</div>
+                </div>
+                <div className="text-right shrink-0">
+                  <div className="text-[9px] px-1.5 py-0.5 rounded bg-amber/10 text-amber font-semibold whitespace-nowrap">
+                    重點觀察 · {s.watchScore}
+                  </div>
+                  <div className={`text-xs font-bold tabular-nums mt-1 ${signColor(s.changePct)}`}>
+                    {s.close} · {pct(s.changePct)}
+                  </div>
+                </div>
+              </div>
+              <ul className="space-y-0.5">
+                {s.reasons.map((r) => (
+                  <li key={r} className="text-[11px] text-txt-2 leading-relaxed flex gap-1.5">
+                    <span className="text-amber shrink-0">·</span>
+                    <span>{r}</span>
+                  </li>
+                ))}
+              </ul>
+              {s.riskFlags.length > 0 && (
+                <div className="mt-2 pt-2 border-t border-white/[0.04] space-y-0.5">
+                  {s.riskFlags.map((f) => (
+                    <p key={f} className="text-[10px] text-amber leading-relaxed">⚠ {f}</p>
+                  ))}
+                </div>
+              )}
+              <div className="mt-2 pt-2 border-t border-white/[0.04] flex flex-wrap gap-x-4 gap-y-1 text-[10px] text-txt-4 tabular-nums">
+                <span>量 {formatNumber(s.lots)} 張</span>
+                <span>連板 {s.streak > 1 ? s.streak : "—"}</span>
+                <span className={signColor(s.majorNet)}>主力 {s.majorNet === 0 ? "—" : formatNet(s.majorNet)}</span>
+                <span title={s.histAmplitude ? "盤後收錄之最近分時交易日，非最新交易日" : undefined}>
+                  {s.histAmplitude
+                    ? `最近收錄 ${s.histAmplitude.date.replace(/-/g, "/")} 振幅 ${s.histAmplitude.amplitudePct}%`
+                    : "分時收錄 —"}
+                </span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      )}
+      <div className="mt-3 bg-bg-1 border border-border rounded-lg p-3">
+        <p className="text-[11px] font-semibold text-txt-1 mb-1.5">當沖紀律提示（固定教育文案 · 適用所有標的 · 非個股操作建議）</p>
+        <ul className="grid gap-1 sm:grid-cols-2">
+          {DISCIPLINE.map((d) => (
+            <li key={d} className="text-[10px] text-txt-3 leading-relaxed flex gap-1.5">
+              <span className="text-txt-4 shrink-0">—</span>
+              <span>{d}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
 
 function DaytradeWatch() {
   const { data } = useSWR<WatchResp>("/api/daytrade-watch", fetcher, {
@@ -81,6 +199,9 @@ function DaytradeWatch() {
   const shown = expanded ? data.rows : data.rows.slice(0, 15);
 
   return (
+    <>
+    {/* 精選子集卡片（同一份 API 回應） */}
+    <ShortlistCards data={data} />
     <section className="mb-10">
       <div className="flex items-center gap-2 mb-1">
         <span className="inline-block px-2 py-0.5 rounded-full bg-amber/10 text-amber text-[10px] font-semibold">明日焦點</span>
@@ -150,6 +271,7 @@ function DaytradeWatch() {
         </p>
       )}
     </section>
+    </>
   );
 }
 
@@ -259,8 +381,10 @@ export default function DaytradeClient() {
               <h1 className="text-2xl font-extrabold text-txt-0 tracking-tight">當沖速覽</h1>
             </div>
             <p className="text-sm text-txt-3 max-w-2xl leading-relaxed">
-              上：<span className="text-txt-1">明日當沖觀察清單</span>（今日收盤產生的高波動／高流動候選，觀察度非勝率）；
-              下：<span className="text-txt-1">歷史分時型態</span>（最近收錄日的 1 分 K 走勢研究）。當沖為高風險操作，本頁非投資建議。
+              由上而下：<span className="text-txt-1">明日精選觀察</span>（觀察清單中多條件匯聚的重點子集）、
+              <span className="text-txt-1">明日當沖觀察清單</span>（今日收盤產生的高流動／高關注候選，觀察度非勝率）、
+              <span className="text-txt-1">回溯驗證</span>與<span className="text-txt-1">歷史分時型態</span>（最近收錄日的 1 分 K 走勢研究）。
+              當沖為高風險操作，本頁非投資建議、不構成買賣推薦。
             </p>
           </div>
 
