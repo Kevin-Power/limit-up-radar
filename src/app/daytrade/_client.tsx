@@ -435,6 +435,37 @@ function DaytradeBacktest() {
   );
 }
 
+// ── 一句話重點：edge 在隔夜、不在盤中（依 60 天回測＋前向戰績）──
+function KeyInsightCard() {
+  return (
+    <div className="border-2 border-accent/30 bg-accent/5 rounded-xl p-4 mb-8">
+      <div className="flex items-center gap-2 mb-2">
+        <span className="inline-block px-2 py-0.5 rounded-full bg-accent/15 text-accent text-[10px] font-semibold">重點結論</span>
+        <h2 className="text-base font-bold text-txt-0">漲停股的優勢在「隔夜跳空」，不在隔日盤中</h2>
+      </div>
+      <div className="grid gap-2 sm:grid-cols-2">
+        <div className="bg-bg-1 border border-border rounded-lg p-3">
+          <div className="text-[13px] font-bold text-txt-1 mb-0.5">✓ 隔日衝：收盤買 → 隔日開盤賣</div>
+          <p className="text-[11px] text-txt-3 leading-relaxed">
+            60 天回測<span className="text-txt-1 font-semibold">正期望值</span>（約 +2.9% 毛、保守情境逾 66% 勝率）。edge 集中在隔夜那段跳空。
+          </p>
+          <Link href="/focus" className="inline-block mt-1.5 text-[11px] text-accent hover:underline">看隔日衝候選（明日焦點）→</Link>
+        </div>
+        <div className="bg-bg-1 border border-border rounded-lg p-3">
+          <div className="text-[13px] font-bold text-txt-1 mb-0.5">✕ 當沖：隔日開盤買 → 日內賣</div>
+          <p className="text-[11px] text-txt-3 leading-relaxed">
+            回測扣成本後<span className="text-txt-1 font-semibold">負期望值</span>、淨勝率 &lt;42%，抱越久越差（開高走低）。這批標的<span className="text-txt-1 font-semibold">不適合當沖做多</span>。
+          </p>
+          <span className="inline-block mt-1.5 text-[11px] text-txt-4">詳見下方「當沖候選日內回測」</span>
+        </div>
+      </div>
+      <p className="text-[10px] text-txt-4 mt-2 leading-relaxed">
+        依 60 天回測與前向戰績閉環（收盤買→隔日開盤有 edge；隔日開盤買→日內賣無 edge）。歷史統計、非投資建議、不保證未來。
+      </p>
+    </div>
+  );
+}
+
 export default function DaytradeClient() {
   const { data, error } = useSWR<Resp>("/api/daytrade", fetcher, {
     revalidateOnFocus: false,
@@ -466,6 +497,9 @@ export default function DaytradeClient() {
               當沖為高風險操作，本頁非投資建議、不構成買賣推薦。
             </p>
           </div>
+
+          {/* 一句話重點結論（edge 在隔夜、不在盤中） */}
+          <KeyInsightCard />
 
           {/* 明日當沖觀察清單（forward） */}
           <DaytradeWatch />
