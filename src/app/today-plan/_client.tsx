@@ -8,6 +8,7 @@ import TopNav from "@/components/TopNav";
 import NavBar from "@/components/NavBar";
 import { SkeletonCardList } from "@/components/Skeleton";
 import { signColor } from "@/lib/format";
+import MarketMoodCard, { type MarketMood } from "@/components/MarketMoodCard";
 
 interface FocusStock {
   code: string;
@@ -20,19 +21,6 @@ interface FocusStock {
   tags: string[];
   streak: number;
   streakRisk?: "low" | "medium" | "high";
-}
-
-interface MarketMood {
-  picksN75: number;
-  overheatLevel: "normal" | "caution" | "hot";
-  moodLevel: "bullish" | "neutral" | "bearish";
-  taiexChg: number;
-  advance: number;
-  decline: number;
-  foreignNet: number;
-  trustNet: number;
-  limitUp: number;
-  limitDown: number;
 }
 
 interface FocusData {
@@ -119,38 +107,7 @@ export default function TodayPlanClient() {
         {!isLoading && !apiError && data && (
           <>
             {/* 市場過熱燈 + 買進日氣氛（誠實勝率脈絡，皆非 look-ahead、純提示不過濾） */}
-            {data.marketMood && (() => {
-              const m = data.marketMood;
-              const oh = m.overheatLevel;
-              const ohStyle = oh === "hot" ? "border-red/30 bg-red/5" : oh === "caution" ? "border-amber/30 bg-amber/5" : "border-green/30 bg-green/5";
-              const ohText = oh === "hot" ? "text-red" : oh === "caution" ? "text-amber" : "text-green";
-              const ohLabel = oh === "hot" ? "市場過熱" : oh === "caution" ? "訊號偏多" : "常態";
-              const ohMsg = oh === "hot"
-                ? `今日 ≥75 分標的 ${m.picksN75} 檔（>25），訊號氾濫、市場過熱，歷史上隔日易齊跌，宜減碼或空手。`
-                : oh === "caution"
-                ? `今日 ≥75 分標的 ${m.picksN75} 檔（16–25），訊號偏多，留意過熱風險。`
-                : `今日 ≥75 分標的 ${m.picksN75} 檔（≤15），為 OOS（逐月留一驗證三月皆正）上隔日期望值較佳的常態區間。`;
-              const moodLabel = m.moodLevel === "bullish" ? "偏強" : m.moodLevel === "bearish" ? "偏弱" : "中性";
-              const moodColor = m.moodLevel === "bullish" ? "text-red" : m.moodLevel === "bearish" ? "text-green" : "text-amber";
-              return (
-                <div className={`border rounded-xl p-4 ${ohStyle}`}>
-                  <div className="flex items-center justify-between flex-wrap gap-2 mb-1.5">
-                    <div className="flex items-center gap-2">
-                      <span className={`text-sm font-bold ${ohText}`}>市場過熱燈：{ohLabel}</span>
-                      <span className="text-[10px] text-txt-4">≥75 分 {m.picksN75} 檔</span>
-                    </div>
-                    <div className="text-[11px] text-txt-3">
-                      今日大盤氣氛 <span className={`font-semibold ${moodColor}`}>{moodLabel}</span>
-                      <span className="text-txt-4"> · 漲 {m.advance}/跌 {m.decline} · 漲停 {m.limitUp}/跌停 {m.limitDown}</span>
-                    </div>
-                  </div>
-                  <p className="text-[11px] text-txt-3 leading-relaxed">{ohMsg}</p>
-                  <p className="text-[10px] text-txt-4 mt-1.5 leading-relaxed">
-                    過熱燈＝今日 ≥75 分標的檔數（買進日即可得，非未來函數）；氣氛燈用今日大盤數字，僅供空手／減碼參考，不反推明日勝率。本平台不採用以「隔日大盤」切分的勝率數字（那是 look-ahead 後見之明）。歷史統計非投資建議、不保證未來。
-                  </p>
-                </div>
-              );
-            })()}
+            {data.marketMood && <MarketMoodCard mood={data.marketMood} />}
 
             {/* R1 規則說明 */}
             <div className="bg-bg-1 border border-border rounded-xl p-5">

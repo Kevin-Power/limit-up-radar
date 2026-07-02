@@ -16,6 +16,7 @@ import {
   type FilterState,
 } from "./_filter-bar";
 import { signColor } from "@/lib/format";
+import MarketMoodCard, { type MarketMood } from "@/components/MarketMoodCard";
 import { NarrativeCard, type Narrative } from "./_narrative";
 import { IndustryFlowHeatmap, type IndustryFlow } from "./_heatmap";
 import { TrackedStockLink } from "./_tracked-link";
@@ -84,6 +85,7 @@ interface FocusData {
   realBacktest?: RealBacktest | null;
   bearishEngulfing?: BearishEngulfingStock[];
   industryFlow?: IndustryFlow;
+  marketMood?: MarketMood;
 }
 
 interface BearishEngulfingStock {
@@ -263,6 +265,9 @@ export default function FocusClient() {
                 <div className="text-[10px] text-txt-4">精選標的</div>
               </div>
             </div>
+
+            {/* 市場過熱燈 + 買進日氣氛（與 /today-plan 同源，已驗證的過熱燈脈絡） */}
+            {data.marketMood && <MarketMoodCard mood={data.marketMood} />}
 
             {/* AI Narrative — produced by Claude Code session */}
             {narrative && (
