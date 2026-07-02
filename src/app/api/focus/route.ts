@@ -436,10 +436,47 @@ export async function GET() {
     matrix,
   };
 
+  // === 市場氣氛（買進日可得、非 look-ahead）===
+  // 兩盞燈，皆為呈現/提示，不改分數、不自動過濾：
+  // 1) 過熱燈：今日 ≥75 分標的檔數(picksN75)。OOS(LOO 三月全正)顯示 ≤15 檔時
+  //    隔日 EV 明顯較高、>25 檔訊號氾濫市場過熱、隔日易齊跌。
+  // 2) 氣氛燈：今日大盤 breadth（漲跌家數/法人/漲停跌停/大盤漲跌），僅供空手減碼參考。
+  const ms = today.market_summary as Record<string, number>;
+  const picksN75 = focusStocks.filter((s) => s.score >= 75).length;
+  const overheatLevel: "normal" | "caution" | "hot" =
+    picksN75 <= 15 ? "normal" : picksN75 <= 25 ? "caution" : "hot";
+  const advance = ms.advance ?? 0;
+  const decline = ms.decline ?? 0;
+  const foreignNet = ms.foreign_net ?? 0;
+  const trustNet = ms.trust_net ?? 0;
+  const limitUp = ms.limit_up_count ?? 0;
+  const limitDown = ms.limit_down_count ?? 0;
+  const taiexChgVal = ms.taiex_change_pct ?? 0;
+  let moodBull = 0;
+  if (taiexChgVal > 0) moodBull++;
+  if (advance > decline) moodBull++;
+  if (foreignNet + trustNet > 0) moodBull++;
+  if (limitUp > limitDown * 2) moodBull++;
+  const moodLevel: "bullish" | "neutral" | "bearish" =
+    moodBull >= 3 ? "bullish" : moodBull <= 1 ? "bearish" : "neutral";
+  const marketMood = {
+    picksN75,
+    overheatLevel,
+    moodLevel,
+    taiexChg: taiexChgVal,
+    advance,
+    decline,
+    foreignNet,
+    trustNet,
+    limitUp,
+    limitDown,
+  };
+
   return NextResponse.json({
     date: today.date,
     taiex: today.market_summary.taiex_close,
     taiexChg: today.market_summary.taiex_change_pct,
+    marketMood,
     totalLimitUp: today.groups.reduce((sum, g) => sum + g.stocks.length, 0),
     trendingGroups: trendingSummary,
     focusStocks,
