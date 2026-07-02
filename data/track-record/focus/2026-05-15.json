@@ -1,0 +1,326 @@
+{
+  "date": "2026-05-15",
+  "capturedFor": "次一交易日",
+  "source": "backfill",
+  "generatedAt": "2026-07-02T02:23:06.250Z",
+  "overnightFormulaVersion": "focus-v1-2026-07-02+scoring-v3.2-2026-06-27",
+  "watchFormulaVersion": "v1-2026-07-01",
+  "revenueFile": "2026-04.json",
+  "overnight": [
+    {
+      "code": "3691",
+      "name": "碩禾",
+      "group": "電子 / 半導體",
+      "score": 94,
+      "close": 152.5,
+      "streak": 1
+    },
+    {
+      "code": "6215",
+      "name": "和椿",
+      "group": "電子 / 半導體",
+      "score": 91,
+      "close": 130.5,
+      "streak": 1
+    },
+    {
+      "code": "3580",
+      "name": "友威科",
+      "group": "電子 / 半導體",
+      "score": 91,
+      "close": 105,
+      "streak": 1
+    },
+    {
+      "code": "8043",
+      "name": "蜜望實",
+      "group": "個股亮點",
+      "score": 86,
+      "close": 113,
+      "streak": 1
+    },
+    {
+      "code": "3090",
+      "name": "日電貿",
+      "group": "電子 / 半導體",
+      "score": 81,
+      "close": 142,
+      "streak": 1
+    },
+    {
+      "code": "8374",
+      "name": "羅昇",
+      "group": "個股亮點",
+      "score": 76,
+      "close": 103,
+      "streak": 1
+    },
+    {
+      "code": "8091",
+      "name": "翔名",
+      "group": "個股亮點",
+      "score": 75,
+      "close": 237,
+      "streak": 2
+    },
+    {
+      "code": "8028",
+      "name": "昇陽半導體",
+      "group": "個股亮點",
+      "score": 71,
+      "close": 287.5,
+      "streak": 2
+    },
+    {
+      "code": "2359",
+      "name": "所羅門",
+      "group": "電子 / 半導體",
+      "score": 66,
+      "close": 135,
+      "streak": 1
+    },
+    {
+      "code": "6147",
+      "name": "頎邦",
+      "group": "電子 / 半導體",
+      "score": 66,
+      "close": 205,
+      "streak": 1
+    },
+    {
+      "code": "4540",
+      "name": "全球傳動",
+      "group": "個股亮點",
+      "score": 66,
+      "close": 70.9,
+      "streak": 1
+    },
+    {
+      "code": "4576",
+      "name": "大銀微系統",
+      "group": "個股亮點",
+      "score": 65,
+      "close": 265.5,
+      "streak": 1
+    },
+    {
+      "code": "3305",
+      "name": "昇貿",
+      "group": "電子 / 半導體",
+      "score": 61,
+      "close": 138.5,
+      "streak": 1
+    },
+    {
+      "code": "3498",
+      "name": "陽程",
+      "group": "電子 / 半導體",
+      "score": 58,
+      "close": 149,
+      "streak": 5
+    },
+    {
+      "code": "3048",
+      "name": "益登",
+      "group": "電子 / 半導體",
+      "score": 57,
+      "close": 56.1,
+      "streak": 2
+    }
+  ],
+  "daytradeWatch": [
+    {
+      "code": "8028",
+      "name": "昇陽半導體",
+      "watchScore": 70,
+      "grade": "high",
+      "lots": 37639,
+      "streak": 2
+    },
+    {
+      "code": "3048",
+      "name": "益登",
+      "watchScore": 70,
+      "grade": "high",
+      "lots": 24416,
+      "streak": 2
+    },
+    {
+      "code": "6147",
+      "name": "頎邦",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 81547,
+      "streak": 1
+    },
+    {
+      "code": "2464",
+      "name": "盟立",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 21760,
+      "streak": 1
+    },
+    {
+      "code": "1727",
+      "name": "中華化",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 21498,
+      "streak": 1
+    },
+    {
+      "code": "3305",
+      "name": "昇貿",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 21193,
+      "streak": 1
+    },
+    {
+      "code": "8043",
+      "name": "蜜望實",
+      "watchScore": 58,
+      "grade": "mid",
+      "lots": 9650,
+      "streak": 1
+    },
+    {
+      "code": "4540",
+      "name": "全球傳動",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 18410,
+      "streak": 1
+    },
+    {
+      "code": "3090",
+      "name": "日電貿",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 14967,
+      "streak": 1
+    },
+    {
+      "code": "6215",
+      "name": "和椿",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 14049,
+      "streak": 1
+    },
+    {
+      "code": "2359",
+      "name": "所羅門",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 10519,
+      "streak": 1
+    },
+    {
+      "code": "6451",
+      "name": "訊芯-KY",
+      "watchScore": 53,
+      "grade": "mid",
+      "lots": 6260,
+      "streak": 2
+    },
+    {
+      "code": "6207",
+      "name": "雷科",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 8955,
+      "streak": 1
+    },
+    {
+      "code": "4576",
+      "name": "大銀微系統",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 8640,
+      "streak": 1
+    },
+    {
+      "code": "6141",
+      "name": "柏承",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 7334,
+      "streak": 1
+    },
+    {
+      "code": "8374",
+      "name": "羅昇",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 7236,
+      "streak": 1
+    },
+    {
+      "code": "3580",
+      "name": "友威科",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 6348,
+      "streak": 1
+    },
+    {
+      "code": "3691",
+      "name": "碩禾",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 5096,
+      "streak": 1
+    },
+    {
+      "code": "3294",
+      "name": "英濟",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 2968,
+      "streak": 2
+    },
+    {
+      "code": "8091",
+      "name": "翔名",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 2859,
+      "streak": 2
+    },
+    {
+      "code": "4562",
+      "name": "穎漢",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3603,
+      "streak": 1
+    },
+    {
+      "code": "8044",
+      "name": "網家",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3525,
+      "streak": 1
+    },
+    {
+      "code": "6227",
+      "name": "茂綸",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2599,
+      "streak": 1
+    },
+    {
+      "code": "9914",
+      "name": "美利達",
+      "watchScore": 23,
+      "grade": "low",
+      "lots": 7274,
+      "streak": 1
+    }
+  ],
+  "notes": "backfill 回溯重建：以現行凍結公式回算歷史。已知限制：categories.json 的處置/權值名單為現況、非當日狀態；月營收檔以「次月10日公布」近似對齊；與真正 forward 定格可能有細微差異，統計時應與 forward 分開呈現。"
+}

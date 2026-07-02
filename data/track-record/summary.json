@@ -1,0 +1,1391 @@
+{
+  "generatedAt": "2026-07-02T02:23:17.522Z",
+  "formulaVersions": {
+    "overnight": [
+      "focus-v1-2026-07-02+scoring-v3.2-2026-06-27"
+    ],
+    "watch": [
+      "v1-2026-07-01"
+    ]
+  },
+  "costAssumptionPct": 0.585,
+  "window": {
+    "from": "2026-03-20",
+    "to": "2026-07-01",
+    "snapshots": 65,
+    "gradedDays": 56,
+    "pendingNextDay": 1,
+    "noIntradayCoverage": 7
+  },
+  "coverage": {
+    "overnight": {
+      "picks": 749,
+      "graded": 677,
+      "gaps": 72
+    },
+    "daytrade": {
+      "rows": 2059,
+      "graded": 1191,
+      "gaps": 868
+    }
+  },
+  "bySource": {
+    "forward": {
+      "gradedDays": 0,
+      "overnight": {
+        "total": {
+          "n": 0,
+          "avgOpenRetPct": null,
+          "medianOpenRetPct": null,
+          "winRateGrossPct": null,
+          "winRateOverCostPct": null
+        },
+        "bands": {
+          "50-59": {
+            "n": 0,
+            "avgOpenRetPct": null,
+            "medianOpenRetPct": null,
+            "winRateGrossPct": null,
+            "winRateOverCostPct": null
+          },
+          "60-74": {
+            "n": 0,
+            "avgOpenRetPct": null,
+            "medianOpenRetPct": null,
+            "winRateGrossPct": null,
+            "winRateOverCostPct": null
+          },
+          "75+": {
+            "n": 0,
+            "avgOpenRetPct": null,
+            "medianOpenRetPct": null,
+            "winRateGrossPct": null,
+            "winRateOverCostPct": null
+          }
+        }
+      },
+      "daytrade": {
+        "total": {
+          "n": 0,
+          "avgAmplitudePct": null,
+          "medianAmplitudePct": null
+        },
+        "grades": {
+          "high": {
+            "n": 0,
+            "avgAmplitudePct": null,
+            "medianAmplitudePct": null
+          },
+          "mid": {
+            "n": 0,
+            "avgAmplitudePct": null,
+            "medianAmplitudePct": null
+          },
+          "low": {
+            "n": 0,
+            "avgAmplitudePct": null,
+            "medianAmplitudePct": null
+          }
+        }
+      }
+    },
+    "backfill": {
+      "gradedDays": 56,
+      "overnight": {
+        "total": {
+          "n": 677,
+          "avgOpenRetPct": 2.84,
+          "medianOpenRetPct": 2.59,
+          "winRateGrossPct": 72.5,
+          "winRateOverCostPct": 68.8
+        },
+        "bands": {
+          "50-59": {
+            "n": 87,
+            "avgOpenRetPct": 2.21,
+            "medianOpenRetPct": 1.8,
+            "winRateGrossPct": 71.3,
+            "winRateOverCostPct": 66.7
+          },
+          "60-74": {
+            "n": 259,
+            "avgOpenRetPct": 2.91,
+            "medianOpenRetPct": 2.51,
+            "winRateGrossPct": 72.2,
+            "winRateOverCostPct": 68.3
+          },
+          "75+": {
+            "n": 331,
+            "avgOpenRetPct": 2.95,
+            "medianOpenRetPct": 2.71,
+            "winRateGrossPct": 73.1,
+            "winRateOverCostPct": 69.8
+          }
+        }
+      },
+      "daytrade": {
+        "total": {
+          "n": 1191,
+          "avgAmplitudePct": 7.76,
+          "medianAmplitudePct": 7.52
+        },
+        "grades": {
+          "high": {
+            "n": 347,
+            "avgAmplitudePct": 7.7,
+            "medianAmplitudePct": 7.48
+          },
+          "mid": {
+            "n": 493,
+            "avgAmplitudePct": 7.69,
+            "medianAmplitudePct": 7.6
+          },
+          "low": {
+            "n": 351,
+            "avgAmplitudePct": 7.9,
+            "medianAmplitudePct": 7.5
+          }
+        }
+      }
+    }
+  },
+  "days": [
+    {
+      "date": "2026-03-20",
+      "nextDate": "2026-03-23",
+      "source": "backfill",
+      "status": "no_intraday_coverage",
+      "overnight": {
+        "picks": 0,
+        "graded": 0,
+        "gaps": 0,
+        "avgOpenRetPct": null,
+        "wins": 0
+      },
+      "daytrade": {
+        "rows": 36,
+        "graded": 0,
+        "gaps": 36,
+        "avgAmplitudePct": null
+      }
+    },
+    {
+      "date": "2026-03-23",
+      "nextDate": "2026-03-24",
+      "source": "backfill",
+      "status": "no_intraday_coverage",
+      "overnight": {
+        "picks": 0,
+        "graded": 0,
+        "gaps": 0,
+        "avgOpenRetPct": null,
+        "wins": 0
+      },
+      "daytrade": {
+        "rows": 5,
+        "graded": 0,
+        "gaps": 5,
+        "avgAmplitudePct": null
+      }
+    },
+    {
+      "date": "2026-03-24",
+      "nextDate": "2026-03-25",
+      "source": "backfill",
+      "status": "no_intraday_coverage",
+      "overnight": {
+        "picks": 1,
+        "graded": 0,
+        "gaps": 1,
+        "avgOpenRetPct": null,
+        "wins": 0
+      },
+      "daytrade": {
+        "rows": 5,
+        "graded": 0,
+        "gaps": 5,
+        "avgAmplitudePct": null
+      }
+    },
+    {
+      "date": "2026-03-25",
+      "nextDate": "2026-03-26",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 2,
+        "graded": 2,
+        "gaps": 0,
+        "avgOpenRetPct": -0.34,
+        "wins": 1
+      },
+      "daytrade": {
+        "rows": 28,
+        "graded": 2,
+        "gaps": 26,
+        "avgAmplitudePct": 4.29
+      }
+    },
+    {
+      "date": "2026-03-26",
+      "nextDate": "2026-03-27",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 1,
+        "graded": 1,
+        "gaps": 0,
+        "avgOpenRetPct": 1.09,
+        "wins": 1
+      },
+      "daytrade": {
+        "rows": 22,
+        "graded": 2,
+        "gaps": 20,
+        "avgAmplitudePct": 9.36
+      }
+    },
+    {
+      "date": "2026-03-27",
+      "nextDate": "2026-03-30",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 4,
+        "graded": 3,
+        "gaps": 1,
+        "avgOpenRetPct": 2.68,
+        "wins": 3
+      },
+      "daytrade": {
+        "rows": 25,
+        "graded": 5,
+        "gaps": 20,
+        "avgAmplitudePct": 8.92
+      }
+    },
+    {
+      "date": "2026-03-30",
+      "nextDate": "2026-03-31",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 4,
+        "graded": 2,
+        "gaps": 2,
+        "avgOpenRetPct": -1.07,
+        "wins": 0
+      },
+      "daytrade": {
+        "rows": 14,
+        "graded": 4,
+        "gaps": 10,
+        "avgAmplitudePct": 11.27
+      }
+    },
+    {
+      "date": "2026-03-31",
+      "nextDate": "2026-04-01",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 0,
+        "graded": 0,
+        "gaps": 0,
+        "avgOpenRetPct": null,
+        "wins": 0
+      },
+      "daytrade": {
+        "rows": 4,
+        "graded": 0,
+        "gaps": 4,
+        "avgAmplitudePct": null
+      }
+    },
+    {
+      "date": "2026-04-01",
+      "nextDate": "2026-04-02",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 2,
+        "graded": 2,
+        "gaps": 0,
+        "avgOpenRetPct": 2.92,
+        "wins": 2
+      },
+      "daytrade": {
+        "rows": 25,
+        "graded": 5,
+        "gaps": 20,
+        "avgAmplitudePct": 6.89
+      }
+    },
+    {
+      "date": "2026-04-02",
+      "nextDate": "2026-04-07",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 3,
+        "graded": 3,
+        "gaps": 0,
+        "avgOpenRetPct": 6.39,
+        "wins": 3
+      },
+      "daytrade": {
+        "rows": 12,
+        "graded": 4,
+        "gaps": 8,
+        "avgAmplitudePct": 12.65
+      }
+    },
+    {
+      "date": "2026-04-07",
+      "nextDate": "2026-04-08",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 3,
+        "graded": 0,
+        "gaps": 3,
+        "avgOpenRetPct": null,
+        "wins": 0
+      },
+      "daytrade": {
+        "rows": 25,
+        "graded": 1,
+        "gaps": 24,
+        "avgAmplitudePct": 4.26
+      }
+    },
+    {
+      "date": "2026-04-08",
+      "nextDate": "2026-04-09",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 6,
+        "graded": 5,
+        "gaps": 1,
+        "avgOpenRetPct": 1.82,
+        "wins": 3
+      },
+      "daytrade": {
+        "rows": 63,
+        "graded": 9,
+        "gaps": 54,
+        "avgAmplitudePct": 6.06
+      }
+    },
+    {
+      "date": "2026-04-09",
+      "nextDate": "2026-04-10",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 9,
+        "graded": 4,
+        "gaps": 5,
+        "avgOpenRetPct": 4.21,
+        "wins": 4
+      },
+      "daytrade": {
+        "rows": 40,
+        "graded": 10,
+        "gaps": 30,
+        "avgAmplitudePct": 9.99
+      }
+    },
+    {
+      "date": "2026-04-10",
+      "nextDate": "2026-04-13",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 14,
+        "gaps": 1,
+        "avgOpenRetPct": 3.37,
+        "wins": 12
+      },
+      "daytrade": {
+        "rows": 38,
+        "graded": 19,
+        "gaps": 19,
+        "avgAmplitudePct": 7.43
+      }
+    },
+    {
+      "date": "2026-04-13",
+      "nextDate": "2026-04-14",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 15,
+        "gaps": 0,
+        "avgOpenRetPct": 3.78,
+        "wins": 12
+      },
+      "daytrade": {
+        "rows": 47,
+        "graded": 22,
+        "gaps": 25,
+        "avgAmplitudePct": 7.6
+      }
+    },
+    {
+      "date": "2026-04-14",
+      "nextDate": "2026-04-15",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 14,
+        "gaps": 1,
+        "avgOpenRetPct": 2.96,
+        "wins": 11
+      },
+      "daytrade": {
+        "rows": 25,
+        "graded": 16,
+        "gaps": 9,
+        "avgAmplitudePct": 7.16
+      }
+    },
+    {
+      "date": "2026-04-15",
+      "nextDate": "2026-04-16",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 13,
+        "gaps": 2,
+        "avgOpenRetPct": 1,
+        "wins": 7
+      },
+      "daytrade": {
+        "rows": 29,
+        "graded": 11,
+        "gaps": 18,
+        "avgAmplitudePct": 8.77
+      }
+    },
+    {
+      "date": "2026-04-16",
+      "nextDate": "2026-04-17",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 13,
+        "graded": 13,
+        "gaps": 0,
+        "avgOpenRetPct": 2.39,
+        "wins": 11
+      },
+      "daytrade": {
+        "rows": 31,
+        "graded": 16,
+        "gaps": 15,
+        "avgAmplitudePct": 7.06
+      }
+    },
+    {
+      "date": "2026-04-17",
+      "nextDate": "2026-04-20",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 15,
+        "gaps": 0,
+        "avgOpenRetPct": 4.06,
+        "wins": 12
+      },
+      "daytrade": {
+        "rows": 38,
+        "graded": 17,
+        "gaps": 21,
+        "avgAmplitudePct": 6.41
+      }
+    },
+    {
+      "date": "2026-04-20",
+      "nextDate": "2026-04-21",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 15,
+        "gaps": 0,
+        "avgOpenRetPct": 3.89,
+        "wins": 14
+      },
+      "daytrade": {
+        "rows": 52,
+        "graded": 24,
+        "gaps": 28,
+        "avgAmplitudePct": 7.57
+      }
+    },
+    {
+      "date": "2026-04-21",
+      "nextDate": "2026-04-22",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 15,
+        "gaps": 0,
+        "avgOpenRetPct": 2.82,
+        "wins": 12
+      },
+      "daytrade": {
+        "rows": 40,
+        "graded": 26,
+        "gaps": 14,
+        "avgAmplitudePct": 7.17
+      }
+    },
+    {
+      "date": "2026-04-22",
+      "nextDate": "2026-04-23",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 15,
+        "gaps": 0,
+        "avgOpenRetPct": 5.06,
+        "wins": 15
+      },
+      "daytrade": {
+        "rows": 50,
+        "graded": 30,
+        "gaps": 20,
+        "avgAmplitudePct": 12.9
+      }
+    },
+    {
+      "date": "2026-04-23",
+      "nextDate": "2026-04-24",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 10,
+        "graded": 7,
+        "gaps": 3,
+        "avgOpenRetPct": 3.01,
+        "wins": 6
+      },
+      "daytrade": {
+        "rows": 15,
+        "graded": 9,
+        "gaps": 6,
+        "avgAmplitudePct": 10.47
+      }
+    },
+    {
+      "date": "2026-04-24",
+      "nextDate": "2026-04-27",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 11,
+        "graded": 10,
+        "gaps": 1,
+        "avgOpenRetPct": 5.59,
+        "wins": 10
+      },
+      "daytrade": {
+        "rows": 19,
+        "graded": 9,
+        "gaps": 10,
+        "avgAmplitudePct": 12.29
+      }
+    },
+    {
+      "date": "2026-04-27",
+      "nextDate": "2026-04-28",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 14,
+        "gaps": 1,
+        "avgOpenRetPct": 0.93,
+        "wins": 10
+      },
+      "daytrade": {
+        "rows": 20,
+        "graded": 10,
+        "gaps": 10,
+        "avgAmplitudePct": 7
+      }
+    },
+    {
+      "date": "2026-04-28",
+      "nextDate": "2026-04-29",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 15,
+        "gaps": 0,
+        "avgOpenRetPct": -0.56,
+        "wins": 6
+      },
+      "daytrade": {
+        "rows": 37,
+        "graded": 15,
+        "gaps": 22,
+        "avgAmplitudePct": 8.64
+      }
+    },
+    {
+      "date": "2026-04-29",
+      "nextDate": "2026-04-30",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 9,
+        "graded": 5,
+        "gaps": 4,
+        "avgOpenRetPct": 1.29,
+        "wins": 2
+      },
+      "daytrade": {
+        "rows": 25,
+        "graded": 7,
+        "gaps": 18,
+        "avgAmplitudePct": 10.14
+      }
+    },
+    {
+      "date": "2026-04-30",
+      "nextDate": "2026-05-04",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 14,
+        "graded": 14,
+        "gaps": 0,
+        "avgOpenRetPct": 5.37,
+        "wins": 14
+      },
+      "daytrade": {
+        "rows": 22,
+        "graded": 14,
+        "gaps": 8,
+        "avgAmplitudePct": 7.97
+      }
+    },
+    {
+      "date": "2026-05-04",
+      "nextDate": "2026-05-05",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 15,
+        "gaps": 0,
+        "avgOpenRetPct": 1.46,
+        "wins": 11
+      },
+      "daytrade": {
+        "rows": 51,
+        "graded": 29,
+        "gaps": 22,
+        "avgAmplitudePct": 6.22
+      }
+    },
+    {
+      "date": "2026-05-05",
+      "nextDate": "2026-05-06",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 15,
+        "gaps": 0,
+        "avgOpenRetPct": 5.75,
+        "wins": 14
+      },
+      "daytrade": {
+        "rows": 40,
+        "graded": 25,
+        "gaps": 15,
+        "avgAmplitudePct": 8.93
+      }
+    },
+    {
+      "date": "2026-05-06",
+      "nextDate": "2026-05-07",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 13,
+        "graded": 12,
+        "gaps": 1,
+        "avgOpenRetPct": 4.32,
+        "wins": 11
+      },
+      "daytrade": {
+        "rows": 20,
+        "graded": 12,
+        "gaps": 8,
+        "avgAmplitudePct": 5.79
+      }
+    },
+    {
+      "date": "2026-05-07",
+      "nextDate": "2026-05-08",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 15,
+        "gaps": 0,
+        "avgOpenRetPct": 0.75,
+        "wins": 7
+      },
+      "daytrade": {
+        "rows": 48,
+        "graded": 21,
+        "gaps": 27,
+        "avgAmplitudePct": 7.94
+      }
+    },
+    {
+      "date": "2026-05-08",
+      "nextDate": "2026-05-11",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 15,
+        "gaps": 0,
+        "avgOpenRetPct": 2.41,
+        "wins": 10
+      },
+      "daytrade": {
+        "rows": 24,
+        "graded": 22,
+        "gaps": 2,
+        "avgAmplitudePct": 6.76
+      }
+    },
+    {
+      "date": "2026-05-11",
+      "nextDate": "2026-05-12",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 15,
+        "gaps": 0,
+        "avgOpenRetPct": 3.5,
+        "wins": 14
+      },
+      "daytrade": {
+        "rows": 59,
+        "graded": 53,
+        "gaps": 6,
+        "avgAmplitudePct": 7.27
+      }
+    },
+    {
+      "date": "2026-05-12",
+      "nextDate": "2026-05-13",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 15,
+        "gaps": 0,
+        "avgOpenRetPct": 0.05,
+        "wins": 5
+      },
+      "daytrade": {
+        "rows": 40,
+        "graded": 35,
+        "gaps": 5,
+        "avgAmplitudePct": 8.56
+      }
+    },
+    {
+      "date": "2026-05-13",
+      "nextDate": "2026-05-14",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 15,
+        "gaps": 0,
+        "avgOpenRetPct": 3.9,
+        "wins": 10
+      },
+      "daytrade": {
+        "rows": 21,
+        "graded": 19,
+        "gaps": 2,
+        "avgAmplitudePct": 7.72
+      }
+    },
+    {
+      "date": "2026-05-14",
+      "nextDate": "2026-05-15",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 15,
+        "gaps": 0,
+        "avgOpenRetPct": 1.6,
+        "wins": 8
+      },
+      "daytrade": {
+        "rows": 28,
+        "graded": 25,
+        "gaps": 3,
+        "avgAmplitudePct": 8.16
+      }
+    },
+    {
+      "date": "2026-05-15",
+      "nextDate": "2026-05-18",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 15,
+        "gaps": 0,
+        "avgOpenRetPct": 0.84,
+        "wins": 8
+      },
+      "daytrade": {
+        "rows": 24,
+        "graded": 20,
+        "gaps": 4,
+        "avgAmplitudePct": 9.47
+      }
+    },
+    {
+      "date": "2026-05-18",
+      "nextDate": "2026-05-20",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 15,
+        "gaps": 0,
+        "avgOpenRetPct": 1.24,
+        "wins": 8
+      },
+      "daytrade": {
+        "rows": 33,
+        "graded": 31,
+        "gaps": 2,
+        "avgAmplitudePct": 8.69
+      }
+    },
+    {
+      "date": "2026-05-20",
+      "nextDate": "2026-05-22",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 15,
+        "gaps": 0,
+        "avgOpenRetPct": 10.01,
+        "wins": 14
+      },
+      "daytrade": {
+        "rows": 33,
+        "graded": 30,
+        "gaps": 3,
+        "avgAmplitudePct": 6.19
+      }
+    },
+    {
+      "date": "2026-05-22",
+      "nextDate": "2026-05-25",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 15,
+        "gaps": 0,
+        "avgOpenRetPct": 6.29,
+        "wins": 15
+      },
+      "daytrade": {
+        "rows": 61,
+        "graded": 55,
+        "gaps": 6,
+        "avgAmplitudePct": 5.16
+      }
+    },
+    {
+      "date": "2026-05-25",
+      "nextDate": "2026-05-27",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 15,
+        "gaps": 0,
+        "avgOpenRetPct": 4.13,
+        "wins": 13
+      },
+      "daytrade": {
+        "rows": 69,
+        "graded": 52,
+        "gaps": 17,
+        "avgAmplitudePct": 8.2
+      }
+    },
+    {
+      "date": "2026-05-27",
+      "nextDate": "2026-05-28",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 14,
+        "graded": 14,
+        "gaps": 0,
+        "avgOpenRetPct": 2.48,
+        "wins": 10
+      },
+      "daytrade": {
+        "rows": 16,
+        "graded": 15,
+        "gaps": 1,
+        "avgAmplitudePct": 7.01
+      }
+    },
+    {
+      "date": "2026-05-28",
+      "nextDate": "2026-05-29",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 14,
+        "graded": 13,
+        "gaps": 1,
+        "avgOpenRetPct": 4.62,
+        "wins": 11
+      },
+      "daytrade": {
+        "rows": 26,
+        "graded": 18,
+        "gaps": 8,
+        "avgAmplitudePct": 8.34
+      }
+    },
+    {
+      "date": "2026-05-29",
+      "nextDate": "2026-06-01",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 15,
+        "gaps": 0,
+        "avgOpenRetPct": 5.61,
+        "wins": 13
+      },
+      "daytrade": {
+        "rows": 43,
+        "graded": 35,
+        "gaps": 8,
+        "avgAmplitudePct": 5.08
+      }
+    },
+    {
+      "date": "2026-06-01",
+      "nextDate": "2026-06-04",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 15,
+        "gaps": 0,
+        "avgOpenRetPct": 1.22,
+        "wins": 7
+      },
+      "daytrade": {
+        "rows": 69,
+        "graded": 53,
+        "gaps": 16,
+        "avgAmplitudePct": 6.5
+      }
+    },
+    {
+      "date": "2026-06-04",
+      "nextDate": "2026-06-05",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 15,
+        "gaps": 0,
+        "avgOpenRetPct": 0.12,
+        "wins": 4
+      },
+      "daytrade": {
+        "rows": 34,
+        "graded": 23,
+        "gaps": 11,
+        "avgAmplitudePct": 9.04
+      }
+    },
+    {
+      "date": "2026-06-05",
+      "nextDate": "2026-06-08",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 13,
+        "gaps": 2,
+        "avgOpenRetPct": -5.95,
+        "wins": 2
+      },
+      "daytrade": {
+        "rows": 24,
+        "graded": 16,
+        "gaps": 8,
+        "avgAmplitudePct": 11.92
+      }
+    },
+    {
+      "date": "2026-06-08",
+      "nextDate": "2026-06-09",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 12,
+        "graded": 12,
+        "gaps": 0,
+        "avgOpenRetPct": 3.75,
+        "wins": 9
+      },
+      "daytrade": {
+        "rows": 16,
+        "graded": 12,
+        "gaps": 4,
+        "avgAmplitudePct": 6.92
+      }
+    },
+    {
+      "date": "2026-06-09",
+      "nextDate": "2026-06-10",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 15,
+        "gaps": 0,
+        "avgOpenRetPct": 0.67,
+        "wins": 6
+      },
+      "daytrade": {
+        "rows": 61,
+        "graded": 37,
+        "gaps": 24,
+        "avgAmplitudePct": 10.45
+      }
+    },
+    {
+      "date": "2026-06-10",
+      "nextDate": "2026-06-11",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 14,
+        "graded": 14,
+        "gaps": 0,
+        "avgOpenRetPct": 0.73,
+        "wins": 7
+      },
+      "daytrade": {
+        "rows": 15,
+        "graded": 13,
+        "gaps": 2,
+        "avgAmplitudePct": 10.27
+      }
+    },
+    {
+      "date": "2026-06-11",
+      "nextDate": "2026-06-12",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 15,
+        "gaps": 0,
+        "avgOpenRetPct": 4.15,
+        "wins": 13
+      },
+      "daytrade": {
+        "rows": 23,
+        "graded": 21,
+        "gaps": 2,
+        "avgAmplitudePct": 7.21
+      }
+    },
+    {
+      "date": "2026-06-12",
+      "nextDate": "2026-06-15",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 15,
+        "gaps": 0,
+        "avgOpenRetPct": 5.84,
+        "wins": 15
+      },
+      "daytrade": {
+        "rows": 41,
+        "graded": 33,
+        "gaps": 8,
+        "avgAmplitudePct": 5.46
+      }
+    },
+    {
+      "date": "2026-06-15",
+      "nextDate": "2026-06-16",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 15,
+        "gaps": 0,
+        "avgOpenRetPct": 2.92,
+        "wins": 14
+      },
+      "daytrade": {
+        "rows": 50,
+        "graded": 44,
+        "gaps": 6,
+        "avgAmplitudePct": 7.9
+      }
+    },
+    {
+      "date": "2026-06-16",
+      "nextDate": "2026-06-17",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 12,
+        "graded": 11,
+        "gaps": 1,
+        "avgOpenRetPct": 0.54,
+        "wins": 5
+      },
+      "daytrade": {
+        "rows": 16,
+        "graded": 10,
+        "gaps": 6,
+        "avgAmplitudePct": 8.35
+      }
+    },
+    {
+      "date": "2026-06-17",
+      "nextDate": "2026-06-18",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 15,
+        "gaps": 0,
+        "avgOpenRetPct": 3.52,
+        "wins": 13
+      },
+      "daytrade": {
+        "rows": 35,
+        "graded": 29,
+        "gaps": 6,
+        "avgAmplitudePct": 5.84
+      }
+    },
+    {
+      "date": "2026-06-18",
+      "nextDate": "2026-06-22",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 15,
+        "gaps": 0,
+        "avgOpenRetPct": 3.93,
+        "wins": 14
+      },
+      "daytrade": {
+        "rows": 42,
+        "graded": 35,
+        "gaps": 7,
+        "avgAmplitudePct": 5.76
+      }
+    },
+    {
+      "date": "2026-06-22",
+      "nextDate": "2026-06-23",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 15,
+        "gaps": 0,
+        "avgOpenRetPct": 2.53,
+        "wins": 13
+      },
+      "daytrade": {
+        "rows": 60,
+        "graded": 50,
+        "gaps": 10,
+        "avgAmplitudePct": 8.82
+      }
+    },
+    {
+      "date": "2026-06-23",
+      "nextDate": "2026-06-24",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 12,
+        "graded": 12,
+        "gaps": 0,
+        "avgOpenRetPct": -0.79,
+        "wins": 3
+      },
+      "daytrade": {
+        "rows": 14,
+        "graded": 10,
+        "gaps": 4,
+        "avgAmplitudePct": 10.05
+      }
+    },
+    {
+      "date": "2026-06-24",
+      "nextDate": "2026-06-25",
+      "source": "backfill",
+      "status": "graded",
+      "overnight": {
+        "picks": 15,
+        "graded": 15,
+        "gaps": 0,
+        "avgOpenRetPct": 4.59,
+        "wins": 13
+      },
+      "daytrade": {
+        "rows": 26,
+        "graded": 21,
+        "gaps": 5,
+        "avgAmplitudePct": 7.7
+      }
+    },
+    {
+      "date": "2026-06-25",
+      "nextDate": "2026-06-26",
+      "source": "backfill",
+      "status": "no_intraday_coverage",
+      "overnight": {
+        "picks": 8,
+        "graded": 0,
+        "gaps": 8,
+        "avgOpenRetPct": null,
+        "wins": 0
+      },
+      "daytrade": {
+        "rows": 21,
+        "graded": 0,
+        "gaps": 21,
+        "avgAmplitudePct": null
+      }
+    },
+    {
+      "date": "2026-06-26",
+      "nextDate": "2026-06-29",
+      "source": "backfill",
+      "status": "no_intraday_coverage",
+      "overnight": {
+        "picks": 6,
+        "graded": 0,
+        "gaps": 6,
+        "avgOpenRetPct": null,
+        "wins": 0
+      },
+      "daytrade": {
+        "rows": 8,
+        "graded": 0,
+        "gaps": 8,
+        "avgAmplitudePct": null
+      }
+    },
+    {
+      "date": "2026-06-29",
+      "nextDate": "2026-06-30",
+      "source": "backfill",
+      "status": "no_intraday_coverage",
+      "overnight": {
+        "picks": 12,
+        "graded": 0,
+        "gaps": 12,
+        "avgOpenRetPct": null,
+        "wins": 0
+      },
+      "daytrade": {
+        "rows": 18,
+        "graded": 0,
+        "gaps": 18,
+        "avgAmplitudePct": null
+      }
+    },
+    {
+      "date": "2026-06-30",
+      "nextDate": "2026-07-01",
+      "source": "backfill",
+      "status": "no_intraday_coverage",
+      "overnight": {
+        "picks": 15,
+        "graded": 0,
+        "gaps": 15,
+        "avgOpenRetPct": null,
+        "wins": 0
+      },
+      "daytrade": {
+        "rows": 58,
+        "graded": 0,
+        "gaps": 58,
+        "avgAmplitudePct": null
+      }
+    },
+    {
+      "date": "2026-07-01",
+      "nextDate": null,
+      "source": "forward",
+      "status": "pending_next_day",
+      "overnight": {
+        "picks": 15,
+        "graded": 0,
+        "gaps": 0,
+        "avgOpenRetPct": null,
+        "wins": 0
+      },
+      "daytrade": {
+        "rows": 31,
+        "graded": 0,
+        "gaps": 0,
+        "avgAmplitudePct": null
+      }
+    }
+  ],
+  "method": "定格日快照（凍結公式、只用當日收盤資訊）以「次一交易日」真實資料結算：隔日衝 = 次日 intraday_cache 第一根 1 分 K 開盤 vs 定格日收盤之毛報酬；當沖觀察 = 次日 1 分 K 振幅(高−低)/開盤（只驗證振幅可預測性，非報酬）。次一交易日以 data/daily 檔序決定；intraday_cache 僅涵蓋部分盤後收錄標的，無收錄者計入 coverage 缺口、不估價（有覆蓋偏差）。forward 與 backfill 分開統計。",
+  "disclosure": "所有報酬與振幅皆為毛數字，未含手續費、證交稅與滑價；勝率（僅隔日衝）另附「毛報酬 > 0.585%」的成本情境欄位。backfill 為以現行凍結公式回溯重建、含名單現況與營收對齊之近似限制，乾淨的 forward 樣本自公式凍結日起才開始累積。本統計非投資建議、不投射未來、不保證績效。"
+}

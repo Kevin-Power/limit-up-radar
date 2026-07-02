@@ -1,0 +1,254 @@
+{
+  "date": "2026-03-25",
+  "capturedFor": "次一交易日",
+  "source": "backfill",
+  "generatedAt": "2026-07-02T02:23:05.977Z",
+  "overnightFormulaVersion": "focus-v1-2026-07-02+scoring-v3.2-2026-06-27",
+  "watchFormulaVersion": "v1-2026-07-01",
+  "revenueFile": null,
+  "overnight": [
+    {
+      "code": "2308",
+      "name": "台達電",
+      "group": "電子 / 半導體",
+      "score": 51,
+      "close": 1550,
+      "streak": 1
+    },
+    {
+      "code": "2345",
+      "name": "智邦",
+      "group": "電子 / 半導體",
+      "score": 51,
+      "close": 1685,
+      "streak": 1
+    }
+  ],
+  "daytradeWatch": [
+    {
+      "code": "2367",
+      "name": "燿華",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 111877,
+      "streak": 1
+    },
+    {
+      "code": "2313",
+      "name": "華通",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 60401,
+      "streak": 1
+    },
+    {
+      "code": "3715",
+      "name": "定穎投控",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 37016,
+      "streak": 1
+    },
+    {
+      "code": "3576",
+      "name": "聯合再生",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 25267,
+      "streak": 1
+    },
+    {
+      "code": "8028",
+      "name": "昇陽半導體",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 23686,
+      "streak": 1
+    },
+    {
+      "code": "2308",
+      "name": "台達電",
+      "watchScore": 50,
+      "grade": "mid",
+      "lots": 16425,
+      "streak": 1
+    },
+    {
+      "code": "2467",
+      "name": "志聖",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 7096,
+      "streak": 1
+    },
+    {
+      "code": "3062",
+      "name": "建漢",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 6578,
+      "streak": 1
+    },
+    {
+      "code": "2455",
+      "name": "全新",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 6575,
+      "streak": 1
+    },
+    {
+      "code": "3006",
+      "name": "晶豪科",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 6360,
+      "streak": 1
+    },
+    {
+      "code": "2345",
+      "name": "智邦",
+      "watchScore": 43,
+      "grade": "mid",
+      "lots": 6912,
+      "streak": 1
+    },
+    {
+      "code": "3189",
+      "name": "景碩",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 4848,
+      "streak": 1
+    },
+    {
+      "code": "3583",
+      "name": "辛耘",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 4616,
+      "streak": 1
+    },
+    {
+      "code": "3026",
+      "name": "禾伸堂",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 4069,
+      "streak": 1
+    },
+    {
+      "code": "2426",
+      "name": "鼎元",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3720,
+      "streak": 1
+    },
+    {
+      "code": "6909",
+      "name": "創控",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2498,
+      "streak": 1
+    },
+    {
+      "code": "6854",
+      "name": "錼創科技-KY創",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2349,
+      "streak": 1
+    },
+    {
+      "code": "4906",
+      "name": "正文",
+      "watchScore": 35,
+      "grade": "low",
+      "lots": 25117,
+      "streak": 1
+    },
+    {
+      "code": "3533",
+      "name": "嘉澤",
+      "watchScore": 33,
+      "grade": "low",
+      "lots": 2972,
+      "streak": 1
+    },
+    {
+      "code": "3563",
+      "name": "牧德",
+      "watchScore": 33,
+      "grade": "low",
+      "lots": 2926,
+      "streak": 1
+    },
+    {
+      "code": "2360",
+      "name": "致茂",
+      "watchScore": 33,
+      "grade": "low",
+      "lots": 2283,
+      "streak": 1
+    },
+    {
+      "code": "6213",
+      "name": "聯茂",
+      "watchScore": 30,
+      "grade": "low",
+      "lots": 10990,
+      "streak": 1
+    },
+    {
+      "code": "8046",
+      "name": "南電",
+      "watchScore": 25,
+      "grade": "low",
+      "lots": 11031,
+      "streak": 1
+    },
+    {
+      "code": "4977",
+      "name": "眾達-KY",
+      "watchScore": 23,
+      "grade": "low",
+      "lots": 6724,
+      "streak": 1
+    },
+    {
+      "code": "3037",
+      "name": "欣興",
+      "watchScore": 18,
+      "grade": "low",
+      "lots": 5287,
+      "streak": 1
+    },
+    {
+      "code": "4720",
+      "name": "德淵",
+      "watchScore": 13,
+      "grade": "low",
+      "lots": 4505,
+      "streak": 1
+    },
+    {
+      "code": "5244",
+      "name": "弘凱",
+      "watchScore": 13,
+      "grade": "low",
+      "lots": 2668,
+      "streak": 1
+    },
+    {
+      "code": "6442",
+      "name": "光聖",
+      "watchScore": 8,
+      "grade": "low",
+      "lots": 2313,
+      "streak": 1
+    }
+  ],
+  "notes": "backfill 回溯重建：以現行凍結公式回算歷史。已知限制：categories.json 的處置/權值名單為現況、非當日狀態；月營收檔以「次月10日公布」近似對齊；與真正 forward 定格可能有細微差異，統計時應與 forward 分開呈現。"
+}

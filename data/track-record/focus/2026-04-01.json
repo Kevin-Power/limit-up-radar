@@ -1,0 +1,230 @@
+{
+  "date": "2026-04-01",
+  "capturedFor": "次一交易日",
+  "source": "backfill",
+  "generatedAt": "2026-07-02T02:23:05.994Z",
+  "overnightFormulaVersion": "focus-v1-2026-07-02+scoring-v3.2-2026-06-27",
+  "watchFormulaVersion": "v1-2026-07-01",
+  "revenueFile": null,
+  "overnight": [
+    {
+      "code": "3711",
+      "name": "日月光投控",
+      "group": "個股亮點",
+      "score": 51,
+      "close": 361,
+      "streak": 1
+    },
+    {
+      "code": "8299",
+      "name": "群聯",
+      "group": "個股亮點",
+      "score": 51,
+      "close": 1650,
+      "streak": 1
+    }
+  ],
+  "daytradeWatch": [
+    {
+      "code": "6919",
+      "name": "康霈*",
+      "watchScore": 70,
+      "grade": "high",
+      "lots": 38090,
+      "streak": 2
+    },
+    {
+      "code": "2409",
+      "name": "友達",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 206250,
+      "streak": 1
+    },
+    {
+      "code": "6147",
+      "name": "頎邦",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 25672,
+      "streak": 1
+    },
+    {
+      "code": "3221",
+      "name": "台嘉碩",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 19159,
+      "streak": 1
+    },
+    {
+      "code": "3711",
+      "name": "日月光投控",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 18680,
+      "streak": 1
+    },
+    {
+      "code": "2337",
+      "name": "旺宏",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 15728,
+      "streak": 1
+    },
+    {
+      "code": "6163",
+      "name": "華電網",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 8279,
+      "streak": 1
+    },
+    {
+      "code": "5475",
+      "name": "德宏",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 6765,
+      "streak": 1
+    },
+    {
+      "code": "3596",
+      "name": "智易",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 5795,
+      "streak": 1
+    },
+    {
+      "code": "3260",
+      "name": "威剛",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 5500,
+      "streak": 1
+    },
+    {
+      "code": "2351",
+      "name": "順德",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 5283,
+      "streak": 1
+    },
+    {
+      "code": "8299",
+      "name": "群聯",
+      "watchScore": 43,
+      "grade": "mid",
+      "lots": 5079,
+      "streak": 1
+    },
+    {
+      "code": "5351",
+      "name": "鈺創",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 4853,
+      "streak": 1
+    },
+    {
+      "code": "6664",
+      "name": "群翊",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2744,
+      "streak": 1
+    },
+    {
+      "code": "2360",
+      "name": "致茂",
+      "watchScore": 33,
+      "grade": "low",
+      "lots": 4415,
+      "streak": 1
+    },
+    {
+      "code": "2345",
+      "name": "智邦",
+      "watchScore": 33,
+      "grade": "low",
+      "lots": 4304,
+      "streak": 1
+    },
+    {
+      "code": "2383",
+      "name": "台光電",
+      "watchScore": 33,
+      "grade": "low",
+      "lots": 3040,
+      "streak": 1
+    },
+    {
+      "code": "6830",
+      "name": "汎銓",
+      "watchScore": 33,
+      "grade": "low",
+      "lots": 2985,
+      "streak": 1
+    },
+    {
+      "code": "3163",
+      "name": "波若威",
+      "watchScore": 33,
+      "grade": "low",
+      "lots": 2842,
+      "streak": 1
+    },
+    {
+      "code": "3665",
+      "name": "貿聯-KY",
+      "watchScore": 33,
+      "grade": "low",
+      "lots": 2713,
+      "streak": 1
+    },
+    {
+      "code": "3081",
+      "name": "聯亞",
+      "watchScore": 33,
+      "grade": "low",
+      "lots": 2031,
+      "streak": 1
+    },
+    {
+      "code": "8215",
+      "name": "明基材",
+      "watchScore": 28,
+      "grade": "low",
+      "lots": 4255,
+      "streak": 1
+    },
+    {
+      "code": "8046",
+      "name": "南電",
+      "watchScore": 25,
+      "grade": "low",
+      "lots": 17700,
+      "streak": 1
+    },
+    {
+      "code": "3037",
+      "name": "欣興",
+      "watchScore": 23,
+      "grade": "low",
+      "lots": 7394,
+      "streak": 1
+    },
+    {
+      "code": "2368",
+      "name": "金像電",
+      "watchScore": 18,
+      "grade": "low",
+      "lots": 7500,
+      "streak": 1
+    }
+  ],
+  "notes": "backfill 回溯重建：以現行凍結公式回算歷史。已知限制：categories.json 的處置/權值名單為現況、非當日狀態；月營收檔以「次月10日公布」近似對齊；與真正 forward 定格可能有細微差異，統計時應與 forward 分開呈現。"
+}

@@ -1,0 +1,406 @@
+{
+  "date": "2026-04-09",
+  "capturedFor": "次一交易日",
+  "source": "backfill",
+  "generatedAt": "2026-07-02T02:23:06.010Z",
+  "overnightFormulaVersion": "focus-v1-2026-07-02+scoring-v3.2-2026-06-27",
+  "watchFormulaVersion": "v1-2026-07-01",
+  "revenueFile": null,
+  "overnight": [
+    {
+      "code": "4764",
+      "name": "雙鍵",
+      "group": "生技 / 醫療器材",
+      "score": 60,
+      "close": 149.5,
+      "streak": 2
+    },
+    {
+      "code": "6226",
+      "name": "光鼎",
+      "group": "電子 / 半導體",
+      "score": 54,
+      "close": 13.5,
+      "streak": 2
+    },
+    {
+      "code": "3066",
+      "name": "李洲",
+      "group": "電子 / 半導體",
+      "score": 54,
+      "close": 20.8,
+      "streak": 2
+    },
+    {
+      "code": "5243",
+      "name": "乙盛-KY",
+      "group": "IC設計 / AI邊緣運算",
+      "score": 52,
+      "close": 113.5,
+      "streak": 2
+    },
+    {
+      "code": "4927",
+      "name": "泰鼎-KY",
+      "group": "光通訊 / 矽光子",
+      "score": 51,
+      "close": 45.4,
+      "streak": 1
+    },
+    {
+      "code": "6141",
+      "name": "柏承",
+      "group": "電子 / 半導體",
+      "score": 50,
+      "close": 24.05,
+      "streak": 2
+    },
+    {
+      "code": "3234",
+      "name": "光環",
+      "group": "電子 / 半導體",
+      "score": 50,
+      "close": 105,
+      "streak": 2
+    },
+    {
+      "code": "6218",
+      "name": "豪勉",
+      "group": "電子 / 半導體",
+      "score": 50,
+      "close": 34.55,
+      "streak": 2
+    },
+    {
+      "code": "8431",
+      "name": "匯鑽科",
+      "group": "個股亮點",
+      "score": 50,
+      "close": 66.8,
+      "streak": 2
+    }
+  ],
+  "daytradeWatch": [
+    {
+      "code": "1717",
+      "name": "長興",
+      "watchScore": 70,
+      "grade": "high",
+      "lots": 106577,
+      "streak": 2
+    },
+    {
+      "code": "2486",
+      "name": "一詮",
+      "watchScore": 70,
+      "grade": "high",
+      "lots": 23819,
+      "streak": 2
+    },
+    {
+      "code": "8064",
+      "name": "東捷",
+      "watchScore": 65,
+      "grade": "high",
+      "lots": 17835,
+      "streak": 2
+    },
+    {
+      "code": "3234",
+      "name": "光環",
+      "watchScore": 65,
+      "grade": "high",
+      "lots": 10597,
+      "streak": 2
+    },
+    {
+      "code": "2409",
+      "name": "友達",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 671935,
+      "streak": 1
+    },
+    {
+      "code": "3714",
+      "name": "富采",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 49594,
+      "streak": 1
+    },
+    {
+      "code": "1785",
+      "name": "光洋科",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 44005,
+      "streak": 1
+    },
+    {
+      "code": "3264",
+      "name": "欣銓",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 27895,
+      "streak": 1
+    },
+    {
+      "code": "8039",
+      "name": "台虹",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 27239,
+      "streak": 1
+    },
+    {
+      "code": "1711",
+      "name": "永光",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 26225,
+      "streak": 1
+    },
+    {
+      "code": "8028",
+      "name": "昇陽半導體",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 24971,
+      "streak": 1
+    },
+    {
+      "code": "2467",
+      "name": "志聖",
+      "watchScore": 58,
+      "grade": "mid",
+      "lots": 6958,
+      "streak": 2
+    },
+    {
+      "code": "6218",
+      "name": "豪勉",
+      "watchScore": 58,
+      "grade": "mid",
+      "lots": 6352,
+      "streak": 2
+    },
+    {
+      "code": "4764",
+      "name": "雙鍵",
+      "watchScore": 58,
+      "grade": "mid",
+      "lots": 5915,
+      "streak": 2
+    },
+    {
+      "code": "4576",
+      "name": "大銀微系統",
+      "watchScore": 58,
+      "grade": "mid",
+      "lots": 5585,
+      "streak": 2
+    },
+    {
+      "code": "8027",
+      "name": "鈦昇",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 19523,
+      "streak": 1
+    },
+    {
+      "code": "6217",
+      "name": "中探針",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 19306,
+      "streak": 1
+    },
+    {
+      "code": "3042",
+      "name": "晶技",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 11945,
+      "streak": 1
+    },
+    {
+      "code": "2316",
+      "name": "楠梓電",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 10863,
+      "streak": 1
+    },
+    {
+      "code": "3049",
+      "name": "精金",
+      "watchScore": 50,
+      "grade": "mid",
+      "lots": 14436,
+      "streak": 1
+    },
+    {
+      "code": "3289",
+      "name": "宜特",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 9161,
+      "streak": 1
+    },
+    {
+      "code": "6152",
+      "name": "百一",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 7853,
+      "streak": 1
+    },
+    {
+      "code": "3498",
+      "name": "陽程",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 5832,
+      "streak": 1
+    },
+    {
+      "code": "3028",
+      "name": "增你強",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 5777,
+      "streak": 1
+    },
+    {
+      "code": "6141",
+      "name": "柏承",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 3434,
+      "streak": 2
+    },
+    {
+      "code": "3066",
+      "name": "李洲",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 2745,
+      "streak": 2
+    },
+    {
+      "code": "8431",
+      "name": "匯鑽科",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 2001,
+      "streak": 2
+    },
+    {
+      "code": "4927",
+      "name": "泰鼎-KY",
+      "watchScore": 45,
+      "grade": "mid",
+      "lots": 16750,
+      "streak": 1
+    },
+    {
+      "code": "8996",
+      "name": "高力",
+      "watchScore": 43,
+      "grade": "mid",
+      "lots": 5061,
+      "streak": 1
+    },
+    {
+      "code": "6226",
+      "name": "光鼎",
+      "watchScore": 43,
+      "grade": "mid",
+      "lots": 4313,
+      "streak": 2
+    },
+    {
+      "code": "6274",
+      "name": "台燿",
+      "watchScore": 40,
+      "grade": "mid",
+      "lots": 11518,
+      "streak": 1
+    },
+    {
+      "code": "4949",
+      "name": "有成精密",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 7551,
+      "streak": 1
+    },
+    {
+      "code": "5457",
+      "name": "宣德",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 4835,
+      "streak": 1
+    },
+    {
+      "code": "3437",
+      "name": "榮創",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 4631,
+      "streak": 1
+    },
+    {
+      "code": "6903",
+      "name": "巨漢",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3709,
+      "streak": 1
+    },
+    {
+      "code": "8091",
+      "name": "翔名",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3653,
+      "streak": 1
+    },
+    {
+      "code": "5243",
+      "name": "乙盛-KY",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3381,
+      "streak": 2
+    },
+    {
+      "code": "6725",
+      "name": "矽科宏晟",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2734,
+      "streak": 1
+    },
+    {
+      "code": "6761",
+      "name": "穩得",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2119,
+      "streak": 1
+    },
+    {
+      "code": "2368",
+      "name": "金像電",
+      "watchScore": 33,
+      "grade": "low",
+      "lots": 9838,
+      "streak": 1
+    }
+  ],
+  "notes": "backfill 回溯重建：以現行凍結公式回算歷史。已知限制：categories.json 的處置/權值名單為現況、非當日狀態；月營收檔以「次月10日公布」近似對齊；與真正 forward 定格可能有細微差異，統計時應與 forward 分開呈現。"
+}

@@ -1,0 +1,294 @@
+{
+  "date": "2026-04-27",
+  "capturedFor": "次一交易日",
+  "source": "backfill",
+  "generatedAt": "2026-07-02T02:23:06.128Z",
+  "overnightFormulaVersion": "focus-v1-2026-07-02+scoring-v3.2-2026-06-27",
+  "watchFormulaVersion": "v1-2026-07-01",
+  "revenueFile": "2026-03.json",
+  "overnight": [
+    {
+      "code": "5289",
+      "name": "宜鼎",
+      "group": "IC設計 / AI邊緣運算",
+      "score": 85,
+      "close": 1190,
+      "streak": 1
+    },
+    {
+      "code": "6781",
+      "name": "AES-KY",
+      "group": "AI伺服器 / 散熱",
+      "score": 79,
+      "close": 1225,
+      "streak": 1
+    },
+    {
+      "code": "3028",
+      "name": "增你強",
+      "group": "電子 / 半導體",
+      "score": 76,
+      "close": 68.6,
+      "streak": 1
+    },
+    {
+      "code": "6265",
+      "name": "方土昶",
+      "group": "電子 / 半導體",
+      "score": 76,
+      "close": 39.4,
+      "streak": 1
+    },
+    {
+      "code": "4973",
+      "name": "廣穎",
+      "group": "光通訊 / 矽光子",
+      "score": 71,
+      "close": 88.1,
+      "streak": 1
+    },
+    {
+      "code": "8103",
+      "name": "瀚荃",
+      "group": "個股亮點",
+      "score": 66,
+      "close": 116.5,
+      "streak": 1
+    },
+    {
+      "code": "8155",
+      "name": "博智",
+      "group": "個股亮點",
+      "score": 66,
+      "close": 416.5,
+      "streak": 1
+    },
+    {
+      "code": "7751",
+      "name": "竑騰",
+      "group": "個股亮點",
+      "score": 62,
+      "close": 2645,
+      "streak": 2
+    },
+    {
+      "code": "2337",
+      "name": "旺宏",
+      "group": "電子 / 半導體",
+      "score": 60,
+      "close": 145,
+      "streak": 1
+    },
+    {
+      "code": "4764",
+      "name": "雙鍵",
+      "group": "生技 / 醫療器材",
+      "score": 60,
+      "close": 218,
+      "streak": 1
+    },
+    {
+      "code": "3054",
+      "name": "立萬利",
+      "group": "電子 / 半導體",
+      "score": 56,
+      "close": 78.1,
+      "streak": 1
+    },
+    {
+      "code": "8455",
+      "name": "大拓-KY",
+      "group": "個股亮點",
+      "score": 55,
+      "close": 24.6,
+      "streak": 2
+    },
+    {
+      "code": "6735",
+      "name": "美達科技",
+      "group": "生技 / 醫療器材",
+      "score": 53,
+      "close": 133.5,
+      "streak": 7
+    },
+    {
+      "code": "2408",
+      "name": "南亞科",
+      "group": "電子 / 半導體",
+      "score": 51,
+      "close": 226.5,
+      "streak": 1
+    },
+    {
+      "code": "3260",
+      "name": "威剛",
+      "group": "電子 / 半導體",
+      "score": 50,
+      "close": 440,
+      "streak": 1
+    }
+  ],
+  "daytradeWatch": [
+    {
+      "code": "2337",
+      "name": "旺宏",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 156086,
+      "streak": 1
+    },
+    {
+      "code": "2408",
+      "name": "南亞科",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 133442,
+      "streak": 1
+    },
+    {
+      "code": "2313",
+      "name": "華通",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 102682,
+      "streak": 1
+    },
+    {
+      "code": "3260",
+      "name": "威剛",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 41872,
+      "streak": 1
+    },
+    {
+      "code": "5483",
+      "name": "中美晶",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 31569,
+      "streak": 1
+    },
+    {
+      "code": "3374",
+      "name": "精材",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 19542,
+      "streak": 1
+    },
+    {
+      "code": "2103",
+      "name": "台橡",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 17691,
+      "streak": 1
+    },
+    {
+      "code": "4927",
+      "name": "泰鼎-KY",
+      "watchScore": 50,
+      "grade": "mid",
+      "lots": 48691,
+      "streak": 1
+    },
+    {
+      "code": "3028",
+      "name": "增你強",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 9343,
+      "streak": 1
+    },
+    {
+      "code": "8155",
+      "name": "博智",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 7615,
+      "streak": 1
+    },
+    {
+      "code": "6265",
+      "name": "方土昶",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 7160,
+      "streak": 1
+    },
+    {
+      "code": "8103",
+      "name": "瀚荃",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 6729,
+      "streak": 1
+    },
+    {
+      "code": "8240",
+      "name": "華宏",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 6113,
+      "streak": 1
+    },
+    {
+      "code": "4973",
+      "name": "廣穎",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 9172,
+      "streak": 1
+    },
+    {
+      "code": "6155",
+      "name": "鈞寶",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2712,
+      "streak": 1
+    },
+    {
+      "code": "6913",
+      "name": "鴻呈",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2416,
+      "streak": 1
+    },
+    {
+      "code": "3176",
+      "name": "基亞",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2314,
+      "streak": 1
+    },
+    {
+      "code": "6435",
+      "name": "大中",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2256,
+      "streak": 1
+    },
+    {
+      "code": "5289",
+      "name": "宜鼎",
+      "watchScore": 23,
+      "grade": "low",
+      "lots": 4371,
+      "streak": 1
+    },
+    {
+      "code": "6781",
+      "name": "AES-KY",
+      "watchScore": 23,
+      "grade": "low",
+      "lots": 3822,
+      "streak": 1
+    }
+  ],
+  "notes": "backfill 回溯重建：以現行凍結公式回算歷史。已知限制：categories.json 的處置/權值名單為現況、非當日狀態；月營收檔以「次月10日公布」近似對齊；與真正 forward 定格可能有細微差異，統計時應與 forward 分開呈現。"
+}

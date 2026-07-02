@@ -1,0 +1,62 @@
+{
+  "date": "2026-03-24",
+  "capturedFor": "次一交易日",
+  "source": "backfill",
+  "generatedAt": "2026-07-02T02:23:05.974Z",
+  "overnightFormulaVersion": "focus-v1-2026-07-02+scoring-v3.2-2026-06-27",
+  "watchFormulaVersion": "v1-2026-07-01",
+  "revenueFile": null,
+  "overnight": [
+    {
+      "code": "6672",
+      "name": "騰輝電子-KY",
+      "group": "個股亮點",
+      "score": 50,
+      "close": 129.5,
+      "streak": 1
+    }
+  ],
+  "daytradeWatch": [
+    {
+      "code": "6168",
+      "name": "宏齊",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 23300,
+      "streak": 1
+    },
+    {
+      "code": "2405",
+      "name": "輔信",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 16819,
+      "streak": 1
+    },
+    {
+      "code": "2484",
+      "name": "希華",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 5088,
+      "streak": 1
+    },
+    {
+      "code": "6672",
+      "name": "騰輝電子-KY",
+      "watchScore": 45,
+      "grade": "mid",
+      "lots": 11120,
+      "streak": 1
+    },
+    {
+      "code": "7610",
+      "name": "聯友金屬-創",
+      "watchScore": 28,
+      "grade": "low",
+      "lots": 2036,
+      "streak": 1
+    }
+  ],
+  "notes": "backfill 回溯重建：以現行凍結公式回算歷史。已知限制：categories.json 的處置/權值名單為現況、非當日狀態；月營收檔以「次月10日公布」近似對齊；與真正 forward 定格可能有細微差異，統計時應與 forward 分開呈現。"
+}

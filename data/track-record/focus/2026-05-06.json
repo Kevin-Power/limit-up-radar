@@ -1,0 +1,278 @@
+{
+  "date": "2026-05-06",
+  "capturedFor": "次一交易日",
+  "source": "backfill",
+  "generatedAt": "2026-07-02T02:23:06.183Z",
+  "overnightFormulaVersion": "focus-v1-2026-07-02+scoring-v3.2-2026-06-27",
+  "watchFormulaVersion": "v1-2026-07-01",
+  "revenueFile": "2026-03.json",
+  "overnight": [
+    {
+      "code": "8299",
+      "name": "群聯",
+      "group": "個股亮點",
+      "score": 86,
+      "close": 2325,
+      "streak": 1
+    },
+    {
+      "code": "3028",
+      "name": "增你強",
+      "group": "電子 / 半導體",
+      "score": 76,
+      "close": 76.5,
+      "streak": 1
+    },
+    {
+      "code": "6108",
+      "name": "競國",
+      "group": "電子 / 半導體",
+      "score": 66,
+      "close": 22,
+      "streak": 1
+    },
+    {
+      "code": "3390",
+      "name": "旭軟",
+      "group": "電子 / 半導體",
+      "score": 66,
+      "close": 28.05,
+      "streak": 1
+    },
+    {
+      "code": "5464",
+      "name": "霖宏",
+      "group": "個股亮點",
+      "score": 62,
+      "close": 43.35,
+      "streak": 2
+    },
+    {
+      "code": "3533",
+      "name": "嘉澤",
+      "group": "電子 / 半導體",
+      "score": 61,
+      "close": 2735,
+      "streak": 1
+    },
+    {
+      "code": "3054",
+      "name": "立萬利",
+      "group": "電子 / 半導體",
+      "score": 56,
+      "close": 73.8,
+      "streak": 1
+    },
+    {
+      "code": "6229",
+      "name": "研通",
+      "group": "電子 / 半導體",
+      "score": 56,
+      "close": 28.45,
+      "streak": 1
+    },
+    {
+      "code": "2230",
+      "name": "泰茂",
+      "group": "個股亮點",
+      "score": 56,
+      "close": 31.9,
+      "streak": 1
+    },
+    {
+      "code": "8215",
+      "name": "明基材",
+      "group": "塑化 / 化工",
+      "score": 52,
+      "close": 31.2,
+      "streak": 2
+    },
+    {
+      "code": "2344",
+      "name": "華邦電",
+      "group": "電子 / 半導體",
+      "score": 51,
+      "close": 108.5,
+      "streak": 1
+    },
+    {
+      "code": "2408",
+      "name": "南亞科",
+      "group": "電子 / 半導體",
+      "score": 50,
+      "close": 282,
+      "streak": 1
+    },
+    {
+      "code": "2491",
+      "name": "吉祥全",
+      "group": "電子 / 半導體",
+      "score": 50,
+      "close": 19.05,
+      "streak": 2
+    }
+  ],
+  "daytradeWatch": [
+    {
+      "code": "2354",
+      "name": "鴻準",
+      "watchScore": 70,
+      "grade": "high",
+      "lots": 83281,
+      "streak": 2
+    },
+    {
+      "code": "3026",
+      "name": "禾伸堂",
+      "watchScore": 70,
+      "grade": "high",
+      "lots": 21608,
+      "streak": 2
+    },
+    {
+      "code": "2303",
+      "name": "聯電",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 256466,
+      "streak": 1
+    },
+    {
+      "code": "2344",
+      "name": "華邦電",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 241792,
+      "streak": 1
+    },
+    {
+      "code": "2408",
+      "name": "南亞科",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 149469,
+      "streak": 1
+    },
+    {
+      "code": "3033",
+      "name": "威健",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 51739,
+      "streak": 1
+    },
+    {
+      "code": "5347",
+      "name": "世界",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 45565,
+      "streak": 1
+    },
+    {
+      "code": "6173",
+      "name": "信昌電",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 36108,
+      "streak": 1
+    },
+    {
+      "code": "3006",
+      "name": "晶豪科",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 33684,
+      "streak": 1
+    },
+    {
+      "code": "6108",
+      "name": "競國",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 10594,
+      "streak": 1
+    },
+    {
+      "code": "8299",
+      "name": "群聯",
+      "watchScore": 50,
+      "grade": "mid",
+      "lots": 12286,
+      "streak": 1
+    },
+    {
+      "code": "8215",
+      "name": "明基材",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 8643,
+      "streak": 2
+    },
+    {
+      "code": "3094",
+      "name": "聯傑",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 7113,
+      "streak": 1
+    },
+    {
+      "code": "3028",
+      "name": "增你強",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 6699,
+      "streak": 1
+    },
+    {
+      "code": "3390",
+      "name": "旭軟",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 5006,
+      "streak": 1
+    },
+    {
+      "code": "4556",
+      "name": "旭然",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 2324,
+      "streak": 2
+    },
+    {
+      "code": "2491",
+      "name": "吉祥全",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 2299,
+      "streak": 2
+    },
+    {
+      "code": "6526",
+      "name": "達發",
+      "watchScore": 43,
+      "grade": "mid",
+      "lots": 5120,
+      "streak": 1
+    },
+    {
+      "code": "3661",
+      "name": "世芯-KY",
+      "watchScore": 33,
+      "grade": "low",
+      "lots": 3305,
+      "streak": 1
+    },
+    {
+      "code": "3533",
+      "name": "嘉澤",
+      "watchScore": 33,
+      "grade": "low",
+      "lots": 2293,
+      "streak": 1
+    }
+  ],
+  "notes": "backfill 回溯重建：以現行凍結公式回算歷史。已知限制：categories.json 的處置/權值名單為現況、非當日狀態；月營收檔以「次月10日公布」近似對齊；與真正 forward 定格可能有細微差異，統計時應與 forward 分開呈現。"
+}

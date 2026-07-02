@@ -1,0 +1,326 @@
+{
+  "date": "2026-05-08",
+  "capturedFor": "次一交易日",
+  "source": "backfill",
+  "generatedAt": "2026-07-02T02:23:06.201Z",
+  "overnightFormulaVersion": "focus-v1-2026-07-02+scoring-v3.2-2026-06-27",
+  "watchFormulaVersion": "v1-2026-07-01",
+  "revenueFile": "2026-03.json",
+  "overnight": [
+    {
+      "code": "8210",
+      "name": "勤誠",
+      "group": "AI伺服器 / 散熱",
+      "score": 94,
+      "close": 1415,
+      "streak": 1
+    },
+    {
+      "code": "3709",
+      "name": "鑫聯大投控",
+      "group": "個股亮點",
+      "score": 91,
+      "close": 92.9,
+      "streak": 1
+    },
+    {
+      "code": "4749",
+      "name": "新應材",
+      "group": "生技 / 醫療器材",
+      "score": 91,
+      "close": 1085,
+      "streak": 1
+    },
+    {
+      "code": "6426",
+      "name": "統新",
+      "group": "光通訊 / 矽光子",
+      "score": 89,
+      "close": 262,
+      "streak": 1
+    },
+    {
+      "code": "2305",
+      "name": "全友",
+      "group": "電子 / 半導體",
+      "score": 76,
+      "close": 17.8,
+      "streak": 1
+    },
+    {
+      "code": "3036",
+      "name": "文曄",
+      "group": "電子 / 半導體",
+      "score": 76,
+      "close": 240.5,
+      "streak": 1
+    },
+    {
+      "code": "6446",
+      "name": "藥華藥",
+      "group": "生技 / 醫療器材",
+      "score": 76,
+      "close": 724,
+      "streak": 1
+    },
+    {
+      "code": "6834",
+      "name": "天二科技",
+      "group": "個股亮點",
+      "score": 75,
+      "close": 48.1,
+      "streak": 2
+    },
+    {
+      "code": "6532",
+      "name": "瑞耘",
+      "group": "電子 / 半導體",
+      "score": 69,
+      "close": 114,
+      "streak": 2
+    },
+    {
+      "code": "6509",
+      "name": "聚和",
+      "group": "電子 / 半導體",
+      "score": 66,
+      "close": 44.65,
+      "streak": 1
+    },
+    {
+      "code": "3702",
+      "name": "大聯大",
+      "group": "個股亮點",
+      "score": 66,
+      "close": 113.5,
+      "streak": 1
+    },
+    {
+      "code": "2379",
+      "name": "瑞昱",
+      "group": "IC設計 / AI邊緣運算",
+      "score": 66,
+      "close": 592,
+      "streak": 1
+    },
+    {
+      "code": "4966",
+      "name": "譜瑞-KY",
+      "group": "光通訊 / 矽光子",
+      "score": 66,
+      "close": 669,
+      "streak": 1
+    },
+    {
+      "code": "2059",
+      "name": "川湖",
+      "group": "鋼鐵 / 金屬",
+      "score": 64,
+      "close": 5320,
+      "streak": 2
+    },
+    {
+      "code": "5228",
+      "name": "鈺鎧",
+      "group": "IC設計 / AI邊緣運算",
+      "score": 62,
+      "close": 39.95,
+      "streak": 2
+    }
+  ],
+  "daytradeWatch": [
+    {
+      "code": "6278",
+      "name": "台表科",
+      "watchScore": 70,
+      "grade": "high",
+      "lots": 30433,
+      "streak": 2
+    },
+    {
+      "code": "3374",
+      "name": "精材",
+      "watchScore": 70,
+      "grade": "high",
+      "lots": 27774,
+      "streak": 1
+    },
+    {
+      "code": "2464",
+      "name": "盟立",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 55247,
+      "streak": 1
+    },
+    {
+      "code": "3702",
+      "name": "大聯大",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 25184,
+      "streak": 1
+    },
+    {
+      "code": "3034",
+      "name": "聯詠",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 20156,
+      "streak": 1
+    },
+    {
+      "code": "3709",
+      "name": "鑫聯大投控",
+      "watchScore": 58,
+      "grade": "mid",
+      "lots": 9341,
+      "streak": 1
+    },
+    {
+      "code": "6509",
+      "name": "聚和",
+      "watchScore": 58,
+      "grade": "mid",
+      "lots": 8981,
+      "streak": 1
+    },
+    {
+      "code": "6834",
+      "name": "天二科技",
+      "watchScore": 58,
+      "grade": "mid",
+      "lots": 5907,
+      "streak": 2
+    },
+    {
+      "code": "6532",
+      "name": "瑞耘",
+      "watchScore": 58,
+      "grade": "mid",
+      "lots": 5207,
+      "streak": 2
+    },
+    {
+      "code": "2351",
+      "name": "順德",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 14140,
+      "streak": 1
+    },
+    {
+      "code": "2472",
+      "name": "立隆電",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 10763,
+      "streak": 1
+    },
+    {
+      "code": "2305",
+      "name": "全友",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 9100,
+      "streak": 1
+    },
+    {
+      "code": "6695",
+      "name": "芯鼎",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 7376,
+      "streak": 1
+    },
+    {
+      "code": "3036",
+      "name": "文曄",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 6029,
+      "streak": 1
+    },
+    {
+      "code": "4722",
+      "name": "國精化",
+      "watchScore": 45,
+      "grade": "mid",
+      "lots": 10765,
+      "streak": 1
+    },
+    {
+      "code": "2379",
+      "name": "瑞昱",
+      "watchScore": 43,
+      "grade": "mid",
+      "lots": 9246,
+      "streak": 1
+    },
+    {
+      "code": "4749",
+      "name": "新應材",
+      "watchScore": 43,
+      "grade": "mid",
+      "lots": 6148,
+      "streak": 1
+    },
+    {
+      "code": "4966",
+      "name": "譜瑞-KY",
+      "watchScore": 43,
+      "grade": "mid",
+      "lots": 5563,
+      "streak": 1
+    },
+    {
+      "code": "6426",
+      "name": "統新",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 6006,
+      "streak": 1
+    },
+    {
+      "code": "8114",
+      "name": "振樺電",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3262,
+      "streak": 1
+    },
+    {
+      "code": "5258",
+      "name": "虹堡",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2531,
+      "streak": 1
+    },
+    {
+      "code": "7712",
+      "name": "博盛半導體",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2129,
+      "streak": 1
+    },
+    {
+      "code": "8210",
+      "name": "勤誠",
+      "watchScore": 33,
+      "grade": "low",
+      "lots": 6156,
+      "streak": 1
+    },
+    {
+      "code": "6446",
+      "name": "藥華藥",
+      "watchScore": 33,
+      "grade": "low",
+      "lots": 6129,
+      "streak": 1
+    }
+  ],
+  "notes": "backfill 回溯重建：以現行凍結公式回算歷史。已知限制：categories.json 的處置/權值名單為現況、非當日狀態；月營收檔以「次月10日公布」近似對齊；與真正 forward 定格可能有細微差異，統計時應與 forward 分開呈現。"
+}

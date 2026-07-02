@@ -1,0 +1,366 @@
+{
+  "date": "2026-04-16",
+  "capturedFor": "次一交易日",
+  "source": "backfill",
+  "generatedAt": "2026-07-02T02:23:06.059Z",
+  "overnightFormulaVersion": "focus-v1-2026-07-02+scoring-v3.2-2026-06-27",
+  "watchFormulaVersion": "v1-2026-07-01",
+  "revenueFile": "2026-03.json",
+  "overnight": [
+    {
+      "code": "6829",
+      "name": "千附精密",
+      "group": "個股亮點",
+      "score": 81,
+      "close": 179.5,
+      "streak": 2
+    },
+    {
+      "code": "6163",
+      "name": "華電網",
+      "group": "電子 / 半導體",
+      "score": 76,
+      "close": 67.2,
+      "streak": 1
+    },
+    {
+      "code": "4714",
+      "name": "永捷",
+      "group": "生技 / 醫療器材",
+      "score": 76,
+      "close": 15.7,
+      "streak": 1
+    },
+    {
+      "code": "6657",
+      "name": "華安",
+      "group": "電子 / 半導體",
+      "score": 71,
+      "close": 49.65,
+      "streak": 1
+    },
+    {
+      "code": "6462",
+      "name": "神盾",
+      "group": "生技 / 醫療器材",
+      "score": 71,
+      "close": 116.5,
+      "streak": 1
+    },
+    {
+      "code": "6174",
+      "name": "安碁",
+      "group": "電子 / 半導體",
+      "score": 61,
+      "close": 27.3,
+      "streak": 1
+    },
+    {
+      "code": "5269",
+      "name": "祥碩",
+      "group": "IC設計 / AI邊緣運算",
+      "score": 61,
+      "close": 1290,
+      "streak": 1
+    },
+    {
+      "code": "4979",
+      "name": "華星光",
+      "group": "光通訊 / 矽光子",
+      "score": 60,
+      "close": 586,
+      "streak": 2
+    },
+    {
+      "code": "4905",
+      "name": "台聯電",
+      "group": "光通訊 / 矽光子",
+      "score": 59,
+      "close": 93.1,
+      "streak": 2
+    },
+    {
+      "code": "8092",
+      "name": "建暐",
+      "group": "個股亮點",
+      "score": 56,
+      "close": 12.95,
+      "streak": 1
+    },
+    {
+      "code": "8227",
+      "name": "巨有科技",
+      "group": "個股亮點",
+      "score": 56,
+      "close": 136,
+      "streak": 1
+    },
+    {
+      "code": "3388",
+      "name": "崇越電",
+      "group": "電子 / 半導體",
+      "score": 52,
+      "close": 90.3,
+      "streak": 2
+    },
+    {
+      "code": "8046",
+      "name": "南電",
+      "group": "PCB / CCL基板",
+      "score": 51,
+      "close": 721,
+      "streak": 1
+    }
+  ],
+  "daytradeWatch": [
+    {
+      "code": "3576",
+      "name": "聯合再生",
+      "watchScore": 70,
+      "grade": "high",
+      "lots": 47112,
+      "streak": 2
+    },
+    {
+      "code": "4979",
+      "name": "華星光",
+      "watchScore": 65,
+      "grade": "high",
+      "lots": 32234,
+      "streak": 2
+    },
+    {
+      "code": "2303",
+      "name": "聯電",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 282525,
+      "streak": 1
+    },
+    {
+      "code": "6285",
+      "name": "啟碁",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 53386,
+      "streak": 1
+    },
+    {
+      "code": "8150",
+      "name": "南茂",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 50429,
+      "streak": 1
+    },
+    {
+      "code": "3105",
+      "name": "穩懋",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 50051,
+      "streak": 1
+    },
+    {
+      "code": "5498",
+      "name": "凱崴",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 25885,
+      "streak": 1
+    },
+    {
+      "code": "2312",
+      "name": "金寶",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 23713,
+      "streak": 1
+    },
+    {
+      "code": "6173",
+      "name": "信昌電",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 23699,
+      "streak": 1
+    },
+    {
+      "code": "2363",
+      "name": "矽統",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 22414,
+      "streak": 1
+    },
+    {
+      "code": "6530",
+      "name": "創威",
+      "watchScore": 58,
+      "grade": "mid",
+      "lots": 5785,
+      "streak": 2
+    },
+    {
+      "code": "6829",
+      "name": "千附精密",
+      "watchScore": 58,
+      "grade": "mid",
+      "lots": 5339,
+      "streak": 2
+    },
+    {
+      "code": "9105",
+      "name": "泰金寶-DR",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 32137,
+      "streak": 1
+    },
+    {
+      "code": "6163",
+      "name": "華電網",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 18365,
+      "streak": 1
+    },
+    {
+      "code": "2484",
+      "name": "希華",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 17634,
+      "streak": 1
+    },
+    {
+      "code": "4939",
+      "name": "亞電",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 14685,
+      "streak": 1
+    },
+    {
+      "code": "2340",
+      "name": "台亞",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 11175,
+      "streak": 1
+    },
+    {
+      "code": "5340",
+      "name": "建榮",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 10540,
+      "streak": 1
+    },
+    {
+      "code": "6415",
+      "name": "矽力*-KY",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 10538,
+      "streak": 1
+    },
+    {
+      "code": "4977",
+      "name": "眾達-KY",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 7590,
+      "streak": 1
+    },
+    {
+      "code": "4714",
+      "name": "永捷",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 5588,
+      "streak": 1
+    },
+    {
+      "code": "8046",
+      "name": "南電",
+      "watchScore": 45,
+      "grade": "mid",
+      "lots": 21809,
+      "streak": 1
+    },
+    {
+      "code": "3518",
+      "name": "柏騰",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 4188,
+      "streak": 1
+    },
+    {
+      "code": "8182",
+      "name": "加高",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3912,
+      "streak": 1
+    },
+    {
+      "code": "6462",
+      "name": "神盾",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3499,
+      "streak": 1
+    },
+    {
+      "code": "6174",
+      "name": "安碁",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3359,
+      "streak": 1
+    },
+    {
+      "code": "8289",
+      "name": "泰藝",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3213,
+      "streak": 1
+    },
+    {
+      "code": "1595",
+      "name": "川寶",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2414,
+      "streak": 1
+    },
+    {
+      "code": "6657",
+      "name": "華安",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2021,
+      "streak": 1
+    },
+    {
+      "code": "3049",
+      "name": "精金",
+      "watchScore": 25,
+      "grade": "low",
+      "lots": 14571,
+      "streak": 1
+    },
+    {
+      "code": "5269",
+      "name": "祥碩",
+      "watchScore": 23,
+      "grade": "low",
+      "lots": 2262,
+      "streak": 1
+    }
+  ],
+  "notes": "backfill 回溯重建：以現行凍結公式回算歷史。已知限制：categories.json 的處置/權值名單為現況、非當日狀態；月營收檔以「次月10日公布」近似對齊；與真正 forward 定格可能有細微差異，統計時應與 forward 分開呈現。"
+}

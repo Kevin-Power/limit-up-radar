@@ -1,0 +1,222 @@
+{
+  "date": "2026-06-23",
+  "capturedFor": "次一交易日",
+  "source": "backfill",
+  "generatedAt": "2026-07-02T02:23:06.440Z",
+  "overnightFormulaVersion": "focus-v1-2026-07-02+scoring-v3.2-2026-06-27",
+  "watchFormulaVersion": "v1-2026-07-01",
+  "revenueFile": "2026-05.json",
+  "overnight": [
+    {
+      "code": "8054",
+      "name": "安國",
+      "group": "個股亮點",
+      "score": 110,
+      "close": 124.5,
+      "streak": 2
+    },
+    {
+      "code": "8040",
+      "name": "九暘",
+      "group": "個股亮點",
+      "score": 104,
+      "close": 114,
+      "streak": 2
+    },
+    {
+      "code": "5302",
+      "name": "太欣",
+      "group": "個股亮點",
+      "score": 86,
+      "close": 13.85,
+      "streak": 1
+    },
+    {
+      "code": "6907",
+      "name": "雅特力-KY",
+      "group": "個股亮點",
+      "score": 86,
+      "close": 160,
+      "streak": 1
+    },
+    {
+      "code": "4147",
+      "name": "中裕",
+      "group": "生技 / 醫療器材",
+      "score": 86,
+      "close": 63.4,
+      "streak": 1
+    },
+    {
+      "code": "3707",
+      "name": "漢磊",
+      "group": "個股亮點",
+      "score": 85,
+      "close": 100.5,
+      "streak": 2
+    },
+    {
+      "code": "3374",
+      "name": "精材",
+      "group": "電子 / 半導體",
+      "score": 75,
+      "close": 303.5,
+      "streak": 2
+    },
+    {
+      "code": "3066",
+      "name": "李洲",
+      "group": "電子 / 半導體",
+      "score": 71,
+      "close": 24.25,
+      "streak": 1
+    },
+    {
+      "code": "8438",
+      "name": "昶昕",
+      "group": "個股亮點",
+      "score": 61,
+      "close": 101,
+      "streak": 1
+    },
+    {
+      "code": "4577",
+      "name": "達航科技",
+      "group": "個股亮點",
+      "score": 60,
+      "close": 105.5,
+      "streak": 2
+    },
+    {
+      "code": "3672",
+      "name": "康聯訊",
+      "group": "電子 / 半導體",
+      "score": 56,
+      "close": 13.05,
+      "streak": 1
+    },
+    {
+      "code": "5464",
+      "name": "霖宏",
+      "group": "個股亮點",
+      "score": 52,
+      "close": 89.1,
+      "streak": 2
+    }
+  ],
+  "daytradeWatch": [
+    {
+      "code": "3707",
+      "name": "漢磊",
+      "watchScore": 80,
+      "grade": "high",
+      "lots": 45967,
+      "streak": 2
+    },
+    {
+      "code": "3374",
+      "name": "精材",
+      "watchScore": 80,
+      "grade": "high",
+      "lots": 28598,
+      "streak": 2
+    },
+    {
+      "code": "8054",
+      "name": "安國",
+      "watchScore": 75,
+      "grade": "high",
+      "lots": 12742,
+      "streak": 2
+    },
+    {
+      "code": "6168",
+      "name": "宏齊",
+      "watchScore": 70,
+      "grade": "high",
+      "lots": 20858,
+      "streak": 2
+    },
+    {
+      "code": "8040",
+      "name": "九暘",
+      "watchScore": 58,
+      "grade": "mid",
+      "lots": 8103,
+      "streak": 2
+    },
+    {
+      "code": "6525",
+      "name": "捷敏-KY",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 10989,
+      "streak": 1
+    },
+    {
+      "code": "3230",
+      "name": "錦明",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 6068,
+      "streak": 1
+    },
+    {
+      "code": "2369",
+      "name": "菱生",
+      "watchScore": 45,
+      "grade": "mid",
+      "lots": 83496,
+      "streak": 2
+    },
+    {
+      "code": "4147",
+      "name": "中裕",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3855,
+      "streak": 1
+    },
+    {
+      "code": "6907",
+      "name": "雅特力-KY",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3217,
+      "streak": 1
+    },
+    {
+      "code": "8438",
+      "name": "昶昕",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2216,
+      "streak": 1
+    },
+    {
+      "code": "5302",
+      "name": "太欣",
+      "watchScore": 33,
+      "grade": "low",
+      "lots": 4980,
+      "streak": 1
+    },
+    {
+      "code": "6226",
+      "name": "光鼎",
+      "watchScore": 33,
+      "grade": "low",
+      "lots": 4966,
+      "streak": 1
+    },
+    {
+      "code": "6683",
+      "name": "雍智科技",
+      "watchScore": 8,
+      "grade": "low",
+      "lots": 2490,
+      "streak": 1
+    }
+  ],
+  "notes": "backfill 回溯重建：以現行凍結公式回算歷史。已知限制：categories.json 的處置/權值名單為現況、非當日狀態；月營收檔以「次月10日公布」近似對齊；與真正 forward 定格可能有細微差異，統計時應與 forward 分開呈現。"
+}

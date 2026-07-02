@@ -46,6 +46,7 @@ const RAW: Record<NavGroupKey, [string, string][]> = {
     ["策略監控", "/strategy-monitor"],
     ["策略回測", "/backtest"],
     ["統計分析", "/stats"],
+    ["戰績紀錄", "/track-record"],
   ],
   swing: [
     ["族群強弱", "/sectors"],

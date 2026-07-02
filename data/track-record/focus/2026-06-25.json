@@ -1,0 +1,246 @@
+{
+  "date": "2026-06-25",
+  "capturedFor": "次一交易日",
+  "source": "backfill",
+  "generatedAt": "2026-07-02T02:23:06.458Z",
+  "overnightFormulaVersion": "focus-v1-2026-07-02+scoring-v3.2-2026-06-27",
+  "watchFormulaVersion": "v1-2026-07-01",
+  "revenueFile": "2026-05.json",
+  "overnight": [
+    {
+      "code": "3037",
+      "name": "欣興",
+      "group": "PCB / CCL基板",
+      "score": 86,
+      "close": 1020,
+      "streak": 1
+    },
+    {
+      "code": "2363",
+      "name": "矽統",
+      "group": "電子 / 半導體",
+      "score": 83,
+      "close": 76.1,
+      "streak": 1
+    },
+    {
+      "code": "2425",
+      "name": "承啟",
+      "group": "電子 / 半導體",
+      "score": 76,
+      "close": 42.35,
+      "streak": 1
+    },
+    {
+      "code": "2472",
+      "name": "立隆電",
+      "group": "電子 / 半導體",
+      "score": 76,
+      "close": 397,
+      "streak": 1
+    },
+    {
+      "code": "5210",
+      "name": "寶碩",
+      "group": "IC設計 / AI邊緣運算",
+      "score": 71,
+      "close": 33.25,
+      "streak": 1
+    },
+    {
+      "code": "8071",
+      "name": "能率網通",
+      "group": "個股亮點",
+      "score": 66,
+      "close": 30.8,
+      "streak": 1
+    },
+    {
+      "code": "6672",
+      "name": "騰輝電子-KY",
+      "group": "個股亮點",
+      "score": 66,
+      "close": 289.5,
+      "streak": 1
+    },
+    {
+      "code": "6584",
+      "name": "南俊國際",
+      "group": "電子 / 半導體",
+      "score": 61,
+      "close": 728,
+      "streak": 1
+    }
+  ],
+  "daytradeWatch": [
+    {
+      "code": "2363",
+      "name": "矽統",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 74311,
+      "streak": 1
+    },
+    {
+      "code": "8110",
+      "name": "華東",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 58008,
+      "streak": 1
+    },
+    {
+      "code": "3236",
+      "name": "千如",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 21461,
+      "streak": 1
+    },
+    {
+      "code": "1718",
+      "name": "中纖",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 54273,
+      "streak": 1
+    },
+    {
+      "code": "3037",
+      "name": "欣興",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 34425,
+      "streak": 1
+    },
+    {
+      "code": "2472",
+      "name": "立隆電",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 16430,
+      "streak": 1
+    },
+    {
+      "code": "3362",
+      "name": "先進光",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 14728,
+      "streak": 1
+    },
+    {
+      "code": "8071",
+      "name": "能率網通",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 12411,
+      "streak": 1
+    },
+    {
+      "code": "6127",
+      "name": "九豪",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 11255,
+      "streak": 1
+    },
+    {
+      "code": "8932",
+      "name": "智通*",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 11167,
+      "streak": 1
+    },
+    {
+      "code": "6672",
+      "name": "騰輝電子-KY",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 9436,
+      "streak": 1
+    },
+    {
+      "code": "6901",
+      "name": "鑽石投資",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 6532,
+      "streak": 1
+    },
+    {
+      "code": "2425",
+      "name": "承啟",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 6493,
+      "streak": 1
+    },
+    {
+      "code": "6270",
+      "name": "倍微",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 5834,
+      "streak": 1
+    },
+    {
+      "code": "2458",
+      "name": "義隆",
+      "watchScore": 45,
+      "grade": "mid",
+      "lots": 13595,
+      "streak": 1
+    },
+    {
+      "code": "1515",
+      "name": "力山",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 4500,
+      "streak": 1
+    },
+    {
+      "code": "3284",
+      "name": "太普高",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2538,
+      "streak": 1
+    },
+    {
+      "code": "5347",
+      "name": "世界",
+      "watchScore": 35,
+      "grade": "low",
+      "lots": 73115,
+      "streak": 1
+    },
+    {
+      "code": "6584",
+      "name": "南俊國際",
+      "watchScore": 33,
+      "grade": "low",
+      "lots": 2073,
+      "streak": 1
+    },
+    {
+      "code": "5210",
+      "name": "寶碩",
+      "watchScore": 28,
+      "grade": "low",
+      "lots": 2648,
+      "streak": 1
+    },
+    {
+      "code": "6409",
+      "name": "旭隼",
+      "watchScore": 23,
+      "grade": "low",
+      "lots": 2063,
+      "streak": 1
+    }
+  ],
+  "notes": "backfill 回溯重建：以現行凍結公式回算歷史。已知限制：categories.json 的處置/權值名單為現況、非當日狀態；月營收檔以「次月10日公布」近似對齊；與真正 forward 定格可能有細微差異，統計時應與 forward 分開呈現。"
+}

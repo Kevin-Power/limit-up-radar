@@ -1,4 +1,5 @@
-import type { IntradayBar } from "@/lib/data-files";
+// 相對路徑 import（不用 "@/" 別名）：讓 scripts/ 下的 npx tsx 腳本可直接載入本模組。
+import type { IntradayBar } from "./data-files";
 
 // 當沖視角的分時衍生指標（純 OHLC，無量能）。價格皆為「毛」數字、未含手續費／證交稅。
 export interface IntradayStats {

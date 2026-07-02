@@ -1,5 +1,6 @@
-import { calculateTrendingGroups } from "@/lib/scoring";
-import type { DailyData } from "@/lib/types";
+// 相對路徑 import（不用 "@/" 別名）：讓 scripts/ 下的 npx tsx 腳本可直接載入本模組。
+import { calculateTrendingGroups } from "./scoring";
+import type { DailyData } from "./types";
 
 // 當沖「觀察度」計算 — 單一事實來源（route 與回溯驗證共用，禁止再複製）。
 // 觀察度衡量「明日可能的流動性與市場關注度」，**與勝率/報酬無任何已驗證關係**。

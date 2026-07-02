@@ -11,6 +11,7 @@ const nextConfig = {
     "/api/daytrade": ["./data/intraday_cache/**/*.json", "./data/daily/**/*.json"],
     "/api/daytrade-watch": ["./data/daily/**/*.json", "./data/intraday_cache/**/*.json", "./data/categories.json"],
     "/api/daytrade-track": ["./data/daily/**/*.json", "./data/intraday_cache/**/*.json", "./data/categories.json"],
+    "/api/track-record": ["./data/track-record/**/*.json", "./data/daily/**/*.json"],
   },
   async headers() {
     return [

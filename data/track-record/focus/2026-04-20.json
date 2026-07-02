@@ -1,0 +1,550 @@
+{
+  "date": "2026-04-20",
+  "capturedFor": "次一交易日",
+  "source": "backfill",
+  "generatedAt": "2026-07-02T02:23:06.080Z",
+  "overnightFormulaVersion": "focus-v1-2026-07-02+scoring-v3.2-2026-06-27",
+  "watchFormulaVersion": "v1-2026-07-01",
+  "revenueFile": "2026-03.json",
+  "overnight": [
+    {
+      "code": "8046",
+      "name": "南電",
+      "group": "PCB / CCL基板",
+      "score": 81,
+      "close": 796,
+      "streak": 1
+    },
+    {
+      "code": "6861",
+      "name": "睿生光電",
+      "group": "光通訊 / 矽光子",
+      "score": 79,
+      "close": 177.5,
+      "streak": 1
+    },
+    {
+      "code": "8271",
+      "name": "宇瞻",
+      "group": "個股亮點",
+      "score": 77,
+      "close": 197,
+      "streak": 2
+    },
+    {
+      "code": "8383",
+      "name": "千附",
+      "group": "個股亮點",
+      "score": 77,
+      "close": 68.6,
+      "streak": 2
+    },
+    {
+      "code": "4720",
+      "name": "德淵",
+      "group": "生技 / 醫療器材",
+      "score": 76,
+      "close": 24.3,
+      "streak": 1
+    },
+    {
+      "code": "4714",
+      "name": "永捷",
+      "group": "生技 / 醫療器材",
+      "score": 75,
+      "close": 16.7,
+      "streak": 1
+    },
+    {
+      "code": "2465",
+      "name": "麗臺",
+      "group": "電子 / 半導體",
+      "score": 71,
+      "close": 66.4,
+      "streak": 1
+    },
+    {
+      "code": "6568",
+      "name": "宏觀",
+      "group": "電子 / 半導體",
+      "score": 71,
+      "close": 247.5,
+      "streak": 1
+    },
+    {
+      "code": "5439",
+      "name": "高技",
+      "group": "個股亮點",
+      "score": 71,
+      "close": 441.5,
+      "streak": 1
+    },
+    {
+      "code": "4768",
+      "name": "晶呈科技",
+      "group": "生技 / 醫療器材",
+      "score": 71,
+      "close": 508,
+      "streak": 1
+    },
+    {
+      "code": "6442",
+      "name": "光聖",
+      "group": "光通訊 / 矽光子",
+      "score": 71,
+      "close": 2370,
+      "streak": 1
+    },
+    {
+      "code": "2314",
+      "name": "台揚",
+      "group": "電子 / 半導體",
+      "score": 70,
+      "close": 16.95,
+      "streak": 2
+    },
+    {
+      "code": "2070",
+      "name": "精湛",
+      "group": "鋼鐵 / 金屬",
+      "score": 70,
+      "close": 50.2,
+      "streak": 2
+    },
+    {
+      "code": "4749",
+      "name": "新應材",
+      "group": "生技 / 醫療器材",
+      "score": 66,
+      "close": 984,
+      "streak": 1
+    },
+    {
+      "code": "6465",
+      "name": "威潤",
+      "group": "生技 / 醫療器材",
+      "score": 66,
+      "close": 53.9,
+      "streak": 2
+    }
+  ],
+  "daytradeWatch": [
+    {
+      "code": "4958",
+      "name": "臻鼎-KY",
+      "watchScore": 70,
+      "grade": "high",
+      "lots": 47013,
+      "streak": 2
+    },
+    {
+      "code": "6226",
+      "name": "光鼎",
+      "watchScore": 65,
+      "grade": "high",
+      "lots": 11657,
+      "streak": 2
+    },
+    {
+      "code": "6182",
+      "name": "合晶",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 43473,
+      "streak": 1
+    },
+    {
+      "code": "3189",
+      "name": "景碩",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 33909,
+      "streak": 1
+    },
+    {
+      "code": "6191",
+      "name": "精成科",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 32102,
+      "streak": 1
+    },
+    {
+      "code": "5498",
+      "name": "凱崴",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 24692,
+      "streak": 1
+    },
+    {
+      "code": "8074",
+      "name": "鉅橡",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 24456,
+      "streak": 1
+    },
+    {
+      "code": "6163",
+      "name": "華電網",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 23993,
+      "streak": 1
+    },
+    {
+      "code": "3374",
+      "name": "精材",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 20116,
+      "streak": 1
+    },
+    {
+      "code": "8383",
+      "name": "千附",
+      "watchScore": 58,
+      "grade": "mid",
+      "lots": 5136,
+      "streak": 2
+    },
+    {
+      "code": "3645",
+      "name": "達邁",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 19720,
+      "streak": 1
+    },
+    {
+      "code": "2464",
+      "name": "盟立",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 19559,
+      "streak": 1
+    },
+    {
+      "code": "2340",
+      "name": "台亞",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 16775,
+      "streak": 1
+    },
+    {
+      "code": "6147",
+      "name": "頎邦",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 15494,
+      "streak": 1
+    },
+    {
+      "code": "3035",
+      "name": "智原",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 14759,
+      "streak": 1
+    },
+    {
+      "code": "4720",
+      "name": "德淵",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 9322,
+      "streak": 1
+    },
+    {
+      "code": "5244",
+      "name": "弘凱",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 7795,
+      "streak": 2
+    },
+    {
+      "code": "3042",
+      "name": "晶技",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 7446,
+      "streak": 1
+    },
+    {
+      "code": "6290",
+      "name": "良維",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 7237,
+      "streak": 1
+    },
+    {
+      "code": "4714",
+      "name": "永捷",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 6857,
+      "streak": 1
+    },
+    {
+      "code": "3149",
+      "name": "正達",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 6507,
+      "streak": 1
+    },
+    {
+      "code": "5439",
+      "name": "高技",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 6421,
+      "streak": 1
+    },
+    {
+      "code": "2392",
+      "name": "正崴",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 6111,
+      "streak": 1
+    },
+    {
+      "code": "2351",
+      "name": "順德",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 5509,
+      "streak": 1
+    },
+    {
+      "code": "8271",
+      "name": "宇瞻",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 2690,
+      "streak": 2
+    },
+    {
+      "code": "3363",
+      "name": "上詮",
+      "watchScore": 43,
+      "grade": "mid",
+      "lots": 6601,
+      "streak": 1
+    },
+    {
+      "code": "3024",
+      "name": "憶聲",
+      "watchScore": 43,
+      "grade": "mid",
+      "lots": 6567,
+      "streak": 1
+    },
+    {
+      "code": "4749",
+      "name": "新應材",
+      "watchScore": 43,
+      "grade": "mid",
+      "lots": 5273,
+      "streak": 1
+    },
+    {
+      "code": "3710",
+      "name": "連展投控",
+      "watchScore": 43,
+      "grade": "mid",
+      "lots": 3424,
+      "streak": 2
+    },
+    {
+      "code": "8046",
+      "name": "南電",
+      "watchScore": 40,
+      "grade": "mid",
+      "lots": 17336,
+      "streak": 1
+    },
+    {
+      "code": "6861",
+      "name": "睿生光電",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 4567,
+      "streak": 1
+    },
+    {
+      "code": "8932",
+      "name": "智通*",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 4279,
+      "streak": 1
+    },
+    {
+      "code": "6261",
+      "name": "久元",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 4249,
+      "streak": 1
+    },
+    {
+      "code": "3680",
+      "name": "家登",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 4179,
+      "streak": 1
+    },
+    {
+      "code": "3591",
+      "name": "艾笛森",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 4161,
+      "streak": 1
+    },
+    {
+      "code": "4722",
+      "name": "國精化",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3729,
+      "streak": 1
+    },
+    {
+      "code": "6174",
+      "name": "安碁",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3695,
+      "streak": 1
+    },
+    {
+      "code": "6196",
+      "name": "帆宣",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2977,
+      "streak": 1
+    },
+    {
+      "code": "6275",
+      "name": "元山",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2735,
+      "streak": 1
+    },
+    {
+      "code": "6568",
+      "name": "宏觀",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2529,
+      "streak": 1
+    },
+    {
+      "code": "3051",
+      "name": "力特",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2519,
+      "streak": 1
+    },
+    {
+      "code": "6715",
+      "name": "嘉基",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2391,
+      "streak": 1
+    },
+    {
+      "code": "6854",
+      "name": "錼創科技-KY創",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2391,
+      "streak": 1
+    },
+    {
+      "code": "3588",
+      "name": "通嘉",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2349,
+      "streak": 1
+    },
+    {
+      "code": "8048",
+      "name": "德勝",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2294,
+      "streak": 1
+    },
+    {
+      "code": "6217",
+      "name": "中探針",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2104,
+      "streak": 1
+    },
+    {
+      "code": "2465",
+      "name": "麗臺",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2087,
+      "streak": 1
+    },
+    {
+      "code": "3455",
+      "name": "由田",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2083,
+      "streak": 1
+    },
+    {
+      "code": "4755",
+      "name": "三福化",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2062,
+      "streak": 1
+    },
+    {
+      "code": "6442",
+      "name": "光聖",
+      "watchScore": 33,
+      "grade": "low",
+      "lots": 4615,
+      "streak": 1
+    },
+    {
+      "code": "4768",
+      "name": "晶呈科技",
+      "watchScore": 33,
+      "grade": "low",
+      "lots": 3168,
+      "streak": 1
+    },
+    {
+      "code": "6643",
+      "name": "M31",
+      "watchScore": 33,
+      "grade": "low",
+      "lots": 3113,
+      "streak": 1
+    }
+  ],
+  "notes": "backfill 回溯重建：以現行凍結公式回算歷史。已知限制：categories.json 的處置/權值名單為現況、非當日狀態；月營收檔以「次月10日公布」近似對齊；與真正 forward 定格可能有細微差異，統計時應與 forward 分開呈現。"
+}

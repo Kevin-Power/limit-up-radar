@@ -1,0 +1,342 @@
+{
+  "date": "2026-06-24",
+  "capturedFor": "次一交易日",
+  "source": "backfill",
+  "generatedAt": "2026-07-02T02:23:06.450Z",
+  "overnightFormulaVersion": "focus-v1-2026-07-02+scoring-v3.2-2026-06-27",
+  "watchFormulaVersion": "v1-2026-07-01",
+  "revenueFile": "2026-05.json",
+  "overnight": [
+    {
+      "code": "3360",
+      "name": "尚立",
+      "group": "電子 / 半導體",
+      "score": 91,
+      "close": 19.7,
+      "streak": 1
+    },
+    {
+      "code": "6462",
+      "name": "神盾",
+      "group": "生技 / 醫療器材",
+      "score": 91,
+      "close": 134,
+      "streak": 1
+    },
+    {
+      "code": "2460",
+      "name": "建通",
+      "group": "電子 / 半導體",
+      "score": 76,
+      "close": 40.45,
+      "streak": 1
+    },
+    {
+      "code": "6829",
+      "name": "千附精密",
+      "group": "個股亮點",
+      "score": 76,
+      "close": 226.5,
+      "streak": 1
+    },
+    {
+      "code": "5011",
+      "name": "久陽",
+      "group": "個股亮點",
+      "score": 69,
+      "close": 24.85,
+      "streak": 1
+    },
+    {
+      "code": "8054",
+      "name": "安國",
+      "group": "個股亮點",
+      "score": 66,
+      "close": 136.5,
+      "streak": 3
+    },
+    {
+      "code": "2351",
+      "name": "順德",
+      "group": "電子 / 半導體",
+      "score": 65,
+      "close": 217.5,
+      "streak": 1
+    },
+    {
+      "code": "3588",
+      "name": "通嘉",
+      "group": "電子 / 半導體",
+      "score": 65,
+      "close": 75.9,
+      "streak": 1
+    },
+    {
+      "code": "2302",
+      "name": "麗正",
+      "group": "電子 / 半導體",
+      "score": 61,
+      "close": 50.2,
+      "streak": 1
+    },
+    {
+      "code": "6141",
+      "name": "柏承",
+      "group": "電子 / 半導體",
+      "score": 61,
+      "close": 38.75,
+      "streak": 1
+    },
+    {
+      "code": "6129",
+      "name": "普誠",
+      "group": "電子 / 半導體",
+      "score": 61,
+      "close": 18.9,
+      "streak": 1
+    },
+    {
+      "code": "6234",
+      "name": "高僑",
+      "group": "電子 / 半導體",
+      "score": 61,
+      "close": 50.4,
+      "streak": 1
+    },
+    {
+      "code": "6213",
+      "name": "聯茂",
+      "group": "PCB / CCL基板",
+      "score": 61,
+      "close": 309,
+      "streak": 1
+    },
+    {
+      "code": "1301",
+      "name": "台塑",
+      "group": "塑化 / 化工",
+      "score": 61,
+      "close": 54.5,
+      "streak": 1
+    },
+    {
+      "code": "8024",
+      "name": "佑華",
+      "group": "個股亮點",
+      "score": 60,
+      "close": 15.1,
+      "streak": 2
+    }
+  ],
+  "daytradeWatch": [
+    {
+      "code": "2312",
+      "name": "金寶",
+      "watchScore": 70,
+      "grade": "high",
+      "lots": 152065,
+      "streak": 1
+    },
+    {
+      "code": "9105",
+      "name": "泰金寶-DR",
+      "watchScore": 65,
+      "grade": "high",
+      "lots": 159572,
+      "streak": 1
+    },
+    {
+      "code": "1301",
+      "name": "台塑",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 79266,
+      "streak": 1
+    },
+    {
+      "code": "8105",
+      "name": "凌巨",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 36348,
+      "streak": 1
+    },
+    {
+      "code": "2484",
+      "name": "希華",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 27495,
+      "streak": 1
+    },
+    {
+      "code": "5011",
+      "name": "久陽",
+      "watchScore": 58,
+      "grade": "mid",
+      "lots": 6595,
+      "streak": 1
+    },
+    {
+      "code": "6226",
+      "name": "光鼎",
+      "watchScore": 58,
+      "grade": "mid",
+      "lots": 5225,
+      "streak": 2
+    },
+    {
+      "code": "3094",
+      "name": "聯傑",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 14670,
+      "streak": 1
+    },
+    {
+      "code": "6695",
+      "name": "芯鼎",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 12353,
+      "streak": 1
+    },
+    {
+      "code": "2351",
+      "name": "順德",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 11733,
+      "streak": 1
+    },
+    {
+      "code": "2302",
+      "name": "麗正",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 11081,
+      "streak": 1
+    },
+    {
+      "code": "6213",
+      "name": "聯茂",
+      "watchScore": 50,
+      "grade": "mid",
+      "lots": 25462,
+      "streak": 1
+    },
+    {
+      "code": "2460",
+      "name": "建通",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 7758,
+      "streak": 1
+    },
+    {
+      "code": "8234",
+      "name": "新漢",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 5593,
+      "streak": 1
+    },
+    {
+      "code": "3360",
+      "name": "尚立",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 5402,
+      "streak": 1
+    },
+    {
+      "code": "5285",
+      "name": "界霖",
+      "watchScore": 45,
+      "grade": "mid",
+      "lots": 13277,
+      "streak": 1
+    },
+    {
+      "code": "4722",
+      "name": "國精化",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 5221,
+      "streak": 1
+    },
+    {
+      "code": "6462",
+      "name": "神盾",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 5014,
+      "streak": 1
+    },
+    {
+      "code": "6129",
+      "name": "普誠",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3953,
+      "streak": 1
+    },
+    {
+      "code": "6234",
+      "name": "高僑",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3952,
+      "streak": 1
+    },
+    {
+      "code": "6829",
+      "name": "千附精密",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3734,
+      "streak": 1
+    },
+    {
+      "code": "3588",
+      "name": "通嘉",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3552,
+      "streak": 1
+    },
+    {
+      "code": "3055",
+      "name": "蔚華科",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2933,
+      "streak": 1
+    },
+    {
+      "code": "6141",
+      "name": "柏承",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2710,
+      "streak": 1
+    },
+    {
+      "code": "6683",
+      "name": "雍智科技",
+      "watchScore": 33,
+      "grade": "low",
+      "lots": 4139,
+      "streak": 2
+    },
+    {
+      "code": "4707",
+      "name": "磐亞",
+      "watchScore": 28,
+      "grade": "low",
+      "lots": 4726,
+      "streak": 1
+    }
+  ],
+  "notes": "backfill 回溯重建：以現行凍結公式回算歷史。已知限制：categories.json 的處置/權值名單為現況、非當日狀態；月營收檔以「次月10日公布」近似對齊；與真正 forward 定格可能有細微差異，統計時應與 forward 分開呈現。"
+}

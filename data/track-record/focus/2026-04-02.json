@@ -1,0 +1,134 @@
+{
+  "date": "2026-04-02",
+  "capturedFor": "次一交易日",
+  "source": "backfill",
+  "generatedAt": "2026-07-02T02:23:05.998Z",
+  "overnightFormulaVersion": "focus-v1-2026-07-02+scoring-v3.2-2026-06-27",
+  "watchFormulaVersion": "v1-2026-07-01",
+  "revenueFile": null,
+  "overnight": [
+    {
+      "code": "6727",
+      "name": "亞泰金屬",
+      "group": "鋼鐵 / 金屬",
+      "score": 60,
+      "close": 358,
+      "streak": 2
+    },
+    {
+      "code": "2426",
+      "name": "鼎元",
+      "group": "電子 / 半導體",
+      "score": 54,
+      "close": 38.3,
+      "streak": 2
+    },
+    {
+      "code": "3163",
+      "name": "波若威",
+      "group": "電子 / 半導體",
+      "score": 50,
+      "close": 952,
+      "streak": 2
+    }
+  ],
+  "daytradeWatch": [
+    {
+      "code": "2426",
+      "name": "鼎元",
+      "watchScore": 65,
+      "grade": "high",
+      "lots": 11959,
+      "streak": 2
+    },
+    {
+      "code": "3714",
+      "name": "富采",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 45398,
+      "streak": 1
+    },
+    {
+      "code": "5475",
+      "name": "德宏",
+      "watchScore": 58,
+      "grade": "mid",
+      "lots": 8289,
+      "streak": 2
+    },
+    {
+      "code": "8039",
+      "name": "台虹",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 16525,
+      "streak": 1
+    },
+    {
+      "code": "6168",
+      "name": "宏齊",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 13554,
+      "streak": 1
+    },
+    {
+      "code": "3163",
+      "name": "波若威",
+      "watchScore": 53,
+      "grade": "mid",
+      "lots": 5672,
+      "streak": 2
+    },
+    {
+      "code": "6664",
+      "name": "群翊",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 2428,
+      "streak": 2
+    },
+    {
+      "code": "3455",
+      "name": "由田",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 4077,
+      "streak": 1
+    },
+    {
+      "code": "6909",
+      "name": "創控",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3124,
+      "streak": 1
+    },
+    {
+      "code": "3152",
+      "name": "璟德",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2806,
+      "streak": 1
+    },
+    {
+      "code": "6727",
+      "name": "亞泰金屬",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2805,
+      "streak": 2
+    },
+    {
+      "code": "1449",
+      "name": "佳和",
+      "watchScore": 33,
+      "grade": "low",
+      "lots": 3655,
+      "streak": 1
+    }
+  ],
+  "notes": "backfill 回溯重建：以現行凍結公式回算歷史。已知限制：categories.json 的處置/權值名單為現況、非當日狀態；月營收檔以「次月10日公布」近似對齊；與真正 forward 定格可能有細微差異，統計時應與 forward 分開呈現。"
+}

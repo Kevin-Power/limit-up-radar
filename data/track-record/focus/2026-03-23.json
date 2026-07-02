@@ -1,0 +1,53 @@
+{
+  "date": "2026-03-23",
+  "capturedFor": "次一交易日",
+  "source": "backfill",
+  "generatedAt": "2026-07-02T02:23:05.972Z",
+  "overnightFormulaVersion": "focus-v1-2026-07-02+scoring-v3.2-2026-06-27",
+  "watchFormulaVersion": "v1-2026-07-01",
+  "revenueFile": null,
+  "overnight": [],
+  "daytradeWatch": [
+    {
+      "code": "1304",
+      "name": "台聚",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 59484,
+      "streak": 1
+    },
+    {
+      "code": "1308",
+      "name": "亞聚",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 34177,
+      "streak": 1
+    },
+    {
+      "code": "1305",
+      "name": "華夏",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 21417,
+      "streak": 1
+    },
+    {
+      "code": "1309",
+      "name": "台達化",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 10004,
+      "streak": 1
+    },
+    {
+      "code": "7711",
+      "name": "永擎",
+      "watchScore": 28,
+      "grade": "low",
+      "lots": 2381,
+      "streak": 1
+    }
+  ],
+  "notes": "backfill 回溯重建：以現行凍結公式回算歷史。已知限制：categories.json 的處置/權值名單為現況、非當日狀態；月營收檔以「次月10日公布」近似對齊；與真正 forward 定格可能有細微差異，統計時應與 forward 分開呈現。"
+}

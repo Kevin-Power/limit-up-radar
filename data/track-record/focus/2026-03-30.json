@@ -1,0 +1,158 @@
+{
+  "date": "2026-03-30",
+  "capturedFor": "次一交易日",
+  "source": "backfill",
+  "generatedAt": "2026-07-02T02:23:05.987Z",
+  "overnightFormulaVersion": "focus-v1-2026-07-02+scoring-v3.2-2026-06-27",
+  "watchFormulaVersion": "v1-2026-07-01",
+  "revenueFile": null,
+  "overnight": [
+    {
+      "code": "6683",
+      "name": "雍智科技",
+      "group": "半導體測試 / 先進封裝",
+      "score": 64,
+      "close": 1520,
+      "streak": 2
+    },
+    {
+      "code": "6588",
+      "name": "東典光電",
+      "group": "光通訊 / 矽光子",
+      "score": 60,
+      "close": 129.5,
+      "streak": 2
+    },
+    {
+      "code": "3710",
+      "name": "連展投控",
+      "group": "個股亮點",
+      "score": 54,
+      "close": 7.09,
+      "streak": 2
+    },
+    {
+      "code": "5243",
+      "name": "乙盛-KY",
+      "group": "IC設計 / AI邊緣運算",
+      "score": 51,
+      "close": 82.3,
+      "streak": 1
+    }
+  ],
+  "daytradeWatch": [
+    {
+      "code": "1303",
+      "name": "南亞",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 132818,
+      "streak": 1
+    },
+    {
+      "code": "1326",
+      "name": "台化",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 116568,
+      "streak": 1
+    },
+    {
+      "code": "1305",
+      "name": "華夏",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 27818,
+      "streak": 1
+    },
+    {
+      "code": "6588",
+      "name": "東典光電",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 13965,
+      "streak": 2
+    },
+    {
+      "code": "8027",
+      "name": "鈦昇",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 13850,
+      "streak": 1
+    },
+    {
+      "code": "3545",
+      "name": "敦泰",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 8314,
+      "streak": 1
+    },
+    {
+      "code": "6175",
+      "name": "立敦",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 5303,
+      "streak": 1
+    },
+    {
+      "code": "1723",
+      "name": "中碳",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 4365,
+      "streak": 2
+    },
+    {
+      "code": "5243",
+      "name": "乙盛-KY",
+      "watchScore": 45,
+      "grade": "mid",
+      "lots": 10194,
+      "streak": 1
+    },
+    {
+      "code": "3710",
+      "name": "連展投控",
+      "watchScore": 43,
+      "grade": "mid",
+      "lots": 3052,
+      "streak": 2
+    },
+    {
+      "code": "4741",
+      "name": "泓瀚",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3793,
+      "streak": 2
+    },
+    {
+      "code": "7709",
+      "name": "榮田",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2287,
+      "streak": 1
+    },
+    {
+      "code": "6683",
+      "name": "雍智科技",
+      "watchScore": 33,
+      "grade": "low",
+      "lots": 3369,
+      "streak": 2
+    },
+    {
+      "code": "4707",
+      "name": "磐亞",
+      "watchScore": 23,
+      "grade": "low",
+      "lots": 4195,
+      "streak": 1
+    }
+  ],
+  "notes": "backfill 回溯重建：以現行凍結公式回算歷史。已知限制：categories.json 的處置/權值名單為現況、非當日狀態；月營收檔以「次月10日公布」近似對齊；與真正 forward 定格可能有細微差異，統計時應與 forward 分開呈現。"
+}

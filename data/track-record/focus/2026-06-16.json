@@ -1,0 +1,238 @@
+{
+  "date": "2026-06-16",
+  "capturedFor": "次一交易日",
+  "source": "backfill",
+  "generatedAt": "2026-07-02T02:23:06.405Z",
+  "overnightFormulaVersion": "focus-v1-2026-07-02+scoring-v3.2-2026-06-27",
+  "watchFormulaVersion": "v1-2026-07-01",
+  "revenueFile": "2026-05.json",
+  "overnight": [
+    {
+      "code": "5302",
+      "name": "太欣",
+      "group": "個股亮點",
+      "score": 91,
+      "close": 12.7,
+      "streak": 1
+    },
+    {
+      "code": "7777",
+      "name": "能率亞洲",
+      "group": "個股亮點",
+      "score": 73,
+      "close": 43.25,
+      "streak": 1
+    },
+    {
+      "code": "2464",
+      "name": "盟立",
+      "group": "電子 / 半導體",
+      "score": 71,
+      "close": 179.5,
+      "streak": 2
+    },
+    {
+      "code": "6415",
+      "name": "矽力*-KY",
+      "group": "生技 / 醫療器材",
+      "score": 67,
+      "close": 588,
+      "streak": 2
+    },
+    {
+      "code": "6209",
+      "name": "今國光",
+      "group": "電子 / 半導體",
+      "score": 64,
+      "close": 95.3,
+      "streak": 1
+    },
+    {
+      "code": "3630",
+      "name": "新鉅科",
+      "group": "電子 / 半導體",
+      "score": 63,
+      "close": 33.55,
+      "streak": 1
+    },
+    {
+      "code": "4513",
+      "name": "福裕",
+      "group": "個股亮點",
+      "score": 61,
+      "close": 17.3,
+      "streak": 1
+    },
+    {
+      "code": "4764",
+      "name": "雙鍵",
+      "group": "生技 / 醫療器材",
+      "score": 61,
+      "close": 305.5,
+      "streak": 1
+    },
+    {
+      "code": "6861",
+      "name": "睿生光電",
+      "group": "光通訊 / 矽光子",
+      "score": 56,
+      "close": 342,
+      "streak": 1
+    },
+    {
+      "code": "6180",
+      "name": "橘子",
+      "group": "電子 / 半導體",
+      "score": 55,
+      "close": 48.3,
+      "streak": 1
+    },
+    {
+      "code": "6654",
+      "name": "天正國際",
+      "group": "電子 / 半導體",
+      "score": 55,
+      "close": 207,
+      "streak": 2
+    },
+    {
+      "code": "4976",
+      "name": "佳凌",
+      "group": "光通訊 / 矽光子",
+      "score": 54,
+      "close": 38.05,
+      "streak": 1
+    }
+  ],
+  "daytradeWatch": [
+    {
+      "code": "7777",
+      "name": "能率亞洲",
+      "watchScore": 65,
+      "grade": "high",
+      "lots": 13087,
+      "streak": 1
+    },
+    {
+      "code": "6209",
+      "name": "今國光",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 49725,
+      "streak": 1
+    },
+    {
+      "code": "2342",
+      "name": "茂矽",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 15338,
+      "streak": 1
+    },
+    {
+      "code": "1905",
+      "name": "華紙",
+      "watchScore": 50,
+      "grade": "mid",
+      "lots": 14957,
+      "streak": 1
+    },
+    {
+      "code": "3630",
+      "name": "新鉅科",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 8867,
+      "streak": 1
+    },
+    {
+      "code": "3339",
+      "name": "泰谷",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 6777,
+      "streak": 1
+    },
+    {
+      "code": "6517",
+      "name": "保勝光學",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 6186,
+      "streak": 1
+    },
+    {
+      "code": "2464",
+      "name": "盟立",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 3276,
+      "streak": 2
+    },
+    {
+      "code": "5302",
+      "name": "太欣",
+      "watchScore": 43,
+      "grade": "mid",
+      "lots": 6623,
+      "streak": 1
+    },
+    {
+      "code": "6415",
+      "name": "矽力*-KY",
+      "watchScore": 43,
+      "grade": "mid",
+      "lots": 4677,
+      "streak": 2
+    },
+    {
+      "code": "4976",
+      "name": "佳凌",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 6809,
+      "streak": 1
+    },
+    {
+      "code": "6668",
+      "name": "中揚光",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 4960,
+      "streak": 1
+    },
+    {
+      "code": "6180",
+      "name": "橘子",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3337,
+      "streak": 1
+    },
+    {
+      "code": "4764",
+      "name": "雙鍵",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3020,
+      "streak": 1
+    },
+    {
+      "code": "5011",
+      "name": "久陽",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2940,
+      "streak": 1
+    },
+    {
+      "code": "2399",
+      "name": "映泰",
+      "watchScore": 30,
+      "grade": "low",
+      "lots": 14018,
+      "streak": 1
+    }
+  ],
+  "notes": "backfill 回溯重建：以現行凍結公式回算歷史。已知限制：categories.json 的處置/權值名單為現況、非當日狀態；月營收檔以「次月10日公布」近似對齊；與真正 forward 定格可能有細微差異，統計時應與 forward 分開呈現。"
+}

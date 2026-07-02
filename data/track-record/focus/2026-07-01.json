@@ -1,0 +1,382 @@
+{
+  "date": "2026-07-01",
+  "capturedFor": "次一交易日",
+  "source": "forward",
+  "generatedAt": "2026-07-02T02:23:15.147Z",
+  "overnightFormulaVersion": "focus-v1-2026-07-02+scoring-v3.2-2026-06-27",
+  "watchFormulaVersion": "v1-2026-07-01",
+  "revenueFile": "2026-05.json",
+  "overnight": [
+    {
+      "code": "6173",
+      "name": "信昌電",
+      "group": "電子 / 半導體",
+      "score": 90,
+      "close": 341.5,
+      "streak": 2
+    },
+    {
+      "code": "4916",
+      "name": "事欣科",
+      "group": "光通訊 / 矽光子",
+      "score": 86,
+      "close": 112.5,
+      "streak": 1
+    },
+    {
+      "code": "6156",
+      "name": "松上",
+      "group": "電子 / 半導體",
+      "score": 82,
+      "close": 31.65,
+      "streak": 2
+    },
+    {
+      "code": "1303",
+      "name": "南亞",
+      "group": "塑化 / 化工",
+      "score": 81,
+      "close": 183,
+      "streak": 2
+    },
+    {
+      "code": "6684",
+      "name": "安格",
+      "group": "電子 / 半導體",
+      "score": 76,
+      "close": 64.5,
+      "streak": 1
+    },
+    {
+      "code": "6617",
+      "name": "共信-KY",
+      "group": "電子 / 半導體",
+      "score": 74,
+      "close": 76.6,
+      "streak": 2
+    },
+    {
+      "code": "6909",
+      "name": "創控",
+      "group": "個股亮點",
+      "score": 71,
+      "close": 60.6,
+      "streak": 1
+    },
+    {
+      "code": "2464",
+      "name": "盟立",
+      "group": "電子 / 半導體",
+      "score": 66,
+      "close": 190,
+      "streak": 1
+    },
+    {
+      "code": "8182",
+      "name": "加高",
+      "group": "個股亮點",
+      "score": 65,
+      "close": 54,
+      "streak": 1
+    },
+    {
+      "code": "3532",
+      "name": "台勝科",
+      "group": "電子 / 半導體",
+      "score": 64,
+      "close": 400,
+      "streak": 2
+    },
+    {
+      "code": "5483",
+      "name": "中美晶",
+      "group": "個股亮點",
+      "score": 60,
+      "close": 198,
+      "streak": 2
+    },
+    {
+      "code": "7402",
+      "name": "邑錡",
+      "group": "個股亮點",
+      "score": 59,
+      "close": 126.5,
+      "streak": 1
+    },
+    {
+      "code": "3042",
+      "name": "晶技",
+      "group": "電子 / 半導體",
+      "score": 56,
+      "close": 206,
+      "streak": 1
+    },
+    {
+      "code": "3605",
+      "name": "宏致",
+      "group": "電子 / 半導體",
+      "score": 56,
+      "close": 85.6,
+      "streak": 1
+    },
+    {
+      "code": "3466",
+      "name": "德晉",
+      "group": "電子 / 半導體",
+      "score": 56,
+      "close": 32.9,
+      "streak": 1
+    }
+  ],
+  "daytradeWatch": [
+    {
+      "code": "5483",
+      "name": "中美晶",
+      "watchScore": 80,
+      "grade": "high",
+      "lots": 50488,
+      "streak": 2
+    },
+    {
+      "code": "6182",
+      "name": "合晶",
+      "watchScore": 70,
+      "grade": "high",
+      "lots": 30186,
+      "streak": 2
+    },
+    {
+      "code": "2375",
+      "name": "凱美",
+      "watchScore": 70,
+      "grade": "high",
+      "lots": 28832,
+      "streak": 2
+    },
+    {
+      "code": "8043",
+      "name": "蜜望實",
+      "watchScore": 70,
+      "grade": "high",
+      "lots": 20141,
+      "streak": 2
+    },
+    {
+      "code": "3221",
+      "name": "台嘉碩",
+      "watchScore": 70,
+      "grade": "high",
+      "lots": 20132,
+      "streak": 1
+    },
+    {
+      "code": "1710",
+      "name": "東聯",
+      "watchScore": 65,
+      "grade": "high",
+      "lots": 14836,
+      "streak": 2
+    },
+    {
+      "code": "8261",
+      "name": "富鼎",
+      "watchScore": 65,
+      "grade": "high",
+      "lots": 12471,
+      "streak": 2
+    },
+    {
+      "code": "8182",
+      "name": "加高",
+      "watchScore": 65,
+      "grade": "high",
+      "lots": 11571,
+      "streak": 1
+    },
+    {
+      "code": "2466",
+      "name": "冠西電",
+      "watchScore": 65,
+      "grade": "high",
+      "lots": 11368,
+      "streak": 2
+    },
+    {
+      "code": "1303",
+      "name": "南亞",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 46427,
+      "streak": 2
+    },
+    {
+      "code": "2464",
+      "name": "盟立",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 34242,
+      "streak": 1
+    },
+    {
+      "code": "6207",
+      "name": "雷科",
+      "watchScore": 58,
+      "grade": "mid",
+      "lots": 8333,
+      "streak": 2
+    },
+    {
+      "code": "3605",
+      "name": "宏致",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 14473,
+      "streak": 1
+    },
+    {
+      "code": "3042",
+      "name": "晶技",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 14119,
+      "streak": 1
+    },
+    {
+      "code": "2645",
+      "name": "長榮航太",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 6071,
+      "streak": 1
+    },
+    {
+      "code": "1515",
+      "name": "力山",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 6036,
+      "streak": 1
+    },
+    {
+      "code": "6224",
+      "name": "聚鼎",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 4517,
+      "streak": 2
+    },
+    {
+      "code": "6156",
+      "name": "松上",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 4059,
+      "streak": 2
+    },
+    {
+      "code": "6173",
+      "name": "信昌電",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 2912,
+      "streak": 2
+    },
+    {
+      "code": "4916",
+      "name": "事欣科",
+      "watchScore": 45,
+      "grade": "mid",
+      "lots": 16682,
+      "streak": 1
+    },
+    {
+      "code": "6719",
+      "name": "力智",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 7554,
+      "streak": 1
+    },
+    {
+      "code": "1721",
+      "name": "三晃",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3766,
+      "streak": 1
+    },
+    {
+      "code": "6909",
+      "name": "創控",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3569,
+      "streak": 1
+    },
+    {
+      "code": "5426",
+      "name": "振發",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3346,
+      "streak": 1
+    },
+    {
+      "code": "6603",
+      "name": "富強鑫",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3015,
+      "streak": 1
+    },
+    {
+      "code": "6684",
+      "name": "安格",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2629,
+      "streak": 1
+    },
+    {
+      "code": "7402",
+      "name": "邑錡",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2343,
+      "streak": 1
+    },
+    {
+      "code": "3680",
+      "name": "家登",
+      "watchScore": 33,
+      "grade": "low",
+      "lots": 4957,
+      "streak": 1
+    },
+    {
+      "code": "6164",
+      "name": "華興",
+      "watchScore": 33,
+      "grade": "low",
+      "lots": 3988,
+      "streak": 1
+    },
+    {
+      "code": "6488",
+      "name": "環球晶",
+      "watchScore": 33,
+      "grade": "low",
+      "lots": 3702,
+      "streak": 2
+    },
+    {
+      "code": "1466",
+      "name": "聚隆",
+      "watchScore": 28,
+      "grade": "low",
+      "lots": 2702,
+      "streak": 1
+    }
+  ],
+  "notes": "forward 定格：公式凍結後於當日收盤即時定格，僅用當日(含以前)可得資訊，事後不得修改。"
+}

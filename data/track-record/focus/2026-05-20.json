@@ -1,0 +1,398 @@
+{
+  "date": "2026-05-20",
+  "capturedFor": "次一交易日",
+  "source": "backfill",
+  "generatedAt": "2026-07-02T02:23:06.268Z",
+  "overnightFormulaVersion": "focus-v1-2026-07-02+scoring-v3.2-2026-06-27",
+  "watchFormulaVersion": "v1-2026-07-01",
+  "revenueFile": "2026-04.json",
+  "overnight": [
+    {
+      "code": "5314",
+      "name": "世紀*",
+      "group": "個股亮點",
+      "score": 101,
+      "close": 67.6,
+      "streak": 1
+    },
+    {
+      "code": "8040",
+      "name": "九暘",
+      "group": "個股亮點",
+      "score": 100,
+      "close": 98.7,
+      "streak": 2
+    },
+    {
+      "code": "6209",
+      "name": "今國光",
+      "group": "電子 / 半導體",
+      "score": 90,
+      "close": 78.9,
+      "streak": 1
+    },
+    {
+      "code": "6174",
+      "name": "安碁",
+      "group": "電子 / 半導體",
+      "score": 90,
+      "close": 43.45,
+      "streak": 2
+    },
+    {
+      "code": "4916",
+      "name": "事欣科",
+      "group": "光通訊 / 矽光子",
+      "score": 89,
+      "close": 89.9,
+      "streak": 2
+    },
+    {
+      "code": "3441",
+      "name": "聯一光",
+      "group": "電子 / 半導體",
+      "score": 88,
+      "close": 48.15,
+      "streak": 1
+    },
+    {
+      "code": "5328",
+      "name": "華容",
+      "group": "個股亮點",
+      "score": 76,
+      "close": 30.9,
+      "streak": 1
+    },
+    {
+      "code": "8121",
+      "name": "越峰",
+      "group": "個股亮點",
+      "score": 76,
+      "close": 35.2,
+      "streak": 1
+    },
+    {
+      "code": "1533",
+      "name": "車王電",
+      "group": "電子 / 半導體",
+      "score": 71,
+      "close": 38,
+      "streak": 1
+    },
+    {
+      "code": "3702",
+      "name": "大聯大",
+      "group": "個股亮點",
+      "score": 66,
+      "close": 119,
+      "streak": 1
+    },
+    {
+      "code": "5471",
+      "name": "松翰",
+      "group": "個股亮點",
+      "score": 66,
+      "close": 52.3,
+      "streak": 1
+    },
+    {
+      "code": "2388",
+      "name": "威盛",
+      "group": "IC設計 / AI邊緣運算",
+      "score": 66,
+      "close": 81.7,
+      "streak": 1
+    },
+    {
+      "code": "3357",
+      "name": "臺慶科",
+      "group": "電子 / 半導體",
+      "score": 65,
+      "close": 231,
+      "streak": 1
+    },
+    {
+      "code": "6834",
+      "name": "天二科技",
+      "group": "個股亮點",
+      "score": 65,
+      "close": 60.6,
+      "streak": 1
+    },
+    {
+      "code": "2314",
+      "name": "台揚",
+      "group": "電子 / 半導體",
+      "score": 56,
+      "close": 14.6,
+      "streak": 1
+    }
+  ],
+  "daytradeWatch": [
+    {
+      "code": "6127",
+      "name": "九豪",
+      "watchScore": 70,
+      "grade": "high",
+      "lots": 26916,
+      "streak": 1
+    },
+    {
+      "code": "2484",
+      "name": "希華",
+      "watchScore": 70,
+      "grade": "high",
+      "lots": 23422,
+      "streak": 2
+    },
+    {
+      "code": "8040",
+      "name": "九暘",
+      "watchScore": 68,
+      "grade": "high",
+      "lots": 6685,
+      "streak": 2
+    },
+    {
+      "code": "5328",
+      "name": "華容",
+      "watchScore": 65,
+      "grade": "high",
+      "lots": 17213,
+      "streak": 1
+    },
+    {
+      "code": "3357",
+      "name": "臺慶科",
+      "watchScore": 65,
+      "grade": "high",
+      "lots": 13686,
+      "streak": 1
+    },
+    {
+      "code": "4916",
+      "name": "事欣科",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 36727,
+      "streak": 2
+    },
+    {
+      "code": "3090",
+      "name": "日電貿",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 27555,
+      "streak": 1
+    },
+    {
+      "code": "2478",
+      "name": "大毅",
+      "watchScore": 58,
+      "grade": "mid",
+      "lots": 9248,
+      "streak": 2
+    },
+    {
+      "code": "5314",
+      "name": "世紀*",
+      "watchScore": 58,
+      "grade": "mid",
+      "lots": 6291,
+      "streak": 1
+    },
+    {
+      "code": "6174",
+      "name": "安碁",
+      "watchScore": 58,
+      "grade": "mid",
+      "lots": 6063,
+      "streak": 2
+    },
+    {
+      "code": "6209",
+      "name": "今國光",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 17711,
+      "streak": 1
+    },
+    {
+      "code": "3702",
+      "name": "大聯大",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 16664,
+      "streak": 1
+    },
+    {
+      "code": "2472",
+      "name": "立隆電",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 14327,
+      "streak": 1
+    },
+    {
+      "code": "3694",
+      "name": "海華",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 12437,
+      "streak": 1
+    },
+    {
+      "code": "2375",
+      "name": "凱美",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 12093,
+      "streak": 1
+    },
+    {
+      "code": "8261",
+      "name": "富鼎",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 11264,
+      "streak": 1
+    },
+    {
+      "code": "4919",
+      "name": "新唐",
+      "watchScore": 50,
+      "grade": "mid",
+      "lots": 27510,
+      "streak": 1
+    },
+    {
+      "code": "2388",
+      "name": "威盛",
+      "watchScore": 50,
+      "grade": "mid",
+      "lots": 25436,
+      "streak": 1
+    },
+    {
+      "code": "1710",
+      "name": "東聯",
+      "watchScore": 50,
+      "grade": "mid",
+      "lots": 11973,
+      "streak": 1
+    },
+    {
+      "code": "3441",
+      "name": "聯一光",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 9353,
+      "streak": 1
+    },
+    {
+      "code": "6175",
+      "name": "立敦",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 8607,
+      "streak": 1
+    },
+    {
+      "code": "6155",
+      "name": "鈞寶",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 8528,
+      "streak": 1
+    },
+    {
+      "code": "5471",
+      "name": "松翰",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 6397,
+      "streak": 1
+    },
+    {
+      "code": "6834",
+      "name": "天二科技",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 6293,
+      "streak": 1
+    },
+    {
+      "code": "3537",
+      "name": "堡達",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 5739,
+      "streak": 1
+    },
+    {
+      "code": "3675",
+      "name": "德微",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 4990,
+      "streak": 1
+    },
+    {
+      "code": "6719",
+      "name": "力智",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 4707,
+      "streak": 2
+    },
+    {
+      "code": "6224",
+      "name": "聚鼎",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3739,
+      "streak": 1
+    },
+    {
+      "code": "8121",
+      "name": "越峰",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3708,
+      "streak": 1
+    },
+    {
+      "code": "8473",
+      "name": "山林水",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3586,
+      "streak": 1
+    },
+    {
+      "code": "3479",
+      "name": "安勤",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3201,
+      "streak": 1
+    },
+    {
+      "code": "1533",
+      "name": "車王電",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2431,
+      "streak": 1
+    },
+    {
+      "code": "2543",
+      "name": "皇昌",
+      "watchScore": 13,
+      "grade": "low",
+      "lots": 2373,
+      "streak": 1
+    }
+  ],
+  "notes": "backfill 回溯重建：以現行凍結公式回算歷史。已知限制：categories.json 的處置/權值名單為現況、非當日狀態；月營收檔以「次月10日公布」近似對齊；與真正 forward 定格可能有細微差異，統計時應與 forward 分開呈現。"
+}

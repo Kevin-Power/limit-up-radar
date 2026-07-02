@@ -1,0 +1,198 @@
+{
+  "date": "2026-03-26",
+  "capturedFor": "次一交易日",
+  "source": "backfill",
+  "generatedAt": "2026-07-02T02:23:05.980Z",
+  "overnightFormulaVersion": "focus-v1-2026-07-02+scoring-v3.2-2026-06-27",
+  "watchFormulaVersion": "v1-2026-07-01",
+  "revenueFile": null,
+  "overnight": [
+    {
+      "code": "4906",
+      "name": "正文",
+      "group": "光通訊 / 矽光子",
+      "score": 52,
+      "close": 36.6,
+      "streak": 2
+    }
+  ],
+  "daytradeWatch": [
+    {
+      "code": "3576",
+      "name": "聯合再生",
+      "watchScore": 70,
+      "grade": "high",
+      "lots": 40045,
+      "streak": 2
+    },
+    {
+      "code": "6147",
+      "name": "頎邦",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 54110,
+      "streak": 1
+    },
+    {
+      "code": "2355",
+      "name": "敬鵬",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 30011,
+      "streak": 1
+    },
+    {
+      "code": "8358",
+      "name": "金居",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 24688,
+      "streak": 1
+    },
+    {
+      "code": "2419",
+      "name": "仲琦",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 20348,
+      "streak": 1
+    },
+    {
+      "code": "8064",
+      "name": "東捷",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 16679,
+      "streak": 1
+    },
+    {
+      "code": "4906",
+      "name": "正文",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 16099,
+      "streak": 2
+    },
+    {
+      "code": "8027",
+      "name": "鈦昇",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 10212,
+      "streak": 1
+    },
+    {
+      "code": "1905",
+      "name": "華紙",
+      "watchScore": 50,
+      "grade": "mid",
+      "lots": 17862,
+      "streak": 1
+    },
+    {
+      "code": "1582",
+      "name": "信錦",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 8601,
+      "streak": 1
+    },
+    {
+      "code": "6962",
+      "name": "奕力-KY",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 6071,
+      "streak": 1
+    },
+    {
+      "code": "2305",
+      "name": "全友",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 5624,
+      "streak": 1
+    },
+    {
+      "code": "3026",
+      "name": "禾伸堂",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 3199,
+      "streak": 2
+    },
+    {
+      "code": "3532",
+      "name": "台勝科",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3814,
+      "streak": 1
+    },
+    {
+      "code": "4577",
+      "name": "達航科技",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3059,
+      "streak": 1
+    },
+    {
+      "code": "6830",
+      "name": "汎銓",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2350,
+      "streak": 1
+    },
+    {
+      "code": "1304",
+      "name": "台聚",
+      "watchScore": 35,
+      "grade": "low",
+      "lots": 25013,
+      "streak": 1
+    },
+    {
+      "code": "1308",
+      "name": "亞聚",
+      "watchScore": 35,
+      "grade": "low",
+      "lots": 21974,
+      "streak": 1
+    },
+    {
+      "code": "4971",
+      "name": "IET-KY",
+      "watchScore": 33,
+      "grade": "low",
+      "lots": 5548,
+      "streak": 1
+    },
+    {
+      "code": "3491",
+      "name": "昇達科",
+      "watchScore": 33,
+      "grade": "low",
+      "lots": 2380,
+      "streak": 1
+    },
+    {
+      "code": "1309",
+      "name": "台達化",
+      "watchScore": 30,
+      "grade": "low",
+      "lots": 11922,
+      "streak": 1
+    },
+    {
+      "code": "3081",
+      "name": "聯亞",
+      "watchScore": 23,
+      "grade": "low",
+      "lots": 3967,
+      "streak": 1
+    }
+  ],
+  "notes": "backfill 回溯重建：以現行凍結公式回算歷史。已知限制：categories.json 的處置/權值名單為現況、非當日狀態；月營收檔以「次月10日公布」近似對齊；與真正 forward 定格可能有細微差異，統計時應與 forward 分開呈現。"
+}

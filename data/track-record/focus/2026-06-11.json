@@ -1,0 +1,318 @@
+{
+  "date": "2026-06-11",
+  "capturedFor": "次一交易日",
+  "source": "backfill",
+  "generatedAt": "2026-07-02T02:23:06.380Z",
+  "overnightFormulaVersion": "focus-v1-2026-07-02+scoring-v3.2-2026-06-27",
+  "watchFormulaVersion": "v1-2026-07-01",
+  "revenueFile": "2026-05.json",
+  "overnight": [
+    {
+      "code": "5498",
+      "name": "凱崴",
+      "group": "個股亮點",
+      "score": 108,
+      "close": 66.7,
+      "streak": 1
+    },
+    {
+      "code": "5410",
+      "name": "國眾",
+      "group": "個股亮點",
+      "score": 101,
+      "close": 44.15,
+      "streak": 1
+    },
+    {
+      "code": "6174",
+      "name": "安碁",
+      "group": "電子 / 半導體",
+      "score": 90,
+      "close": 51.7,
+      "streak": 1
+    },
+    {
+      "code": "6239",
+      "name": "力成",
+      "group": "電子 / 半導體",
+      "score": 81,
+      "close": 333,
+      "streak": 1
+    },
+    {
+      "code": "2414",
+      "name": "精技",
+      "group": "電子 / 半導體",
+      "score": 79,
+      "close": 63,
+      "streak": 1
+    },
+    {
+      "code": "6156",
+      "name": "松上",
+      "group": "電子 / 半導體",
+      "score": 76,
+      "close": 20.45,
+      "streak": 1
+    },
+    {
+      "code": "1785",
+      "name": "光洋科",
+      "group": "個股亮點",
+      "score": 76,
+      "close": 145.5,
+      "streak": 1
+    },
+    {
+      "code": "8071",
+      "name": "能率網通",
+      "group": "個股亮點",
+      "score": 73,
+      "close": 24.95,
+      "streak": 1
+    },
+    {
+      "code": "7828",
+      "name": "創新服務",
+      "group": "個股亮點",
+      "score": 71,
+      "close": 1790,
+      "streak": 1
+    },
+    {
+      "code": "6465",
+      "name": "威潤",
+      "group": "生技 / 醫療器材",
+      "score": 71,
+      "close": 55.4,
+      "streak": 1
+    },
+    {
+      "code": "3236",
+      "name": "千如",
+      "group": "電子 / 半導體",
+      "score": 66,
+      "close": 57.5,
+      "streak": 1
+    },
+    {
+      "code": "3285",
+      "name": "微端",
+      "group": "電子 / 半導體",
+      "score": 62,
+      "close": 37.65,
+      "streak": 2
+    },
+    {
+      "code": "2406",
+      "name": "國碩",
+      "group": "電子 / 半導體",
+      "score": 61,
+      "close": 39.4,
+      "streak": 1
+    },
+    {
+      "code": "6259",
+      "name": "百徽",
+      "group": "電子 / 半導體",
+      "score": 61,
+      "close": 29.75,
+      "streak": 1
+    },
+    {
+      "code": "8182",
+      "name": "加高",
+      "group": "個股亮點",
+      "score": 59,
+      "close": 54.5,
+      "streak": 1
+    }
+  ],
+  "daytradeWatch": [
+    {
+      "code": "1785",
+      "name": "光洋科",
+      "watchScore": 70,
+      "grade": "high",
+      "lots": 31071,
+      "streak": 1
+    },
+    {
+      "code": "3236",
+      "name": "千如",
+      "watchScore": 65,
+      "grade": "high",
+      "lots": 19435,
+      "streak": 1
+    },
+    {
+      "code": "5498",
+      "name": "凱崴",
+      "watchScore": 65,
+      "grade": "high",
+      "lots": 11634,
+      "streak": 1
+    },
+    {
+      "code": "2406",
+      "name": "國碩",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 67628,
+      "streak": 1
+    },
+    {
+      "code": "8150",
+      "name": "南茂",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 65335,
+      "streak": 1
+    },
+    {
+      "code": "3042",
+      "name": "晶技",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 47042,
+      "streak": 1
+    },
+    {
+      "code": "6173",
+      "name": "信昌電",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 38559,
+      "streak": 1
+    },
+    {
+      "code": "2355",
+      "name": "敬鵬",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 28290,
+      "streak": 1
+    },
+    {
+      "code": "6155",
+      "name": "鈞寶",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 27733,
+      "streak": 1
+    },
+    {
+      "code": "3090",
+      "name": "日電貿",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 26407,
+      "streak": 1
+    },
+    {
+      "code": "6174",
+      "name": "安碁",
+      "watchScore": 58,
+      "grade": "mid",
+      "lots": 8215,
+      "streak": 1
+    },
+    {
+      "code": "5410",
+      "name": "國眾",
+      "watchScore": 58,
+      "grade": "mid",
+      "lots": 6453,
+      "streak": 1
+    },
+    {
+      "code": "8042",
+      "name": "金山電",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 17871,
+      "streak": 1
+    },
+    {
+      "code": "6239",
+      "name": "力成",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 17419,
+      "streak": 1
+    },
+    {
+      "code": "8182",
+      "name": "加高",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 16086,
+      "streak": 1
+    },
+    {
+      "code": "8071",
+      "name": "能率網通",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 9558,
+      "streak": 1
+    },
+    {
+      "code": "3290",
+      "name": "東浦",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 7049,
+      "streak": 1
+    },
+    {
+      "code": "6259",
+      "name": "百徽",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 4580,
+      "streak": 1
+    },
+    {
+      "code": "2243",
+      "name": "宏旭-KY",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 4387,
+      "streak": 1
+    },
+    {
+      "code": "6156",
+      "name": "松上",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 4357,
+      "streak": 1
+    },
+    {
+      "code": "2414",
+      "name": "精技",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3209,
+      "streak": 1
+    },
+    {
+      "code": "6517",
+      "name": "保勝光學",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2194,
+      "streak": 1
+    },
+    {
+      "code": "4168",
+      "name": "醣聯",
+      "watchScore": 28,
+      "grade": "low",
+      "lots": 2813,
+      "streak": 1
+    }
+  ],
+  "notes": "backfill 回溯重建：以現行凍結公式回算歷史。已知限制：categories.json 的處置/權值名單為現況、非當日狀態；月營收檔以「次月10日公布」近似對齊；與真正 forward 定格可能有細微差異，統計時應與 forward 分開呈現。"
+}

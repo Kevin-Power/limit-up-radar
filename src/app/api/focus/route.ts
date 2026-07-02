@@ -1,13 +1,19 @@
 import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
-import { scoreStock, calculatePriceLevels } from "@/lib/scoring";
+import { scoreStock } from "@/lib/scoring";
 import {
-  DAILY_DIR,
   listDailyFiles,
   loadDailyFile,
   loadLatestRevenue,
 } from "@/lib/data-files";
+import {
+  computeFocusPicks,
+  computeFocusTrends,
+  selectTopPicks,
+  type FocusCategories,
+  type FocusRevenueInfo,
+} from "@/lib/focus-picks";
 
 interface DailyStock {
   code: string;
@@ -29,6 +35,7 @@ interface DailyData {
   date: string;
   market_summary: Record<string, number>;
   groups: DailyGroup[];
+  bearish_engulfing?: { code?: string }[];
 }
 
 function loadDaily(file: string): DailyData | null {
@@ -44,11 +51,11 @@ function loadRealBacktest(): unknown {
   }
 }
 
-function loadRevenue(): Record<string, { revYoY: number | null; revCumYoY: number | null; revMonth: number | null }> {
+function loadRevenue(): Record<string, FocusRevenueInfo> {
   try {
     const data = loadLatestRevenue<{ stocks: { code: string; revYoY: number | null; revCumYoY: number | null; revMonth: number | null }[] }>();
     if (!data) return {};
-    const map: Record<string, { revYoY: number | null; revCumYoY: number | null; revMonth: number | null }> = {};
+    const map: Record<string, FocusRevenueInfo> = {};
     for (const s of data.stocks) {
       map[s.code] = { revYoY: s.revYoY, revCumYoY: s.revCumYoY, revMonth: s.revMonth };
     }
@@ -58,7 +65,7 @@ function loadRevenue(): Record<string, { revYoY: number | null; revCumYoY: numbe
   }
 }
 
-function loadCategories(): { heavyweight: Set<string>; disposal: Set<string> } {
+function loadCategories(): FocusCategories {
   try {
     const p = path.join(process.cwd(), "data", "categories.json");
     const raw = JSON.parse(fs.readFileSync(p, "utf-8"));
@@ -69,21 +76,6 @@ function loadCategories(): { heavyweight: Set<string>; disposal: Set<string> } {
   } catch {
     return { heavyweight: new Set(), disposal: new Set() };
   }
-}
-
-// Aggregate codes that triggered bearish engulfing in past N days
-function loadRecentBearishCodes(files: string[], days = 7): Set<string> {
-  const codes = new Set<string>();
-  for (let i = 0; i < Math.min(files.length, days); i++) {
-    try {
-      const raw = fs.readFileSync(path.join(DAILY_DIR, files[i]), "utf-8");
-      const d = JSON.parse(raw);
-      for (const b of d.bearish_engulfing ?? []) {
-        if (b?.code) codes.add(b.code);
-      }
-    } catch { /* skip */ }
-  }
-  return codes;
 }
 
 export async function GET() {
@@ -99,11 +91,11 @@ export async function GET() {
     return NextResponse.json({ error: "no data" }, { status: 404 });
   }
 
-  const today = loadDaily(files[0]);
-  const yesterday = files.length > 1 ? loadDaily(files[1]) : null;
-  const dayBefore = files.length > 2 ? loadDaily(files[2]) : null;
+  // 近 7 日視窗（最新在前；null 佔位保持與檔案序一致）：
+  // 3 日算族群趨勢、6 日算連板/處置、7 日算近期空吞
+  const windowDays: (DailyData | null)[] = files.slice(0, 7).map((f) => loadDaily(f));
+  const today = windowDays[0];
   const { heavyweight, disposal: knownDisposal } = loadCategories();
-  const recentBearishCodes = loadRecentBearishCodes(files, 7);
 
   if (!today) {
     return NextResponse.json({ error: "no data" }, { status: 404 });
@@ -111,171 +103,12 @@ export async function GET() {
 
   const revMap = loadRevenue();
 
-  // Build group appearance map (how many of last 3 days each group appeared)
-  const groupDays: Record<string, number> = {};
-  for (const g of today.groups) {
-    groupDays[g.name] = (groupDays[g.name] || 0) + 1;
-  }
-  if (yesterday) {
-    for (const g of yesterday.groups) {
-      groupDays[g.name] = (groupDays[g.name] || 0) + 1;
-    }
-  }
-  if (dayBefore) {
-    for (const g of dayBefore.groups) {
-      groupDays[g.name] = (groupDays[g.name] || 0) + 1;
-    }
-  }
-
-  // Trending groups: appeared 2+ days in last 3
-  const trendingGroups = new Set(
-    Object.entries(groupDays).filter(([, days]) => days >= 2).map(([name]) => name)
-  );
-
-  // === Per-stock risk metrics for new scoring params ===
-  // 1. consecutiveUpDays: how many consecutive recent days has this stock been in limit-up?
-  // 2. isDisposal: TWSE rule = 3+ limit-up days within 6 trading days
-  const last6Days: DailyData[] = [];
-  for (let i = 0; i < Math.min(files.length, 6); i++) {
-    const d = loadDaily(files[i]);
-    if (d) last6Days.push(d);
-  }
-  // Map: code → array of dates (most recent first) where stock hit limit-up
-  const stockLimitUpDates = new Map<string, string[]>();
-  for (const day of last6Days) {
-    for (const g of day.groups) {
-      for (const s of g.stocks) {
-        if (!stockLimitUpDates.has(s.code)) stockLimitUpDates.set(s.code, []);
-        stockLimitUpDates.get(s.code)!.push(day.date);
-      }
-    }
-  }
-  // Build avg volume from prev days (last6Days[1:]) for volume-ratio scoring
-  const prevAvgVolMap = new Map<string, number>();
-  for (const [code] of stockLimitUpDates) {
-    const vols: number[] = [];
-    for (let i = 1; i < last6Days.length; i++) {
-      for (const g of last6Days[i].groups) {
-        const found = g.stocks.find((s) => s.code === code);
-        if (found) vols.push(found.volume);
-      }
-    }
-    if (vols.length > 0) {
-      prevAvgVolMap.set(code, vols.reduce((a, b) => a + b, 0) / vols.length);
-    }
-  }
-
-  // consecutiveUpDays for today's stocks: count consecutive presence from index 0
-  const consecutiveUpDaysMap = new Map<string, number>();
-  const disposalCodes = new Set<string>();
-  for (const [code, dates] of stockLimitUpDates) {
-    // dates are in reverse chrono order; check consecutive from most recent
-    let consec = 0;
-    for (let i = 0; i < last6Days.length; i++) {
-      if (dates.includes(last6Days[i].date)) consec++;
-      else break;
-    }
-    consecutiveUpDaysMap.set(code, consec);
-    // TWSE 處置: ≥3 limit-up days in last 6
-    if (dates.length >= 3) disposalCodes.add(code);
-  }
-
-  // Score each stock
-  interface FocusStock {
-    code: string;
-    name: string;
-    close: number;
-    changePct: number;
-    volume: number;
-    majorNet: number;
-    streak: number;
-    consecutiveUpDays: number;
-    streakRisk: 'low' | 'medium' | 'high';
-    group: string;
-    groupColor: string;
-    score: number;
-    tags: string[];
-    revYoY: number | null;
-    revMonth: number | null;
-    groupDays: number;
-    entryAggressive: number;
-    entryPullback: number;
-    stopLoss: number;
-    target1: number;
-    target2: number;
-    open357Low: number;
-    open357Mid: number;
-    open357High: number;
-    isBearish: boolean;
-  }
-
-  const focusStocks: FocusStock[] = [];
-
-  // Today's bearish-engulfing codes (for UI filter flag)
-  const todayBearishCodes = new Set<string>(
-    ((today as DailyData & { bearish_engulfing?: { code: string }[] }).bearish_engulfing ?? [])
-      .map((b) => b.code)
-      .filter((c): c is string => typeof c === "string")
-  );
-
-  for (const g of today.groups) {
-    const groupStocksSorted = [...g.stocks].sort((a, b) => b.volume - a.volume);
-    const leaderCode = groupStocksSorted[0]?.code;
-
-    for (const s of g.stocks) {
-      const rev = revMap[s.code];
-      const gd = groupDays[g.name] || 1;
-
-      const avgVol = prevAvgVolMap.get(s.code);
-      const { score, tags } = scoreStock({
-        stock: s,
-        group: g,
-        trendingGroups,
-        groupVolumeLeaderCode: leaderCode,
-        revYoY: rev?.revYoY,
-        volumeRatio: avgVol != null && avgVol > 0 ? s.volume / avgVol : null,
-        isDisposal: disposalCodes.has(s.code) || knownDisposal.has(s.code),
-        consecutiveUpDays: consecutiveUpDaysMap.get(s.code) ?? 1,
-        isHeavyweight: heavyweight.has(s.code),
-        recentBearishEngulfing: recentBearishCodes.has(s.code),
-      });
-
-      const { entryAggressive, entryPullback, stopLoss, target1, target2,
-              open357Low, open357Mid, open357High } =
-        calculatePriceLevels(s.close);
-
-      focusStocks.push({
-        code: s.code,
-        name: s.name,
-        close: s.close,
-        changePct: s.change_pct,
-        volume: s.volume,
-        majorNet: s.major_net,
-        streak: s.streak,
-        consecutiveUpDays: consecutiveUpDaysMap.get(s.code) ?? 1,
-        streakRisk: (s.streak ?? 1) <= 2 ? 'low' : (s.streak ?? 1) <= 4 ? 'medium' : 'high',
-        group: g.name,
-        groupColor: g.color,
-        score,
-        tags,
-        revYoY: rev?.revYoY ?? null,
-        revMonth: rev?.revMonth ?? null,
-        groupDays: gd,
-        entryAggressive,
-        entryPullback,
-        stopLoss,
-        target1,
-        target2,
-        open357Low,
-        open357Mid,
-        open357High,
-        isBearish: todayBearishCodes.has(s.code),
-      });
-    }
-  }
-
-  // Sort by score desc
-  focusStocks.sort((a, b) => b.score - a.score);
+  // === 隔日衝候選組裝（凍結公式單一來源：src/lib/focus-picks.ts）===
+  const focusStocks = computeFocusPicks(windowDays, revMap, {
+    heavyweight,
+    disposal: knownDisposal,
+  });
+  const { trendingGroups, groupDays } = computeFocusTrends(windowDays);
 
   // Trending group summary
   const trendingSummary = today.groups
@@ -480,7 +313,7 @@ export async function GET() {
     totalLimitUp: today.groups.reduce((sum, g) => sum + g.stocks.length, 0),
     trendingGroups: trendingSummary,
     focusStocks,
-    topPicks: focusStocks.filter((s) => s.score >= 50).slice(0, 15),
+    topPicks: selectTopPicks(focusStocks),
     performance: {
       history,
       avgNextLimitUpRate,         // % of picks that hit limit-up next day
@@ -491,7 +324,7 @@ export async function GET() {
     },
     realBacktest: loadRealBacktest(),
     // 新增：今日空吞注意股 (從 daily JSON 拉)
-    bearishEngulfing: (today as DailyData & { bearish_engulfing?: unknown[] }).bearish_engulfing ?? [],
+    bearishEngulfing: today.bearish_engulfing ?? [],
     industryFlow,
   }, {
     headers: { "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=7200" },

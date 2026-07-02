@@ -1,0 +1,302 @@
+{
+  "date": "2026-05-13",
+  "capturedFor": "次一交易日",
+  "source": "backfill",
+  "generatedAt": "2026-07-02T02:23:06.232Z",
+  "overnightFormulaVersion": "focus-v1-2026-07-02+scoring-v3.2-2026-06-27",
+  "watchFormulaVersion": "v1-2026-07-01",
+  "revenueFile": "2026-04.json",
+  "overnight": [
+    {
+      "code": "6218",
+      "name": "豪勉",
+      "group": "電子 / 半導體",
+      "score": 92,
+      "close": 45.1,
+      "streak": 2
+    },
+    {
+      "code": "6419",
+      "name": "京晨科",
+      "group": "生技 / 醫療器材",
+      "score": 89,
+      "close": 165.5,
+      "streak": 2
+    },
+    {
+      "code": "2337",
+      "name": "旺宏",
+      "group": "電子 / 半導體",
+      "score": 86,
+      "close": 168,
+      "streak": 1
+    },
+    {
+      "code": "6446",
+      "name": "藥華藥",
+      "group": "生技 / 醫療器材",
+      "score": 85,
+      "close": 782,
+      "streak": 1
+    },
+    {
+      "code": "5215",
+      "name": "科嘉-KY",
+      "group": "IC設計 / AI邊緣運算",
+      "score": 84,
+      "close": 46.3,
+      "streak": 2
+    },
+    {
+      "code": "4912",
+      "name": "聯德控股-KY",
+      "group": "光通訊 / 矽光子",
+      "score": 79,
+      "close": 104.5,
+      "streak": 1
+    },
+    {
+      "code": "6166",
+      "name": "凌華",
+      "group": "電子 / 半導體",
+      "score": 76,
+      "close": 111.5,
+      "streak": 1
+    },
+    {
+      "code": "8926",
+      "name": "台汽電",
+      "group": "個股亮點",
+      "score": 76,
+      "close": 56.7,
+      "streak": 1
+    },
+    {
+      "code": "2460",
+      "name": "建通",
+      "group": "電子 / 半導體",
+      "score": 71,
+      "close": 35.25,
+      "streak": 1
+    },
+    {
+      "code": "6217",
+      "name": "中探針",
+      "group": "電子 / 半導體",
+      "score": 71,
+      "close": 341,
+      "streak": 2
+    },
+    {
+      "code": "6449",
+      "name": "鈺邦",
+      "group": "生技 / 醫療器材",
+      "score": 71,
+      "close": 218,
+      "streak": 2
+    },
+    {
+      "code": "3044",
+      "name": "健鼎",
+      "group": "電子 / 半導體",
+      "score": 66,
+      "close": 529,
+      "streak": 1
+    },
+    {
+      "code": "3498",
+      "name": "陽程",
+      "group": "電子 / 半導體",
+      "score": 66,
+      "close": 123.5,
+      "streak": 3
+    },
+    {
+      "code": "8088",
+      "name": "品安",
+      "group": "個股亮點",
+      "score": 66,
+      "close": 57.2,
+      "streak": 1
+    },
+    {
+      "code": "3357",
+      "name": "臺慶科",
+      "group": "電子 / 半導體",
+      "score": 56,
+      "close": 213,
+      "streak": 1
+    }
+  ],
+  "daytradeWatch": [
+    {
+      "code": "2337",
+      "name": "旺宏",
+      "watchScore": 70,
+      "grade": "high",
+      "lots": 239710,
+      "streak": 1
+    },
+    {
+      "code": "2377",
+      "name": "微星",
+      "watchScore": 70,
+      "grade": "high",
+      "lots": 102611,
+      "streak": 1
+    },
+    {
+      "code": "8105",
+      "name": "凌巨",
+      "watchScore": 70,
+      "grade": "high",
+      "lots": 34255,
+      "streak": 2
+    },
+    {
+      "code": "8088",
+      "name": "品安",
+      "watchScore": 65,
+      "grade": "high",
+      "lots": 12210,
+      "streak": 1
+    },
+    {
+      "code": "3673",
+      "name": "TPK-KY",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 27239,
+      "streak": 1
+    },
+    {
+      "code": "3236",
+      "name": "千如",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 20698,
+      "streak": 1
+    },
+    {
+      "code": "6217",
+      "name": "中探針",
+      "watchScore": 58,
+      "grade": "mid",
+      "lots": 6026,
+      "streak": 2
+    },
+    {
+      "code": "6449",
+      "name": "鈺邦",
+      "watchScore": 58,
+      "grade": "mid",
+      "lots": 5244,
+      "streak": 2
+    },
+    {
+      "code": "8926",
+      "name": "台汽電",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 19499,
+      "streak": 1
+    },
+    {
+      "code": "3357",
+      "name": "臺慶科",
+      "watchScore": 55,
+      "grade": "mid",
+      "lots": 10240,
+      "streak": 1
+    },
+    {
+      "code": "3044",
+      "name": "健鼎",
+      "watchScore": 50,
+      "grade": "mid",
+      "lots": 12240,
+      "streak": 1
+    },
+    {
+      "code": "6166",
+      "name": "凌華",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 8698,
+      "streak": 1
+    },
+    {
+      "code": "3615",
+      "name": "安可",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 8010,
+      "streak": 1
+    },
+    {
+      "code": "6218",
+      "name": "豪勉",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 3929,
+      "streak": 2
+    },
+    {
+      "code": "6446",
+      "name": "藥華藥",
+      "watchScore": 43,
+      "grade": "mid",
+      "lots": 7396,
+      "streak": 1
+    },
+    {
+      "code": "6901",
+      "name": "鑽石投資",
+      "watchScore": 43,
+      "grade": "mid",
+      "lots": 6836,
+      "streak": 1
+    },
+    {
+      "code": "5381",
+      "name": "光譜",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2664,
+      "streak": 1
+    },
+    {
+      "code": "2460",
+      "name": "建通",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2501,
+      "streak": 1
+    },
+    {
+      "code": "4155",
+      "name": "訊映",
+      "watchScore": 33,
+      "grade": "low",
+      "lots": 2351,
+      "streak": 1
+    },
+    {
+      "code": "4912",
+      "name": "聯德控股-KY",
+      "watchScore": 28,
+      "grade": "low",
+      "lots": 2679,
+      "streak": 1
+    },
+    {
+      "code": "6831",
+      "name": "邁科",
+      "watchScore": 23,
+      "grade": "low",
+      "lots": 2851,
+      "streak": 1
+    }
+  ],
+  "notes": "backfill 回溯重建：以現行凍結公式回算歷史。已知限制：categories.json 的處置/權值名單為現況、非當日狀態；月營收檔以「次月10日公布」近似對齊；與真正 forward 定格可能有細微差異，統計時應與 forward 分開呈現。"
+}

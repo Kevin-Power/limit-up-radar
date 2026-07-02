@@ -1,0 +1,246 @@
+{
+  "date": "2026-06-10",
+  "capturedFor": "次一交易日",
+  "source": "backfill",
+  "generatedAt": "2026-07-02T02:23:06.372Z",
+  "overnightFormulaVersion": "focus-v1-2026-07-02+scoring-v3.2-2026-06-27",
+  "watchFormulaVersion": "v1-2026-07-01",
+  "revenueFile": "2026-05.json",
+  "overnight": [
+    {
+      "code": "8021",
+      "name": "尖點",
+      "group": "個股亮點",
+      "score": 100,
+      "close": 556,
+      "streak": 2
+    },
+    {
+      "code": "4973",
+      "name": "廣穎",
+      "group": "光通訊 / 矽光子",
+      "score": 95,
+      "close": 193,
+      "streak": 2
+    },
+    {
+      "code": "6244",
+      "name": "茂迪",
+      "group": "個股亮點",
+      "score": 85,
+      "close": 31.2,
+      "streak": 2
+    },
+    {
+      "code": "2520",
+      "name": "冠德",
+      "group": "營建 / 資產",
+      "score": 76,
+      "close": 35.6,
+      "streak": 1
+    },
+    {
+      "code": "2537",
+      "name": "聯上發",
+      "group": "營建 / 資產",
+      "score": 76,
+      "close": 11.1,
+      "streak": 1
+    },
+    {
+      "code": "5508",
+      "name": "永信建",
+      "group": "營建 / 資產",
+      "score": 71,
+      "close": 57.5,
+      "streak": 1
+    },
+    {
+      "code": "4113",
+      "name": "聯上",
+      "group": "生技 / 醫療器材",
+      "score": 71,
+      "close": 16.5,
+      "streak": 1
+    },
+    {
+      "code": "5521",
+      "name": "工信",
+      "group": "營建 / 資產",
+      "score": 66,
+      "close": 11.25,
+      "streak": 1
+    },
+    {
+      "code": "9906",
+      "name": "欣巴巴",
+      "group": "油電燃氣",
+      "score": 66,
+      "close": 46.25,
+      "streak": 1
+    },
+    {
+      "code": "3441",
+      "name": "聯一光",
+      "group": "電子 / 半導體",
+      "score": 61,
+      "close": 65,
+      "streak": 1
+    },
+    {
+      "code": "3313",
+      "name": "斐成",
+      "group": "電子 / 半導體",
+      "score": 56,
+      "close": 12.55,
+      "streak": 1
+    },
+    {
+      "code": "2413",
+      "name": "環科",
+      "group": "電子 / 半導體",
+      "score": 51,
+      "close": 59.6,
+      "streak": 1
+    },
+    {
+      "code": "3152",
+      "name": "璟德",
+      "group": "電子 / 半導體",
+      "score": 51,
+      "close": 206.5,
+      "streak": 1
+    },
+    {
+      "code": "6180",
+      "name": "橘子",
+      "group": "電子 / 半導體",
+      "score": 51,
+      "close": 47.05,
+      "streak": 1
+    }
+  ],
+  "daytradeWatch": [
+    {
+      "code": "6244",
+      "name": "茂迪",
+      "watchScore": 80,
+      "grade": "high",
+      "lots": 20209,
+      "streak": 2
+    },
+    {
+      "code": "2501",
+      "name": "國建",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 21729,
+      "streak": 1
+    },
+    {
+      "code": "2413",
+      "name": "環科",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 21281,
+      "streak": 1
+    },
+    {
+      "code": "8021",
+      "name": "尖點",
+      "watchScore": 60,
+      "grade": "high",
+      "lots": 18225,
+      "streak": 2
+    },
+    {
+      "code": "5521",
+      "name": "工信",
+      "watchScore": 50,
+      "grade": "mid",
+      "lots": 10164,
+      "streak": 1
+    },
+    {
+      "code": "2520",
+      "name": "冠德",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 9909,
+      "streak": 1
+    },
+    {
+      "code": "2348",
+      "name": "海悅",
+      "watchScore": 48,
+      "grade": "mid",
+      "lots": 5909,
+      "streak": 1
+    },
+    {
+      "code": "2537",
+      "name": "聯上發",
+      "watchScore": 43,
+      "grade": "mid",
+      "lots": 9552,
+      "streak": 1
+    },
+    {
+      "code": "4973",
+      "name": "廣穎",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 4668,
+      "streak": 2
+    },
+    {
+      "code": "3441",
+      "name": "聯一光",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3613,
+      "streak": 1
+    },
+    {
+      "code": "3152",
+      "name": "璟德",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 3302,
+      "streak": 1
+    },
+    {
+      "code": "5508",
+      "name": "永信建",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2880,
+      "streak": 1
+    },
+    {
+      "code": "6180",
+      "name": "橘子",
+      "watchScore": 38,
+      "grade": "low",
+      "lots": 2456,
+      "streak": 1
+    },
+    {
+      "code": "4166",
+      "name": "友霖",
+      "watchScore": 28,
+      "grade": "low",
+      "lots": 3553,
+      "streak": 1
+    },
+    {
+      "code": "4113",
+      "name": "聯上",
+      "watchScore": 28,
+      "grade": "low",
+      "lots": 3354,
+      "streak": 1
+    }
+  ],
+  "notes": "backfill 回溯重建：以現行凍結公式回算歷史。已知限制：categories.json 的處置/權值名單為現況、非當日狀態；月營收檔以「次月10日公布」近似對齊；與真正 forward 定格可能有細微差異，統計時應與 forward 分開呈現。"
+}
