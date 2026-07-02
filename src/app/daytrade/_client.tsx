@@ -153,6 +153,87 @@ function DaytradeWatch() {
   );
 }
 
+// ── 觀察度回溯驗證（觀察度分級 vs 次日振幅）──
+interface TrackGrade { n: number; avg: number | null; median: number | null }
+interface TrackResp {
+  available: boolean;
+  formulaVersion: string;
+  gradedDays?: number;
+  gradedSamples?: number;
+  windowFrom?: string | null;
+  windowTo?: string | null;
+  grades?: { high: TrackGrade; mid: TrackGrade; low: TrackGrade };
+  spread?: number | null;
+  method: string;
+}
+const GRADE_ROW: { key: "high" | "mid" | "low"; label: string }[] = [
+  { key: "high", label: "高觀察" },
+  { key: "mid", label: "中觀察" },
+  { key: "low", label: "低觀察" },
+];
+
+function DaytradeTrack() {
+  const { data } = useSWR<TrackResp>("/api/daytrade-track", fetcher, {
+    revalidateOnFocus: false,
+    dedupingInterval: 30 * 60_000,
+  });
+  if (!data) return <SkeletonBox className="w-full h-[220px] rounded-lg mb-10" />;
+
+  return (
+    <section className="mb-10">
+      <div className="flex items-center gap-2 mb-1">
+        <span className="inline-block px-2 py-0.5 rounded-full bg-blue/10 text-blue text-[10px] font-semibold">回溯驗證</span>
+        <h2 className="text-lg font-bold text-txt-0">觀察度 vs 次日振幅</h2>
+      </div>
+      {!data.available || !data.grades ? (
+        <p className="text-xs text-txt-4 leading-relaxed max-w-2xl">
+          回溯驗證樣本累積中——需要「觀察清單日的次日」有分時收錄才能評分，目前尚無足夠樣本。{data.method}
+        </p>
+      ) : (
+        <>
+          <p className="text-xs text-txt-3 mb-3">
+            公式 <span className="font-mono text-txt-2">{data.formulaVersion}</span> ·
+            窗口 {data.windowFrom?.replace(/-/g, "/")}~{data.windowTo?.replace(/-/g, "/")} ·
+            {data.gradedDays} 日 / {data.gradedSamples} 樣本
+          </p>
+          <div className="overflow-x-auto">
+            <div className="border border-border rounded-xl overflow-hidden max-w-lg">
+              <div className="grid grid-cols-[1fr_0.8fr_1.1fr_1fr] px-4 py-2.5 bg-bg-2 border-b border-border">
+                {["觀察度分級", "樣本數", "平均次日振幅", "中位數"].map((h) => (
+                  <div key={h} className="text-[9px] font-semibold text-txt-4 uppercase tracking-wider">{h}</div>
+                ))}
+              </div>
+              {GRADE_ROW.map(({ key, label }) => {
+                const g = data.grades![key];
+                return (
+                  <div key={key} className="grid grid-cols-[1fr_0.8fr_1.1fr_1fr] px-4 py-2.5 items-center border-b border-white/[0.03] last:border-b-0">
+                    <div className="text-xs font-semibold text-txt-1">{label}</div>
+                    <div className="text-xs tabular-nums text-txt-3">{g.n}</div>
+                    <div className="text-xs font-bold tabular-nums text-txt-0">{g.avg != null ? `${g.avg}%` : "—"}</div>
+                    <div className="text-xs tabular-nums text-txt-2">{g.median != null ? `${g.median}%` : "—"}</div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          {data.spread != null && (
+            <p className="text-[11px] text-txt-3 mt-2">
+              高觀察 − 低觀察 平均次日振幅差 ={" "}
+              <span className={`font-bold tabular-nums ${data.spread > 0 ? "text-amber" : "text-txt-3"}`}>
+                {data.spread > 0 ? "+" : ""}{data.spread}%
+              </span>
+              {data.spread > 0
+                ? "（正值：高觀察度確實對應較高次日振幅——驗證的是波動可預測性，非報酬或勝率）"
+                : "（非正值：目前資料下觀察度未顯示對次日振幅有鑑別力）"}
+            </p>
+          )}
+          <p className="text-[10px] text-txt-4 mt-2 leading-relaxed max-w-3xl">{data.method}</p>
+        </>
+      )}
+    </section>
+  );
+}
+
 export default function DaytradeClient() {
   const { data, error } = useSWR<Resp>("/api/daytrade", fetcher, {
     revalidateOnFocus: false,
@@ -185,6 +266,9 @@ export default function DaytradeClient() {
 
           {/* 明日當沖觀察清單（forward） */}
           <DaytradeWatch />
+
+          {/* 觀察度回溯驗證（觀察度分級 vs 次日振幅） */}
+          <DaytradeTrack />
 
           {/* 歷史分時型態（historical） */}
           <div className="flex items-center gap-2 mb-1">
