@@ -356,6 +356,85 @@ function DaytradeTrack() {
   );
 }
 
+// ── 當沖候選日內回測（開盤買→各時點賣）──
+interface ExitStat { n: number; avgGross: number | null; median: number | null; avgNet: number | null; winGrossPct: number | null; winNetPct: number | null }
+interface BtResp {
+  available: boolean;
+  costDaytradePct?: number;
+  exits?: string[];
+  window?: { from: string; to: string; gradedDays: number };
+  coverage?: { candidates: number; graded: number; gaps: number };
+  byExit?: Record<string, ExitStat>;
+  theoretical?: { toHigh: ExitStat; toLow: ExitStat };
+  method?: string;
+}
+
+function DaytradeBacktest() {
+  const { data } = useSWR<BtResp>("/api/daytrade-backtest", fetcher, {
+    revalidateOnFocus: false,
+    dedupingInterval: 30 * 60_000,
+  });
+  if (!data) return <SkeletonBox className="w-full h-[240px] rounded-lg mb-10" />;
+  if (!data.available || !data.byExit || !data.exits) return null;
+
+  const exits = data.exits;
+  const nets = exits.map((e) => data.byExit![e]?.avgNet).filter((v): v is number => v != null);
+  const bestNet = nets.length ? Math.max(...nets) : null;
+  const total = data.byExit[exits[0]]?.n ?? 0;
+
+  return (
+    <section className="mb-10">
+      <div className="flex items-center gap-2 mb-1">
+        <span className="inline-block px-2 py-0.5 rounded-full bg-blue/10 text-blue text-[10px] font-semibold">回測驗證</span>
+        <h2 className="text-lg font-bold text-txt-0">當沖候選日內回測（開盤買 → 各時點賣）</h2>
+      </div>
+      <p className="text-xs text-txt-3 mb-2">
+        窗口 {data.window?.from?.replace(/-/g, "/")}~{data.window?.to?.replace(/-/g, "/")} ·
+        {data.window?.gradedDays} 日 / {total} 樣本 · 當沖成本 {data.costDaytradePct}%（來回）
+      </p>
+      <div className={`border rounded-lg p-3 mb-3 ${bestNet != null && bestNet <= 0 ? "bg-green/5 border-green/20" : "bg-amber/5 border-amber/20"}`}>
+        <p className="text-[11px] text-txt-2 leading-relaxed">
+          {bestNet != null && bestNet <= 0 ? (
+            <><span className="font-semibold text-green">結論：無正期望值。</span>當沖候選在次日開盤買進、日內任一時點賣出，扣成本後平均都是<span className="text-green font-semibold">虧損</span>、淨勝率均低於 5 成，且抱越久越差（漲停股隔日「開高走低」）。edge 在「隔夜跳空」（收盤買→隔日開盤），不在隔日盤中——這批標的<span className="font-semibold">不適合當沖做多</span>。</>
+          ) : (
+            <>當沖候選日內報酬分布如下；請對照淨欄與勝率誠實評估。</>
+          )}
+        </p>
+      </div>
+      <div className="overflow-x-auto">
+        <div className="border border-border rounded-xl overflow-hidden min-w-[560px] max-w-2xl">
+          <div className="grid grid-cols-[1fr_0.7fr_1fr_1fr_0.9fr_0.9fr] px-4 py-2.5 bg-bg-2 border-b border-border">
+            {["賣出時點", "樣本", "毛均", "淨均(扣成本)", "毛勝率", "淨勝率"].map((h) => (
+              <div key={h} className="text-[9px] font-semibold text-txt-4 uppercase tracking-wider">{h}</div>
+            ))}
+          </div>
+          {exits.map((e) => {
+            const s = data.byExit![e];
+            if (!s) return null;
+            return (
+              <div key={e} className="grid grid-cols-[1fr_0.7fr_1fr_1fr_0.9fr_0.9fr] px-4 py-2.5 items-center border-b border-white/[0.03] last:border-b-0">
+                <div className="text-xs font-semibold text-txt-1">{e}</div>
+                <div className="text-xs tabular-nums text-txt-3">{s.n}</div>
+                <div className={`text-xs tabular-nums ${s.avgGross != null ? signColor(s.avgGross) : "text-txt-4"}`}>{s.avgGross != null ? pct(s.avgGross) : "—"}</div>
+                <div className={`text-xs font-bold tabular-nums ${s.avgNet != null ? signColor(s.avgNet) : "text-txt-4"}`}>{s.avgNet != null ? pct(s.avgNet) : "—"}</div>
+                <div className="text-xs tabular-nums text-txt-2">{s.winGrossPct != null ? `${s.winGrossPct}%` : "—"}</div>
+                <div className="text-xs tabular-nums text-txt-2">{s.winNetPct != null ? `${s.winNetPct}%` : "—"}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      {data.theoretical && (
+        <p className="text-[11px] text-txt-4 mt-2">
+          理論區間（非可達）：開盤→當日最高 平均 <span className="text-red">{pct(data.theoretical.toHigh.avgGross ?? 0)}</span> ·
+          開盤→當日最低 平均 <span className="text-green">{pct(data.theoretical.toLow.avgGross ?? 0)}</span>
+        </p>
+      )}
+      <p className="text-[10px] text-txt-4 mt-2 leading-relaxed max-w-3xl">{data.method}</p>
+    </section>
+  );
+}
+
 export default function DaytradeClient() {
   const { data, error } = useSWR<Resp>("/api/daytrade", fetcher, {
     revalidateOnFocus: false,
@@ -393,6 +472,9 @@ export default function DaytradeClient() {
 
           {/* 觀察度回溯驗證（觀察度分級 vs 次日振幅） */}
           <DaytradeTrack />
+
+          {/* 當沖候選日內回測（開盤買→各時點賣） */}
+          <DaytradeBacktest />
 
           {/* 歷史分時型態（historical） */}
           <div className="flex items-center gap-2 mb-1">

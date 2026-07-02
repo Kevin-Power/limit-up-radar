@@ -1,0 +1,244 @@
+{
+  "generatedAt": "2026-07-02T07:13:03.680Z",
+  "method": "當沖候選(觀察清單)日內回測：D 收盤選股、D+1 第一根 1 分 K 開盤買進、各固定時點賣出之毛報酬；淨報酬扣當沖來回成本 0.435%(手續費0.1425%×2+當沖證交稅0.15%，未含滑價)。只涵蓋 intraday_cache 有收錄之標的/交易日(覆蓋偏差)；進場價為開盤，開盤即鎖漲停實務上可能買不到。固定時點非事後挑最佳。",
+  "costDaytradePct": 0.435,
+  "exits": [
+    "09:15",
+    "09:30",
+    "10:00",
+    "11:00",
+    "13:00",
+    "收盤"
+  ],
+  "window": {
+    "from": "2026-03-20",
+    "to": "2026-07-01",
+    "gradedDays": 56
+  },
+  "coverage": {
+    "candidates": 1908,
+    "graded": 1191,
+    "gaps": 717
+  },
+  "byExit": {
+    "09:15": {
+      "n": 1191,
+      "avgGross": -0.05,
+      "median": 0,
+      "avgNet": -0.49,
+      "winGrossPct": 45.4,
+      "winNetPct": 41
+    },
+    "09:30": {
+      "n": 1191,
+      "avgGross": -0.15,
+      "median": 0,
+      "avgNet": -0.58,
+      "winGrossPct": 43.9,
+      "winNetPct": 40.4
+    },
+    "10:00": {
+      "n": 1191,
+      "avgGross": -0.37,
+      "median": 0,
+      "avgNet": -0.8,
+      "winGrossPct": 42.8,
+      "winNetPct": 38.6
+    },
+    "11:00": {
+      "n": 1191,
+      "avgGross": -0.45,
+      "median": -0.2,
+      "avgNet": -0.88,
+      "winGrossPct": 41.8,
+      "winNetPct": 38.8
+    },
+    "13:00": {
+      "n": 1191,
+      "avgGross": -0.73,
+      "median": -0.64,
+      "avgNet": -1.16,
+      "winGrossPct": 38.6,
+      "winNetPct": 36.1
+    },
+    "收盤": {
+      "n": 1191,
+      "avgGross": -0.81,
+      "median": -0.65,
+      "avgNet": -1.25,
+      "winGrossPct": 39.4,
+      "winNetPct": 36.8
+    }
+  },
+  "byGrade": {
+    "high": {
+      "09:15": {
+        "n": 347,
+        "avgGross": -0.33,
+        "median": 0,
+        "avgNet": -0.77,
+        "winGrossPct": 42.4,
+        "winNetPct": 37.8
+      },
+      "09:30": {
+        "n": 347,
+        "avgGross": -0.33,
+        "median": 0,
+        "avgNet": -0.76,
+        "winGrossPct": 44.1,
+        "winNetPct": 40.1
+      },
+      "10:00": {
+        "n": 347,
+        "avgGross": -0.54,
+        "median": -0.31,
+        "avgNet": -0.97,
+        "winGrossPct": 40.6,
+        "winNetPct": 36.6
+      },
+      "11:00": {
+        "n": 347,
+        "avgGross": -0.6,
+        "median": -0.16,
+        "avgNet": -1.03,
+        "winGrossPct": 42.4,
+        "winNetPct": 38.6
+      },
+      "13:00": {
+        "n": 347,
+        "avgGross": -0.68,
+        "median": -0.74,
+        "avgNet": -1.11,
+        "winGrossPct": 39.8,
+        "winNetPct": 36.6
+      },
+      "收盤": {
+        "n": 347,
+        "avgGross": -0.71,
+        "median": -0.69,
+        "avgNet": -1.14,
+        "winGrossPct": 40.3,
+        "winNetPct": 37.5
+      }
+    },
+    "mid": {
+      "09:15": {
+        "n": 493,
+        "avgGross": -0.17,
+        "median": 0,
+        "avgNet": -0.61,
+        "winGrossPct": 43.2,
+        "winNetPct": 38.9
+      },
+      "09:30": {
+        "n": 493,
+        "avgGross": -0.31,
+        "median": -0.14,
+        "avgNet": -0.74,
+        "winGrossPct": 40.8,
+        "winNetPct": 37.5
+      },
+      "10:00": {
+        "n": 493,
+        "avgGross": -0.54,
+        "median": -0.23,
+        "avgNet": -0.97,
+        "winGrossPct": 41.6,
+        "winNetPct": 37.7
+      },
+      "11:00": {
+        "n": 493,
+        "avgGross": -0.71,
+        "median": -0.53,
+        "avgNet": -1.15,
+        "winGrossPct": 38.9,
+        "winNetPct": 36.7
+      },
+      "13:00": {
+        "n": 493,
+        "avgGross": -1.13,
+        "median": -0.83,
+        "avgNet": -1.57,
+        "winGrossPct": 35.9,
+        "winNetPct": 33.7
+      },
+      "收盤": {
+        "n": 493,
+        "avgGross": -1.23,
+        "median": -0.95,
+        "avgNet": -1.67,
+        "winGrossPct": 36.9,
+        "winNetPct": 33.9
+      }
+    },
+    "low": {
+      "09:15": {
+        "n": 351,
+        "avgGross": 0.4,
+        "median": 0.21,
+        "avgNet": -0.03,
+        "winGrossPct": 51.6,
+        "winNetPct": 47
+      },
+      "09:30": {
+        "n": 351,
+        "avgGross": 0.26,
+        "median": 0,
+        "avgNet": -0.17,
+        "winGrossPct": 48.1,
+        "winNetPct": 44.7
+      },
+      "10:00": {
+        "n": 351,
+        "avgGross": 0.05,
+        "median": 0,
+        "avgNet": -0.39,
+        "winGrossPct": 46.7,
+        "winNetPct": 41.9
+      },
+      "11:00": {
+        "n": 351,
+        "avgGross": 0.07,
+        "median": 0,
+        "avgNet": -0.36,
+        "winGrossPct": 45.3,
+        "winNetPct": 41.9
+      },
+      "13:00": {
+        "n": 351,
+        "avgGross": -0.2,
+        "median": -0.32,
+        "avgNet": -0.64,
+        "winGrossPct": 41.3,
+        "winNetPct": 39
+      },
+      "收盤": {
+        "n": 351,
+        "avgGross": -0.32,
+        "median": -0.11,
+        "avgNet": -0.76,
+        "winGrossPct": 41.9,
+        "winNetPct": 40.2
+      }
+    }
+  },
+  "theoretical": {
+    "toHigh": {
+      "n": 1191,
+      "avgGross": 3.5,
+      "median": 2.94,
+      "avgNet": 3.06,
+      "winGrossPct": 86.1,
+      "winNetPct": 80.6
+    },
+    "toLow": {
+      "n": 1191,
+      "avgGross": -4.26,
+      "median": -3.66,
+      "avgNet": -4.7,
+      "winGrossPct": 0,
+      "winNetPct": 0
+    }
+  },
+  "disclosure": "本回測驗證『當沖候選在次日開盤買進、日內固定時點賣出』的歷史報酬分布，非投資建議、不保證未來。當沖為極高風險；報酬為毛數字，淨欄已扣 0.435% 來回成本但未含滑價與買不到的執行摩擦。"
+}

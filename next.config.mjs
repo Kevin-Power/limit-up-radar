@@ -12,6 +12,7 @@ const nextConfig = {
     "/api/daytrade-watch": ["./data/daily/**/*.json", "./data/intraday_cache/**/*.json", "./data/categories.json"],
     "/api/daytrade-track": ["./data/daily/**/*.json", "./data/intraday_cache/**/*.json", "./data/categories.json"],
     "/api/track-record": ["./data/track-record/**/*.json", "./data/daily/**/*.json"],
+    "/api/daytrade-backtest": ["./data/analysis/**/*.json"],
   },
   async headers() {
     return [
